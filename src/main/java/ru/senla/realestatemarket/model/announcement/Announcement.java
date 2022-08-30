@@ -1,0 +1,45 @@
+package ru.senla.realestatemarket.model.announcement;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
+import javax.persistence.SequenceGenerator;
+import java.time.LocalDateTime;
+
+@AllArgsConstructor
+@NoArgsConstructor
+@Getter
+@Setter
+@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
+@Entity
+public class Announcement {
+
+    @Id
+    @SequenceGenerator(name = "seq_announcements", allocationSize = 0)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_announcements")
+    private Long id;
+
+    private Double price;
+
+    private String description;
+
+    @Column(name = "created_date_time")
+    @JsonFormat(pattern = "dd.MM.yyyy hh:mm:ss")
+    private LocalDateTime createdDt = LocalDateTime.now();
+
+    @Enumerated(EnumType.STRING)
+    private AnnouncementStatusEnum status = AnnouncementStatusEnum.OPEN;
+
+}
