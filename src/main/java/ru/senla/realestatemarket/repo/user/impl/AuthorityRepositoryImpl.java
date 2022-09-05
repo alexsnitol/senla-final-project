@@ -19,9 +19,4 @@ public class AuthorityRepositoryImpl extends AbstractRepositoryImpl<Authority, L
     }
 
 
-    @Override
-    protected <T> void fetchSelection(From<T, Authority> from) {
-        // fetch did not need it
-    }
-
 }

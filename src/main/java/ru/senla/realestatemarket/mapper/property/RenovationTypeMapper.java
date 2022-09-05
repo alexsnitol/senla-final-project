@@ -1,6 +1,9 @@
 package ru.senla.realestatemarket.mapper.property;
 
+import org.mapstruct.BeanMapping;
 import org.mapstruct.Mapper;
+import org.mapstruct.MappingTarget;
+import org.mapstruct.NullValuePropertyMappingStrategy;
 import ru.senla.realestatemarket.dto.property.RequestRenovationTypeDto;
 import ru.senla.realestatemarket.model.property.RenovationType;
 
@@ -12,5 +15,11 @@ public abstract class RenovationTypeMapper {
     }
 
     public abstract RenovationType toRenovationType(RequestRenovationTypeDto requestRenovationTypeDto);
+
+    @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
+    public abstract void updateRenovationTypeFromRequestRenovationTypeDto(
+            RequestRenovationTypeDto requestRenovationTypeDto,
+            @MappingTarget RenovationType renovationType
+    );
 
 }

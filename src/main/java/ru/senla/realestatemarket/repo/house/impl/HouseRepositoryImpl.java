@@ -18,9 +18,4 @@ public class HouseRepositoryImpl extends AbstractHouseRepositoryImpl<House> impl
     }
 
 
-    @Override
-    protected <T> void fetchSelection(From<T, House> from) {
-        // fetch did not need it
-    }
-
 }

@@ -39,18 +39,13 @@ public class MessageRepositoryImpl extends AbstractRepositoryImpl<Message, Long>
 
 
     @Override
-    protected <T> void fetchSelection(From<T, Message> from) {
-        // fetch did not need it
-    }
-
-    @Override
     public List<Message> findAllMessagesUserWithUserById(Long mainUserId, Long contactUserId, Sort sort) {
         Specification<Message> specification = hasUsersIdInSenderIdAndReceiverId(mainUserId, contactUserId);
         return findAll(specification, sort);
     }
 
     @Override
-    public Set<SimplyUserDto> findAllMessageUsersByUserIdOrderedByMessageCreatedDateTime(Long userId) {
+    public Set<SimplyUserDto> findAllMessageUsersByUserIdSortedByMessageCreatedDateTime(Long userId) {
         CriteriaQuery<Object[]> criteriaQuery = criteriaBuilder.createQuery(Object[].class);
         Root<Message> messageRoot = criteriaQuery.from(Message.class);
         Join<Message, User> senderJoin = messageRoot.join("sender");

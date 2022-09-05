@@ -8,7 +8,6 @@ import ru.senla.realestatemarket.repo.AbstractRepositoryImpl;
 import ru.senla.realestatemarket.repo.address.IAddressRepository;
 
 import javax.annotation.PostConstruct;
-import javax.persistence.criteria.From;
 import java.util.List;
 
 import static ru.senla.realestatemarket.repo.address.specification.AddressSpecification.hasCityId;
@@ -25,11 +24,6 @@ public class AddressRepositoryImpl extends AbstractRepositoryImpl<Address, Long>
         setClazz(Address.class);
     }
 
-
-    @Override
-    protected <T> void fetchSelection(From<T, Address> from) {
-        // fetch did not need it
-    }
 
     @Override
     public List<Address> findByRegionIdAndCityIdAndStreetId(

@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import ru.senla.realestatemarket.model.IModel;
 import ru.senla.realestatemarket.model.address.Address;
 
 import javax.persistence.CascadeType;
@@ -30,7 +31,7 @@ import javax.persistence.Transient;
 @Setter
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 @Entity
-public class House {
+public class House implements IModel<Long> {
 
     @Id
     @SequenceGenerator(name = "seq_houses", allocationSize = 0)

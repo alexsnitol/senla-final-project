@@ -7,7 +7,6 @@ import ru.senla.realestatemarket.repo.property.IFamilyHousePropertyRepository;
 
 import javax.annotation.PostConstruct;
 import javax.persistence.criteria.From;
-import javax.persistence.criteria.JoinType;
 
 @Slf4j
 @Repository
@@ -19,12 +18,5 @@ public class FamilyHousePropertyRepositoryImpl extends AbstractHousingPropertyRe
         setClazz(FamilyHouseProperty.class);
     }
 
-
-    @Override
-    public <T> void fetchSelection(From<T, FamilyHouseProperty> from) {
-        from.fetch("familyHouse", JoinType.LEFT);
-
-        super.fetchSelection(from);
-    }
 
 }

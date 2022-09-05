@@ -4,8 +4,11 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -27,6 +30,32 @@ public class RegionController {
     private final IRegionService regionService;
 
 
+    @GetMapping("/{id}")
+    public RegionDto getById(
+            @PathVariable Long id
+    ) {
+        return regionService.getDtoById(id);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<RestResponseDto> deleteById(
+            @PathVariable Long id
+    ) {
+        regionService.deleteById(id);
+
+        return ResponseEntity.ok(new RestResponseDto("Region has been deleted", HttpStatus.OK.value()));
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<RestResponseDto> updateById(
+            @PathVariable Long id,
+            @RequestBody @Valid RequestRegionDto requestRegionDto
+    ) {
+        regionService.updateById(requestRegionDto, id);
+
+        return ResponseEntity.ok(new RestResponseDto("Region has been updated", HttpStatus.OK.value()));
+    }
+
     @GetMapping
     public List<RegionDto> getAll(
             @RequestParam(value = "q", required = false) String rsqlQuery,
@@ -41,7 +70,8 @@ public class RegionController {
     ) {
         regionService.add(requestRegionDto);
 
-        return ResponseEntity.ok(new RestResponseDto("Region added", HttpStatus.OK.value()));
+        return new ResponseEntity<>(new RestResponseDto("Region has been added",
+                HttpStatus.CREATED.value()), HttpStatus.CREATED);
     }
 
 }

@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import ru.senla.realestatemarket.model.IModel;
 import ru.senla.realestatemarket.model.property.PropertyTypeEnum;
 
 import javax.persistence.Column;
@@ -22,7 +23,7 @@ import javax.persistence.Table;
 @Setter
 @Entity
 @Table(name = "announcement_top_prices")
-public class AnnouncementTopPrice {
+public class AnnouncementTopPrice implements IModel<Long> {
 
     @Id
     @SequenceGenerator(name = "seq_announcement_top_prices", allocationSize = 0)

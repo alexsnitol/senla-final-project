@@ -33,27 +33,27 @@ DROP TABLE IF EXISTS user_role CASCADE;
 DROP TABLE IF EXISTS users CASCADE;
 
 
-DROP SEQUENCE seq_addresses;
-DROP SEQUENCE seq_announcement_rent_timetables;
-DROP SEQUENCE seq_announcement_top_prices;
-DROP SEQUENCE seq_announcement_top_timetables;
-DROP SEQUENCE seq_announcements;
-DROP SEQUENCE seq_authorities;
-DROP SEQUENCE seq_balance_operations;
-DROP SEQUENCE seq_cities;
-DROP SEQUENCE seq_house_materials;
-DROP SEQUENCE seq_houses;
-DROP SEQUENCE seq_messages;
-DROP SEQUENCE seq_properties;
-DROP SEQUENCE seq_purchases;
-DROP SEQUENCE seq_reviews;
-DROP SEQUENCE seq_regions;
-DROP SEQUENCE seq_renovation_types;
-DROP SEQUENCE seq_role_authority;
-DROP SEQUENCE seq_roles;
-DROP SEQUENCE seq_streets;
-DROP SEQUENCE seq_user_role;
-DROP SEQUENCE seq_users;
+DROP SEQUENCE IF EXISTS seq_addresses;
+DROP SEQUENCE IF EXISTS seq_announcement_rent_timetables;
+DROP SEQUENCE IF EXISTS seq_announcement_top_prices;
+DROP SEQUENCE IF EXISTS seq_announcement_top_timetables;
+DROP SEQUENCE IF EXISTS seq_announcements;
+DROP SEQUENCE IF EXISTS seq_authorities;
+DROP SEQUENCE IF EXISTS seq_balance_operations;
+DROP SEQUENCE IF EXISTS seq_cities;
+DROP SEQUENCE IF EXISTS seq_house_materials;
+DROP SEQUENCE IF EXISTS seq_houses;
+DROP SEQUENCE IF EXISTS seq_messages;
+DROP SEQUENCE IF EXISTS seq_properties;
+DROP SEQUENCE IF EXISTS seq_purchases;
+DROP SEQUENCE IF EXISTS seq_reviews;
+DROP SEQUENCE IF EXISTS seq_regions;
+DROP SEQUENCE IF EXISTS seq_renovation_types;
+DROP SEQUENCE IF EXISTS seq_role_authority;
+DROP SEQUENCE IF EXISTS seq_roles;
+DROP SEQUENCE IF EXISTS seq_streets;
+DROP SEQUENCE IF EXISTS seq_user_role;
+DROP SEQUENCE IF EXISTS seq_users;
 
 
 
@@ -115,7 +115,7 @@ CREATE TABLE role_authority (
 CREATE TABLE users (
   id                    int8 NOT NULL DEFAULT nextval('seq_users'),
   username              varchar(255) NOT NULL UNIQUE,
-  password              varchar(255) NOT NULL,
+  password              varchar(60) NOT NULL,
   enabled               bool DEFAULT true NOT NULL,
   last_name             varchar(255),
   first_name            varchar(255),
@@ -230,7 +230,7 @@ CREATE TABLE house_materials (
 
 CREATE TABLE houses (
   id                int8 NOT NULL DEFAULT nextval('seq_houses'),
-  address_id        int8 NOT NULL,
+  address_id        int8 NOT NULL UNIQUE,
   number_of_floors  int2,
   building_year     int2,
   house_material_id int8,
@@ -261,6 +261,7 @@ CREATE TABLE properties (
   id      int8 NOT NULL DEFAULT nextval('seq_properties'),
   area    float4,
   user_id int8 NOT NULL,
+  status  varchar(15) DEFAULT 'ACTIVE' NOT NULL,
 
   PRIMARY KEY (id),
 
@@ -275,7 +276,7 @@ CREATE TABLE renovation_types (
 );
 
 CREATE TABLE housing_properties (
-  number_of_rooms    int4,
+  number_of_rooms    int2,
   renovation_type_id int8,
 
   PRIMARY KEY (id),
@@ -318,7 +319,7 @@ CREATE TABLE announcements (
   description       varchar(4095),
   created_date_time timestamp NOT NULL DEFAULT now(),
   type              varchar(15) NOT NULL,
-  status            varchar(15) DEFAULT 'OPEN' NOT NULL,
+  status            varchar(15) DEFAULT 'HIDDEN' NOT NULL,
 
   PRIMARY KEY (id)
 );
@@ -523,7 +524,7 @@ VALUES
 
 INSERT INTO users(username, password, enabled, last_name, first_name, patronymic, email, phone_number, balance)
 VALUES
-    ('rich_user', '{bcrypt}$2a$12$R3lh47p411V9tmOu1A4fOedVvsg2ZwDBar0ZIg.ZQmtUHVl7h3MRm', true, 'rich', 'user', 'rich', 'richuser@gold.com', '89545477885', 54998000000);
+    ('rich_user', '$2a$12$R3lh47p411V9tmOu1A4fOedVvsg2ZwDBar0ZIg.ZQmtUHVl7h3MRm', true, 'rich', 'user', 'rich', 'richuser@gold.com', '89545477885', 54998000000);
 
 INSERT INTO user_role(user_id, role_id)
 VALUES
@@ -574,22 +575,31 @@ VALUES
 INSERT INTO regions(name)
 VALUES
     ('Московская область'),
-    ('Ленинградская область');
+    ('Ленинградская область'),
+    ('Калининградская область');
 
 INSERT INTO cities(region_id, name)
 VALUES
     (100, 'Москва'),
-    (101, 'Санкт-Петербург');
+    (101, 'Санкт-Петербург'),
+    (102, 'Калининград'),
+    (102, 'Голубёво');
 
 INSERT INTO streets(city_id, name)
 VALUES
     (100, 'Кутузовский проспект'),
-    (101, 'Проспект Мира');
+    (101, 'Проспект Мира'),
+    (102, 'Александра невского'),
+    (102, 'Старокаменная'),
+    (103, 'Лазурная');
 
 INSERT INTO addresses(street_id, house_number)
 VALUES
     (100, '40'),
-    (101, '34');
+    (101, '34'),
+    (102, '220'),
+    (103, '3'),
+    (104, '11');
 
 
 
@@ -612,12 +622,18 @@ VALUES
 
 INSERT INTO apartment_houses(address_id, number_of_floors, building_year, house_material_id, housing_type, elevator)
 VALUES
-    (100, 90, 2020, 100, 'NEW_CONSTRUCTION', true);
+    (100, 90, 2020, 100, 'NEW_CONSTRUCTION', true),
+    (102, 10, 2020, 100, 'SECONDARY', true),
+    (103, 10, 2022, 103, 'SECONDARY', true),
+    (104, 3, 2020, 104, 'SECONDARY', true);
 
 INSERT INTO apartment_properties(area, user_id, apartment_house_id, number_of_rooms, renovation_type_id, apartment_number, floor)
 VALUES
     (84, 100, 100, 3, 100, 50, 4),
-    (84, 105, 100, 3, 100, 25, 2);
+    (84, 105, 100, 3, 100, 25, 2),
+    (84, 100, 101, 1, 101, 13, 2),
+    (84, 100, 102, 1, 100, 45, 8),
+    (84, 100, 103, 1, 101, 40, 1);
 
 
 INSERT INTO family_houses(address_id, number_of_floors, building_year, house_material_id, housing_type)
@@ -626,7 +642,7 @@ VALUES
 
 INSERT INTO family_house_properties(area, user_id, number_of_rooms, renovation_type_id, family_house_id)
 VALUES
-    (160, 105, 4, 102, 101);
+    (160, 105, 4, 102, 104);
 
 
 INSERT INTO land_properties(area, user_id, street_id)
@@ -638,15 +654,18 @@ VALUES
 INSERT INTO apartment_announcements(price, description, type, status, apartment_property_id)
 VALUES
     (11000000, 'sample description', 'SELL', 'OPEN', 100),
-    (35000, 'sample description', 'MONTHLY_RENT', 'OPEN', 101);
+    (35000, 'sample description', 'MONTHLY_RENT', 'OPEN', 101),
+    (4200000, 'sample description', 'SELL', 'DELETED', 102),
+    (4400000, 'sample description', 'SELL', 'HIDDEN', 103),
+    (2650000, 'sample description', 'SELL', 'CLOSED', 104);
 
-INSERT INTO family_house_announcements(price, description, type, family_house_property_id)
+INSERT INTO family_house_announcements(price, description, type, status, family_house_property_id)
 VALUES
-    (25000, 'sample description', 'MONTHLY_RENT', 102);
+    (25000, 'sample description', 'MONTHLY_RENT', 'HIDDEN', 105);
 
 INSERT INTO land_announcements(price, description, created_date_time, type, status, land_property_id)
 VALUES
-    (54000000, 'sample description', '2022-08-10 09:00:00', 'SELL', 'CLOSED', 103);
+    (54000000, 'sample description', '2022-08-10 09:00:00', 'SELL', 'CLOSED', 106);
 
 
 INSERT INTO announcement_top_prices(property_type, announcement_type, price_per_hour)
@@ -676,7 +695,7 @@ VALUES
 
 INSERT INTO family_house_announcement_top_timetables(from_date_time, to_date_time, family_house_announcement_id)
 VALUES
-    ('2022-08-10 09:00:00', '2023-08-10 09:00:00', 102);
+    ('2022-08-10 09:00:00', '2023-08-10 09:00:00', 105);
 
 INSERT INTO balance_operations(user_id, sum, comment)
 VALUES

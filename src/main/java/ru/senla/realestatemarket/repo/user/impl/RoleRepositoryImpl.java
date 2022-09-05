@@ -9,6 +9,8 @@ import ru.senla.realestatemarket.repo.user.IRoleRepository;
 import javax.annotation.PostConstruct;
 import javax.persistence.criteria.From;
 
+import static ru.senla.realestatemarket.repo.user.specification.RoleSpecification.hasName;
+
 @Slf4j
 @Repository
 public class RoleRepositoryImpl extends AbstractRepositoryImpl<Role, Long> implements IRoleRepository {
@@ -20,8 +22,9 @@ public class RoleRepositoryImpl extends AbstractRepositoryImpl<Role, Long> imple
 
 
     @Override
-    protected <T> void fetchSelection(From<T, Role> from) {
-        // fetch did not need it
+    public Role findByName(String name) {
+        return findOne(
+                hasName(name)
+        );
     }
-
 }

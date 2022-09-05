@@ -3,8 +3,10 @@ package ru.senla.realestatemarket.service.house.impl;
 import lombok.extern.slf4j.Slf4j;
 import org.mapstruct.factory.Mappers;
 import org.springframework.stereotype.Service;
+import ru.senla.realestatemarket.dto.address.RequestAddressDto;
 import ru.senla.realestatemarket.dto.house.FamilyHouseDto;
 import ru.senla.realestatemarket.dto.house.RequestFamilyHouseDto;
+import ru.senla.realestatemarket.dto.house.UpdateRequestFamilyHouseDto;
 import ru.senla.realestatemarket.mapper.house.FamilyHouseMapper;
 import ru.senla.realestatemarket.model.address.Address;
 import ru.senla.realestatemarket.model.house.FamilyHouse;
@@ -16,6 +18,7 @@ import ru.senla.realestatemarket.service.helper.EntityHelper;
 import ru.senla.realestatemarket.service.house.IFamilyHouseService;
 
 import javax.annotation.PostConstruct;
+import javax.persistence.EntityNotFoundException;
 import javax.transaction.Transactional;
 import java.util.List;
 
@@ -52,27 +55,70 @@ public class FamilyHouseServiceImpl
         return familyHouseMapper.toFamilyHouseDto(familyHouseList);
     }
 
+    @Override
+    public FamilyHouseDto getDtoById(Long id) {
+        return familyHouseMapper.toFamilyHouseDto(getById(id));
+    }
+
     @Transactional
     public void add(RequestFamilyHouseDto requestFamilyHouseDto) {
         FamilyHouse familyHouse = familyHouseMapper.toFamilyHouse(requestFamilyHouseDto);
 
-
         Long houseMaterialId = requestFamilyHouseDto.getHouseMaterialId();
-        HouseMaterial houseMaterial = houseMaterialRepository.findById(houseMaterialId);
-        EntityHelper.checkEntityOnNullAfterFoundById(houseMaterial, HouseMaterial.class, houseMaterialId);
-
-        familyHouse.setHouseMaterial(houseMaterial);
-
+        setHouseMaterialById(familyHouse, houseMaterialId);
 
         Long streetId = requestFamilyHouseDto.getAddress().getStreetId();
         String houseNumber = requestFamilyHouseDto.getAddress().getHouseNumber();
-
-        Address address = addressRepository.findByStreetIdAndHouseNumber(streetId, houseNumber);
-
-        familyHouse.setAddress(address);
+        setAddressByStreetIdAndHouseNumber(familyHouse, streetId, houseNumber);
 
 
         familyHouseRepository.create(familyHouse);
+    }
+
+    private void setHouseMaterialById(FamilyHouse familyHouse, Long houseMaterialId) {
+        HouseMaterial houseMaterial = houseMaterialRepository.findById(houseMaterialId);
+        EntityHelper.checkEntityOnNull(houseMaterial, HouseMaterial.class, houseMaterialId);
+
+        familyHouse.setHouseMaterial(houseMaterial);
+    }
+
+    private void setAddressByStreetIdAndHouseNumber(FamilyHouse familyHouse, Long streetId, String houseNumber) {
+        Address address = addressRepository.findByStreetIdAndHouseNumber(streetId, houseNumber);
+
+        if (address == null) {
+            String message = String.format(
+                    "Address with street with id %s and house number %s not exist", streetId, houseNumber);
+
+            log.error(message);
+            throw new EntityNotFoundException(message);
+        }
+
+        familyHouse.setAddress(address);
+    }
+
+    @Override
+    @Transactional
+    public void updateById(UpdateRequestFamilyHouseDto updateRequestFamilyHouseDto, Long id) {
+        FamilyHouse familyHouse = getById(id);
+
+        Long houseMaterialId = updateRequestFamilyHouseDto.getHouseMaterialId();
+        setHouseMaterialById(familyHouse, houseMaterialId);
+
+        RequestAddressDto requestAddressDto = updateRequestFamilyHouseDto.getAddress();
+        if (requestAddressDto != null) {
+            Long streetId = updateRequestFamilyHouseDto.getAddress().getStreetId();
+            String houseNumber = updateRequestFamilyHouseDto.getAddress().getHouseNumber();
+            if (streetId != null && houseNumber != null) {
+                setAddressByStreetIdAndHouseNumber(familyHouse, streetId, houseNumber);
+            }
+        }
+
+        familyHouseMapper.updateFamilyHouseFromUpdateRequestFamilyHouseDto(
+                updateRequestFamilyHouseDto, familyHouse
+        );
+
+
+        familyHouseRepository.update(familyHouse);
     }
 
 }

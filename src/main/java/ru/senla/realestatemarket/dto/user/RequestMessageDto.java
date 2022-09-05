@@ -11,7 +11,7 @@ import javax.validation.constraints.Size;
 public class RequestMessageDto {
 
     @Size(min = 1, max = 1023)
-    @NotBlank(message = "Text is mandatory")
+    @NotBlank
     private String text;
 
 }

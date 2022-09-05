@@ -8,4 +8,6 @@ public interface IRenovationTypeService extends IAbstractService<RenovationType,
 
     void add(RequestRenovationTypeDto requestRenovationTypeDto);
 
+    void updateById(RequestRenovationTypeDto requestRenovationTypeDto, Long id);
+
 }

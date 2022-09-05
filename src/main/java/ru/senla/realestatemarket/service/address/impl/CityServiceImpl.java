@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import ru.senla.realestatemarket.dto.address.CityDto;
 import ru.senla.realestatemarket.dto.address.RequestCityDto;
 import ru.senla.realestatemarket.dto.address.RequestCityWithoutRegionIdDto;
+import ru.senla.realestatemarket.dto.address.UpdateRequestCityDto;
 import ru.senla.realestatemarket.mapper.address.CityMapper;
 import ru.senla.realestatemarket.model.address.City;
 import ru.senla.realestatemarket.model.address.Region;
@@ -45,6 +46,29 @@ public class CityServiceImpl extends AbstractServiceImpl<City, Long> implements 
 
 
     @Override
+    public CityDto getDtoById(Long id) {
+        return cityMapper.toCityDto(getById(id));
+    }
+
+    @Override
+    public CityDto getDtoRegionIdAndByCityId(Long regionId, Long cityId) {
+        City city = getByRegionIdAndByCityId(regionId, cityId);
+        return cityMapper.toCityDto(city);
+    }
+
+    private City getByRegionIdAndByCityId(Long regionId, Long cityId) {
+        City city = cityRepository.findByRegionIdAndCityId(regionId, cityId);
+        if (city == null) {
+            String message =
+                    String.format("City with id %s in region with id %s not exist", cityId, regionId);
+
+            log.error(message);
+            throw new EntityNotFoundException(message);
+        }
+        return city;
+    }
+
+    @Override
     public List<CityDto> getAllDto(String rsqlQuery, String sortQuery) {
         return cityMapper.toCityDto(getAll(rsqlQuery, sortQuery));
     }
@@ -58,39 +82,73 @@ public class CityServiceImpl extends AbstractServiceImpl<City, Long> implements 
     @Transactional
     public void add(RequestCityDto requestCityDto) {
         City city = cityMapper.toCity(requestCityDto);
+
         Long regionId = requestCityDto.getRegionId();
-
-        add(city, regionId);
-    }
-
-    @Transactional
-    public void add(RequestCityWithoutRegionIdDto requestCityWithoutRegionIdDto, Long regionId) {
-        City city = cityMapper.toCity(requestCityWithoutRegionIdDto);
-
-        add(city, regionId);
-    }
-
-    private void add(City city, Long regionId) {
-        Region region = regionRepository.findById(regionId);
-        EntityHelper.checkEntityOnNullAfterFoundById(region, Region.class, regionId);
-
-        city.setRegion(region);
+        setRegionById(city, regionId);
 
         cityRepository.create(city);
     }
 
     @Override
-    public boolean isExistByRegionIdAndCityId(Long regionId, Long cityId) {
-        City city = cityRepository.findByRegionIdAndCityId(regionId, cityId);
+    @Transactional
+    public void addByRegionId(RequestCityWithoutRegionIdDto requestCityWithoutRegionIdDto, Long regionId) {
+        City city = cityMapper.toCity(requestCityWithoutRegionIdDto);
 
-        return city != null;
+        setRegionById(city, regionId);
+
+        cityRepository.create(city);
     }
 
     @Override
-    public void checkCityOnExistByRegionIdAndCityId(Long regionId, Long cityId) {
-        if (!isExistByRegionIdAndCityId(regionId, cityId)) {
-            throw new EntityNotFoundException(
-                    String.format("City with id %s not exist in region with id %s", cityId, regionId));
+    @Transactional
+    public void updateById(UpdateRequestCityDto updateRequestCityDto, Long id) {
+        City city = getById(id);
+
+        Long regionId = updateRequestCityDto.getRegionId();
+        if (regionId != null) {
+            setRegionById(city, regionId);
         }
+
+        cityMapper.updateCityByUpdateRequestCityDto(
+                updateRequestCityDto, city
+        );
+
+
+        cityRepository.update(city);
     }
+
+    @Override
+    @Transactional
+    public void updateByRegionIdAndCityId(
+            UpdateRequestCityDto updateRequestCityDto, Long regionId, Long cityId
+    ) {
+        City city = getByRegionIdAndByCityId(regionId, cityId);
+
+        Long newRegionId = updateRequestCityDto.getRegionId();
+        if (newRegionId != null) {
+            setRegionById(city, newRegionId);
+        }
+
+        cityMapper.updateCityByUpdateRequestCityDto(
+                updateRequestCityDto, city
+        );
+
+
+        cityRepository.update(city);
+    }
+
+    private void setRegionById(City city, Long regionId) {
+        Region region = regionRepository.findById(regionId);
+        EntityHelper.checkEntityOnNull(region, Region.class, regionId);
+
+        city.setRegion(region);
+    }
+
+    @Override
+    public void deleteRegionIdAndCityById(Long regionId, Long cityId) {
+        getDtoRegionIdAndByCityId(regionId, cityId);
+
+        deleteById(cityId);
+    }
+
 }

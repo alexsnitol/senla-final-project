@@ -2,9 +2,11 @@ package ru.senla.realestatemarket.service.property.impl;
 
 import lombok.extern.slf4j.Slf4j;
 import org.mapstruct.factory.Mappers;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import ru.senla.realestatemarket.dto.property.FamilyHousePropertyDto;
 import ru.senla.realestatemarket.dto.property.RequestFamilyHousePropertyDto;
+import ru.senla.realestatemarket.dto.property.UpdateRequestFamilyHousePropertyDto;
 import ru.senla.realestatemarket.mapper.property.FamilyHousePropertyMapper;
 import ru.senla.realestatemarket.model.house.FamilyHouse;
 import ru.senla.realestatemarket.model.property.FamilyHouseProperty;
@@ -16,6 +18,8 @@ import ru.senla.realestatemarket.repo.property.IRenovationTypeRepository;
 import ru.senla.realestatemarket.repo.user.IUserRepository;
 import ru.senla.realestatemarket.service.helper.EntityHelper;
 import ru.senla.realestatemarket.service.property.IFamilyHousePropertyService;
+import ru.senla.realestatemarket.util.SortUtil;
+import ru.senla.realestatemarket.util.UserUtil;
 
 import javax.annotation.PostConstruct;
 import javax.transaction.Transactional;
@@ -24,7 +28,7 @@ import java.util.List;
 @Slf4j
 @Service
 public class FamilyHousePropertyServiceImpl
-        extends AbstractHousingPropertyServiceImpl<FamilyHouseProperty, FamilyHousePropertyDto>
+        extends AbstractHousingPropertyServiceImpl<FamilyHouseProperty>
         implements IFamilyHousePropertyService {
 
     private final IFamilyHousePropertyRepository familyHousePropertyRepository;
@@ -56,32 +60,81 @@ public class FamilyHousePropertyServiceImpl
     }
 
     @Override
+    public FamilyHousePropertyDto getDtoById(Long id) {
+        return familyHousePropertyMapper.toFamilyHousePropertyDto(getById(id));
+    }
+
+    @Override
     @Transactional
-    public void add(RequestFamilyHousePropertyDto requestFamilyHousePropertyDto, Long userId) {
+    public void add(RequestFamilyHousePropertyDto requestFamilyHousePropertyDto, Long userIdOfOwner) {
         FamilyHouseProperty familyHouseProperty = familyHousePropertyMapper.toFamilyHouseProperty(requestFamilyHousePropertyDto);
 
-
         Long familyHouseId = requestFamilyHousePropertyDto.getFamilyHouseId();
-        FamilyHouse familyHouse = familyHouseRepository.findById(familyHouseId);
-        EntityHelper.checkEntityOnNullAfterFoundById(familyHouse, FamilyHouse.class, familyHouseId);
-
-        familyHouseProperty.setFamilyHouse(familyHouse);
-
+        setFamilyHouseById(familyHouseProperty, familyHouseId);
 
         Long renovationTypeId = requestFamilyHousePropertyDto.getRenovationTypeId();
-        RenovationType renovationType = renovationTypeRepository.findById(renovationTypeId);
-        EntityHelper.checkEntityOnNullAfterFoundById(renovationType, RenovationType.class, renovationTypeId);
+        setRenovationTypeById(familyHouseProperty, renovationTypeId);
 
-        familyHouseProperty.setRenovationType(renovationType);
-
-
-        User owner = userRepository.findById(userId);
-        EntityHelper.checkEntityOnNullAfterFoundById(owner, User.class, null);
+        User owner = userRepository.findById(userIdOfOwner);
+        EntityHelper.checkEntityOnNull(owner, User.class, null);
 
         familyHouseProperty.setOwner(owner);
 
 
         familyHousePropertyRepository.create(familyHouseProperty);
     }
-    
+
+    @Override
+    @Transactional
+    public void addFromCurrentUser(RequestFamilyHousePropertyDto requestFamilyHousePropertyDto) {
+        add(requestFamilyHousePropertyDto, UserUtil.getCurrentUserId());
+    }
+
+    private void setRenovationTypeById(FamilyHouseProperty familyHouseProperty, Long renovationTypeId) {
+        RenovationType renovationType = renovationTypeRepository.findById(renovationTypeId);
+        EntityHelper.checkEntityOnNull(renovationType, RenovationType.class, renovationTypeId);
+
+        familyHouseProperty.setRenovationType(renovationType);
+    }
+
+    private void setFamilyHouseById(FamilyHouseProperty familyHouseProperty, Long familyHouseId) {
+        FamilyHouse familyHouse = familyHouseRepository.findById(familyHouseId);
+        EntityHelper.checkEntityOnNull(familyHouse, FamilyHouse.class, familyHouseId);
+
+        familyHouseProperty.setFamilyHouse(familyHouse);
+    }
+
+    @Override
+    @Transactional
+    public void updateById(UpdateRequestFamilyHousePropertyDto updateRequestFamilyHousePropertyDto, Long id) {
+        FamilyHouseProperty familyHouseProperty = getById(id);
+
+        Long familyHouseId = updateRequestFamilyHousePropertyDto.getFamilyHouseId();
+        if (familyHouseId != null) {
+            setFamilyHouseById(familyHouseProperty, familyHouseId);
+        }
+
+        Long renovationTypeId = updateRequestFamilyHousePropertyDto.getRenovationTypeId();
+        if (renovationTypeId != null) {
+            setRenovationTypeById(familyHouseProperty, renovationTypeId);
+        }
+
+        familyHousePropertyMapper.updateFamilyHousePropertyFromUpdateRequestFamilyHouseDto(
+                updateRequestFamilyHousePropertyDto, familyHouseProperty
+        );
+
+
+        familyHousePropertyRepository.update(familyHouseProperty);
+    }
+
+    @Override
+    public List<FamilyHousePropertyDto> getAllDtoOfCurrentUser(String rsqlQuery, String sortQuery) {
+        Sort sort = SortUtil.parseSortQuery(sortQuery);
+
+        List<FamilyHouseProperty> landPropertyList
+                = familyHousePropertyRepository.findAllByUserIdOfOwner(UserUtil.getCurrentUserId(), rsqlQuery, sort);
+
+        return familyHousePropertyMapper.toFamilyHousePropertyDto(landPropertyList);
+    }
+
 }

@@ -23,11 +23,6 @@ public class CityRepositoryImpl extends AbstractRepositoryImpl<City, Long> imple
 
 
     @Override
-    protected <T> void fetchSelection(From<T, City> from) {
-        // fetch did not need it
-    }
-
-    @Override
     public City findByRegionIdAndCityId(Long regionId, Long cityId) {
         return findOne(hasRegionId(regionId).and(hasId(cityId)));
     }

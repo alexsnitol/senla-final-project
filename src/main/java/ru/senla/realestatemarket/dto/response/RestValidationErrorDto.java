@@ -9,6 +9,8 @@ import java.util.Map;
 @Setter
 public class RestValidationErrorDto {
 
+    private String message;
+
     private Map<String, String> fieldErrorMessages;
 
     private String type;

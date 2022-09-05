@@ -31,10 +31,11 @@ public class RestResponseMapper {
         return restErrorDto;
     }
 
-    public RestValidationErrorDto toRestValidationErrorDto(Map<String, String> fieldErrorMessages, String type,
-                                                           Integer status, String instance) {
+    public RestValidationErrorDto toRestValidationErrorDto(
+            String message, Map<String, String> fieldErrorMessages, String type, Integer status, String instance) {
         RestValidationErrorDto restValidationErrorDto = new RestValidationErrorDto();
 
+        restValidationErrorDto.setMessage(message);
         restValidationErrorDto.setFieldErrorMessages(fieldErrorMessages);
         restValidationErrorDto.setType(type);
         restValidationErrorDto.setStatus(status);

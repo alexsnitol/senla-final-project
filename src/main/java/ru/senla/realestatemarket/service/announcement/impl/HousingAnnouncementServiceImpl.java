@@ -16,7 +16,7 @@ import java.util.List;
 @Slf4j
 @Service
 public class HousingAnnouncementServiceImpl
-        extends AbstractHousingAnnouncementServiceImpl<HousingAnnouncement, HousingAnnouncementDto>
+        extends AbstractHousingAnnouncementServiceImpl<HousingAnnouncement>
         implements IHousingAnnouncementService {
 
     private final IHousingAnnouncementRepository housingAnnouncementRepository;
@@ -40,5 +40,15 @@ public class HousingAnnouncementServiceImpl
     @Transactional
     public List<HousingAnnouncementDto> getAllDto(String rsqlQuery, String sortQuery) {
         return housingAnnouncementMapper.toHousingAnnouncementDtoWithMappedInheritors(getAll(rsqlQuery, sortQuery));
+    }
+
+    @Override
+    @Transactional
+    public void setDeletedStatusByIdAndUpdate(Long id) {
+        HousingAnnouncement housingAnnouncement = getById(id);
+        
+        setDeletedStatus(housingAnnouncement);
+        
+        housingAnnouncementRepository.update(housingAnnouncement);
     }
 }

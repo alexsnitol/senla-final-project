@@ -20,9 +20,4 @@ public class RenovationTypeRepositoryImpl extends AbstractRepositoryImpl<Renovat
     }
 
 
-    @Override
-    protected <T> void fetchSelection(From<T, RenovationType> from) {
-        // fetch did not need it
-    }
-
 }

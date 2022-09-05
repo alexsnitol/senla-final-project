@@ -6,7 +6,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.Formula;
+import ru.senla.realestatemarket.model.IModel;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -16,6 +18,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import java.time.LocalDateTime;
@@ -23,11 +26,11 @@ import java.util.List;
 
 @AllArgsConstructor
 @NoArgsConstructor
-@Getter
+@Getter()
 @Setter
 @Entity
 @Table(name = "users")
-public class User {
+public class User implements IModel<Long> {
 
     @Id
     @SequenceGenerator(name = "seq_users", allocationSize = 0)
@@ -38,7 +41,7 @@ public class User {
 
     private String password;
 
-    private Boolean enabled;
+    private Boolean enabled = true;
 
     @Column(name = "last_name")
     private String lastName;
@@ -53,13 +56,13 @@ public class User {
     @Column(name = "phone_number")
     private String phoneNumber;
 
-    private Double balance;
+    private Double balance = 0D;
 
     @Column(name = "created_date_time")
     @JsonFormat(pattern = "dd.MM.yyyy hh:mm:ss")
     private LocalDateTime createdDt = LocalDateTime.now();
 
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
             name = "user_role",
             joinColumns = @JoinColumn(name = "user_id"),
@@ -69,5 +72,8 @@ public class User {
 
     @Formula("(SELECT AVG(r.note) FROM reviews AS r WHERE r.user_id_seller = id)")
     private Float rating;
+
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.REMOVE, orphanRemoval = true)
+    private List<BalanceOperation> balanceOperations;
 
 }

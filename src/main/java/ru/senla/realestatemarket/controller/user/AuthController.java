@@ -1,5 +1,6 @@
 package ru.senla.realestatemarket.controller.user;
 
+import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
@@ -20,6 +21,10 @@ public class AuthController {
     private final IAuthService authService;
 
 
+    @ApiOperation(
+            value = "Create auth token",
+            notes = "Return JWT token if authorization is successful"
+    )
     @PostMapping
     public ResponseEntity<JwtResponseDto> createAuthToken(@RequestBody JwtRequestDto authRequest) {
         return ResponseEntity.ok(authService.createAuthToken(authRequest));

@@ -19,4 +19,10 @@ public class AnnouncementSort {
         ));
     }
 
+    public static Sort byCreatedDtAsc() {
+        return Sort.by(List.of(
+                new Sort.Order(Sort.Direction.ASC, "createdDt")
+        ));
+    }
+
 }

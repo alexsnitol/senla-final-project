@@ -1,8 +1,10 @@
 package ru.senla.realestatemarket.config.security;
 
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -11,7 +13,6 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.access.AccessDeniedHandler;
@@ -29,12 +30,25 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     private final UserDetailsService userDetailsService;
     private final JwtTokenFilter jwtTokenFilter;
+    private final PasswordEncoder passwordEncoder;
+
+    private final AccessDeniedHandler accessDeniedHandler;
+
+    private final AuthenticationEntryPoint authenticationEntryPoint;
 
 
-    public WebSecurityConfig(IUserService userService,
-                             JwtTokenFilter jwtTokenFilter) {
+    public WebSecurityConfig(
+            IUserService userService,
+            JwtTokenFilter jwtTokenFilter,
+            PasswordEncoder passwordEncoder,
+            @Qualifier("customAccessDeniedHandler") AccessDeniedHandler accessDeniedHandler,
+            @Qualifier("customAuthenticationEntryPoint") AuthenticationEntryPoint authenticationEntryPoint
+    ) {
         this.userDetailsService = userService;
         this.jwtTokenFilter = jwtTokenFilter;
+        this.passwordEncoder = passwordEncoder;
+        this.accessDeniedHandler = accessDeniedHandler;
+        this.authenticationEntryPoint = authenticationEntryPoint;
     }
 
 
@@ -44,25 +58,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         return super.authenticationManagerBean();
     }
 
-    @Bean
-    public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
-    }
-
-    @Bean
-    public AccessDeniedHandler accessDeniedHandler() {
-        return new CustomAccessDeniedHandler();
-    }
-
-    @Bean
-    public AuthenticationEntryPoint authenticationEntryPoint() {
-        return new CustomAuthenticationEntryPoint();
-    }
-
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(userDetailsService)
-                .passwordEncoder(passwordEncoder());
+                .passwordEncoder(passwordEncoder);
     }
 
     @Override
@@ -78,14 +77,25 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 
                 .exceptionHandling()
-                .accessDeniedHandler(accessDeniedHandler())
-                .authenticationEntryPoint(authenticationEntryPoint())
+                .accessDeniedHandler(accessDeniedHandler)
+                .authenticationEntryPoint(authenticationEntryPoint)
                 .and()
 
 
                 .authorizeRequests()
 
-                .antMatchers("/api/auth").permitAll()
+                .antMatchers(HttpMethod.POST, "/api/auth").permitAll()
+                .antMatchers(HttpMethod.POST, "/api/users").permitAll()
+
+                // SWAGGER
+                .antMatchers(HttpMethod.GET,"/v2/api-docs/**").permitAll()
+                .antMatchers(HttpMethod.GET,"/v3/api-docs/**").permitAll()
+                .antMatchers(HttpMethod.GET, "/swagger-ui/**").permitAll()
+                .antMatchers("/webjars/springfox-swagger-ui/**").permitAll()
+                .antMatchers("/swagger-resources/**").permitAll()
+                .antMatchers("/favicon**").permitAll()
+                .antMatchers("/swagger**").permitAll()
+                .antMatchers("/springfox**").permitAll()
 
                 
                 
@@ -114,7 +124,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Bean
     public DaoAuthenticationProvider daoAuthenticationProvider() {
         DaoAuthenticationProvider daoAuthenticationProvider = new DaoAuthenticationProvider();
-        daoAuthenticationProvider.setPasswordEncoder(passwordEncoder());
+        daoAuthenticationProvider.setPasswordEncoder(passwordEncoder);
         daoAuthenticationProvider.setUserDetailsService(userDetailsService);
 
         return daoAuthenticationProvider;

@@ -6,7 +6,9 @@ import org.postgresql.shaded.com.ongres.scram.common.util.Preconditions;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.lang.Nullable;
+import ru.senla.realestatemarket.model.IModel;
 import ru.senla.realestatemarket.repo.IAbstractRepository;
+import ru.senla.realestatemarket.service.helper.EntityHelper;
 import ru.senla.realestatemarket.util.SortUtil;
 
 import javax.transaction.Transactional;
@@ -14,7 +16,7 @@ import java.util.List;
 
 @Slf4j
 @Transactional
-public abstract class AbstractServiceImpl <M, I> implements IAbstractService<M, I> {
+public abstract class AbstractServiceImpl <M extends IModel<I>, I> implements IAbstractService<M, I> {
 
     @Setter
     protected IAbstractRepository<M, I> defaultRepository;
@@ -30,12 +32,18 @@ public abstract class AbstractServiceImpl <M, I> implements IAbstractService<M, 
 
     @Override
     public M getOne(Specification<M> specification) {
-        return defaultRepository.findOne(specification);
+        M model = defaultRepository.findOne(specification);
+        EntityHelper.checkEntityOnNull(model, clazz, null);
+
+        return model;
     }
 
     @Override
     public M getById(I id) {
-        return defaultRepository.findById(id);
+        M model = defaultRepository.findById(id);
+        EntityHelper.checkEntityOnNull(model, clazz, id);
+
+        return model;
     }
 
     @Override
@@ -60,31 +68,58 @@ public abstract class AbstractServiceImpl <M, I> implements IAbstractService<M, 
 
     @Override
     public List<M> getAll(@Nullable Specification<M> specification, @Nullable String sortQuery) {
-        Sort sort = null;
-        if (sortQuery != null) {
-            sort = SortUtil.parseSortQuery(sortQuery);
-        }
-
-        return defaultRepository.findAll(specification, sort);
+        return defaultRepository.findAll(specification, SortUtil.parseSortQuery(sortQuery));
     }
 
     @Override
-    public List<M> getAll(@Nullable String rsqlQuery, Sort sort) {
+    public List<M> getAll(@Nullable String rsqlQuery, @Nullable Sort sort) {
         return defaultRepository.findAllByQuery(rsqlQuery, sort);
+    }
+
+    @Override
+    public List<M> getAll(@Nullable Specification<M> specification, @Nullable String rsqlQuery, @Nullable Sort sort) {
+        return defaultRepository.findAllByQuery(specification, rsqlQuery, sort);
     }
 
     @Override
     public List<M> getAll(@Nullable String rsqlQuery, @Nullable String sortQuery) {
-        Sort sort = null;
-        if (sortQuery != null) {
-             sort = SortUtil.parseSortQuery(sortQuery);
-        }
+        return defaultRepository.findAllByQuery(rsqlQuery, SortUtil.parseSortQuery(sortQuery));
+    }
 
-        return defaultRepository.findAllByQuery(rsqlQuery, sort);
+    @Override
+    public List<M> getAll(@Nullable Specification<M> specification,
+                          @Nullable String rsqlQuery,
+                          @Nullable String sortQuery
+    ) {
+        return defaultRepository.findAllByQuery(specification, rsqlQuery, SortUtil.parseSortQuery(sortQuery));
     }
 
     @Override
     public void add(M model) {
         defaultRepository.create(model);
     }
+
+    @Override
+    public void update(M model) {
+        defaultRepository.update(model);
+    }
+
+    @Override
+    public void updateById(M changedModel, I id) {
+        M model = defaultRepository.findById(id);
+        EntityHelper.checkEntityOnNull(model, clazz, id);
+
+        changedModel.setId(id);
+
+        defaultRepository.update(changedModel);
+    }
+
+    @Override
+    public void deleteById(I id) {
+        M model = defaultRepository.findById(id);
+        EntityHelper.checkEntityOnNull(model, clazz, id);
+
+        defaultRepository.delete(model);
+    }
+
 }

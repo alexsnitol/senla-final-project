@@ -1,7 +1,10 @@
 package ru.senla.realestatemarket.mapper.user;
 
+import org.mapstruct.BeanMapping;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
+import org.mapstruct.MappingTarget;
+import org.mapstruct.NullValuePropertyMappingStrategy;
 import ru.senla.realestatemarket.dto.user.MessageDto;
 import ru.senla.realestatemarket.dto.user.RequestMessageDto;
 import ru.senla.realestatemarket.model.user.Message;
@@ -30,5 +33,11 @@ public abstract class MessageMapper {
     public LocalTime toLocalTime(LocalDateTime localDateTime) {
         return localDateTime.toLocalTime();
     }
+
+    @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
+    public abstract void updateMessageFromRequestMessageDto(
+            RequestMessageDto requestMessageDto,
+            @MappingTarget Message message
+    );
 
 }

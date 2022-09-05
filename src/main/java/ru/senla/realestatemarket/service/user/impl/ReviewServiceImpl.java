@@ -2,12 +2,10 @@ package ru.senla.realestatemarket.service.user.impl;
 
 import lombok.extern.slf4j.Slf4j;
 import org.mapstruct.factory.Mappers;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import ru.senla.realestatemarket.dto.user.RequestReviewDto;
 import ru.senla.realestatemarket.dto.user.ReviewDto;
 import ru.senla.realestatemarket.mapper.user.ReviewMapper;
-import ru.senla.realestatemarket.model.user.AuthorizedUser;
 import ru.senla.realestatemarket.model.user.Review;
 import ru.senla.realestatemarket.model.user.User;
 import ru.senla.realestatemarket.repo.user.IReviewRepository;
@@ -15,6 +13,7 @@ import ru.senla.realestatemarket.repo.user.IUserRepository;
 import ru.senla.realestatemarket.service.AbstractServiceImpl;
 import ru.senla.realestatemarket.service.helper.EntityHelper;
 import ru.senla.realestatemarket.service.user.IReviewService;
+import ru.senla.realestatemarket.util.UserUtil;
 
 import javax.annotation.PostConstruct;
 import javax.transaction.Transactional;
@@ -43,13 +42,6 @@ public class ReviewServiceImpl extends AbstractServiceImpl<Review, Long> impleme
     }
 
 
-    private Long getCurrentUserId() {
-        AuthorizedUser authorizedUser = (AuthorizedUser) SecurityContextHolder
-                .getContext().getAuthentication().getPrincipal();
-
-        return authorizedUser.getId();
-    }
-
     @Override
     public List<Review> getAllBySellerId(Long sellerId) {
         return reviewRepository.findAllBySellerId(sellerId, null);
@@ -74,10 +66,10 @@ public class ReviewServiceImpl extends AbstractServiceImpl<Review, Long> impleme
     @Transactional
     public void sendReview(Review review, Long customerId, Long sellerId) {
         User seller = userRepository.findById(sellerId);
-        EntityHelper.checkEntityOnNullAfterFoundById(seller, User.class, sellerId);
+        EntityHelper.checkEntityOnNull(seller, User.class, sellerId);
 
         User customer = userRepository.findById(customerId);
-        EntityHelper.checkEntityOnNullAfterFoundById(customer, User.class, customerId);
+        EntityHelper.checkEntityOnNull(customer, User.class, customerId);
 
         review.setCustomer(customer);
         review.setSeller(seller);
@@ -88,7 +80,7 @@ public class ReviewServiceImpl extends AbstractServiceImpl<Review, Long> impleme
     @Override
     @Transactional
     public void sendReviewFromCurrentUser(Review review, Long sellerId) {
-        sendReview(review, getCurrentUserId(), sellerId);
+        sendReview(review, UserUtil.getCurrentUserId(), sellerId);
     }
 
     @Override

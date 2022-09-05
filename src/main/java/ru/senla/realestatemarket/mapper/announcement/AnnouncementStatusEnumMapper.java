@@ -11,6 +11,7 @@ public abstract class AnnouncementStatusEnumMapper {
     public SellAnnouncementStatusEnum toSellAnnouncementStatusEnum(AnnouncementStatusEnum announcementStatusEnum) {
         switch (announcementStatusEnum) {
             case OPEN:
+            case HIDDEN:
             case CLOSED:
             case DELETED:
                 return SellAnnouncementStatusEnum.valueOf(announcementStatusEnum.name());
@@ -22,6 +23,7 @@ public abstract class AnnouncementStatusEnumMapper {
     public RentAnnouncementStatusEnum toRentAnnouncementStatusEnum(AnnouncementStatusEnum announcementStatusEnum) {
         switch (announcementStatusEnum) {
             case OPEN:
+            case HIDDEN:
             case DELETED:
                 return RentAnnouncementStatusEnum.valueOf(announcementStatusEnum.name());
             default:

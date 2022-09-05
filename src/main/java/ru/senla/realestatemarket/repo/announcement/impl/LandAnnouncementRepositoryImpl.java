@@ -21,9 +21,4 @@ public class LandAnnouncementRepositoryImpl
     }
 
 
-    @Override
-    public <T> void fetchSelection(From<T, LandAnnouncement> from) {
-        from.fetch("property", JoinType.LEFT);
-    }
-
 }

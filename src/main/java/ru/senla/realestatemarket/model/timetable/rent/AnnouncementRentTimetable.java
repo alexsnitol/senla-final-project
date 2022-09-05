@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import ru.senla.realestatemarket.model.IModel;
 import ru.senla.realestatemarket.model.user.User;
 
 import javax.persistence.Column;
@@ -18,17 +19,15 @@ import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
-import javax.persistence.Table;
 import java.time.LocalDateTime;
 
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
-@Inheritance(strategy = InheritanceType.JOINED)
+@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 @Entity
-@Table(name = "announcement_rent_timetables")
-public class AnnouncementRentTimetable {
+public class AnnouncementRentTimetable implements IModel<Long> {
 
     @Id
     @SequenceGenerator(name = "seq_announcement_rent_timetables", allocationSize = 0)

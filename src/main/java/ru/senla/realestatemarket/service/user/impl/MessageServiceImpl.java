@@ -4,12 +4,10 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.mapstruct.factory.Mappers;
 import org.springframework.data.domain.Sort;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import ru.senla.realestatemarket.dto.user.MessageDto;
 import ru.senla.realestatemarket.dto.user.SimplyUserDto;
 import ru.senla.realestatemarket.mapper.user.MessageMapper;
-import ru.senla.realestatemarket.model.user.AuthorizedUser;
 import ru.senla.realestatemarket.model.user.Message;
 import ru.senla.realestatemarket.model.user.User;
 import ru.senla.realestatemarket.repo.user.IMessageRepository;
@@ -17,6 +15,7 @@ import ru.senla.realestatemarket.repo.user.IUserRepository;
 import ru.senla.realestatemarket.service.AbstractServiceImpl;
 import ru.senla.realestatemarket.service.helper.EntityHelper;
 import ru.senla.realestatemarket.service.user.IMessageService;
+import ru.senla.realestatemarket.util.UserUtil;
 
 import javax.transaction.Transactional;
 import java.util.List;
@@ -37,19 +36,12 @@ public class MessageServiceImpl extends AbstractServiceImpl<Message, Long> imple
         setDefaultRepository(messageRepository);
         setClazz(Message.class);
     }
-    
 
-    private Long getCurrentUserId() {
-        AuthorizedUser authorizedUser = (AuthorizedUser) SecurityContextHolder
-                .getContext().getAuthentication().getPrincipal();
-
-        return authorizedUser.getId();
-    }
 
     @Override
     public List<MessageDto> getAllMessagesCurrentUserWithUserById(Long userId) {
         List<Message> messageList = messageRepository.findAllMessagesUserWithUserById(
-                getCurrentUserId(), userId, Sort.by(Sort.Direction.ASC, "createdDt")
+                UserUtil.getCurrentUserId(), userId, Sort.by(Sort.Direction.ASC, "createdDt")
         );
 
         return messageMapper.toMessageDto(messageList);
@@ -57,17 +49,17 @@ public class MessageServiceImpl extends AbstractServiceImpl<Message, Long> imple
 
     @Override
     public Set<SimplyUserDto> getAllMessageUsersOfCurrentUser() {
-        return messageRepository.findAllMessageUsersByUserIdOrderedByMessageCreatedDateTime(getCurrentUserId());
+        return messageRepository.findAllMessageUsersByUserIdSortedByMessageCreatedDateTime(UserUtil.getCurrentUserId());
     }
 
     @Override
     @Transactional
     public void sendMessage(Message message, Long senderId, Long receiverId) {
         User sender = userRepository.findById(senderId);
-        EntityHelper.checkEntityOnNullAfterFoundById(sender, User.class, senderId);
+        EntityHelper.checkEntityOnNull(sender, User.class, senderId);
 
         User receiver = userRepository.findById(receiverId);
-        EntityHelper.checkEntityOnNullAfterFoundById(receiver, User.class, receiverId);
+        EntityHelper.checkEntityOnNull(receiver, User.class, receiverId);
 
         message.setSender(sender);
         message.setReceiver(receiver);
@@ -78,7 +70,7 @@ public class MessageServiceImpl extends AbstractServiceImpl<Message, Long> imple
     @Override
     @Transactional
     public void sendMessageFromCurrentUser(Message message, Long receiverId) {
-        sendMessage(message, getCurrentUserId(), receiverId);
+        sendMessage(message, UserUtil.getCurrentUserId(), receiverId);
     }
 
     @Override

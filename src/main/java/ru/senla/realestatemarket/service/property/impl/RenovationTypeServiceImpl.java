@@ -43,4 +43,17 @@ public class RenovationTypeServiceImpl
         renovationTypeRepository.create(renovationType);
     }
 
+    @Override
+    @Transactional
+    public void updateById(RequestRenovationTypeDto requestRenovationTypeDto, Long id) {
+        RenovationType renovationType = getById(id);
+
+        renovationTypeMapper.updateRenovationTypeFromRequestRenovationTypeDto(
+                requestRenovationTypeDto, renovationType
+        );
+
+
+        renovationTypeRepository.update(renovationType);
+    }
+
 }

@@ -8,14 +8,18 @@ import ru.senla.realestatemarket.mapper.announcement.AnnouncementMapper;
 import ru.senla.realestatemarket.model.announcement.Announcement;
 import ru.senla.realestatemarket.repo.announcement.IAnnouncementRepository;
 import ru.senla.realestatemarket.service.announcement.IAnnouncementService;
+import ru.senla.realestatemarket.util.UserUtil;
 
 import javax.annotation.PostConstruct;
 import javax.transaction.Transactional;
 import java.util.List;
 
+import static ru.senla.realestatemarket.repo.announcement.specification.GenericAnnouncementSpecification.hasUserIdOfOwnerInProperty;
+
 @Slf4j
 @Service
-public class AnnouncementServiceImpl extends AbstractAnnouncementServiceImpl<Announcement, AnnouncementDto> implements IAnnouncementService {
+public class AnnouncementServiceImpl
+        extends AbstractAnnouncementServiceImpl<Announcement> implements IAnnouncementService {
 
     private final IAnnouncementRepository announcementRepository;
 
@@ -38,4 +42,13 @@ public class AnnouncementServiceImpl extends AbstractAnnouncementServiceImpl<Ann
         return announcementMapper.toAnnouncementDtoWithMappedInheritors(getAll(rsqlQuery, sortQuery));
     }
 
+    @Override
+    @Transactional
+    public void setDeletedStatusByIdAndUpdate(Long id) {
+        Announcement announcement = getById(id); 
+        
+        setDeletedStatus(announcement);
+        
+        announcementRepository.update(announcement);
+    }
 }

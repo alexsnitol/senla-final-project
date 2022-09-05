@@ -14,7 +14,7 @@ public class RequestApartmentAnnouncementDto {
     @NotNull
     private Double price;
 
-    @Size(max = 4095)
+    @Size(min = 1, max = 4095)
     private String description;
 
     @NotNull

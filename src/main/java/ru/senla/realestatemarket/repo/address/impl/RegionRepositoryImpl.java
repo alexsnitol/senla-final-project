@@ -19,9 +19,4 @@ public class RegionRepositoryImpl extends AbstractRepositoryImpl<Region, Long> i
     }
 
 
-    @Override
-    protected <T> void fetchSelection(From<T, Region> from) {
-        // fetch did not need it
-    }
-
 }

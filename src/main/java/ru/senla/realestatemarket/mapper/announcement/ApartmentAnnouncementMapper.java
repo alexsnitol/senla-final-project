@@ -1,8 +1,12 @@
 package ru.senla.realestatemarket.mapper.announcement;
 
+import org.mapstruct.BeanMapping;
 import org.mapstruct.Mapper;
+import org.mapstruct.MappingTarget;
+import org.mapstruct.NullValuePropertyMappingStrategy;
 import ru.senla.realestatemarket.dto.announcement.ApartmentAnnouncementDto;
 import ru.senla.realestatemarket.dto.announcement.RequestApartmentAnnouncementDto;
+import ru.senla.realestatemarket.dto.announcement.UpdateRequestApartmentAnnouncementDto;
 import ru.senla.realestatemarket.mapper.property.ApartmentPropertyMapper;
 import ru.senla.realestatemarket.model.announcement.ApartmentAnnouncement;
 
@@ -17,7 +21,13 @@ public abstract class ApartmentAnnouncementMapper {
     public abstract List<ApartmentAnnouncementDto> toApartmentAnnouncementDto(
             Collection<ApartmentAnnouncement> apartmentAnnouncements);
 
-    public abstract ApartmentAnnouncement toAnnouncement(
+    public abstract ApartmentAnnouncement toApartmentAnnouncement(
             RequestApartmentAnnouncementDto requestApartmentAnnouncementDto);
+
+    @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
+    public abstract void updateApartmentAnnouncementFromUpdateRequestApartmentAnnouncementDto(
+            UpdateRequestApartmentAnnouncementDto updateRequestApartmentAnnouncementDto,
+            @MappingTarget ApartmentAnnouncement apartmentAnnouncement
+    );
 
 }

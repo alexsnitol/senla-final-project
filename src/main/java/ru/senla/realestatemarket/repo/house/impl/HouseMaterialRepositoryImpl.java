@@ -20,9 +20,4 @@ public class HouseMaterialRepositoryImpl extends AbstractRepositoryImpl<HouseMat
     }
 
 
-    @Override
-    protected <T> void fetchSelection(From<T, HouseMaterial> from) {
-        // fetch did not need it
-    }
-
 }

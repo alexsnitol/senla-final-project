@@ -1,34 +1,51 @@
 package ru.senla.realestatemarket.service.user.impl;
 
 import lombok.NonNull;
-import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.mapstruct.factory.Mappers;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import ru.senla.realestatemarket.model.user.AuthorizedUser;
+import ru.senla.realestatemarket.dto.user.RequestUserDto;
+import ru.senla.realestatemarket.dto.user.UpdateRequestUserDto;
+import ru.senla.realestatemarket.dto.user.UserDto;
+import ru.senla.realestatemarket.exception.UsernameAlreadyExistsException;
+import ru.senla.realestatemarket.mapper.user.UserMapper;
 import ru.senla.realestatemarket.model.user.Role;
+import ru.senla.realestatemarket.model.user.StandardRoleEnum;
 import ru.senla.realestatemarket.model.user.User;
+import ru.senla.realestatemarket.repo.user.IRoleRepository;
 import ru.senla.realestatemarket.repo.user.IUserRepository;
 import ru.senla.realestatemarket.service.AbstractServiceImpl;
+import ru.senla.realestatemarket.service.helper.EntityHelper;
 import ru.senla.realestatemarket.service.user.IUserService;
+import ru.senla.realestatemarket.util.UserUtil;
 
 import javax.annotation.PostConstruct;
 import javax.transaction.Transactional;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Slf4j
-@RequiredArgsConstructor
 @Service
 public class UserServiceImpl extends AbstractServiceImpl<User, Long> implements IUserService {
 
     private final IUserRepository userRepository;
+    private final IRoleRepository roleRepository;
 
+    private final PasswordEncoder passwordEncoder;
+
+    private final UserMapper userMapper = Mappers.getMapper(UserMapper.class);
+
+
+    public UserServiceImpl(IUserRepository userRepository,
+                           IRoleRepository roleRepository,
+                           PasswordEncoder passwordEncoder) {
+        this.userRepository = userRepository;
+        this.roleRepository = roleRepository;
+        this.passwordEncoder = passwordEncoder;
+    }
 
     @PostConstruct
     public void init() {
@@ -48,50 +65,127 @@ public class UserServiceImpl extends AbstractServiceImpl<User, Long> implements 
             throw new UsernameNotFoundException(message);
         }
 
-        return convertUserToAuthorizedUser(user);
+        return UserUtil.convertUserToAuthorizedUser(user);
     }
 
     @Override
-    public UserDetails convertUserToUserDetails(User user) {
-        return new org.springframework.security.core.userdetails.User(
-                user.getUsername(),
-                user.getPassword(),
-                user.getEnabled(),
-                true,
-                true,
-                true,
-                getGrantedAuthoritiesByUser(user)
-        );
+    public User getByIdWithFetchingRolesAndAuthorities(Long id) {
+        User user = userRepository.findByIdWithFetchingRolesAndAuthorities(id);
+        EntityHelper.checkEntityOnNull(user, clazz, id);
+
+        return user;
     }
 
-    public AuthorizedUser convertUserToAuthorizedUser(User user) {
-        return new AuthorizedUser(
-                user.getId(),
-                user.getUsername(),
-                user.getPassword(),
-                user.getEnabled(),
-                true,
-                true,
-                true,
-                getGrantedAuthoritiesByUser(user)
-        );
+    @Override
+    public UserDto getDtoById(Long id) {
+        return userMapper.toUserDto(getById(id));
     }
 
-    private Collection<? extends GrantedAuthority> getGrantedAuthoritiesByUser(User user) {
-        List<GrantedAuthority> authorities = new ArrayList<>();
-        Collection<Role> roles = user.getRoles();
+    @Override
+    public List<UserDto> getAllDto(String rsqlQuery, String sortQuery) {
+        return userMapper.toUserDto(getAll(rsqlQuery, sortQuery));
+    }
 
-        // Adding all roles of user
-        authorities.addAll(roles
-                .stream()
-                .map(r -> new SimpleGrantedAuthority(r.getName()))
-                .collect(Collectors.toList()));
+    @Override
+    public UserDto getDtoOfCurrentUser() {
+        User user = getById(UserUtil.getCurrentUserId());
 
-        // Adding all authorities of roles
-        roles.forEach(r -> r.getAuthorities()
-                .forEach(a -> authorities.add(new SimpleGrantedAuthority(a.getName()))));
+        return userMapper.toUserDto(user);
+    }
 
-        return authorities;
+    @Override
+    @Transactional
+    public void add(RequestUserDto requestUserDto) {
+        User user = userMapper.toUser(requestUserDto);
+
+        checkUsernameOnExist(user.getUsername());
+
+        List<Role> roles = new ArrayList<>();
+        roles.add(roleRepository.findByName(StandardRoleEnum.USER.name()));
+
+        user.setRoles(roles);
+
+
+        String password = requestUserDto.getPassword();
+
+        user.setPassword(passwordEncoder.encode(password));
+
+
+        userRepository.create(user);
+    }
+
+    @Override
+    @Transactional
+    public void updateById(UpdateRequestUserDto updateRequestUserDto, Long id) {
+        User user = getById(id);
+
+        checkUsernameOnExistExcludingId(updateRequestUserDto.getUsername(), id);
+
+        String newPassword = updateRequestUserDto.getPassword();
+        if (newPassword != null) {
+            updateRequestUserDto.setPassword(passwordEncoder.encode(newPassword));
+        }
+
+        userMapper.updateUserFromRequestUserDto(updateRequestUserDto, user);
+
+        userRepository.update(user);
+    }
+
+    @Override
+    @Transactional
+    public void updateCurrentUser(UpdateRequestUserDto updateRequestUserDto) {
+        updateById(updateRequestUserDto, UserUtil.getCurrentUserId());
+    }
+
+    /**
+     * @throws UsernameAlreadyExistsException if username already exists
+     */
+    private void checkUsernameOnExistExcludingId(String username, Long excludingUserId) {
+        if (Boolean.TRUE.equals(userWithItUsernameIsExistExcludingId(username, excludingUserId))) {
+            String message = String.format("Username %s already exists", username);
+
+            log.error(message);
+            throw new UsernameAlreadyExistsException(message);
+        }
+    }
+
+    private Boolean userWithItUsernameIsExistExcludingId(String username, Long excludingUserId) {
+        User user = userRepository.findByUsernameExcludingId(username, excludingUserId);
+
+        return user != null;
+    }
+
+    /**
+     * @throws UsernameAlreadyExistsException if username already exists
+     */
+    private void checkUsernameOnExist(String username) {
+        if (Boolean.TRUE.equals(userWithItUsernameIsExist(username))) {
+            String message = String.format("Username %s already exists", username);
+
+            log.error(message);
+            throw new UsernameAlreadyExistsException(message);
+        }
+    }
+
+    @Override
+    public Boolean userWithItUsernameIsExist(String username) {
+        User user = userRepository.findByUsername(username);
+
+        return user != null;
+    }
+
+    @Override
+    public void deleteCurrentUser() {
+        deleteById(UserUtil.getCurrentUserId());
+    }
+
+    @Override
+    public void blockUserById(Long userId) {
+        User user = getById(userId);
+
+        user.setEnabled(false);
+
+        userRepository.update(user);
     }
 
 

@@ -1,11 +1,11 @@
 package ru.senla.realestatemarket.service.announcement;
 
+import ru.senla.realestatemarket.model.announcement.Announcement;
 import ru.senla.realestatemarket.service.IAbstractService;
 
-import java.util.List;
+public interface IAbstractAnnouncementService<M> extends IAbstractService<M, Long> {
 
-public interface IAbstractAnnouncementService<M, D> extends IAbstractService<M, Long> {
-
-    List<D> getAllDto(String rsqlQuery, String sortQuery);
+    void setDeletedStatus(Announcement announcement);
+    void setDeletedStatusByIdAndUpdate(Long id);
 
 }

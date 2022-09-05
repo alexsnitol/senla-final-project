@@ -21,9 +21,4 @@ public class FamilyHouseAnnouncementRepositoryImpl
     }
 
 
-    @Override
-    public <T> void fetchSelection(From<T, FamilyHouseAnnouncement> from) {
-        from.fetch("property", JoinType.LEFT);
-    }
-
 }

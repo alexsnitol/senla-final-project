@@ -4,9 +4,11 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -14,8 +16,8 @@ import org.springframework.web.bind.annotation.RestController;
 import ru.senla.realestatemarket.dto.address.RequestStreetDto;
 import ru.senla.realestatemarket.dto.address.RequestStreetWithoutCityIdDto;
 import ru.senla.realestatemarket.dto.address.StreetDto;
+import ru.senla.realestatemarket.dto.address.UpdateRequestStreetDto;
 import ru.senla.realestatemarket.dto.response.RestResponseDto;
-import ru.senla.realestatemarket.service.address.ICityService;
 import ru.senla.realestatemarket.service.address.IStreetService;
 
 import javax.validation.Valid;
@@ -28,8 +30,33 @@ import java.util.List;
 public class StreetController {
 
     private final IStreetService streetService;
-    private final ICityService cityService;
 
+
+    @GetMapping("/streets/{id}")
+    public StreetDto getById(
+            @PathVariable Long id
+    ) {
+        return streetService.getDtoById(id);
+    }
+
+    @DeleteMapping("/streets/{id}")
+    public ResponseEntity<RestResponseDto> deleteById(
+            @PathVariable Long id
+    ) {
+        streetService.deleteById(id);
+
+        return ResponseEntity.ok(new RestResponseDto("Street has been deleted", HttpStatus.OK.value()));
+    }
+
+    @PutMapping("/streets/{id}")
+    public ResponseEntity<RestResponseDto> updatedById(
+            @PathVariable Long id,
+            @RequestBody @Valid UpdateRequestStreetDto updateRequestStreetDto
+    ) {
+        streetService.updateById(updateRequestStreetDto, id);
+
+        return ResponseEntity.ok(new RestResponseDto("Street has been updated", HttpStatus.OK.value()));
+    }
 
     @GetMapping("/streets")
     public List<StreetDto> getAll(
@@ -45,25 +72,40 @@ public class StreetController {
     ) {
         streetService.add(requestStreetDto);
 
-        return ResponseEntity.ok(new RestResponseDto("Street added", HttpStatus.OK.value()));
+        return new ResponseEntity<>(new RestResponseDto("Street has been added",
+                HttpStatus.CREATED.value()), HttpStatus.CREATED);
     }
 
-    @GetMapping("/cities/{cityId}/streets")
-    public List<StreetDto> getAllByCityId(
+    @GetMapping("/regions/{regionId}/cities/{cityId}/streets/{streetId}")
+    public StreetDto getByRegionIdAndCityIdAndStreetId(
+            @PathVariable Long regionId,
             @PathVariable Long cityId,
-            @RequestParam(value = "sort", required = false) String sortQuery
+            @PathVariable Long streetId
     ) {
-        return streetService.getAllDtoByCityId(cityId, sortQuery);
+        return streetService.getDtoByRegionIdAndCityIdAndStreetId(regionId, cityId, streetId);
     }
 
-    @PostMapping("/cities/{cityId}/streets")
-    public ResponseEntity<RestResponseDto> addByCityId(
+    @DeleteMapping("/regions/{regionId}/cities/{cityId}/streets/{streetId}")
+    public ResponseEntity<RestResponseDto> deleteByRegionIdAndCityIdAndStreetId(
+            @PathVariable Long regionId,
             @PathVariable Long cityId,
-            @RequestBody @Valid RequestStreetWithoutCityIdDto requestStreetWithoutCityIdDto
+            @PathVariable Long streetId
     ) {
-        streetService.add(requestStreetWithoutCityIdDto, cityId);
+        streetService.deleteByRegionIdAndCityIdAndStreetId(regionId, cityId, streetId);
 
-        return ResponseEntity.ok(new RestResponseDto("Street added", HttpStatus.OK.value()));
+        return ResponseEntity.ok(new RestResponseDto("Street has been deleted", HttpStatus.OK.value()));
+    }
+
+    @PutMapping("/regions/{regionId}/cities/{cityId}/streets/{streetId}")
+    public ResponseEntity<RestResponseDto> updateByRegionIdAndCityIdAndStreetId(
+            @PathVariable Long regionId,
+            @PathVariable Long cityId,
+            @PathVariable Long streetId,
+            @RequestBody @Valid UpdateRequestStreetDto updateRequestStreetDto
+    ) {
+        streetService.updateByRegionIdAndCityIdAndByStreetId(updateRequestStreetDto, regionId, cityId, streetId);
+
+        return ResponseEntity.ok(new RestResponseDto("Street has been updated", HttpStatus.OK.value()));
     }
 
     @GetMapping("/regions/{regionId}/cities/{cityId}/streets")
@@ -72,9 +114,7 @@ public class StreetController {
             @PathVariable Long cityId,
             @RequestParam(value = "sort", required = false) String sortQuery
     ) {
-        cityService.checkCityOnExistByRegionIdAndCityId(regionId, cityId);
-
-        return streetService.getAllDtoByCityId(cityId, sortQuery);
+        return streetService.getAllDtoByRegionIdAndCityId(regionId, cityId, sortQuery);
     }
 
     @PostMapping("/regions/{regionId}/cities/{cityId}/streets")
@@ -83,11 +123,10 @@ public class StreetController {
             @PathVariable Long cityId,
             @RequestBody @Valid RequestStreetWithoutCityIdDto requestStreetWithoutCityIdDto
     ) {
-        cityService.checkCityOnExistByRegionIdAndCityId(regionId, cityId);
+        streetService.addByRegionIdAndCityId(requestStreetWithoutCityIdDto, regionId, cityId);
 
-        streetService.add(requestStreetWithoutCityIdDto, cityId);
-
-        return ResponseEntity.ok(new RestResponseDto("Street added", HttpStatus.OK.value()));
+        return new ResponseEntity<>(new RestResponseDto("Street has been added",
+                HttpStatus.CREATED.value()), HttpStatus.CREATED);
     }
 
 }

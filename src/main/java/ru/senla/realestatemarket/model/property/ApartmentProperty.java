@@ -32,7 +32,7 @@ public class ApartmentProperty extends HousingProperty {
     @Column(name = "apartment_number")
     private String apartmentNumber;
 
-    private Integer floor;
+    private Short floor;
 
 
     @PostConstruct

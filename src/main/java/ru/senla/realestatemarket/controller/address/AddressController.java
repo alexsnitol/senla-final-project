@@ -4,9 +4,11 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -15,9 +17,9 @@ import ru.senla.realestatemarket.dto.address.AddressDto;
 import ru.senla.realestatemarket.dto.address.HouseNumberDto;
 import ru.senla.realestatemarket.dto.address.RequestAddressDto;
 import ru.senla.realestatemarket.dto.address.RequestHouseNumberDto;
+import ru.senla.realestatemarket.dto.address.UpdateRequestAddressDto;
 import ru.senla.realestatemarket.dto.response.RestResponseDto;
 import ru.senla.realestatemarket.service.address.IAddressService;
-import ru.senla.realestatemarket.service.address.IStreetService;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -29,8 +31,33 @@ import java.util.List;
 public class AddressController {
 
     private final IAddressService addressService;
-    private final IStreetService streetService;
 
+
+    @GetMapping("/addresses/{id}")
+    public AddressDto getById(
+            @PathVariable Long id
+    ) {
+        return addressService.getDtoById(id);
+    }
+
+    @DeleteMapping("/addresses/{id}")
+    public ResponseEntity<RestResponseDto> deleteById(
+            @PathVariable Long id
+    ) {
+        addressService.deleteById(id);
+
+        return ResponseEntity.ok(new RestResponseDto("Address has been deleted", HttpStatus.OK.value()));
+    }
+
+    @PutMapping("/addresses/{id}")
+    public ResponseEntity<RestResponseDto> updateById(
+            @PathVariable Long id,
+            @RequestBody @Valid UpdateRequestAddressDto updateRequestAddressDto
+    ) {
+        addressService.updateById(updateRequestAddressDto, id);
+
+        return ResponseEntity.ok(new RestResponseDto("Address has been updated", HttpStatus.OK.value()));
+    }
 
     @GetMapping("/addresses")
     public List<AddressDto> getAll(
@@ -46,7 +73,8 @@ public class AddressController {
     ) {
         addressService.add(requestAddressDto);
 
-        return ResponseEntity.ok(new RestResponseDto("Address added", HttpStatus.OK.value()));
+        return new ResponseEntity<>(new RestResponseDto("Address has been added",
+                HttpStatus.CREATED.value()), HttpStatus.CREATED);
     }
 
     @GetMapping("/regions/{regionId}/cities/{cityId}/streets/{streetId}/house-numbers")
@@ -56,9 +84,8 @@ public class AddressController {
             @PathVariable Long streetId,
             @RequestParam(value = "sort", required = false) String sortQuery
     ) {
-        streetService.checkStreetOnExistByRegionIdAndCityIdAndStreetId(regionId, cityId, streetId);
-
-        return addressService.getAllHouseNumbersDto(streetId, sortQuery);
+        return addressService
+                .getAllHouseNumbersDtoByRegionIdAndCityIdAndStreetId(regionId, cityId, streetId, sortQuery);
     }
 
     @PostMapping("/regions/{regionId}/cities/{cityId}/streets/{streetId}/house-numbers")
@@ -68,11 +95,10 @@ public class AddressController {
             @PathVariable Long streetId,
             @RequestBody @Valid RequestHouseNumberDto requestHouseNumberDto
     ) {
-        streetService.checkStreetOnExistByRegionIdAndCityIdAndStreetId(regionId, cityId, streetId);
+        addressService.addByRegionIdAndCityIdAndStreetId(requestHouseNumberDto, regionId, cityId, streetId);
 
-        addressService.add(requestHouseNumberDto, streetId);
-
-        return ResponseEntity.ok(new RestResponseDto("House number added", HttpStatus.OK.value()));
+        return new ResponseEntity<>(new RestResponseDto("House number has been added",
+                HttpStatus.CREATED.value()), HttpStatus.CREATED);
     }
 
 }

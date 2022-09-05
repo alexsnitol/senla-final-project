@@ -12,6 +12,6 @@ public interface IMessageRepository extends IAbstractRepository<Message, Long> {
 
     List<Message> findAllMessagesUserWithUserById(Long mainUserId, Long contactUserId, Sort sort);
 
-    Set<SimplyUserDto> findAllMessageUsersByUserIdOrderedByMessageCreatedDateTime(Long userId);
+    Set<SimplyUserDto> findAllMessageUsersByUserIdSortedByMessageCreatedDateTime(Long userId);
 
 }

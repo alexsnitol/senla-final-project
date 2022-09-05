@@ -3,13 +3,13 @@ package ru.senla.realestatemarket.util;
 import lombok.experimental.UtilityClass;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Sort;
+import org.springframework.lang.Nullable;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 @Slf4j
-@UtilityClass
 public class SortUtil {
 
     /**
@@ -21,8 +21,13 @@ public class SortUtil {
      * <pre>
      * Example 2: firstName,desc;lastName,desc;balance,asc
      * </pre>
+     * @return completed object of Sort class; if sortQuery is null, then return null
      */
-    public static Sort parseSortQuery(String sortQuery) {
+    public static Sort parseSortQuery(@Nullable String sortQuery) {
+        if (sortQuery == null) {
+            return null;
+        }
+
         String[] sortParams = sortQuery.split(";");
 
         List<Sort.Order> orderList = new ArrayList<>(sortParams.length);

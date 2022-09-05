@@ -12,4 +12,8 @@ public class UserSpecification {
         return ((root, query, criteriaBuilder) -> criteriaBuilder.equal(root.get("username"), username));
     }
 
+    public static Specification<User> notHasId(Long id) {
+        return (root, query, criteriaBuilder) -> criteriaBuilder.notEqual(root.get("id"), id);
+    }
+
 }

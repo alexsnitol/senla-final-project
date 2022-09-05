@@ -9,8 +9,12 @@ import java.util.List;
 
 public interface IRegionService extends IAbstractService<Region, Long> {
 
+    RegionDto getDtoById(Long id);
+
     List<RegionDto> getAllDto(String rsqlQuery, String sortQuery);
 
     void add(RequestRegionDto requestRegionDto);
+
+    void updateById(RequestRegionDto requestRegionDto, Long id);
 
 }

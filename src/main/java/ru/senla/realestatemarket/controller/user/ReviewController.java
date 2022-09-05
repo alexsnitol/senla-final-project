@@ -1,5 +1,7 @@
 package ru.senla.realestatemarket.controller.user;
 
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.Authorization;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -24,23 +26,37 @@ public class ReviewController {
     private final IReviewService reviewService;
 
 
+    @ApiOperation(
+            value = "",
+            notes = "Return all customer reviews of sellers by customerId",
+            authorizations = @Authorization("ADMIN")
+    )
     @GetMapping("/customers/{customerId}/reviews")
     public List<ReviewDto> getReviewsByCustomerId(@PathVariable Long customerId) {
         return reviewService.getAllDtoByCustomerId(customerId);
     }
 
+    @ApiOperation(
+            value = "",
+            notes = "Returns all reviews of seller by sellerId"
+    )
     @GetMapping("/sellers/{sellerId}/reviews")
     public List<ReviewDto> getReviewsBySellerId(@PathVariable Long sellerId) {
         return reviewService.getAllDtoBySellerId(sellerId);
     }
 
+    @ApiOperation(
+            value = "",
+            notes = "Send a review to seller by sellerId from current user"
+    )
     @PostMapping("/sellers/{sellerId}/reviews")
     public ResponseEntity<RestResponseDto> sendReviewToSellerBySellerId(
             @RequestBody RequestReviewDto requestReviewDto,
             @PathVariable Long sellerId
     ) {
         reviewService.sendReviewFromCurrentUser(requestReviewDto, sellerId);
-        return ResponseEntity.ok(new RestResponseDto("Review successful sent", HttpStatus.OK.value()));
+        return new ResponseEntity<>(new RestResponseDto("Review has been sent",
+                HttpStatus.CREATED.value()), HttpStatus.CREATED);
     }
 
 }

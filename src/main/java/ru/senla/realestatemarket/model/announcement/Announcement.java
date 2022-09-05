@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import ru.senla.realestatemarket.model.IModel;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -24,7 +25,7 @@ import java.time.LocalDateTime;
 @Setter
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 @Entity
-public class Announcement {
+public class Announcement implements IModel<Long> {
 
     @Id
     @SequenceGenerator(name = "seq_announcements", allocationSize = 0)
@@ -40,6 +41,6 @@ public class Announcement {
     private LocalDateTime createdDt = LocalDateTime.now();
 
     @Enumerated(EnumType.STRING)
-    private AnnouncementStatusEnum status = AnnouncementStatusEnum.OPEN;
+    private AnnouncementStatusEnum status = AnnouncementStatusEnum.HIDDEN;
 
 }

@@ -8,6 +8,9 @@ import java.util.List;
 
 public interface IStreetRepository extends IAbstractRepository<Street, Long> {
 
+
+    List<Street> findAllByCityId(Long cityId, Sort sort);
+
     List<Street> findByRegionIdAndCityId(Long regionId, Long cityId, Sort sort);
 
     Street findByRegionIdAndCityIdAndStreetId(Long regionId, Long cityId, Long streetId);

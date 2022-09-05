@@ -1,11 +1,15 @@
 package ru.senla.realestatemarket.mapper.address;
 
+import org.mapstruct.BeanMapping;
 import org.mapstruct.Mapper;
+import org.mapstruct.MappingTarget;
+import org.mapstruct.NullValuePropertyMappingStrategy;
 import ru.senla.realestatemarket.dto.address.AddressDto;
 import ru.senla.realestatemarket.dto.address.HouseNumberDto;
 import ru.senla.realestatemarket.dto.address.InlineAddressDto;
 import ru.senla.realestatemarket.dto.address.RequestAddressDto;
 import ru.senla.realestatemarket.dto.address.RequestHouseNumberDto;
+import ru.senla.realestatemarket.dto.address.UpdateRequestAddressDto;
 import ru.senla.realestatemarket.model.address.Address;
 import ru.senla.realestatemarket.model.address.City;
 import ru.senla.realestatemarket.model.address.Region;
@@ -54,5 +58,17 @@ public abstract class AddressMapper {
     public abstract List<HouseNumberDto> toHouseNumberDto(Collection<Address> addresses);
 
     public abstract Address toAddress(RequestHouseNumberDto requestHouseNumberDto);
+
+    @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
+    public abstract void updateAddressFromRequestHouseNumberDto(
+            RequestHouseNumberDto requestHouseNumberDto,
+            @MappingTarget Address address
+    );
+
+    @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
+    public abstract void updateAddressFromUpdateRequestAddressDto(
+            UpdateRequestAddressDto updateRequestAddressDto,
+            @MappingTarget Address address
+    );
 
 }

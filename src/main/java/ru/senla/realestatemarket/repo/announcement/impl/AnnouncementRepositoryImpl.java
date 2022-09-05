@@ -20,9 +20,4 @@ public class AnnouncementRepositoryImpl
     }
 
 
-    @Override
-    protected <T> void fetchSelection(From<T, Announcement> from) {
-        // fetch did not need it
-    }
-
 }

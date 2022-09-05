@@ -5,8 +5,11 @@ import org.mapstruct.factory.Mappers;
 import org.springframework.stereotype.Service;
 import ru.senla.realestatemarket.dto.announcement.FamilyHouseAnnouncementDto;
 import ru.senla.realestatemarket.dto.announcement.RequestFamilyHouseAnnouncementDto;
+import ru.senla.realestatemarket.dto.announcement.UpdateRequestFamilyHouseAnnouncementDto;
 import ru.senla.realestatemarket.mapper.announcement.FamilyHouseAnnouncementMapper;
+import ru.senla.realestatemarket.model.announcement.AnnouncementStatusEnum;
 import ru.senla.realestatemarket.model.announcement.FamilyHouseAnnouncement;
+import ru.senla.realestatemarket.model.announcement.HousingAnnouncementTypeEnum;
 import ru.senla.realestatemarket.model.property.FamilyHouseProperty;
 import ru.senla.realestatemarket.repo.announcement.IFamilyHouseAnnouncementRepository;
 import ru.senla.realestatemarket.repo.announcement.sort.AnnouncementSort;
@@ -21,7 +24,7 @@ import java.util.List;
 @Slf4j
 @Service
 public class FamilyHouseAnnouncementServiceImpl
-        extends AbstractHousingAnnouncementServiceImpl<FamilyHouseAnnouncement, FamilyHouseAnnouncementDto>
+        extends AbstractHousingAnnouncementServiceImpl<FamilyHouseAnnouncement>
         implements IFamilyHouseAnnouncementService {
 
     private final IFamilyHouseAnnouncementRepository familyHouseAnnouncementRepository;
@@ -60,19 +63,66 @@ public class FamilyHouseAnnouncementServiceImpl
     }
 
     @Override
+    public FamilyHouseAnnouncementDto getDtoById(Long id) {
+        return familyHouseAnnouncementMapper.toFamilyHouseAnnouncementDto(getById(id));
+    }
+
+    @Override
     @Transactional
     public void add(RequestFamilyHouseAnnouncementDto requestFamilyHouseAnnouncementDto) {
         FamilyHouseAnnouncement familyHouseAnnouncement
                 = familyHouseAnnouncementMapper.toFamilyHouseAnnouncement(requestFamilyHouseAnnouncementDto);
 
-
         Long familyHousePropertyId = requestFamilyHouseAnnouncementDto.getFamilyHousePropertyId();
-        FamilyHouseProperty familyHouseProperty = familyHousePropertyRepository.findById(familyHousePropertyId);
-        EntityHelper.checkEntityOnNullAfterFoundById(familyHouseProperty, FamilyHouseProperty.class, familyHousePropertyId);
-
-        familyHouseAnnouncement.setProperty(familyHouseProperty);
+        setFamilyHouseAnnouncementById(familyHouseAnnouncement, familyHousePropertyId);
 
 
         familyHouseAnnouncementRepository.create(familyHouseAnnouncement);
+    }
+
+    private void setFamilyHouseAnnouncementById(
+            FamilyHouseAnnouncement familyHouseAnnouncement, Long familyHousePropertyId
+    ) {
+        FamilyHouseProperty familyHouseProperty = familyHousePropertyRepository.findById(familyHousePropertyId);
+        EntityHelper.checkEntityOnNull(familyHouseProperty, FamilyHouseProperty.class, familyHousePropertyId);
+
+        familyHouseAnnouncement.setProperty(familyHouseProperty);
+    }
+
+    @Override
+    @Transactional
+    public void updateById(UpdateRequestFamilyHouseAnnouncementDto updateRequestFamilyHouseAnnouncementDto, Long id) {
+        FamilyHouseAnnouncement familyHouseAnnouncement = getById(id);
+
+        
+        Long familyHousePropertyId = updateRequestFamilyHouseAnnouncementDto.getFamilyHousePropertyId();
+        if (familyHousePropertyId != null) {
+            setFamilyHouseAnnouncementById(familyHouseAnnouncement, familyHousePropertyId);
+        }
+
+
+        HousingAnnouncementTypeEnum announcementType = updateRequestFamilyHouseAnnouncementDto.getType();
+        AnnouncementStatusEnum announcementStatus = updateRequestFamilyHouseAnnouncementDto.getStatus();
+
+        validateAnnouncementTypeOnAccordanceWithStatusIfItNotNull(familyHouseAnnouncement,
+                announcementType, announcementStatus);
+
+
+        familyHouseAnnouncementMapper.updateFamilyHouseAnnouncementFormUpdateRequestFamilyHouseAnnouncement(
+                updateRequestFamilyHouseAnnouncementDto, familyHouseAnnouncement
+        );
+
+
+        familyHouseAnnouncementRepository.update(familyHouseAnnouncement);
+    }
+
+    @Override
+    @Transactional
+    public void setDeletedStatusByIdAndUpdate(Long id) {
+        FamilyHouseAnnouncement familyHouseAnnouncement = getById(id);
+        
+        setDeletedStatus(familyHouseAnnouncement);
+        
+        familyHouseAnnouncementRepository.update(familyHouseAnnouncement);
     }
 }

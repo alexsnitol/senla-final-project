@@ -32,7 +32,6 @@ public class HouseMaterialServiceImpl extends AbstractServiceImpl<HouseMaterial,
         setClazz(HouseMaterial.class);
     }
 
-
     @Override
     @Transactional
     public void add(RequestHouseMaterialDto requestHouseMaterialDto) {
@@ -40,4 +39,18 @@ public class HouseMaterialServiceImpl extends AbstractServiceImpl<HouseMaterial,
 
         houseMaterialRepository.create(houseMaterial);
     }
+
+    @Override
+    @Transactional
+    public void updateById(RequestHouseMaterialDto requestHouseMaterialDto, Long id) {
+        HouseMaterial houseMaterial = getById(id);
+
+        houseMaterialMapper.updateHouseMaterialFromRequestHouseMaterial(
+                requestHouseMaterialDto, houseMaterial
+        );
+
+
+        houseMaterialRepository.update(houseMaterial);
+    }
+
 }

@@ -2,11 +2,27 @@ package ru.senla.realestatemarket.service.announcement;
 
 import ru.senla.realestatemarket.dto.announcement.ApartmentAnnouncementDto;
 import ru.senla.realestatemarket.dto.announcement.RequestApartmentAnnouncementDto;
+import ru.senla.realestatemarket.dto.announcement.UpdateRequestApartmentAnnouncementDto;
 import ru.senla.realestatemarket.model.announcement.ApartmentAnnouncement;
 
-public interface IApartmentAnnouncementService
-        extends IAbstractHousingAnnouncementService<ApartmentAnnouncement, ApartmentAnnouncementDto> {
+import java.util.List;
 
-    void add(RequestApartmentAnnouncementDto requestApartmentAnnouncementDto);
+public interface IApartmentAnnouncementService
+        extends IAbstractHousingAnnouncementService<ApartmentAnnouncement> {
+
+    List<ApartmentAnnouncementDto> getAllDto(String rsqlQuery, String sortQuery);
+    List<ApartmentAnnouncementDto> getAllWithOpenStatusDto(String rsqlQuery, String sortQuery);
+    List<ApartmentAnnouncementDto> getAllDtoOfCurrentUser(String rsqlQuery, String sortQuery);
+
+    ApartmentAnnouncementDto getDtoById(Long id);
+    ApartmentAnnouncementDto getByIdWithOpenStatusDto(Long id);
+    ApartmentAnnouncementDto getByIdDtoOfCurrentUser(Long id);
+
+    void addFromDto(RequestApartmentAnnouncementDto requestApartmentAnnouncementDto);
+    void addFromCurrentUser(RequestApartmentAnnouncementDto requestApartmentAnnouncementDto);
+
+    void updateById(UpdateRequestApartmentAnnouncementDto updateRequestApartmentAnnouncementDto, Long id);
+    void updateByIdFromCurrentUser(UpdateRequestApartmentAnnouncementDto updateRequestApartmentAnnouncementDto,
+                                   Long id);
 
 }

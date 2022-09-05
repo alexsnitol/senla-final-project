@@ -8,4 +8,6 @@ public interface IHouseMaterialService extends IAbstractService<HouseMaterial, L
 
     void add(RequestHouseMaterialDto requestHouseMaterialDto);
 
+    void updateById(RequestHouseMaterialDto requestHouseMaterialDto, Long id);
+
 }

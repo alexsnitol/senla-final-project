@@ -15,7 +15,7 @@ public class EntityHelper {
      * If the model is null, then print a message on log and trow exception
      * @throws EntityNotFoundException if the model is null
      */
-    public static  <M, I> void checkEntityOnNullAfterFoundById(M model, Class<M> modelClass, @Nullable I id) {
+    public static  <M, I> void checkEntityOnNull(M model, Class<M> modelClass, @Nullable I id) {
         if (model == null) {
             String message = "";
             if (id == null) {

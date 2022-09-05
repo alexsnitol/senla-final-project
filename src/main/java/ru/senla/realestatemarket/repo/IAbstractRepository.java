@@ -15,7 +15,8 @@ public interface IAbstractRepository<M, I> {
     List<M> findAll(Specification<M> specification);
     List<M> findAll(Sort sort);
     List<M> findAll(@Nullable Specification<M> specification, @Nullable Sort sort);
-    List<M> findAllByQuery(String query, Sort sort);
+    List<M> findAllByQuery(String rsqlQuery, Sort sort);
+    List<M> findAllByQuery(Specification<M> specification, String rsqlQuery, Sort sort);
 
     void delete(M model);
     void deleteById(I id);
@@ -25,6 +26,8 @@ public interface IAbstractRepository<M, I> {
     void update(M changedModel);
 
     boolean isExist(M model);
+
+    boolean isExist(Specification<M> specification);
 
     Integer size();
 

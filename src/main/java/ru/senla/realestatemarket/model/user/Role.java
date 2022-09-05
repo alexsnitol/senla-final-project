@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import ru.senla.realestatemarket.model.IModel;
 
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -23,7 +24,7 @@ import java.util.List;
 @Setter
 @Entity
 @Table(name = "roles")
-public class Role {
+public class Role implements IModel<Long> {
 
     @Id
     @SequenceGenerator(name = "seq_roles", allocationSize = 0)

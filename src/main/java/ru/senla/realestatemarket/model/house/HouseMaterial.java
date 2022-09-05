@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import ru.senla.realestatemarket.model.IModel;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -18,7 +19,7 @@ import javax.persistence.Table;
 @Setter
 @Entity
 @Table(name = "house_materials")
-public class HouseMaterial {
+public class HouseMaterial implements IModel<Long> {
 
     @Id
     @SequenceGenerator(name = "seq_house_materials", allocationSize = 0)

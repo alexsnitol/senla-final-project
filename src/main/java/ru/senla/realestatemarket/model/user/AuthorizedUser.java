@@ -4,12 +4,13 @@ import lombok.Getter;
 import lombok.Setter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.User;
+import ru.senla.realestatemarket.model.IModel;
 
 import java.util.Collection;
 
 @Getter
 @Setter
-public class AuthorizedUser extends User {
+public class AuthorizedUser extends User implements IModel<Long> {
     
     private Long id;
 

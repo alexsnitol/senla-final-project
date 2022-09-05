@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import ru.senla.realestatemarket.model.IModel;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -14,17 +15,15 @@ import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.SequenceGenerator;
-import javax.persistence.Table;
 import java.time.LocalDateTime;
 
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
-@Inheritance(strategy = InheritanceType.JOINED)
+@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 @Entity
-@Table(name = "announcement_top_timetables")
-public class AnnouncementTopTimetable {
+public class AnnouncementTopTimetable implements IModel<Long> {
 
     @Id
     @SequenceGenerator(name = "seq_announcement_top_timetables", allocationSize = 0)
@@ -38,5 +37,14 @@ public class AnnouncementTopTimetable {
     @Column(name = "to_date_time")
     @JsonFormat(pattern = "dd.MM.yyyy hh:mm:ss")
     private LocalDateTime toDt;
+
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
 }

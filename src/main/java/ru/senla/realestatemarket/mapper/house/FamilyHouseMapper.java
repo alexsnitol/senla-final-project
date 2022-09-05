@@ -1,9 +1,13 @@
 package ru.senla.realestatemarket.mapper.house;
 
+import org.mapstruct.BeanMapping;
 import org.mapstruct.Mapper;
+import org.mapstruct.MappingTarget;
+import org.mapstruct.NullValuePropertyMappingStrategy;
 import org.mapstruct.ReportingPolicy;
 import ru.senla.realestatemarket.dto.house.FamilyHouseDto;
 import ru.senla.realestatemarket.dto.house.RequestFamilyHouseDto;
+import ru.senla.realestatemarket.dto.house.UpdateRequestFamilyHouseDto;
 import ru.senla.realestatemarket.mapper.address.AddressMapper;
 import ru.senla.realestatemarket.model.house.FamilyHouse;
 
@@ -18,5 +22,11 @@ public abstract class FamilyHouseMapper {
     public abstract List<FamilyHouseDto> toFamilyHouseDto(Collection<FamilyHouse> familyHouses);
 
     public abstract FamilyHouse toFamilyHouse(RequestFamilyHouseDto requestFamilyHouseDto);
+
+    @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
+    public abstract void updateFamilyHouseFromUpdateRequestFamilyHouseDto(
+            UpdateRequestFamilyHouseDto updateRequestFamilyHouseDto,
+            @MappingTarget FamilyHouse familyHouse
+    );
 
 }

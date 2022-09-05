@@ -25,11 +25,6 @@ public class ReviewRepositoryImpl extends AbstractRepositoryImpl<Review, Long> i
 
 
     @Override
-    protected <T> void fetchSelection(From<T, Review> from) {
-        // fetch did not need it
-    }
-
-    @Override
     public List<Review> findAllBySellerId(Long sellerId, Sort sort) {
         return findAll(hasSellerId(sellerId), sort);
     }

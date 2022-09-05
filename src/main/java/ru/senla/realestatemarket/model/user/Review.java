@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import ru.senla.realestatemarket.model.IModel;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -23,7 +24,7 @@ import java.time.LocalDateTime;
 @Setter
 @Entity
 @Table(name = "reviews")
-public class Review {
+public class Review implements IModel<Long> {
 
     @Id
     @SequenceGenerator(name = "seq_notes", allocationSize = 0)

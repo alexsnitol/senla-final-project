@@ -5,6 +5,7 @@ import lombok.Setter;
 import ru.senla.realestatemarket.model.announcement.NonHousingAnnouncementTypeEnum;
 
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 @Getter
 @Setter
@@ -13,6 +14,7 @@ public class RequestLandAnnouncementDto {
     @NotNull
     private Double price;
 
+    @Size(min = 1, max = 4095)
     private String description;
 
     @NotNull

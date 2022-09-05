@@ -26,10 +26,12 @@ public class StreetRepositoryImpl extends AbstractRepositoryImpl<Street, Long> i
 
 
     @Override
-    protected <T> void fetchSelection(From<T, Street> from) {
-        // fetch did not need it
+    public List<Street> findAllByCityId(Long cityId, Sort sort) {
+        return findAll(
+                hasCityId(cityId),
+                sort
+        );
     }
-
 
     @Override
     public List<Street> findByRegionIdAndCityId(Long regionId, Long cityId, Sort sort) {
