@@ -6,15 +6,19 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import ru.senla.realestatemarket.model.announcement.ApartmentAnnouncement;
 import ru.senla.realestatemarket.model.house.ApartmentHouse;
 
 import javax.annotation.PostConstruct;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import java.util.List;
 
 @Getter
 @Setter
@@ -22,7 +26,7 @@ import javax.persistence.Table;
 @AllArgsConstructor
 @Entity
 @Table(name = "apartment_properties")
-public class ApartmentProperty extends HousingProperty {
+public class ApartmentProperty extends HousingProperty implements IPropertyWithAnnouncementList<ApartmentAnnouncement> {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "apartment_house_id")
@@ -33,6 +37,9 @@ public class ApartmentProperty extends HousingProperty {
     private String apartmentNumber;
 
     private Short floor;
+
+    @OneToMany(mappedBy = "property", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<ApartmentAnnouncement> announcementList;
 
 
     @PostConstruct

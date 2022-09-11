@@ -1,5 +1,7 @@
 package ru.senla.realestatemarket.controller.announcement;
 
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.Authorization;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -31,6 +33,38 @@ public class LandAnnouncementController {
     private final ILandAnnouncementService landAnnouncementService;
 
 
+    @ApiOperation(
+            value = "",
+            authorizations = @Authorization("ADMIN")
+    )
+    @GetMapping
+    public List<LandAnnouncementDto> getAll(
+            @RequestParam(value = "q", required = false) String rsqlQuery,
+            @RequestParam(value = "sort", required = false) String sortQuery
+    ) {
+        return landAnnouncementService.getAllDto(rsqlQuery, sortQuery);
+    }
+
+    @ApiOperation(
+            value = "",
+            notes = "Add new land announcement from DTO with HIDDEN status",
+            authorizations = @Authorization("ADMIN")
+    )
+    @PostMapping
+    public ResponseEntity<RestResponseDto> add(
+            @RequestBody @Valid RequestLandAnnouncementDto requestLandAnnouncementDto
+    ) {
+        landAnnouncementService.addFromDto(requestLandAnnouncementDto);
+
+        return new ResponseEntity<>(new RestResponseDto(
+                "Land announcement has been added with HIDDEN status",
+                HttpStatus.CREATED.value()), HttpStatus.CREATED);
+    }
+
+    @ApiOperation(
+            value = "",
+            authorizations = @Authorization("ADMIN")
+    )
     @GetMapping("/{id}")
     public LandAnnouncementDto getById(
             @PathVariable Long id
@@ -38,6 +72,10 @@ public class LandAnnouncementController {
         return landAnnouncementService.getDtoById(id);
     }
 
+    @ApiOperation(
+            value = "",
+            authorizations = @Authorization("ADMIN")
+    )
     @DeleteMapping("/{id}")
     public ResponseEntity<RestResponseDto> deleteById(
             @PathVariable Long id
@@ -48,34 +86,106 @@ public class LandAnnouncementController {
                 new RestResponseDto("Land announcement has been deleted", HttpStatus.OK.value()));
     }
 
+    @ApiOperation(
+            value = "",
+            authorizations = @Authorization("ADMIN")
+    )
     @PutMapping("/{id}")
     public ResponseEntity<RestResponseDto> updateById(
             @PathVariable Long id,
             @RequestBody @Valid UpdateRequestLandAnnouncementDto updateRequestLandAnnouncementDto
     ) {
-        landAnnouncementService.updateById(updateRequestLandAnnouncementDto, id);
+        landAnnouncementService.updateFromDtoById(updateRequestLandAnnouncementDto, id);
 
         return ResponseEntity.ok(
                 new RestResponseDto("Land announcement has been updated", HttpStatus.OK.value()));
     }
 
-    @GetMapping
-    public List<LandAnnouncementDto> getAllLandAnnouncements(
+    @ApiOperation(
+            value = "",
+            notes = "Get all land announcements with OPEN status"
+    )
+    @GetMapping("/open")
+    public List<LandAnnouncementDto> getAllWithOpenStatus(
             @RequestParam(value = "q", required = false) String rsqlQuery,
             @RequestParam(value = "sort", required = false) String sortQuery
     ) {
-        return landAnnouncementService.getAllDto(rsqlQuery, sortQuery);
+        return landAnnouncementService.getAllWithOpenStatusDto(rsqlQuery, sortQuery);
     }
 
-    @PostMapping
-    public ResponseEntity<RestResponseDto> add(
+    @ApiOperation(
+            value = "",
+            notes = "Get land announcement by id with OPEN status"
+    )
+    @GetMapping("/open/{id}")
+    public LandAnnouncementDto getByIdWithOpenStatus(
+            @PathVariable Long id
+    ) {
+        return landAnnouncementService.getByIdWithOpenStatusDto(id);
+    }
+
+    @GetMapping("/closed/owner/{userIdOfOwner}")
+    public List<LandAnnouncementDto> getAllWithClosedStatusByUserIfOfOwner(
+            @PathVariable Long userIdOfOwner,
+            @RequestParam(value = "q", required = false) String rsqlQuery,
+            @RequestParam(value = "sort", required = false) String sortQuery
+    ) {
+        return landAnnouncementService.getAllWithClosedStatusByUserIdOfOwnerDto(
+                userIdOfOwner, rsqlQuery, sortQuery);
+    }
+
+    @ApiOperation(
+            value = "",
+            authorizations = @Authorization("Authorized user")
+    )
+    @GetMapping("/current")
+    public List<LandAnnouncementDto> getAllOfCurrentUser(
+            @RequestParam(value = "q", required = false) String rsqlQuery,
+            @RequestParam(value = "sort", required = false) String sortQuery
+    ) {
+        return landAnnouncementService.getAllDtoOfCurrentUser(rsqlQuery, sortQuery);
+    }
+
+    @ApiOperation(
+            value = "",
+            authorizations = @Authorization("Authorized user")
+    )
+    @PostMapping("/current")
+    public ResponseEntity<RestResponseDto> addFromCurrentUser(
             @RequestBody @Valid RequestLandAnnouncementDto requestLandAnnouncementDto
     ) {
-        landAnnouncementService.add(requestLandAnnouncementDto);
+        landAnnouncementService.addFromDtoFromCurrentUser(requestLandAnnouncementDto);
 
         return new ResponseEntity<>(new RestResponseDto(
                 "Land announcement has been added with HIDDEN status",
                 HttpStatus.CREATED.value()), HttpStatus.CREATED);
+    }
+
+    @ApiOperation(
+            value = "",
+            authorizations = @Authorization("Authorized user")
+    )
+    @GetMapping("/current/{id}")
+    public LandAnnouncementDto getByIdOfCurrentUser(
+            @PathVariable Long id
+    ) {
+        return landAnnouncementService.getByIdDtoOfCurrentUser(id);
+    }
+
+    @ApiOperation(
+            value = "",
+            notes = "Update land announcement by id with validation on access to update for current user",
+            authorizations = @Authorization("Authorized user")
+    )
+    @PutMapping("/current/{id}")
+    public ResponseEntity<RestResponseDto> updateByIdFromCurrentUser(
+            @PathVariable Long id,
+            @RequestBody @Valid UpdateRequestLandAnnouncementDto updateRequestLandAnnouncementDto
+    ) {
+        landAnnouncementService.updateByIdFromCurrentUser(updateRequestLandAnnouncementDto, id);
+
+        return ResponseEntity.ok(
+                new RestResponseDto("Land announcement has been updated", HttpStatus.OK.value()));
     }
 
 }

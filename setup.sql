@@ -140,11 +140,11 @@ CREATE TABLE user_role (
 );
 
 CREATE TABLE balance_operations (
-  id               int8 NOT NULL DEFAULT nextval('seq_balance_operations'),
-  user_id          int8 NOT NULL,
-  sum              float8 NOT NULL,
-  created_date_time       timestamp NOT NULL DEFAULT now(),
-  comment          varchar(255),
+  id                int8 NOT NULL DEFAULT nextval('seq_balance_operations'),
+  user_id           int8 NOT NULL,
+  sum               float8 NOT NULL,
+  created_date_time timestamp NOT NULL DEFAULT now(),
+  comment           varchar(255),
 
   PRIMARY KEY (id),
 
@@ -320,6 +320,7 @@ CREATE TABLE announcements (
   created_date_time timestamp NOT NULL DEFAULT now(),
   type              varchar(15) NOT NULL,
   status            varchar(15) DEFAULT 'HIDDEN' NOT NULL,
+  closed_date_time  timestamp DEFAULT null,
 
   PRIMARY KEY (id)
 );
@@ -656,16 +657,19 @@ VALUES
     (11000000, 'sample description', 'SELL', 'OPEN', 100),
     (35000, 'sample description', 'MONTHLY_RENT', 'OPEN', 101),
     (4200000, 'sample description', 'SELL', 'DELETED', 102),
-    (4400000, 'sample description', 'SELL', 'HIDDEN', 103),
-    (2650000, 'sample description', 'SELL', 'CLOSED', 104);
+    (4400000, 'sample description', 'SELL', 'HIDDEN', 103);
+
+INSERT INTO apartment_announcements(price, description, created_date_time, type, status, closed_date_time, apartment_property_id)
+VALUES
+    (2650000, 'sample description', '2022-08-10 09:00:00', 'SELL', 'CLOSED', '2022-09-09 10:00:00', 104);
 
 INSERT INTO family_house_announcements(price, description, type, status, family_house_property_id)
 VALUES
     (25000, 'sample description', 'MONTHLY_RENT', 'HIDDEN', 105);
 
-INSERT INTO land_announcements(price, description, created_date_time, type, status, land_property_id)
+INSERT INTO land_announcements(price, description, created_date_time, type, status, land_property_id, closed_date_time)
 VALUES
-    (54000000, 'sample description', '2022-08-10 09:00:00', 'SELL', 'CLOSED', 106);
+    (54000000, 'sample description', '2022-08-10 09:00:00', 'SELL', 'CLOSED', 106, '2022-09-09 10:00:00');
 
 
 INSERT INTO announcement_top_prices(property_type, announcement_type, price_per_hour)

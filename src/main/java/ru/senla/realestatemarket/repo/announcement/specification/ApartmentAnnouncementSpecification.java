@@ -20,6 +20,10 @@ public class ApartmentAnnouncementSpecification {
         return GenericAnnouncementSpecification.hasUserIdOfOwnerInProperty(userIdOfOwner);
     }
 
+    public static Specification<ApartmentAnnouncement> hasIdAndUserIdOfOwnerInProperty(Long id, Long usedIdOfOwner) {
+        return GenericAnnouncementSpecification.hasIdAndUserIdOfOwnerInProperty(id, usedIdOfOwner);
+    }
+
     public static Specification<ApartmentAnnouncement> hasStatuses(List<AnnouncementStatusEnum> statuses) {
         return GenericAnnouncementSpecification.hasStatuses(statuses);
     }

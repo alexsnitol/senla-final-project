@@ -59,7 +59,7 @@ public class User implements IModel<Long> {
     private Double balance = 0D;
 
     @Column(name = "created_date_time")
-    @JsonFormat(pattern = "dd.MM.yyyy hh:mm:ss")
+    @JsonFormat(pattern = "dd.MM.yyyy HH:mm:ss")
     private LocalDateTime createdDt = LocalDateTime.now();
 
     @ManyToMany(fetch = FetchType.LAZY)

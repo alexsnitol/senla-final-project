@@ -5,8 +5,10 @@ import org.mapstruct.factory.Mappers;
 import org.springframework.stereotype.Service;
 import ru.senla.realestatemarket.dto.announcement.HousingAnnouncementDto;
 import ru.senla.realestatemarket.mapper.announcement.HousingAnnouncementMapper;
+import ru.senla.realestatemarket.model.announcement.AnnouncementStatusEnum;
 import ru.senla.realestatemarket.model.announcement.HousingAnnouncement;
 import ru.senla.realestatemarket.repo.announcement.IHousingAnnouncementRepository;
+import ru.senla.realestatemarket.repo.announcement.specification.GenericAnnouncementSpecification;
 import ru.senla.realestatemarket.service.announcement.IHousingAnnouncementService;
 
 import javax.annotation.PostConstruct;
@@ -44,11 +46,13 @@ public class HousingAnnouncementServiceImpl
 
     @Override
     @Transactional
-    public void setDeletedStatusByIdAndUpdate(Long id) {
-        HousingAnnouncement housingAnnouncement = getById(id);
-        
-        setDeletedStatus(housingAnnouncement);
-        
-        housingAnnouncementRepository.update(housingAnnouncement);
+    public List<HousingAnnouncementDto> getAllWithOpenStatusDto(String rsqlQuery, String sortQuery) {
+        List<HousingAnnouncement> housingAnnouncementList = getAll(
+                GenericAnnouncementSpecification.hasStatuses(List.of(AnnouncementStatusEnum.OPEN)),
+                rsqlQuery,
+                sortQuery);
+
+        return housingAnnouncementMapper.toHousingAnnouncementDto(housingAnnouncementList);
     }
+
 }

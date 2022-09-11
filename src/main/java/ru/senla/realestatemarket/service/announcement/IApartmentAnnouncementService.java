@@ -12,6 +12,8 @@ public interface IApartmentAnnouncementService
 
     List<ApartmentAnnouncementDto> getAllDto(String rsqlQuery, String sortQuery);
     List<ApartmentAnnouncementDto> getAllWithOpenStatusDto(String rsqlQuery, String sortQuery);
+    List<ApartmentAnnouncementDto> getAllWithClosedStatusByUserIdOfOwnerDto(
+            Long useIdOfOwner, String rsqlQuery, String sortQuery);
     List<ApartmentAnnouncementDto> getAllDtoOfCurrentUser(String rsqlQuery, String sortQuery);
 
     ApartmentAnnouncementDto getDtoById(Long id);
@@ -19,10 +21,10 @@ public interface IApartmentAnnouncementService
     ApartmentAnnouncementDto getByIdDtoOfCurrentUser(Long id);
 
     void addFromDto(RequestApartmentAnnouncementDto requestApartmentAnnouncementDto);
-    void addFromCurrentUser(RequestApartmentAnnouncementDto requestApartmentAnnouncementDto);
+    void addFromDtoFromCurrentUser(RequestApartmentAnnouncementDto requestApartmentAnnouncementDto);
 
-    void updateById(UpdateRequestApartmentAnnouncementDto updateRequestApartmentAnnouncementDto, Long id);
-    void updateByIdFromCurrentUser(UpdateRequestApartmentAnnouncementDto updateRequestApartmentAnnouncementDto,
-                                   Long id);
+    void updateFromDtoById(UpdateRequestApartmentAnnouncementDto updateRequestApartmentAnnouncementDto, Long id);
+    void updateByIdFromDtoFromCurrentUser(UpdateRequestApartmentAnnouncementDto updateRequestApartmentAnnouncementDto,
+                                          Long id);
 
 }

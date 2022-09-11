@@ -1,5 +1,6 @@
 package ru.senla.realestatemarket.controller.announcement;
 
+import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -31,12 +32,36 @@ public class AnnouncementController {
         return announcementService.getAllDto(rsqlQuery, sortQuery);
     }
 
+    @ApiOperation(
+            value = "",
+            notes = "Get all announcement with OPEN status"
+    )
+    @GetMapping("/open")
+    public List<AnnouncementDto> getAllOpenAnnouncements(
+            @RequestParam(value = "q", required = false) String rsqlQuery,
+            @RequestParam(value = "sort", required = false) String sortQuery
+    ) {
+        return announcementService.getAllWithOpenStatusDto(rsqlQuery, sortQuery);
+    }
+
     @GetMapping("/housing")
     public List<HousingAnnouncementDto> getAllHousingAnnouncements(
             @RequestParam(value = "q", required = false) String rsqlQuery,
             @RequestParam(value = "sort", required = false) String sortQuery
     ) {
         return housingAnnouncementService.getAllDto(rsqlQuery, sortQuery);
+    }
+
+    @ApiOperation(
+            value = "",
+            notes = "Get all housing announcement with OPEN status"
+    )
+    @GetMapping("/housing/open")
+    public List<HousingAnnouncementDto> getAllOpenHousingAnnouncements(
+            @RequestParam(value = "q", required = false) String rsqlQuery,
+            @RequestParam(value = "sort", required = false) String sortQuery
+    ) {
+        return housingAnnouncementService.getAllWithOpenStatusDto(rsqlQuery, sortQuery);
     }
 
 }

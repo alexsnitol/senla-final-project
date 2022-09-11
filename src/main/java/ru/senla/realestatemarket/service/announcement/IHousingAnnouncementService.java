@@ -9,5 +9,6 @@ public interface IHousingAnnouncementService
         extends IAbstractHousingAnnouncementService<HousingAnnouncement> {
 
     List<HousingAnnouncementDto> getAllDto(String rsqlQuery, String sortQuery);
+    List<HousingAnnouncementDto> getAllWithOpenStatusDto(String rsqlQuery, String sortQuery);
 
 }

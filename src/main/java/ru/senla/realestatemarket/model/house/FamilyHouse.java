@@ -8,6 +8,7 @@ import lombok.Setter;
 import ru.senla.realestatemarket.model.property.FamilyHouseProperty;
 
 import javax.annotation.PostConstruct;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -25,7 +26,7 @@ public class FamilyHouse extends House {
     @Column(name = "swimming_pool")
     private Boolean swimmingPool;
 
-    @OneToOne(mappedBy = "familyHouse", fetch = FetchType.LAZY)
+    @OneToOne(mappedBy = "familyHouse", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JsonBackReference
     private FamilyHouseProperty property;
 

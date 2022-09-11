@@ -20,7 +20,7 @@ public class ReviewDto {
 
     private Short note;
 
-    @JsonFormat(pattern = "dd.MM.yyyy hh:mm:ss")
+    @JsonFormat(pattern = "dd.MM.yyyy HH:mm:ss")
     private LocalDateTime createdDt;
 
 }

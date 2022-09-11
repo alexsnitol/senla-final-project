@@ -11,11 +11,20 @@ public interface IFamilyHouseAnnouncementService
         extends IAbstractHousingAnnouncementService<FamilyHouseAnnouncement> {
 
     List<FamilyHouseAnnouncementDto> getAllDto(String rsqlQuery, String sortQuery);
+    List<FamilyHouseAnnouncementDto> getAllWithOpenStatusDto(String rsqlQuery, String sortQuery);
+    List<FamilyHouseAnnouncementDto> getAllWithClosedStatusByUserIdOfOwnerDto(
+            Long useIdOfOwner, String rsqlQuery, String sortQuery);
+    List<FamilyHouseAnnouncementDto> getAllDtoOfCurrentUser(String rsqlQuery, String sortQuery);
 
     FamilyHouseAnnouncementDto getDtoById(Long id);
+    FamilyHouseAnnouncementDto getByIdWithOpenStatusDto(Long id);
+    FamilyHouseAnnouncementDto getByIdDtoOfCurrentUser(Long id);
 
-    void add(RequestFamilyHouseAnnouncementDto requestFamilyHouseAnnouncementDto);
+    void addFromDto(RequestFamilyHouseAnnouncementDto requestFamilyHouseAnnouncementDto);
+    void addFromCurrentUser(RequestFamilyHouseAnnouncementDto requestFamilyHouseAnnouncementDto);
 
     void updateById(UpdateRequestFamilyHouseAnnouncementDto updateRequestFamilyHouseAnnouncementDto, Long id);
+    void updateByIdFromCurrentUser(UpdateRequestFamilyHouseAnnouncementDto updateRequestFamilyHouseAnnouncementDto,
+                                   Long id);
 
 }

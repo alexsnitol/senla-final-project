@@ -1,12 +1,41 @@
 package ru.senla.realestatemarket.service.timetable.top.impl;
 
 import lombok.extern.slf4j.Slf4j;
+import org.mapstruct.factory.Mappers;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import ru.senla.realestatemarket.dto.timetable.RequestTopTimetableDto;
+import ru.senla.realestatemarket.dto.timetable.TopTimetableWithoutAnnouncementIdDto;
+import ru.senla.realestatemarket.mapper.timetable.LandAnnouncementTopTimetableMapper;
+import ru.senla.realestatemarket.model.announcement.AnnouncementTypeEnum;
+import ru.senla.realestatemarket.model.announcement.LandAnnouncement;
+import ru.senla.realestatemarket.model.dictionary.AnnouncementTopPrice;
+import ru.senla.realestatemarket.model.property.PropertyTypeEnum;
+import ru.senla.realestatemarket.model.purchase.top.LandAnnouncementTopPurchase;
 import ru.senla.realestatemarket.model.timetable.top.LandAnnouncementTopTimetable;
+import ru.senla.realestatemarket.model.user.BalanceOperation;
+import ru.senla.realestatemarket.model.user.BalanceOperationCommentEnum;
+import ru.senla.realestatemarket.repo.announcement.ILandAnnouncementRepository;
+import ru.senla.realestatemarket.repo.dictionary.IAnnouncementTopPriceRepository;
+import ru.senla.realestatemarket.repo.purchase.top.ILandAnnouncementTopPurchaseRepository;
 import ru.senla.realestatemarket.repo.timetable.top.ILandAnnouncementTopTimetableRepository;
+import ru.senla.realestatemarket.repo.user.IUserRepository;
+import ru.senla.realestatemarket.service.helper.EntityHelper;
 import ru.senla.realestatemarket.service.timetable.top.ILandAnnouncementTopTimetableService;
+import ru.senla.realestatemarket.service.user.IBalanceOperationService;
+import ru.senla.realestatemarket.util.UserUtil;
 
 import javax.annotation.PostConstruct;
+import javax.transaction.Transactional;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
+
+import static ru.senla.realestatemarket.repo.announcement.specification.LandAnnouncementSpecification.hasId;
+import static ru.senla.realestatemarket.repo.announcement.specification.LandAnnouncementSpecification.hasUserIdOfOwnerInProperty;
+import static ru.senla.realestatemarket.repo.timetable.specification.LandAnnouncementTopTimetableSpecification.fromDtOrToDtMustBeBetweenSpecificFromAndTo;
+import static ru.senla.realestatemarket.repo.timetable.specification.LandAnnouncementTopTimetableSpecification.hasLandAnnouncementId;
 
 @Slf4j
 @Service
@@ -15,18 +44,169 @@ public class LandAnnouncementTopTimetableServiceImpl
         implements ILandAnnouncementTopTimetableService {
 
     private final ILandAnnouncementTopTimetableRepository landAnnouncementTopTimetableRepository;
+    private final ILandAnnouncementRepository landAnnouncementRepository;
+    private final ILandAnnouncementTopPurchaseRepository landAnnouncementTopPurchaseRepository;
+
+    private final LandAnnouncementTopTimetableMapper timetableMapper
+            = Mappers.getMapper(LandAnnouncementTopTimetableMapper.class);
 
 
     public LandAnnouncementTopTimetableServiceImpl(
-            ILandAnnouncementTopTimetableRepository landAnnouncementTopTimetableRepository) {
+            IUserRepository userRepository,
+            IBalanceOperationService balanceOperationService,
+            ILandAnnouncementTopTimetableRepository landAnnouncementTopTimetableRepository,
+            ILandAnnouncementRepository landAnnouncementRepository,
+            ILandAnnouncementTopPurchaseRepository landAnnouncementTopPurchaseRepository,
+            IAnnouncementTopPriceRepository announcementTopPriceRepository
+    ) {
+        super(userRepository, balanceOperationService, announcementTopPriceRepository);
         this.landAnnouncementTopTimetableRepository = landAnnouncementTopTimetableRepository;
+        this.landAnnouncementRepository = landAnnouncementRepository;
+        this.landAnnouncementTopPurchaseRepository = landAnnouncementTopPurchaseRepository;
     }
-
 
     @PostConstruct
     public void init() {
         setDefaultRepository(landAnnouncementTopTimetableRepository);
         setClazz(LandAnnouncementTopTimetable.class);
+    }
+
+
+    @Override
+    @Transactional
+    public List<TopTimetableWithoutAnnouncementIdDto> getAllByLandIdDto(
+            Long landAnnouncementId, String rsqlQuery, String sortQuery
+    ) {
+        List<LandAnnouncementTopTimetable> landAnnouncementTopTimetables;
+
+        if (sortQuery == null) {
+            landAnnouncementTopTimetables = getAll(hasLandAnnouncementId(landAnnouncementId),
+                    rsqlQuery, Sort.by(Sort.Direction.ASC, "fromDt"));
+        } else {
+            landAnnouncementTopTimetables = getAll(hasLandAnnouncementId(landAnnouncementId),
+                    rsqlQuery, sortQuery);
+        }
+
+        return timetableMapper.toTopTimetableWithoutAnnouncementIdDtoFromLandAnnouncementTopTimetable(
+                landAnnouncementTopTimetables);
+    }
+
+    @Override
+    @Transactional
+    public void addByLandAnnouncementIdWithPayFromCurrentUser(
+            RequestTopTimetableDto requestTopTimetableDto, Long landAnnouncementId
+    ) {
+        LandAnnouncement landAnnouncement = landAnnouncementRepository.findOne(
+                hasId(landAnnouncementId)
+                        .and(hasUserIdOfOwnerInProperty(UserUtil.getCurrentUserId())));
+
+        EntityHelper.checkEntityOnNull(landAnnouncement, LandAnnouncement.class, landAnnouncementId);
+
+
+        LandAnnouncementTopTimetable landAnnouncementTopTimetable
+                = timetableMapper.toLandAnnouncementTopTimetable(requestTopTimetableDto);
+
+
+        LocalDateTime specificFromDt = landAnnouncementTopTimetable.getFromDt();
+        LocalDateTime specificToDt = landAnnouncementTopTimetable.getToDt();
+        List<LandAnnouncementTopTimetable> finalIntervalsOfLandAnnouncementTopTimetables
+                = getIntervalsOfTimetablesByLandAnnouncement(
+                landAnnouncement, specificFromDt, specificToDt);
+
+
+        double finalSum = 0;
+        List<Double> sumList = new ArrayList<>(finalIntervalsOfLandAnnouncementTopTimetables.size());
+
+        AnnouncementTypeEnum announcementType = AnnouncementTypeEnum.valueOf(landAnnouncement.getType().name());
+        AnnouncementTopPrice announcementTopPrice = announcementTopPriceRepository
+                .findPriceByPropertyTypeAndAnnouncementType(PropertyTypeEnum.LAND, announcementType);
+
+        for (LandAnnouncementTopTimetable timetable : finalIntervalsOfLandAnnouncementTopTimetables) {
+            double sum = calculateSumByDateTimes(announcementTopPrice.getPricePerHour(),
+                    timetable.getFromDt(), timetable.getToDt());
+
+            finalSum += sum;
+
+            sumList.add(sum);
+        }
+
+        checkBalanceOfCurrentUserToApplyOperationWithSpecificSum(finalSum);
+
+        createTimetablesAndPurchasesAndApplyOperationsWithSumsFromTheListFromCurrentUser(
+                finalIntervalsOfLandAnnouncementTopTimetables, sumList);
+    }
+
+    private List<LandAnnouncementTopTimetable> getIntervalsOfTimetablesByLandAnnouncement(
+            LandAnnouncement landAnnouncement, LocalDateTime specificFromDt, LocalDateTime specificToDt
+    ) {
+        List<LandAnnouncementTopTimetable> existingTimetablesInInterval
+                = new ArrayList<>(landAnnouncementTopTimetableRepository.findAll(
+                hasLandAnnouncementId(landAnnouncement.getId())
+                        .and(fromDtOrToDtMustBeBetweenSpecificFromAndTo(specificFromDt, specificToDt)),
+                Sort.by(Sort.Direction.ASC, "fromDt")));
+
+
+        List<LandAnnouncementTopTimetable> unoccupiedIntervalsOfTimetables = new LinkedList<>();
+
+        if (existingTimetablesInInterval.isEmpty()) {
+            unoccupiedIntervalsOfTimetables.add(
+                    new LandAnnouncementTopTimetable(landAnnouncement, specificFromDt, specificToDt));
+        } else {
+            LocalDateTime tmpFromDt = specificFromDt;
+            LocalDateTime tmpToDt;
+
+            for (LandAnnouncementTopTimetable timetable : existingTimetablesInInterval) {
+                if (timetable.getFromDt().isAfter(specificFromDt) && timetable.getFromDt().isBefore(specificToDt)) {
+                    tmpToDt = timetable.getFromDt();
+
+                    unoccupiedIntervalsOfTimetables.add(
+                            new LandAnnouncementTopTimetable(landAnnouncement, tmpFromDt, tmpToDt));
+                }
+
+                if (timetable.getToDt().isAfter(specificFromDt) && timetable.getToDt().isBefore(specificToDt)) {
+                    tmpFromDt = timetable.getToDt();
+
+                    // current timetable is the last interval?
+                    if (existingTimetablesInInterval.get(existingTimetablesInInterval.size() - 1).equals(timetable)) {
+                        unoccupiedIntervalsOfTimetables.add(
+                                new LandAnnouncementTopTimetable(landAnnouncement, tmpFromDt, specificToDt)
+                        );
+                    }
+                } else {
+                    // toDt of the current timetable greater than the specified interval
+                    break;
+                }
+            }
+        }
+
+        return unoccupiedIntervalsOfTimetables;
+    }
+
+    private void createTimetablesAndPurchasesAndApplyOperationsWithSumsFromTheListFromCurrentUser(
+            List<LandAnnouncementTopTimetable> finalIntervalsOfLandAnnouncementTopTimetables,
+            List<Double> sumList
+    ) {
+        int i = 0; // index of the sum list
+
+        for (LandAnnouncementTopTimetable timetable : finalIntervalsOfLandAnnouncementTopTimetables) {
+            double sum = sumList.get(i++);
+
+            BalanceOperation balanceOperation = new BalanceOperation();
+            balanceOperation.setSum(-sum);
+            balanceOperation.setComment(BalanceOperationCommentEnum.TOP.name());
+
+            balanceOperationService.addFromCurrentUserAndApplyOperation(balanceOperation);
+
+
+            landAnnouncementTopTimetableRepository.create(timetable);
+
+
+            LandAnnouncementTopPurchase landAnnouncementTopPurchase = new LandAnnouncementTopPurchase();
+            landAnnouncementTopPurchase.setBalanceOperation(balanceOperation);
+            landAnnouncementTopPurchase.setTimetable(timetable);
+
+            landAnnouncementTopPurchaseRepository.create(landAnnouncementTopPurchase);
+        }
     }
 
 }

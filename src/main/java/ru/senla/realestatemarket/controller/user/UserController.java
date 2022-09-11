@@ -1,6 +1,5 @@
 package ru.senla.realestatemarket.controller.user;
 
-import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.Authorization;
 import lombok.RequiredArgsConstructor;
@@ -38,11 +37,6 @@ public class UserController {
             value = "",
             authorizations = {@Authorization("ADMIN")}
     )
-//    @ApiImplicitParam(
-//            name = "Authorization",
-//            value = "Access Token",
-//            required = true, allowEmptyValue = false, paramType = "header", dataTypeClass = String.class
-//    )
     @GetMapping
     public List<UserDto> getAllUsers(
             @RequestParam(required = false) String rsqlQuery,

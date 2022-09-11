@@ -1,8 +1,55 @@
 package ru.senla.realestatemarket.service.timetable;
 
+import lombok.extern.slf4j.Slf4j;
+import ru.senla.realestatemarket.exception.OnSpecificUserNotEnoughMoneyException;
 import ru.senla.realestatemarket.model.IModel;
+import ru.senla.realestatemarket.model.user.User;
+import ru.senla.realestatemarket.repo.user.IUserRepository;
 import ru.senla.realestatemarket.service.AbstractServiceImpl;
+import ru.senla.realestatemarket.service.user.IBalanceOperationService;
+import ru.senla.realestatemarket.util.UserUtil;
 
+import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZoneOffset;
+
+@Slf4j
 public abstract class AbstractTimetableServiceImpl<M extends IModel<Long>> extends AbstractServiceImpl<M, Long>
         implements IAbstractTimetableService<M> {
+
+
+    protected final IUserRepository userRepository;
+    protected final IBalanceOperationService balanceOperationService;
+
+
+    protected AbstractTimetableServiceImpl(
+            IUserRepository userRepository,
+            IBalanceOperationService balanceOperationService
+    ) {
+        this.userRepository = userRepository;
+        this.balanceOperationService = balanceOperationService;
+    }
+
+
+    protected float calculateSumByDateTimes(float pricePerHour, LocalDateTime formDt, LocalDateTime toDt) {
+        ZoneOffset zoneOffset = ZoneId.systemDefault().getRules().getOffset(Instant.now());
+
+        long sumOfHour = ((toDt.toEpochSecond(zoneOffset) - formDt.toEpochSecond(zoneOffset)) / 60) / 60;
+
+        return sumOfHour * pricePerHour;
+    }
+
+    protected void checkBalanceOfCurrentUserToApplyOperationWithSpecificSum(double finalSum) {
+        User currentUser = userRepository.findById(UserUtil.getCurrentUserId());
+        if (currentUser.getBalance() < finalSum) {
+            String message = String.format(
+                    "User with id %s not enough money for this operation. Not enough %s.",
+                    currentUser.getId(), (finalSum - currentUser.getBalance()));
+
+            log.error(message);
+            throw new OnSpecificUserNotEnoughMoneyException(message);
+        }
+    }
+
 }

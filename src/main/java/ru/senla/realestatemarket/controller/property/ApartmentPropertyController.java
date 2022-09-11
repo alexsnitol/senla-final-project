@@ -1,5 +1,7 @@
 package ru.senla.realestatemarket.controller.property;
 
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.Authorization;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -33,6 +35,37 @@ public class ApartmentPropertyController {
     private final IApartmentPropertyService apartmentPropertyService;
 
 
+    @ApiOperation(
+            value = "",
+            authorizations = {@Authorization("ADMIN")}
+    )
+    @GetMapping
+    public List<ApartmentPropertyDto> getAll(
+            @RequestParam(value = "q",required = false) String rsqlQuery,
+            @RequestParam(value = "sort", required = false) String sortQuery
+    ) {
+        return apartmentPropertyService.getAllDto(rsqlQuery, sortQuery);
+    }
+
+    @ApiOperation(
+            value = "",
+            authorizations = {@Authorization("ADMIN")}
+    )
+    @PostMapping
+    public ResponseEntity<RestResponseDto> add(
+            @RequestBody @Valid
+            RequestApartmentPropertyWithUserIdOfOwnerDto requestApartmentPropertyWithUserIdOfOwnerDto
+    ) {
+        apartmentPropertyService.addFromDto(requestApartmentPropertyWithUserIdOfOwnerDto);
+
+        return new ResponseEntity<>(new RestResponseDto("Apartment property has been added",
+                HttpStatus.CREATED.value()), HttpStatus.CREATED);
+    }
+
+    @ApiOperation(
+            value = "",
+            authorizations = {@Authorization("ADMIN")}
+    )
     @GetMapping("/{id}")
     public ApartmentPropertyDto getById(
             @PathVariable Long id
@@ -40,17 +73,10 @@ public class ApartmentPropertyController {
         return apartmentPropertyService.getDtoById(id);
     }
 
-    @PostMapping
-    public ResponseEntity<RestResponseDto> add(
-            @RequestBody @Valid
-            RequestApartmentPropertyWithUserIdOfOwnerDto requestApartmentPropertyWithUserIdOfOwnerDto
-    ) {
-        apartmentPropertyService.add(requestApartmentPropertyWithUserIdOfOwnerDto);
-
-        return new ResponseEntity<>(new RestResponseDto("Apartment property has been added",
-                HttpStatus.CREATED.value()), HttpStatus.CREATED);
-    }
-
+    @ApiOperation(
+            value = "",
+            authorizations = {@Authorization("ADMIN")}
+    )
     @DeleteMapping("/{id}")
     public ResponseEntity<RestResponseDto> deleteById(
             @PathVariable Long id
@@ -61,26 +87,26 @@ public class ApartmentPropertyController {
                 new RestResponseDto("Apartment property has been deleted", HttpStatus.OK.value()));
     }
 
+    @ApiOperation(
+            value = "",
+            authorizations = {@Authorization("ADMIN")}
+    )
     @PutMapping("/{id}")
     public ResponseEntity<RestResponseDto> updateById(
             @PathVariable Long id,
             @RequestBody @Valid
             UpdateRequestApartmentPropertyWithUserIdOfOwnerDto updateRequestApartmentPropertyWithUserIdOfOwnerDto
     ) {
-        apartmentPropertyService.updateById(updateRequestApartmentPropertyWithUserIdOfOwnerDto, id);
+        apartmentPropertyService.updateFromDtoById(updateRequestApartmentPropertyWithUserIdOfOwnerDto, id);
 
         return ResponseEntity.ok(
                 new RestResponseDto("Apartment property has been updated", HttpStatus.OK.value()));
     }
 
-    @GetMapping
-    public List<ApartmentPropertyDto> getAll(
-            @RequestParam(value = "q",required = false) String rsqlQuery,
-            @RequestParam(value = "sort", required = false) String sortQuery
-    ) {
-        return apartmentPropertyService.getAllDto(rsqlQuery, sortQuery);
-    }
-
+    @ApiOperation(
+            value = "",
+            authorizations = {@Authorization("Authorized user")}
+    )
     @GetMapping("/current")
     public List<ApartmentPropertyDto> getAllDtoOfCurrentUser(
             @RequestParam(value = "q",required = false) String rsqlQuery,
@@ -89,39 +115,41 @@ public class ApartmentPropertyController {
         return apartmentPropertyService.getAllDtoOfCurrentUser(rsqlQuery, sortQuery);
     }
 
-    @GetMapping("/current/{id}")
-    public ApartmentPropertyDto getDtoByIdOfCurrentUser(
-            @PathVariable Long id
-    ) {
-        return apartmentPropertyService.getDtoByIdOfCurrentUser(id);
-    }
-
+    @ApiOperation(
+            value = "",
+            authorizations = {@Authorization("Authorized user")}
+    )
     @PostMapping("/current")
     public ResponseEntity<RestResponseDto> addFromCurrentUser(
             @RequestBody @Valid RequestApartmentPropertyDto requestApartmentPropertyDto
     ) {
-        apartmentPropertyService.addFromCurrentUser(requestApartmentPropertyDto);
+        apartmentPropertyService.addFromDtoFromCurrentUser(requestApartmentPropertyDto);
 
         return new ResponseEntity<>(new RestResponseDto("Apartment property has been added",
                 HttpStatus.CREATED.value()), HttpStatus.CREATED);
     }
 
-    @PutMapping("/current/{id}/delete-status")
-    public ResponseEntity<RestResponseDto> deleteByIdOfCurrentUser(
+    @ApiOperation(
+            value = "",
+            authorizations = {@Authorization("Authorized user")}
+    )
+    @GetMapping("/current/{id}")
+    public ApartmentPropertyDto getByIdOfCurrentUser(
             @PathVariable Long id
     ) {
-        apartmentPropertyService.setDeletedStatusByIdOfCurrentUser(id);
-
-        return ResponseEntity.ok(new RestResponseDto(
-                "Apartment property has been deleted", HttpStatus.OK.value()));
+        return apartmentPropertyService.getDtoByIdOfCurrentUser(id);
     }
 
+    @ApiOperation(
+            value = "",
+            authorizations = {@Authorization("Authorized user")}
+    )
     @PutMapping("/current/{id}")
     public ResponseEntity<RestResponseDto> updateByIdOfCurrentUser(
             @PathVariable Long id,
             @RequestBody @Valid UpdateRequestApartmentPropertyDto updateRequestApartmentPropertyDto
     ) {
-        apartmentPropertyService.updateByIdOfCurrentUser(updateRequestApartmentPropertyDto, id);
+        apartmentPropertyService.updateFromDtoByPropertyIdOfCurrentUser(updateRequestApartmentPropertyDto, id);
 
         return ResponseEntity.ok(new RestResponseDto(
                 "Apartment property has been updated", HttpStatus.OK.value()));

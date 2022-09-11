@@ -1,5 +1,6 @@
 package ru.senla.realestatemarket.dto.timetable;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -11,8 +12,10 @@ public class TopTimetableDto {
 
     private Long announcementId;
 
-    private LocalDateTime fromDateTime;
+    @JsonFormat(pattern = "dd.MM.yyyy HH:mm:ss")
+    private LocalDateTime fromDt;
 
-    private LocalDateTime toDateTime;
+    @JsonFormat(pattern = "dd.MM.yyyy HH:mm:ss")
+    private LocalDateTime toDt;
 
 }

@@ -37,7 +37,7 @@
         <class>ru.senla.realestatemarket.model.announcement.ApartmentAnnouncement</class>
         <class>ru.senla.realestatemarket.model.announcement.FamilyHouseAnnouncement</class>
         <class>ru.senla.realestatemarket.model.announcement.LandAnnouncement</class>
-        <class>ru.senla.realestatemarket.model.announcement.AnnouncementTopPrice</class>
+        <class>ru.senla.realestatemarket.model.dictionary.AnnouncementTopPrice</class>
 
         <class>ru.senla.realestatemarket.model.timetable.top.AnnouncementTopTimetable</class>
         <class>ru.senla.realestatemarket.model.timetable.top.ApartmentAnnouncementTopTimetable</class>

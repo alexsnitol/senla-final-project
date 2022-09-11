@@ -2,21 +2,49 @@ package ru.senla.realestatemarket.service.announcement.impl;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
-import ru.senla.realestatemarket.model.IModel;
+import ru.senla.realestatemarket.exception.PropertySpecificOwnerIsDifferentFromRequestedOwnerException;
 import ru.senla.realestatemarket.model.announcement.Announcement;
 import ru.senla.realestatemarket.model.announcement.AnnouncementStatusEnum;
+import ru.senla.realestatemarket.model.property.Property;
 import ru.senla.realestatemarket.service.AbstractServiceImpl;
 import ru.senla.realestatemarket.service.announcement.IAbstractAnnouncementService;
+import ru.senla.realestatemarket.util.UserUtil;
+
+import java.time.LocalDateTime;
+import java.util.Objects;
 
 @Slf4j
 @Service
-public abstract class AbstractAnnouncementServiceImpl<M extends IModel<Long>>
+public abstract class AbstractAnnouncementServiceImpl<M extends Announcement>
         extends AbstractServiceImpl<M, Long>
         implements IAbstractAnnouncementService<M> {
 
-    @Override
-    public void setDeletedStatus(Announcement announcement) {
-        announcement.setStatus(AnnouncementStatusEnum.DELETED);
+    protected void validateAccessCurrentUserToProperty(Property property) {
+        Long userIdOfOwner = property.getOwner().getId();
+
+        if (!Objects.equals(userIdOfOwner, UserUtil.getCurrentUserId())) {
+            String message = String.format(
+                    "Access denied, because property by id %s owns another user.", userIdOfOwner);
+
+            log.error(message);
+            throw new PropertySpecificOwnerIsDifferentFromRequestedOwnerException(message);
+        }
+    }
+
+    protected void setStatusIfNotNull(
+            Announcement announcement, AnnouncementStatusEnum newAnnouncementStatus
+    ) {
+        if (newAnnouncementStatus != null) {
+            AnnouncementStatusEnum oldAnnouncementStatus = announcement.getStatus();
+
+            if (oldAnnouncementStatus != AnnouncementStatusEnum.CLOSED
+                    && newAnnouncementStatus == AnnouncementStatusEnum.CLOSED) {
+                announcement.setClosedDt(LocalDateTime.now());
+            } else if (oldAnnouncementStatus == AnnouncementStatusEnum.CLOSED
+                    && newAnnouncementStatus != AnnouncementStatusEnum.CLOSED) {
+                announcement.setClosedDt(null);
+            }
+        }
     }
     
 }

@@ -31,20 +31,17 @@ public class AnnouncementTopTimetable implements IModel<Long> {
     private Long id;
 
     @Column(name = "from_date_time")
-    @JsonFormat(pattern = "dd.MM.yyyy hh:mm:ss")
+    @JsonFormat(pattern = "dd.MM.yyyy HH:mm:ss")
     private LocalDateTime fromDt;
 
     @Column(name = "to_date_time")
-    @JsonFormat(pattern = "dd.MM.yyyy hh:mm:ss")
+    @JsonFormat(pattern = "dd.MM.yyyy HH:mm:ss")
     private LocalDateTime toDt;
 
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
+    public AnnouncementTopTimetable(LocalDateTime fromDt, LocalDateTime toDt) {
+        this.fromDt = fromDt;
+        this.toDt = toDt;
     }
 
 }

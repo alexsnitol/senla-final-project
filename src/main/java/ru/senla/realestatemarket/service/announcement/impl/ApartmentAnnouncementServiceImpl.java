@@ -2,11 +2,11 @@ package ru.senla.realestatemarket.service.announcement.impl;
 
 import lombok.extern.slf4j.Slf4j;
 import org.mapstruct.factory.Mappers;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import ru.senla.realestatemarket.dto.announcement.ApartmentAnnouncementDto;
 import ru.senla.realestatemarket.dto.announcement.RequestApartmentAnnouncementDto;
 import ru.senla.realestatemarket.dto.announcement.UpdateRequestApartmentAnnouncementDto;
-import ru.senla.realestatemarket.exception.PropertySpecificOwnerIsDifferentFromRequestedOwnerException;
 import ru.senla.realestatemarket.mapper.announcement.ApartmentAnnouncementMapper;
 import ru.senla.realestatemarket.model.announcement.AnnouncementStatusEnum;
 import ru.senla.realestatemarket.model.announcement.ApartmentAnnouncement;
@@ -24,8 +24,9 @@ import ru.senla.realestatemarket.util.UserUtil;
 import javax.annotation.PostConstruct;
 import javax.transaction.Transactional;
 import java.util.List;
-import java.util.Objects;
 
+import static ru.senla.realestatemarket.repo.announcement.specification.ApartmentAnnouncementSpecification.hasStatuses;
+import static ru.senla.realestatemarket.repo.announcement.specification.GenericAnnouncementSpecification.hasIdAndUserIdOfOwnerInProperty;
 import static ru.senla.realestatemarket.repo.announcement.specification.GenericAnnouncementSpecification.hasUserIdOfOwnerInProperty;
 
 @Slf4j
@@ -71,6 +72,7 @@ public class ApartmentAnnouncementServiceImpl
     }
 
     @Override
+    @Transactional
     public List<ApartmentAnnouncementDto> getAllWithOpenStatusDto(String rsqlQuery, String sortQuery) {
         List<ApartmentAnnouncement> apartmentAnnouncementList;
 
@@ -91,6 +93,34 @@ public class ApartmentAnnouncementServiceImpl
     }
 
     @Override
+    @Transactional
+    public List<ApartmentAnnouncementDto> getAllWithClosedStatusByUserIdOfOwnerDto(
+            Long useIdOfOwner, String rsqlQuery, String sortQuery
+    ) {
+        List<ApartmentAnnouncement> apartmentAnnouncementList;
+
+        if (sortQuery == null) {
+            // default sort
+            apartmentAnnouncementList = getAll(
+                    hasStatuses(List.of(AnnouncementStatusEnum.CLOSED)).and(
+                            ApartmentAnnouncementSpecification.hasUserIdOfOwnerInProperty(useIdOfOwner)
+                    ),
+                    rsqlQuery,
+                    Sort.by(Sort.Direction.DESC, "closedDt"));
+        } else {
+            apartmentAnnouncementList = getAll(
+                    hasStatuses(List.of(AnnouncementStatusEnum.CLOSED)).and(
+                            ApartmentAnnouncementSpecification.hasUserIdOfOwnerInProperty(useIdOfOwner)
+                    ),
+                    rsqlQuery,
+                    sortQuery);
+        }
+
+        return apartmentAnnouncementMapper.toApartmentAnnouncementDto(apartmentAnnouncementList);
+    }
+
+    @Override
+    @Transactional
     public List<ApartmentAnnouncementDto> getAllDtoOfCurrentUser(String rsqlQuery, String sortQuery) {
         List<ApartmentAnnouncement> apartmentAnnouncementList;
 
@@ -107,33 +137,36 @@ public class ApartmentAnnouncementServiceImpl
     }
 
     @Override
+    @Transactional
     public ApartmentAnnouncementDto getDtoById(Long id) {
         ApartmentAnnouncement apartmentAnnouncement = getById(id);
         return apartmentAnnouncementMapper.toApartmentAnnouncementDto(apartmentAnnouncement);
     }
 
     @Override
+    @Transactional
     public ApartmentAnnouncementDto getByIdWithOpenStatusDto(Long id) {
         return apartmentAnnouncementMapper.toApartmentAnnouncementDto(
                 getOne(ApartmentAnnouncementSpecification.hasId(id).and(
-                        ApartmentAnnouncementSpecification.hasStatuses(List.of(AnnouncementStatusEnum.OPEN))))
-        );
-    }
-
-    @Override
-    public ApartmentAnnouncementDto getByIdDtoOfCurrentUser(Long id) {
-        return apartmentAnnouncementMapper.toApartmentAnnouncementDto(
-                getByIdAndCurrentUserId(id)
+                        hasStatuses(List.of(AnnouncementStatusEnum.OPEN))))
         );
     }
 
     @Override
     @Transactional
-    public void addFromDto(RequestApartmentAnnouncementDto requestApartmentAnnouncementDto) {
-        ApartmentAnnouncement apartmentAnnouncement
-                = apartmentAnnouncementMapper.toApartmentAnnouncement(requestApartmentAnnouncementDto);
+    public ApartmentAnnouncementDto getByIdDtoOfCurrentUser(Long id) {
+        return apartmentAnnouncementMapper.toApartmentAnnouncementDto(
+                getOne(hasIdAndUserIdOfOwnerInProperty(id, UserUtil.getCurrentUserId()))
+        );
+    }
 
-        Long apartmentPropertyId = requestApartmentAnnouncementDto.getApartmentPropertyId();
+    @Override
+    @Transactional
+    public void addFromDto(RequestApartmentAnnouncementDto requestDto) {
+        ApartmentAnnouncement apartmentAnnouncement
+                = apartmentAnnouncementMapper.toApartmentAnnouncement(requestDto);
+
+        Long apartmentPropertyId = requestDto.getApartmentPropertyId();
         setApartmentPropertyById(apartmentAnnouncement, apartmentPropertyId);
 
         apartmentAnnouncementRepository.create(apartmentAnnouncement);
@@ -141,74 +174,67 @@ public class ApartmentAnnouncementServiceImpl
 
     @Override
     @Transactional
-    public void addFromCurrentUser(RequestApartmentAnnouncementDto requestApartmentAnnouncementDto) {
-        Long apartmentPropertyId = requestApartmentAnnouncementDto.getApartmentPropertyId();
+    public void addFromDtoFromCurrentUser(RequestApartmentAnnouncementDto requestDto) {
+        Long apartmentPropertyId = requestDto.getApartmentPropertyId();
 
-        validateAccessCurrentUserToApartmentPropertyById(apartmentPropertyId);
+        ApartmentProperty apartmentProperty = apartmentPropertyRepository.findById(apartmentPropertyId);
+        EntityHelper.checkEntityOnNull(apartmentProperty, ApartmentProperty.class, apartmentPropertyId);
 
-        addFromDto(requestApartmentAnnouncementDto);
+        validateAccessCurrentUserToProperty(apartmentProperty);
+
+        addFromDto(requestDto);
     }
 
     @Override
     @Transactional
-    public void updateById(UpdateRequestApartmentAnnouncementDto updateRequestApartmentAnnouncementDto, Long id) {
+    public void updateFromDtoById(UpdateRequestApartmentAnnouncementDto updateRequestDto, Long id) {
         ApartmentAnnouncement apartmentAnnouncement = getById(id);
 
-        updateFromDto(updateRequestApartmentAnnouncementDto, apartmentAnnouncement);
+        updateFromDto(updateRequestDto, apartmentAnnouncement);
     }
 
     @Override
     @Transactional
-    public void updateByIdFromCurrentUser(UpdateRequestApartmentAnnouncementDto updateRequestApartmentAnnouncementDto,
-                                          Long id
+    public void updateByIdFromDtoFromCurrentUser(UpdateRequestApartmentAnnouncementDto updateRequestDto,
+                                                 Long id
     ) {
-        ApartmentAnnouncement apartmentAnnouncement = getByIdAndCurrentUserId(id);
+        ApartmentAnnouncement apartmentAnnouncement = getOne(
+                hasIdAndUserIdOfOwnerInProperty(id, UserUtil.getCurrentUserId()));
 
-        Long apartmentPropertyIdOfUpdateRequest = updateRequestApartmentAnnouncementDto.getApartmentPropertyId();
-        validateAccessCurrentUserToApartmentPropertyById(apartmentPropertyIdOfUpdateRequest);
 
-        updateFromDto(updateRequestApartmentAnnouncementDto, apartmentAnnouncement);
+        Long apartmentPropertyId = updateRequestDto.getApartmentPropertyId();
+        ApartmentProperty apartmentProperty = apartmentPropertyRepository.findById(apartmentPropertyId);
+        EntityHelper.checkEntityOnNull(apartmentProperty, ApartmentProperty.class, apartmentPropertyId);
+
+        validateAccessCurrentUserToProperty(apartmentProperty);
+
+
+        updateFromDto(updateRequestDto, apartmentAnnouncement);
     }
 
-    private void updateFromDto(UpdateRequestApartmentAnnouncementDto updateRequestApartmentAnnouncementDto, ApartmentAnnouncement apartmentAnnouncement) {
-        Long apartmentPropertyId = updateRequestApartmentAnnouncementDto.getApartmentPropertyId();
+    private void updateFromDto(
+            UpdateRequestApartmentAnnouncementDto updateRequestDto, ApartmentAnnouncement apartmentAnnouncement
+    ) {
+        Long apartmentPropertyId = updateRequestDto.getApartmentPropertyId();
         if (apartmentPropertyId != null) {
             setApartmentPropertyById(apartmentAnnouncement, apartmentPropertyId);
         }
 
 
-        HousingAnnouncementTypeEnum announcementType = updateRequestApartmentAnnouncementDto.getType();
-        AnnouncementStatusEnum announcementStatus = updateRequestApartmentAnnouncementDto.getStatus();
+        HousingAnnouncementTypeEnum announcementType = updateRequestDto.getType();
+        AnnouncementStatusEnum announcementStatus = updateRequestDto.getStatus();
 
         validateAnnouncementTypeOnAccordanceWithStatusIfItNotNull(apartmentAnnouncement,
                 announcementType, announcementStatus);
 
+        setStatusIfNotNull(apartmentAnnouncement, announcementStatus);
 
         apartmentAnnouncementMapper.updateApartmentAnnouncementFromUpdateRequestApartmentAnnouncementDto(
-                updateRequestApartmentAnnouncementDto, apartmentAnnouncement
+                updateRequestDto, apartmentAnnouncement
         );
 
 
         apartmentAnnouncementRepository.update(apartmentAnnouncement);
-    }
-
-    private ApartmentAnnouncement getByIdAndCurrentUserId(Long id) {
-        return getOne(ApartmentAnnouncementSpecification.hasId(id)
-                .and(ApartmentAnnouncementSpecification.hasUserIdOfOwnerInProperty(
-                        UserUtil.getCurrentUserId())));
-    }
-
-    private void validateAccessCurrentUserToApartmentPropertyById(Long apartmentPropertyId) {
-        ApartmentProperty apartmentProperty = apartmentPropertyRepository.findById(apartmentPropertyId);
-        Long userIdOfOwner = apartmentProperty.getOwner().getId();
-
-        if (!Objects.equals(userIdOfOwner, UserUtil.getCurrentUserId())) {
-            String message = String.format(
-                    "Access denied, because property by id %s owns another user.", userIdOfOwner);
-
-            log.error(message);
-            throw new PropertySpecificOwnerIsDifferentFromRequestedOwnerException(message);
-        }
     }
 
     private void setApartmentPropertyById(ApartmentAnnouncement apartmentAnnouncement, Long apartmentPropertyId) {
@@ -218,13 +244,4 @@ public class ApartmentAnnouncementServiceImpl
         apartmentAnnouncement.setProperty(apartmentProperty);
     }
 
-    @Override
-    @Transactional
-    public void setDeletedStatusByIdAndUpdate(Long id) {
-        ApartmentAnnouncement apartmentAnnouncement = getById(id);
-        
-        setDeletedStatus(apartmentAnnouncement);
-        
-        apartmentAnnouncementRepository.update(apartmentAnnouncement);
-    }
 }

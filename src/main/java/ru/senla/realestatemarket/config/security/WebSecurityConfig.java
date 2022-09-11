@@ -4,7 +4,6 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -22,6 +21,9 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.filter.CorsFilter;
 import ru.senla.realestatemarket.config.security.filter.JwtTokenFilter;
 import ru.senla.realestatemarket.service.user.IUserService;
+
+import static org.springframework.http.HttpMethod.GET;
+import static org.springframework.http.HttpMethod.POST;
 
 @EnableWebSecurity(debug = true)
 @Configuration
@@ -84,22 +86,103 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
                 .authorizeRequests()
 
-                .antMatchers(HttpMethod.POST, "/api/auth").permitAll()
-                .antMatchers(HttpMethod.POST, "/api/users").permitAll()
+
+                // AUTHORIZATION
+
+                .antMatchers(POST, "/api/auth").permitAll()
+
 
                 // SWAGGER
-                .antMatchers(HttpMethod.GET,"/v2/api-docs/**").permitAll()
-                .antMatchers(HttpMethod.GET,"/v3/api-docs/**").permitAll()
-                .antMatchers(HttpMethod.GET, "/swagger-ui/**").permitAll()
+
+                .antMatchers(GET,"/v2/api-docs/**").permitAll()
+                .antMatchers(GET,"/v3/api-docs/**").permitAll()
+                .antMatchers(GET, "/swagger-ui/**").permitAll()
                 .antMatchers("/webjars/springfox-swagger-ui/**").permitAll()
                 .antMatchers("/swagger-resources/**").permitAll()
                 .antMatchers("/favicon**").permitAll()
                 .antMatchers("/swagger**").permitAll()
                 .antMatchers("/springfox**").permitAll()
 
+
+                // USERS
+
+                .antMatchers(POST, "/api/users").permitAll()
+
+
+
+                // ADDRESS
+
+                .antMatchers(GET, "/api/addresses").permitAll()
+                .antMatchers(GET, "/api/addresses/{id}").permitAll()
+                .antMatchers(GET, "/api/regions/{regionId}/" +
+                        "cities/{cityId}/streets/{streetId}/house-numbers").permitAll()
+
+
+
+                // PROPERTIES
+
+                // HOUSING PROPERTIES
+
+                // APARTMENT PROPERTIES
+
+                .antMatchers("/api/properties/housing/apartments/current").authenticated()
+                .antMatchers("/api/properties/housing/apartments/current/{id}").authenticated()
+
+
+                // FAMILY HOUSE PROPERTIES
+
+                .antMatchers("/api/properties/housing/family-houses/current").authenticated()
+                .antMatchers("/api/properties/housing/family-houses/current/{id}").authenticated()
+
+
+                // LAND PROPERTIES
+
+                .antMatchers("/api/properties/housing/lands/current").authenticated()
+                .antMatchers("/api/properties/housing/lands/current/{id}").authenticated()
+
+
+
+                // ANNOUNCEMENTS
+
+                // HOUSING ANNOUNCEMENTS
+
+                // APARTMENT ANNOUNCEMENTS
+
+                .antMatchers("/api/announcements/housing/apartments/current").authenticated()
+                .antMatchers("/api/announcements/housing/apartments/current/{id}").authenticated()
+
+                .antMatchers(GET, "/api/announcements/housing/apartments/open").permitAll()
+                .antMatchers(GET, "/api/announcements/housing/apartments/open/{id}").permitAll()
+                
+                .antMatchers(GET, "/api/announcements/housing/apartments/closed/owner/{userIdOfOwner}")
+                    .permitAll()
+
+
+                // FAMILY HOUSE ANNOUNCEMENTS
+
+                .antMatchers("/api/announcements/housing/family-houses/current").authenticated()
+                .antMatchers("/api/announcements/housing/family-houses/current/{id}").authenticated()
+
+                .antMatchers(GET, "/api/announcements/housing/family-houses/open").permitAll()
+                .antMatchers(GET, "/api/announcements/housing/family-houses/open/{id}").permitAll()
+
+                .antMatchers(GET, "/api/announcements/housing/family-houses/closed/owner/{userIdOfOwner}")
+                    .permitAll()
+
+
+                // LAND ANNOUNCEMENTS
+
+                .antMatchers("/api/announcements/housing/lands/current").authenticated()
+                .antMatchers("/api/announcements/housing/lands/current/{id}").authenticated()
+
+                .antMatchers(GET, "/api/announcements/housing/lands/open").permitAll()
+                .antMatchers(GET, "/api/announcements/housing/lands/open/{id}").permitAll()
+
+                .antMatchers(GET, "/api/announcements/housing/lands/closed/owner/{userIdOfOwner}")
+                    .permitAll()
                 
                 
-                .anyRequest().authenticated();
+                .anyRequest().hasAnyRole("ADMIN");
 
         http
                 .addFilterBefore(jwtTokenFilter, UsernamePasswordAuthenticationFilter.class);

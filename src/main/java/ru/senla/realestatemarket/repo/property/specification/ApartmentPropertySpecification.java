@@ -3,15 +3,26 @@ package ru.senla.realestatemarket.repo.property.specification;
 import org.springframework.data.jpa.domain.Specification;
 import ru.senla.realestatemarket.model.house.ApartmentHouse;
 import ru.senla.realestatemarket.model.property.ApartmentProperty;
+import ru.senla.realestatemarket.repo.specification.GenericSpecification;
 
 import javax.persistence.criteria.Join;
 
-public class ApartmentPropertySpecification extends GenericPropertySpecification {
+public class ApartmentPropertySpecification {
 
-    private ApartmentPropertySpecification() {
-        super();
+    private ApartmentPropertySpecification() {}
+
+
+    public static Specification<ApartmentProperty> hasId(Long id) {
+        return GenericSpecification.hasId(id);
     }
 
+    public static Specification<ApartmentProperty> hasUserIdOfOwner(Long userIdOfOwner) {
+        return GenericPropertySpecification.hasUserIdOfOwner(userIdOfOwner);
+    }
+
+    public static Specification<ApartmentProperty> hasIdAndUserIdOfOwner(Long id, Long userIdOfOwner) {
+        return GenericPropertySpecification.hasIdAndUserIdOfOwner(id, userIdOfOwner);
+    }
 
     public static Specification<ApartmentProperty> hasApartmentHouseId(Long apartmentHouseId) {
         return (root, query, criteriaBuilder) -> {

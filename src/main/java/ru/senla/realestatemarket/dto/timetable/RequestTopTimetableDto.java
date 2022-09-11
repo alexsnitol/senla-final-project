@@ -11,12 +11,9 @@ import java.time.LocalDateTime;
 public class RequestTopTimetableDto {
 
     @NotNull
-    private Long announcementId;
+    private LocalDateTime fromDt;
 
     @NotNull
-    private LocalDateTime fromDateTime;
-
-    @NotNull
-    private LocalDateTime toDateTime;
+    private LocalDateTime toDt;
 
 }

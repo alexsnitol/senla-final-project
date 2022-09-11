@@ -6,15 +6,14 @@ import org.springframework.stereotype.Service;
 import ru.senla.realestatemarket.dto.announcement.AnnouncementDto;
 import ru.senla.realestatemarket.mapper.announcement.AnnouncementMapper;
 import ru.senla.realestatemarket.model.announcement.Announcement;
+import ru.senla.realestatemarket.model.announcement.AnnouncementStatusEnum;
 import ru.senla.realestatemarket.repo.announcement.IAnnouncementRepository;
+import ru.senla.realestatemarket.repo.announcement.specification.GenericAnnouncementSpecification;
 import ru.senla.realestatemarket.service.announcement.IAnnouncementService;
-import ru.senla.realestatemarket.util.UserUtil;
 
 import javax.annotation.PostConstruct;
 import javax.transaction.Transactional;
 import java.util.List;
-
-import static ru.senla.realestatemarket.repo.announcement.specification.GenericAnnouncementSpecification.hasUserIdOfOwnerInProperty;
 
 @Slf4j
 @Service
@@ -44,11 +43,13 @@ public class AnnouncementServiceImpl
 
     @Override
     @Transactional
-    public void setDeletedStatusByIdAndUpdate(Long id) {
-        Announcement announcement = getById(id); 
-        
-        setDeletedStatus(announcement);
-        
-        announcementRepository.update(announcement);
+    public List<AnnouncementDto> getAllWithOpenStatusDto(String rsqlQuery, String sortQuery) {
+        List<Announcement> announcementList = getAll(
+                GenericAnnouncementSpecification.hasStatuses(List.of(AnnouncementStatusEnum.OPEN)),
+                rsqlQuery,
+                sortQuery);
+
+        return announcementMapper.toAnnouncementDtoWithMappedInheritors(announcementList);
     }
+
 }

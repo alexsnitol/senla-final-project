@@ -8,6 +8,7 @@ import lombok.Setter;
 import ru.senla.realestatemarket.model.property.ApartmentProperty;
 
 import javax.annotation.PostConstruct;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
@@ -26,7 +27,7 @@ public class ApartmentHouse extends House {
 
     private Boolean elevator;
 
-    @OneToMany(mappedBy = "apartmentHouse", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "apartmentHouse", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JsonBackReference
     private List<ApartmentProperty> propertyList;
 

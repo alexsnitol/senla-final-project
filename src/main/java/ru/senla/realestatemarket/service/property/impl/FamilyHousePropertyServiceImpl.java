@@ -6,11 +6,15 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import ru.senla.realestatemarket.dto.property.FamilyHousePropertyDto;
 import ru.senla.realestatemarket.dto.property.RequestFamilyHousePropertyDto;
+import ru.senla.realestatemarket.dto.property.RequestFamilyHousePropertyWithUserIdOfOwnerDto;
 import ru.senla.realestatemarket.dto.property.UpdateRequestFamilyHousePropertyDto;
+import ru.senla.realestatemarket.dto.property.UpdateRequestFamilyHousePropertyWithUserIdOfOwnerDto;
+import ru.senla.realestatemarket.exception.FamilyHousePropertyWithSpecifiedFamilyHouseIsExistException;
 import ru.senla.realestatemarket.mapper.property.FamilyHousePropertyMapper;
+import ru.senla.realestatemarket.model.announcement.FamilyHouseAnnouncement;
 import ru.senla.realestatemarket.model.house.FamilyHouse;
 import ru.senla.realestatemarket.model.property.FamilyHouseProperty;
-import ru.senla.realestatemarket.model.property.RenovationType;
+import ru.senla.realestatemarket.model.property.PropertyStatusEnum;
 import ru.senla.realestatemarket.model.user.User;
 import ru.senla.realestatemarket.repo.house.IFamilyHouseRepository;
 import ru.senla.realestatemarket.repo.property.IFamilyHousePropertyRepository;
@@ -25,10 +29,13 @@ import javax.annotation.PostConstruct;
 import javax.transaction.Transactional;
 import java.util.List;
 
+import static ru.senla.realestatemarket.repo.property.specification.FamilyHousePropertySpecification.hasFamilyHouseId;
+import static ru.senla.realestatemarket.repo.property.specification.FamilyHousePropertySpecification.hasIdAndUserIdOfOwner;
+
 @Slf4j
 @Service
 public class FamilyHousePropertyServiceImpl
-        extends AbstractHousingPropertyServiceImpl<FamilyHouseProperty>
+        extends AbstractHousingPropertyServiceImpl<FamilyHouseAnnouncement, FamilyHouseProperty>
         implements IFamilyHousePropertyService {
 
     private final IFamilyHousePropertyRepository familyHousePropertyRepository;
@@ -54,31 +61,65 @@ public class FamilyHousePropertyServiceImpl
 
 
     @Override
+    @Transactional
     public List<FamilyHousePropertyDto> getAllDto(String rsqlQuery, String sortQuery) {
         List<FamilyHouseProperty> familyHousePropertyList = getAll(rsqlQuery, sortQuery);
         return familyHousePropertyMapper.toFamilyHousePropertyDto(familyHousePropertyList);
     }
 
     @Override
+    @Transactional
+    public List<FamilyHousePropertyDto> getAllDtoOfCurrentUser(String rsqlQuery, String sortQuery) {
+        Sort sort = SortUtil.parseSortQuery(sortQuery);
+
+        List<FamilyHouseProperty> landPropertyList
+                = familyHousePropertyRepository.findAllByUserIdOfOwner(UserUtil.getCurrentUserId(), rsqlQuery, sort);
+
+        return familyHousePropertyMapper.toFamilyHousePropertyDto(landPropertyList);
+    }
+
+    @Override
+    @Transactional
     public FamilyHousePropertyDto getDtoById(Long id) {
         return familyHousePropertyMapper.toFamilyHousePropertyDto(getById(id));
     }
 
     @Override
     @Transactional
-    public void add(RequestFamilyHousePropertyDto requestFamilyHousePropertyDto, Long userIdOfOwner) {
-        FamilyHouseProperty familyHouseProperty = familyHousePropertyMapper.toFamilyHouseProperty(requestFamilyHousePropertyDto);
+    public FamilyHousePropertyDto getDtoByIdOfCurrentUser(Long id) {
+        return familyHousePropertyMapper.toFamilyHousePropertyDto(
+                getOne(hasIdAndUserIdOfOwner(id, UserUtil.getCurrentUserId()))
+        );
+    }
 
-        Long familyHouseId = requestFamilyHousePropertyDto.getFamilyHouseId();
-        setFamilyHouseById(familyHouseProperty, familyHouseId);
-
-        Long renovationTypeId = requestFamilyHousePropertyDto.getRenovationTypeId();
-        setRenovationTypeById(familyHouseProperty, renovationTypeId);
+    @Override
+    @Transactional
+    public void addFromDto(RequestFamilyHousePropertyWithUserIdOfOwnerDto requestDto) {
+        Long userIdOfOwner = requestDto.getUserIdOfOwner();
 
         User owner = userRepository.findById(userIdOfOwner);
-        EntityHelper.checkEntityOnNull(owner, User.class, null);
+        EntityHelper.checkEntityOnNull(owner, User.class, userIdOfOwner);
 
-        familyHouseProperty.setOwner(owner);
+        addFromDtoWithSpecificOwner(requestDto, userIdOfOwner);
+    }
+
+    @Override
+    @Transactional
+    public void addFromDtoFromCurrentUser(RequestFamilyHousePropertyDto requestDto) {
+        addFromDtoWithSpecificOwner(requestDto, UserUtil.getCurrentUserId());
+    }
+
+    private void addFromDtoWithSpecificOwner(RequestFamilyHousePropertyDto requestDto, Long userIdOfOwner) {
+        FamilyHouseProperty familyHouseProperty = familyHousePropertyMapper.toFamilyHouseProperty(requestDto);
+
+        Long familyHouseId = requestDto.getFamilyHouseId();
+        checkOnExistFamilyHousePropertyWithItFamilyHouseHouseId(familyHouseId);
+        setFamilyHouseById(familyHouseProperty, familyHouseId);
+
+        Long renovationTypeId = requestDto.getRenovationTypeId();
+        setRenovationTypeById(familyHouseProperty, renovationTypeId);
+
+        setOwnerByUserIdOfOwner(familyHouseProperty, userIdOfOwner);
 
 
         familyHousePropertyRepository.create(familyHouseProperty);
@@ -86,15 +127,50 @@ public class FamilyHousePropertyServiceImpl
 
     @Override
     @Transactional
-    public void addFromCurrentUser(RequestFamilyHousePropertyDto requestFamilyHousePropertyDto) {
-        add(requestFamilyHousePropertyDto, UserUtil.getCurrentUserId());
+    public void updateByIdFromDto(UpdateRequestFamilyHousePropertyWithUserIdOfOwnerDto updateRequestDto, Long id) {
+        FamilyHouseProperty familyHouseProperty = getById(id);
+
+        Long userOfOwnerId = updateRequestDto.getUserIdOfOwner();
+        if (userOfOwnerId != null) {
+            setOwnerByUserIdOfOwner(familyHouseProperty, userOfOwnerId);
+        }
+
+        updateFromDto(updateRequestDto, familyHouseProperty);
     }
 
-    private void setRenovationTypeById(FamilyHouseProperty familyHouseProperty, Long renovationTypeId) {
-        RenovationType renovationType = renovationTypeRepository.findById(renovationTypeId);
-        EntityHelper.checkEntityOnNull(renovationType, RenovationType.class, renovationTypeId);
+    @Override
+    @Transactional
+    public void updateFromDtoByPropertyIdOfCurrentUser(UpdateRequestFamilyHousePropertyDto updateRequestDto, Long id) {
+        FamilyHouseProperty familyHouseProperty = getById(id);
+        validateAccessCurrentUserToProperty(familyHouseProperty);
 
-        familyHouseProperty.setRenovationType(renovationType);
+        updateFromDto(updateRequestDto, familyHouseProperty);
+    }
+
+    private void updateFromDto(UpdateRequestFamilyHousePropertyDto updateRequestDto,
+                               FamilyHouseProperty familyHouseProperty) {
+        Long familyHouseId = updateRequestDto.getFamilyHouseId();
+        if (familyHouseId != null) {
+            checkOnExistFamilyHousePropertyWithItFamilyHouseHouseId(familyHouseId);
+            setFamilyHouseById(familyHouseProperty, familyHouseId);
+        }
+
+        Long renovationTypeId = updateRequestDto.getRenovationTypeId();
+        if (renovationTypeId != null) {
+            setRenovationTypeById(familyHouseProperty, renovationTypeId);
+        }
+
+        PropertyStatusEnum status = updateRequestDto.getStatus();
+        if (status == PropertyStatusEnum.DELETED) {
+            setDeletedStatusOnPropertyAndRelatedAnnouncements(familyHouseProperty);
+        }
+
+        familyHousePropertyMapper.updateFamilyHousePropertyFromUpdateRequestFamilyHouseDto(
+                updateRequestDto, familyHouseProperty
+        );
+
+
+        familyHousePropertyRepository.update(familyHouseProperty);
     }
 
     private void setFamilyHouseById(FamilyHouseProperty familyHouseProperty, Long familyHouseId) {
@@ -103,38 +179,17 @@ public class FamilyHousePropertyServiceImpl
 
         familyHouseProperty.setFamilyHouse(familyHouse);
     }
+    
+    private void checkOnExistFamilyHousePropertyWithItFamilyHouseHouseId(
+            Long familyHouseId
+    ) {
+        if (familyHousePropertyRepository.isExist(hasFamilyHouseId(familyHouseId))) {
+            String message = String.format(
+                    "Family house property with family house house with id %s is exist", familyHouseId);
 
-    @Override
-    @Transactional
-    public void updateById(UpdateRequestFamilyHousePropertyDto updateRequestFamilyHousePropertyDto, Long id) {
-        FamilyHouseProperty familyHouseProperty = getById(id);
-
-        Long familyHouseId = updateRequestFamilyHousePropertyDto.getFamilyHouseId();
-        if (familyHouseId != null) {
-            setFamilyHouseById(familyHouseProperty, familyHouseId);
+            log.error(message);
+            throw new FamilyHousePropertyWithSpecifiedFamilyHouseIsExistException(message);
         }
-
-        Long renovationTypeId = updateRequestFamilyHousePropertyDto.getRenovationTypeId();
-        if (renovationTypeId != null) {
-            setRenovationTypeById(familyHouseProperty, renovationTypeId);
-        }
-
-        familyHousePropertyMapper.updateFamilyHousePropertyFromUpdateRequestFamilyHouseDto(
-                updateRequestFamilyHousePropertyDto, familyHouseProperty
-        );
-
-
-        familyHousePropertyRepository.update(familyHouseProperty);
-    }
-
-    @Override
-    public List<FamilyHousePropertyDto> getAllDtoOfCurrentUser(String rsqlQuery, String sortQuery) {
-        Sort sort = SortUtil.parseSortQuery(sortQuery);
-
-        List<FamilyHouseProperty> landPropertyList
-                = familyHousePropertyRepository.findAllByUserIdOfOwner(UserUtil.getCurrentUserId(), rsqlQuery, sort);
-
-        return familyHousePropertyMapper.toFamilyHousePropertyDto(landPropertyList);
     }
 
 }

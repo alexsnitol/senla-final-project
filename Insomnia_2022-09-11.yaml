@@ -1,0 +1,4442 @@
+_type: export
+__export_format: 4
+__export_date: 2022-09-11T19:38:53.313Z
+__export_source: insomnia.desktop.app:v2022.6.0-beta.4
+resources:
+  - _id: req_5502e68461fd4c6caebeaf5e2932f397
+    parentId: wrk_b9c5b3d18bbe460fb180ea678719b6c4
+    modified: 1662637539578
+    created: 1662327412801
+    url: https://api.vk.com/method/groups.get?params[user_id]=141066071&params[extended]=1&params[count]=3&params[v]=5.131
+    name: New Request
+    description: ""
+    method: GET
+    body: {}
+    parameters: []
+    headers:
+      - id: pair_08b0352cc9f2447d9a141b521beae042
+        name: Authorization
+        value: "{{ _.token }}"
+        description: ""
+    authentication: {}
+    metaSortKey: -1662327412801
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: wrk_b9c5b3d18bbe460fb180ea678719b6c4
+    parentId: null
+    modified: 1662384368563
+    created: 1662319129528
+    name: SENLA - Real Estate Market (final project) Collection
+    description: ""
+    scope: collection
+    _type: workspace
+  - _id: req_f18e6a1c44e64dd7b33d245a8c05cc65
+    parentId: fld_8ed44d8a33624e9ea53b6307aad33fe7
+    modified: 1662924029048
+    created: 1662319317271
+    url: "{{ base_url }}/auth"
+    name: Admin login
+    description: ""
+    method: POST
+    body:
+      mimeType: application/json
+      text: |-
+        {
+        	"username": "admin",
+        	"password": "admin"
+        }
+    parameters: []
+    headers:
+      - name: Content-Type
+        value: application/json
+        id: pair_c81ff45e7ee444a49b9e96f66fdd71d3
+    authentication: {}
+    metaSortKey: -1661529952577
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: fld_8ed44d8a33624e9ea53b6307aad33fe7
+    parentId: wrk_b9c5b3d18bbe460fb180ea678719b6c4
+    modified: 1662319337594
+    created: 1662319317269
+    name: Auth
+    description: ""
+    environment: {}
+    environmentPropertyOrder: null
+    metaSortKey: -100
+    _type: request_group
+  - _id: req_d6c6e006e45f422887b24bcae108c318
+    parentId: fld_8ed44d8a33624e9ea53b6307aad33fe7
+    modified: 1662898514516
+    created: 1662319317274
+    url: "{{ base_url }}/auth"
+    name: User login
+    description: ""
+    method: POST
+    body:
+      mimeType: application/json
+      text: |-
+        {
+        	"username": "user",
+        	"password": "user"
+        }
+    parameters: []
+    headers:
+      - name: Content-Type
+        value: application/json
+        id: pair_c81ff45e7ee444a49b9e96f66fdd71d3
+    authentication: {}
+    metaSortKey: -1661351109214
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_8e03240f2af2404d8bcd6b69c1899460
+    parentId: fld_8ed44d8a33624e9ea53b6307aad33fe7
+    modified: 1662898514067
+    created: 1662319317284
+    url: "{{ base_url }}/auth"
+    name: Alexsnitol login
+    description: ""
+    method: POST
+    body:
+      mimeType: application/json
+      text: |-
+        {
+        	"username": "alexsnitol",
+        	"password": "alexsnitol"
+        }
+    parameters: []
+    headers:
+      - name: Content-Type
+        value: application/json
+        id: pair_c81ff45e7ee444a49b9e96f66fdd71d3
+    authentication: {}
+    metaSortKey: -1661351109189
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_99440e9c1f0847ff8425ccf89bc06304
+    parentId: fld_6584936e712943bf9d98065c8303f542
+    modified: 1662647315347
+    created: 1662319317277
+    url: "{{ base_url }}/users"
+    name: All users
+    description: ""
+    method: GET
+    body: {}
+    parameters: []
+    headers:
+      - id: pair_327564b40ae54360b325b50704899122
+        name: Authorization
+        value: "{{ token }}"
+        description: ""
+    authentication: {}
+    metaSortKey: -1661351109164
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: fld_6584936e712943bf9d98065c8303f542
+    parentId: wrk_b9c5b3d18bbe460fb180ea678719b6c4
+    modified: 1662457391753
+    created: 1662457366684
+    name: Users
+    description: ""
+    environment: {}
+    environmentPropertyOrder: null
+    metaSortKey: -75
+    _type: request_group
+  - _id: req_9898dc261a7e45a7881a565f4aada577
+    parentId: fld_6584936e712943bf9d98065c8303f542
+    modified: 1662457419588
+    created: 1662319317280
+    url: "{{ base_url }}/users"
+    name: User
+    description: ""
+    method: POST
+    body:
+      mimeType: application/json
+      text: |-
+        	{
+        		"username": "alexsnitol",
+        		"password": "alexsnitol",
+        		"lastName": "Слотин",
+        		"firstName": "Александр",
+        		"patronymic": "Сергеевич",
+        		"email": "sslotin74@gmail.com",
+        		"phoneNumber": "89532660798"
+        	}
+    parameters: []
+    headers:
+      - id: pair_327564b40ae54360b325b50704899122
+        name: Authorization
+        value: "{{ token }}"
+        description: ""
+      - name: Content-Type
+        value: application/json
+        id: pair_111ae8deac6a4e32a6eb806b8753e5eb
+    authentication: {}
+    metaSortKey: -1661351109139
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_442c5be5f1d346e4957cb819b39e4094
+    parentId: fld_6584936e712943bf9d98065c8303f542
+    modified: 1662501466668
+    created: 1662319317288
+    url: "{{ base_url }}/users/105"
+    name: User by id
+    description: ""
+    method: GET
+    body: {}
+    parameters: []
+    headers:
+      - id: pair_327564b40ae54360b325b50704899122
+        name: Authorization
+        value: "{{ token }}"
+        description: ""
+    authentication: {}
+    metaSortKey: -1661351109114
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_3f6f060a0aa44cabbacadc1c638d8c8b
+    parentId: fld_6584936e712943bf9d98065c8303f542
+    modified: 1662457375145
+    created: 1662319317292
+    url: "{{ base_url }}/users/106"
+    name: User by id
+    description: ""
+    method: PUT
+    body:
+      mimeType: application/json
+      text: |-
+        {
+        	"lastName": "test222",
+        	"phoneNumber": "testtesttesttesttesttest"
+        }
+    parameters: []
+    headers:
+      - id: pair_327564b40ae54360b325b50704899122
+        name: Authorization
+        value: "{{ token }}"
+        description: ""
+      - name: Content-Type
+        value: application/json
+        id: pair_9a172ef83a024bccb9698421ee45c0ee
+    authentication: {}
+    metaSortKey: -1661351109064
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_a508a97dbfc5406c9cd3eb76c9a876be
+    parentId: fld_6584936e712943bf9d98065c8303f542
+    modified: 1662899469183
+    created: 1662319317298
+    url: "{{ base_url }}/users/current"
+    name: Current user
+    description: ""
+    method: GET
+    body: {}
+    parameters: []
+    headers:
+      - id: pair_327564b40ae54360b325b50704899122
+        name: Authorization
+        value: "{{ token }}"
+        description: ""
+    authentication: {}
+    metaSortKey: -1661351109014
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_0aca3d11fe534e9a95c479533242f843
+    parentId: fld_6584936e712943bf9d98065c8303f542
+    modified: 1662899470320
+    created: 1662319317301
+    url: "{{ base_url }}/users/current"
+    name: Current user
+    description: ""
+    method: PUT
+    body:
+      mimeType: application/json
+      text: |-
+        {
+        	"username": "admin",
+        	"password": "admin",
+        	"lastName": "Слотин",
+        	"firstName": "Александр",
+        	"patronymic": "Сергеевич",
+        	"email": "sslotin74@gmail.com",
+        	"phoneNumber": "89532660798"
+        }
+    parameters: []
+    headers:
+      - id: pair_327564b40ae54360b325b50704899122
+        name: Authorization
+        value: "{{ token }}"
+        description: ""
+      - name: Content-Type
+        value: application/json
+        id: pair_b90137d436884a8aaaf687ea0ce5c47b
+    authentication: {}
+    metaSortKey: -1661351108964
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_4718fe8a95d7498d96bcc2f5ac9ee3fd
+    parentId: fld_6584936e712943bf9d98065c8303f542
+    modified: 1662925075585
+    created: 1662319317304
+    url: "{{ base_url }}/users/current"
+    name: Specific fields of current user
+    description: ""
+    method: PUT
+    body:
+      mimeType: application/json
+      text: |-
+        {
+        	"lastName": "Слотин",
+        	"firstName": "Александр",
+        	"patronymic": "Сергеевич",
+        	"email": "sslotin74@gmail.com",
+        	"phoneNumber": "89532660798"
+        }
+    parameters: []
+    headers:
+      - id: pair_327564b40ae54360b325b50704899122
+        name: Authorization
+        value: "{{ token }}"
+        description: ""
+      - name: Content-Type
+        value: application/json
+        id: pair_b90137d436884a8aaaf687ea0ce5c47b
+    authentication: {}
+    metaSortKey: -1661351108914
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_34bd0b544ff744c58942f931aba466c5
+    parentId: fld_6584936e712943bf9d98065c8303f542
+    modified: 1662925076296
+    created: 1662459381096
+    url: "{{ _.base_url }}/users/105/balance-operations"
+    name: Balance operation by user id
+    description: ""
+    method: GET
+    body: {}
+    parameters: []
+    headers:
+      - id: pair_9698a2ebda394590b316efa7f52701a1
+        name: Authorization
+        value: "{{ token }}"
+        description: ""
+    authentication: {}
+    metaSortKey: -1661351108889
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_1c07947fc88242ab9146620293c90a8a
+    parentId: fld_6584936e712943bf9d98065c8303f542
+    modified: 1662579148613
+    created: 1662457459101
+    url: "{{ _.base_url }}/users/100/balance-operations"
+    name: Balance operation by user id
+    description: ""
+    method: POST
+    body:
+      mimeType: application/json
+      text: |-
+        {
+        	"sum": "96800"
+        }
+    parameters: []
+    headers:
+      - name: Content-Type
+        value: application/json
+        id: pair_ffc1c19e5b674b1a8bd812c2af0f8938
+      - id: pair_9698a2ebda394590b316efa7f52701a1
+        name: Authorization
+        value: "{{ token }}"
+        description: ""
+    authentication: {}
+    metaSortKey: -1661351108864
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_217e8915c3784503b60481a060727912
+    parentId: fld_6584936e712943bf9d98065c8303f542
+    modified: 1662459454957
+    created: 1662459448755
+    url: "{{ _.base_url }}/users/current/balance-operations"
+    name: Balance operation of current user
+    description: ""
+    method: GET
+    body: {}
+    parameters: []
+    headers:
+      - id: pair_9698a2ebda394590b316efa7f52701a1
+        name: Authorization
+        value: "{{ token }}"
+        description: ""
+    authentication: {}
+    metaSortKey: -1661351108814
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_b79929f3f1264b96984a6c54f6d33b8a
+    parentId: fld_d81059a1234b428f92d02a039c629ddb
+    modified: 1662319311435
+    created: 1662319311435
+    url: "{{ base_url }}/regions"
+    name: All regions
+    description: ""
+    method: GET
+    body: {}
+    parameters: []
+    headers:
+      - id: pair_692d97aaf0cb47b194a0ae0af5d226cb
+        name: Authorization
+        value: "{{ token }}"
+        description: ""
+    authentication: {}
+    metaSortKey: -1661850516653.25
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: fld_d81059a1234b428f92d02a039c629ddb
+    parentId: fld_b90998dbfd9d4a71b1b94595ed03f0e2
+    modified: 1662319311432
+    created: 1662319311432
+    name: Region
+    description: ""
+    environment: {}
+    environmentPropertyOrder: null
+    metaSortKey: -1662064949685
+    _type: request_group
+  - _id: fld_b90998dbfd9d4a71b1b94595ed03f0e2
+    parentId: wrk_b9c5b3d18bbe460fb180ea678719b6c4
+    modified: 1662319335533
+    created: 1662319311430
+    name: Address
+    description: ""
+    environment: {}
+    environmentPropertyOrder: null
+    metaSortKey: -50
+    _type: request_group
+  - _id: req_e51900a8c49c4f1d97df73a73ee9b36b
+    parentId: fld_d81059a1234b428f92d02a039c629ddb
+    modified: 1662319311441
+    created: 1662319311441
+    url: "{{ base_url }}/regions/100"
+    name: Region by id
+    description: ""
+    method: GET
+    body: {}
+    parameters: []
+    headers:
+      - id: pair_692d97aaf0cb47b194a0ae0af5d226cb
+        name: Authorization
+        value: "{{ token }}"
+        description: ""
+    authentication: {}
+    metaSortKey: -1661850516603.25
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_33920710f5e646548bb65f41a44c7a90
+    parentId: fld_d81059a1234b428f92d02a039c629ddb
+    modified: 1662319311447
+    created: 1662319311447
+    url: "{{ base_url }}/regions/100"
+    name: Region by id
+    description: ""
+    method: DELETE
+    body: {}
+    parameters: []
+    headers:
+      - id: pair_692d97aaf0cb47b194a0ae0af5d226cb
+        name: Authorization
+        value: "{{ token }}"
+        description: ""
+    authentication: {}
+    metaSortKey: -1661850516553.25
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_27961f40582e46e3ac0028f1822ff304
+    parentId: fld_d81059a1234b428f92d02a039c629ddb
+    modified: 1662319311449
+    created: 1662319311449
+    url: "{{ base_url }}/regions/100"
+    name: Region by id
+    description: ""
+    method: PUT
+    body:
+      mimeType: application/json
+      text: |-
+        {
+        	"name": "Архангельская область"
+        }
+    parameters: []
+    headers:
+      - id: pair_692d97aaf0cb47b194a0ae0af5d226cb
+        name: Authorization
+        value: "{{ token }}"
+        description: ""
+      - name: Content-Type
+        value: application/json
+        id: pair_88d8e385aa9442a6b608b44d1b18686b
+    authentication: {}
+    metaSortKey: -1661850516528.25
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_b03394a570fc4762ae022a29055aff0d
+    parentId: fld_d81059a1234b428f92d02a039c629ddb
+    modified: 1662319311438
+    created: 1662319311438
+    url: "{{ base_url }}/regions"
+    name: Region
+    description: ""
+    method: POST
+    body:
+      mimeType: application/json
+      text: |-
+        {
+        	"name": "Архангельская область"
+        }
+    parameters: []
+    headers:
+      - id: pair_692d97aaf0cb47b194a0ae0af5d226cb
+        name: Authorization
+        value: "{{ token }}"
+        description: ""
+      - name: Content-Type
+        value: application/json
+        id: pair_2e23f27e3b5b4570be2e85a9807f17b6
+    authentication: {}
+    metaSortKey: -1661850516503.25
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_9552918af5cf401a8272cba2b7f77662
+    parentId: fld_2be0e3a5c45342a68ade49c232af8701
+    modified: 1662319311455
+    created: 1662319311455
+    url: "{{ base_url }}/cities"
+    name: All cities
+    description: ""
+    method: GET
+    body: {}
+    parameters: []
+    headers:
+      - id: pair_692d97aaf0cb47b194a0ae0af5d226cb
+        name: Authorization
+        value: "{{ token }}"
+        description: ""
+    authentication: {}
+    metaSortKey: -1662064942733
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: fld_2be0e3a5c45342a68ade49c232af8701
+    parentId: fld_b90998dbfd9d4a71b1b94595ed03f0e2
+    modified: 1662319311453
+    created: 1662319311453
+    name: City
+    description: ""
+    environment: {}
+    environmentPropertyOrder: null
+    metaSortKey: -1662064949660
+    _type: request_group
+  - _id: req_e538c82d59804670b0e7598efc166779
+    parentId: fld_2be0e3a5c45342a68ade49c232af8701
+    modified: 1662319311460
+    created: 1662319311460
+    url: "{{ base_url }}/regions/102/cities"
+    name: All cities by region id
+    description: ""
+    method: GET
+    body: {}
+    parameters: []
+    headers:
+      - id: pair_692d97aaf0cb47b194a0ae0af5d226cb
+        name: Authorization
+        value: "{{ token }}"
+        description: ""
+    authentication: {}
+    metaSortKey: -1662064942683
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_183bf24ad9fc44bb8d40d1a22bd064a1
+    parentId: fld_2be0e3a5c45342a68ade49c232af8701
+    modified: 1662319311467
+    created: 1662319311467
+    url: "{{ base_url }}/regions/102/cities/102"
+    name: City by region id and by city id
+    description: ""
+    method: GET
+    body: {}
+    parameters: []
+    headers:
+      - id: pair_692d97aaf0cb47b194a0ae0af5d226cb
+        name: Authorization
+        value: "{{ token }}"
+        description: ""
+    authentication: {}
+    metaSortKey: -1662064942633
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_a36433929ed5455dbb39725e4160b0bb
+    parentId: fld_2be0e3a5c45342a68ade49c232af8701
+    modified: 1662319311471
+    created: 1662319311471
+    url: "{{ base_url }}/regions/102/cities/102"
+    name: City by region id and by city id
+    description: ""
+    method: DELETE
+    body: {}
+    parameters: []
+    headers:
+      - id: pair_692d97aaf0cb47b194a0ae0af5d226cb
+        name: Authorization
+        value: "{{ token }}"
+        description: ""
+    authentication: {}
+    metaSortKey: -1662064942583
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_994446099c204112bafef610bc0e5c29
+    parentId: fld_2be0e3a5c45342a68ade49c232af8701
+    modified: 1662319311473
+    created: 1662319311473
+    url: "{{ base_url }}/regions/102/cities/102"
+    name: City by region id and by city id
+    description: ""
+    method: PUT
+    body:
+      mimeType: application/json
+      text: |-
+        {
+        	"regionId": 100,
+        	"name": "Северодвинск"
+        }
+    parameters: []
+    headers:
+      - id: pair_692d97aaf0cb47b194a0ae0af5d226cb
+        name: Authorization
+        value: "{{ token }}"
+        description: ""
+      - name: Content-Type
+        value: application/json
+        id: pair_6168d7322be64b529d7d93413ffd6042
+    authentication: {}
+    metaSortKey: -1662064942558
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_60c378f18672451292d363a6a3b8b2e0
+    parentId: fld_2be0e3a5c45342a68ade49c232af8701
+    modified: 1662319311463
+    created: 1662319311463
+    url: "{{ base_url }}/regions/102/cities"
+    name: City
+    description: ""
+    method: POST
+    body:
+      mimeType: application/json
+      text: |-
+        {
+        	"name": "Северодвинск"
+        }
+    parameters: []
+    headers:
+      - id: pair_692d97aaf0cb47b194a0ae0af5d226cb
+        name: Authorization
+        value: "{{ token }}"
+        description: ""
+      - name: Content-Type
+        value: application/json
+        id: pair_2e23f27e3b5b4570be2e85a9807f17b6
+    authentication: {}
+    metaSortKey: -1662064942533
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_8566f229e8474790a7f6fc6cc919f024
+    parentId: fld_1f4705a163d44f30bf2712d661aee935
+    modified: 1662319311480
+    created: 1662319311480
+    url: "{{ base_url }}/streets"
+    name: All streets
+    description: ""
+    method: GET
+    body: {}
+    parameters: []
+    headers:
+      - id: pair_692d97aaf0cb47b194a0ae0af5d226cb
+        name: Authorization
+        value: "{{ token }}"
+        description: ""
+    authentication: {}
+    metaSortKey: -1661850507387.75
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: fld_1f4705a163d44f30bf2712d661aee935
+    parentId: fld_b90998dbfd9d4a71b1b94595ed03f0e2
+    modified: 1662319311478
+    created: 1662319311478
+    name: Street
+    description: ""
+    environment: {}
+    environmentPropertyOrder: null
+    metaSortKey: -1662064949635
+    _type: request_group
+  - _id: req_e45d61c129cb4d8b858d09d9341e804b
+    parentId: fld_1f4705a163d44f30bf2712d661aee935
+    modified: 1662319311485
+    created: 1662319311485
+    url: "{{ base_url }}/regions/102/cities/102/streets"
+    name: All streets by region id and city id
+    description: ""
+    method: GET
+    body: {}
+    parameters: []
+    headers:
+      - id: pair_692d97aaf0cb47b194a0ae0af5d226cb
+        name: Authorization
+        value: "{{ token }}"
+        description: ""
+    authentication: {}
+    metaSortKey: -1661850507337.75
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_56bb00dc25644746be1004141b25ad04
+    parentId: fld_1f4705a163d44f30bf2712d661aee935
+    modified: 1662319311493
+    created: 1662319311493
+    url: "{{ base_url }}/regions/102/cities/102/streets/102"
+    name: Street by region id and city id and street id
+    description: ""
+    method: GET
+    body: {}
+    parameters: []
+    headers:
+      - id: pair_692d97aaf0cb47b194a0ae0af5d226cb
+        name: Authorization
+        value: "{{ token }}"
+        description: ""
+    authentication: {}
+    metaSortKey: -1661850507287.75
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_54f4964fd244497690639fcae020f666
+    parentId: fld_1f4705a163d44f30bf2712d661aee935
+    modified: 1662319311496
+    created: 1662319311496
+    url: "{{ base_url }}/regions/102/cities/102/streets/102"
+    name: Street by region id and city id and street id
+    description: ""
+    method: DELETE
+    body: {}
+    parameters: []
+    headers:
+      - id: pair_692d97aaf0cb47b194a0ae0af5d226cb
+        name: Authorization
+        value: "{{ token }}"
+        description: ""
+    authentication: {}
+    metaSortKey: -1661850507237.75
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_8f24ac3d49114473ab79f40bdb05cafe
+    parentId: fld_1f4705a163d44f30bf2712d661aee935
+    modified: 1662319311499
+    created: 1662319311499
+    url: "{{ base_url }}/regions/102/cities/102/streets/102"
+    name: Street by region id and city id and street id
+    description: ""
+    method: PUT
+    body:
+      mimeType: application/json
+      text: |-
+        {
+        	"cityId": 100,
+        	"name": "Советская"
+        }
+    parameters: []
+    headers:
+      - id: pair_692d97aaf0cb47b194a0ae0af5d226cb
+        name: Authorization
+        value: "{{ token }}"
+        description: ""
+      - name: Content-Type
+        value: application/json
+        id: pair_eeda138e270246938419ce9fffea29f4
+    authentication: {}
+    metaSortKey: -1661850507212.75
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_9e3ac47b619246d3a4c47470b3ccc555
+    parentId: fld_1f4705a163d44f30bf2712d661aee935
+    modified: 1662319311488
+    created: 1662319311488
+    url: "{{ base_url }}/regions/102/cities/102/streets"
+    name: Street
+    description: ""
+    method: POST
+    body:
+      mimeType: application/json
+      text: |-
+        {
+        	"name": "Советская"
+        }
+    parameters: []
+    headers:
+      - id: pair_692d97aaf0cb47b194a0ae0af5d226cb
+        name: Authorization
+        value: "{{ token }}"
+        description: ""
+      - name: Content-Type
+        value: application/json
+        id: pair_2e23f27e3b5b4570be2e85a9807f17b6
+    authentication: {}
+    metaSortKey: -1661850507187.75
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_04072522cdd24bf7a22ae6b8aecb42a4
+    parentId: fld_b90998dbfd9d4a71b1b94595ed03f0e2
+    modified: 1662319311503
+    created: 1662319311503
+    url: "{{ base_url }}/addresses"
+    name: All addresses
+    description: ""
+    method: GET
+    body: {}
+    parameters: []
+    headers:
+      - id: pair_692d97aaf0cb47b194a0ae0af5d226cb
+        name: Authorization
+        value: "{{ token }}"
+        description: ""
+    authentication: {}
+    metaSortKey: -1661850507312.75
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_ea4e580beb794613aa495171c76e492d
+    parentId: fld_b90998dbfd9d4a71b1b94595ed03f0e2
+    modified: 1662327410666
+    created: 1662319311515
+    url: "{{ base_url }}/addresses/100"
+    name: Addresses by id
+    description: ""
+    method: GET
+    body: {}
+    parameters: []
+    headers:
+      - id: pair_692d97aaf0cb47b194a0ae0af5d226cb
+        name: Authorization
+        value: "{{ token }}"
+        description: ""
+    authentication: {}
+    metaSortKey: -1661850507300.25
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_9f3a22a6bb714df599044f20fd0d770c
+    parentId: fld_b90998dbfd9d4a71b1b94595ed03f0e2
+    modified: 1662379991093
+    created: 1662319311518
+    url: "{{ base_url }}/addresses/100"
+    name: Addresses by id
+    description: ""
+    method: DELETE
+    body: {}
+    parameters: []
+    headers:
+      - id: pair_692d97aaf0cb47b194a0ae0af5d226cb
+        name: Authorization
+        value: "{{ token }}"
+        description: ""
+    authentication: {}
+    metaSortKey: -1661850507294
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_4aaa38142d714fff91d257218a1ce6ac
+    parentId: fld_b90998dbfd9d4a71b1b94595ed03f0e2
+    modified: 1662319311521
+    created: 1662319311521
+    url: "{{ base_url }}/addresses/100"
+    name: Addresses by id
+    description: ""
+    method: PUT
+    body:
+      mimeType: application/json
+      text: |-
+        {
+        	"streetId": 101,
+        	"houseNumber": "999"
+        }
+    parameters: []
+    headers:
+      - id: pair_692d97aaf0cb47b194a0ae0af5d226cb
+        name: Authorization
+        value: "{{ token }}"
+        description: ""
+      - name: Content-Type
+        value: application/json
+        id: pair_7e486379f99849deb5511f9489a23278
+    authentication: {}
+    metaSortKey: -1661850507290.875
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_a87b0c6095ba47b5bd5cc6b1d9803200
+    parentId: fld_b90998dbfd9d4a71b1b94595ed03f0e2
+    modified: 1662319311508
+    created: 1662319311508
+    url: "{{ base_url }}/regions/101/cities/101/streets/101/house-numbers"
+    name: All house numbers by region id and city id and by street id
+    description: ""
+    method: GET
+    body: {}
+    parameters: []
+    headers:
+      - id: pair_692d97aaf0cb47b194a0ae0af5d226cb
+        name: Authorization
+        value: "{{ token }}"
+        description: ""
+    authentication: {}
+    metaSortKey: -1661850507287.75
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_019f0fd06d0c4621bd6e2dc7024a9832
+    parentId: fld_b90998dbfd9d4a71b1b94595ed03f0e2
+    modified: 1662319311512
+    created: 1662319311512
+    url: "{{ base_url }}/regions/102/cities/102/streets/102/house-numbers"
+    name: House number
+    description: ""
+    method: POST
+    body:
+      mimeType: application/json
+      text: |-
+        {
+        	"houseNumber": "9A"
+        }
+    parameters: []
+    headers:
+      - id: pair_692d97aaf0cb47b194a0ae0af5d226cb
+        name: Authorization
+        value: "{{ token }}"
+        description: ""
+      - name: Content-Type
+        value: application/json
+        id: pair_ce7ae01f47cd4fca9f2558476ec6833f
+    authentication: {}
+    metaSortKey: -1661850505021.375
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_bcb3536aa7324ddca59344870b23b96a
+    parentId: fld_0d3f4d7625f548e3b279f035247e54c1
+    modified: 1662319273812
+    created: 1662319273812
+    url: "{{ base_url }}/messages/users"
+    name: Message users of current user
+    description: ""
+    method: GET
+    body: {}
+    parameters: []
+    headers:
+      - id: pair_95f927bd809542e5ae9a6deefe6dc5a8
+        name: Authorization
+        value: "{{ token }}"
+        description: ""
+    authentication: {}
+    metaSortKey: -1661088360438
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: fld_0d3f4d7625f548e3b279f035247e54c1
+    parentId: wrk_b9c5b3d18bbe460fb180ea678719b6c4
+    modified: 1662319328001
+    created: 1662319273809
+    name: Message
+    description: ""
+    environment: {}
+    environmentPropertyOrder: null
+    metaSortKey: 0
+    _type: request_group
+  - _id: req_3b5e1d5050134ddbb7ca1899dcb50014
+    parentId: fld_0d3f4d7625f548e3b279f035247e54c1
+    modified: 1662319273816
+    created: 1662319273816
+    url: "{{ base_url }}/messages/users/107"
+    name: Messages for current user by user id
+    description: ""
+    method: GET
+    body: {}
+    parameters: []
+    headers:
+      - id: pair_ea909c5bacbc4233858f2592e7ecb419
+        name: Authorization
+        value: "{{ token }}"
+        description: ""
+    authentication: {}
+    metaSortKey: -1661088360388
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_9954551572894285be4da202278434ea
+    parentId: fld_0d3f4d7625f548e3b279f035247e54c1
+    modified: 1662319273820
+    created: 1662319273820
+    url: "{{ base_url }}/messages/users/107"
+    name: Sent message to user by id
+    description: ""
+    method: POST
+    body:
+      mimeType: application/json
+      text: |-
+        {
+        	"text": "Тестирую чат. Работает клёво."
+        }
+    parameters: []
+    headers:
+      - name: Content-Type
+        value: application/json
+        id: pair_7e7ec8d6bd9443daafd4f6d589197f4c
+      - id: pair_587372462025488eb35c7b7ad9015a9b
+        name: Authorization
+        value: "{{ token }}"
+        description: ""
+    authentication: {}
+    metaSortKey: -1661088360338
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_3f22c01bf8d94a3697b6eb862f581f5c
+    parentId: fld_b24e8175cd644c72b834d982181f4bbd
+    modified: 1662319281476
+    created: 1662319281476
+    url: "{{ base_url }}/sellers/101/reviews"
+    name: Reviews of seller
+    description: ""
+    method: GET
+    body: {}
+    parameters: []
+    headers:
+      - id: pair_94b2427e71d84ca590ed001f55196ca8
+        name: Authorization
+        value: "{{ token }}"
+        description: ""
+    authentication: {}
+    metaSortKey: -1661108346602
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: fld_b24e8175cd644c72b834d982181f4bbd
+    parentId: wrk_b9c5b3d18bbe460fb180ea678719b6c4
+    modified: 1662319328001
+    created: 1662319281474
+    name: Review
+    description: ""
+    environment: {}
+    environmentPropertyOrder: null
+    metaSortKey: 100
+    _type: request_group
+  - _id: req_b6777a2d3bbc4f4db0d3f7c7a572bec0
+    parentId: fld_b24e8175cd644c72b834d982181f4bbd
+    modified: 1662319281480
+    created: 1662319281480
+    url: "{{ base_url }}/customers/101/reviews"
+    name: Seller reviews of customer
+    description: ""
+    method: GET
+    body: {}
+    parameters: []
+    headers:
+      - id: pair_ab24da51cfcd42cbb75a52eec3595c17
+        name: Authorization
+        value: "{{ token }}"
+        description: ""
+    authentication: {}
+    metaSortKey: -1661108346552
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_25371e380b1240619644260d9903396d
+    parentId: fld_b24e8175cd644c72b834d982181f4bbd
+    modified: 1662319281483
+    created: 1662319281483
+    url: "{{ base_url }}/sellers/101/reviews"
+    name: Sent review to seller
+    description: ""
+    method: POST
+    body:
+      mimeType: application/json
+      text: |-
+        {
+        	"comment": "Отлично сработались!",
+        	"note": 4
+        }
+    parameters: []
+    headers:
+      - name: Content-Type
+        value: application/json
+        id: pair_af5f30f5f6fd4bc79ba5539331e00ee5
+      - id: pair_d9d16283bafa405f8585897f1ca8e6c0
+        name: Authorization
+        value: "{{ token }}"
+        description: ""
+    authentication: {}
+    metaSortKey: -1661108346502
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_bac5d74de0884db8b2db63e06db7f83f
+    parentId: fld_e5fa2b52ae3747298ffbcd3441cf0c4d
+    modified: 1662924993624
+    created: 1662319305742
+    url: "{{ base_url }}/house-materials"
+    name: All house materials
+    description: ""
+    method: GET
+    body: {}
+    parameters: []
+    headers:
+      - id: pair_3106f588dd9940008dd9ac0341593329
+        name: Authorization
+        value: "{{ token }}"
+        description: ""
+    authentication: {}
+    metaSortKey: -1661156286038.75
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: fld_e5fa2b52ae3747298ffbcd3441cf0c4d
+    parentId: fld_07342a904c364a24ac9b7072ec005b4a
+    modified: 1662924987741
+    created: 1662924987741
+    name: House material
+    description: ""
+    environment: {}
+    environmentPropertyOrder: null
+    metaSortKey: -1662924987742
+    _type: request_group
+  - _id: fld_07342a904c364a24ac9b7072ec005b4a
+    parentId: wrk_b9c5b3d18bbe460fb180ea678719b6c4
+    modified: 1662319328001
+    created: 1662319305697
+    name: House
+    description: ""
+    environment: {}
+    environmentPropertyOrder: null
+    metaSortKey: 400
+    _type: request_group
+  - _id: req_212594597d8846cf9d1cb4114925bc22
+    parentId: fld_e5fa2b52ae3747298ffbcd3441cf0c4d
+    modified: 1662924999872
+    created: 1662319305745
+    url: "{{ base_url }}/house-materials"
+    name: House material
+    description: ""
+    method: POST
+    body:
+      mimeType: application/json
+      text: |-
+        {
+        	"name": "new house material"
+        }
+    parameters: []
+    headers:
+      - id: pair_3106f588dd9940008dd9ac0341593329
+        name: Authorization
+        value: "{{ token }}"
+        description: ""
+      - name: Content-Type
+        value: application/json
+        id: pair_1e23c207800143949187376bcdd6d40d
+    authentication: {}
+    metaSortKey: -1661156286026.25
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_a6b59bbc99bf407f935ba0ea0ee71cf5
+    parentId: fld_e5fa2b52ae3747298ffbcd3441cf0c4d
+    modified: 1662924998245
+    created: 1662319305750
+    url: "{{ base_url }}/house-materials/100"
+    name: House materials by id
+    description: ""
+    method: GET
+    body: {}
+    parameters: []
+    headers:
+      - id: pair_3106f588dd9940008dd9ac0341593329
+        name: Authorization
+        value: "{{ token }}"
+        description: ""
+    authentication: {}
+    metaSortKey: -1661156286013.75
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_b1c7f56c39314f4f8310051796cb23ea
+    parentId: fld_e5fa2b52ae3747298ffbcd3441cf0c4d
+    modified: 1662924997030
+    created: 1662319305753
+    url: "{{ base_url }}/house-materials/100"
+    name: House materials by id
+    description: ""
+    method: DELETE
+    body: {}
+    parameters: []
+    headers:
+      - id: pair_3106f588dd9940008dd9ac0341593329
+        name: Authorization
+        value: "{{ token }}"
+        description: ""
+    authentication: {}
+    metaSortKey: -1661156285988.75
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_a77c908ba6264e92a1f975eb45fdadc2
+    parentId: fld_e5fa2b52ae3747298ffbcd3441cf0c4d
+    modified: 1662925016156
+    created: 1662925007941
+    url: "{{ base_url }}/house-materials/100"
+    name: House material by id
+    description: ""
+    method: PUT
+    body:
+      mimeType: application/json
+      text: |-
+        {
+        	"name": "new house material"
+        }
+    parameters: []
+    headers:
+      - id: pair_3106f588dd9940008dd9ac0341593329
+        name: Authorization
+        value: "{{ token }}"
+        description: ""
+      - name: Content-Type
+        value: application/json
+        id: pair_1e23c207800143949187376bcdd6d40d
+    authentication: {}
+    metaSortKey: -1661156285938.75
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_34a26c1090c44a3f9c9c6a9c1bb3b3fc
+    parentId: fld_8a750b5e114b40cbbc72925caed38281
+    modified: 1662925045159
+    created: 1662319305701
+    url: "{{ base_url }}/houses/apartment-houses"
+    name: All apartment houses
+    description: ""
+    method: GET
+    body: {}
+    parameters: []
+    headers:
+      - id: pair_3106f588dd9940008dd9ac0341593329
+        name: Authorization
+        value: "{{ token }}"
+        description: ""
+    authentication: {}
+    metaSortKey: -1661140306226.5
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: fld_8a750b5e114b40cbbc72925caed38281
+    parentId: fld_07342a904c364a24ac9b7072ec005b4a
+    modified: 1662459964310
+    created: 1662319305699
+    name: Apartment house
+    description: ""
+    environment: {}
+    environmentPropertyOrder: null
+    metaSortKey: -1661940598281
+    _type: request_group
+  - _id: req_7fc01481f0f44051b033771f1434ef59
+    parentId: fld_8a750b5e114b40cbbc72925caed38281
+    modified: 1662924931857
+    created: 1662319305705
+    url: "{{ base_url }}/houses/apartment-houses"
+    name: Apartment house
+    description: ""
+    method: POST
+    body:
+      mimeType: application/json
+      text: |-
+        {
+        	"address": {
+        		"streetId": 102,
+        		"houseNumber": "51"
+        	},
+        	"numberOfFloors": 9,
+        	"buildingYear": "1998",
+        	"houseMaterialId": 107,
+        	"housingType": "SECONDARY",
+        	"elevator": true
+        }
+    parameters: []
+    headers:
+      - id: pair_3106f588dd9940008dd9ac0341593329
+        name: Authorization
+        value: "{{ token }}"
+        description: ""
+      - name: Content-Type
+        value: application/json
+        id: pair_ac6ea50a230f4e6caf27bb258e879c27
+    authentication: {}
+    metaSortKey: -1661140306201.5
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_d447d9a09a9543a69cb2fdfd30b90307
+    parentId: fld_8a750b5e114b40cbbc72925caed38281
+    modified: 1662319305708
+    created: 1662319305708
+    url: "{{ base_url }}/houses/apartment-houses/100"
+    name: Apartment houses by id
+    description: ""
+    method: GET
+    body: {}
+    parameters: []
+    headers:
+      - id: pair_3106f588dd9940008dd9ac0341593329
+        name: Authorization
+        value: "{{ token }}"
+        description: ""
+    authentication: {}
+    metaSortKey: -1661140306176.5
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_a5551c8486c64e0dbc07a768914c037b
+    parentId: fld_8a750b5e114b40cbbc72925caed38281
+    modified: 1662459972887
+    created: 1662319305712
+    url: "{{ base_url }}/houses/apartment-houses/100"
+    name: Apartment houses by id
+    description: ""
+    method: DELETE
+    body: {}
+    parameters: []
+    headers:
+      - id: pair_3106f588dd9940008dd9ac0341593329
+        name: Authorization
+        value: "{{ token }}"
+        description: ""
+    authentication: {}
+    metaSortKey: -1661140306126.5
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_38953acdbc9e4b619c0c97ecf44c29c1
+    parentId: fld_8a750b5e114b40cbbc72925caed38281
+    modified: 1662924970199
+    created: 1662924959429
+    url: "{{ base_url }}/houses/apartment-houses/100"
+    name: Apartment house by id
+    description: ""
+    method: PUT
+    body:
+      mimeType: application/json
+      text: |-
+        {
+        	"address": {
+        		"streetId": 102,
+        		"houseNumber": "51"
+        	},
+        	"numberOfFloors": 9,
+        	"buildingYear": "1998",
+        	"houseMaterialId": 107,
+        	"housingType": "SECONDARY",
+        	"elevator": true
+        }
+    parameters: []
+    headers:
+      - id: pair_3106f588dd9940008dd9ac0341593329
+        name: Authorization
+        value: "{{ token }}"
+        description: ""
+      - name: Content-Type
+        value: application/json
+        id: pair_ac6ea50a230f4e6caf27bb258e879c27
+    authentication: {}
+    metaSortKey: -1661140306076.5
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_89dcc2f4cab245b496e5447f7176a06a
+    parentId: fld_1c3b25931bb84aa192f8b54c70b16ffd
+    modified: 1662925037874
+    created: 1662319305723
+    url: "{{ base_url }}/houses/family-houses"
+    name: All family houses
+    description: ""
+    method: GET
+    body: {}
+    parameters: []
+    headers:
+      - id: pair_3106f588dd9940008dd9ac0341593329
+        name: Authorization
+        value: "{{ token }}"
+        description: ""
+    authentication: {}
+    metaSortKey: -1661124326414.25
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: fld_1c3b25931bb84aa192f8b54c70b16ffd
+    parentId: fld_07342a904c364a24ac9b7072ec005b4a
+    modified: 1662925042463
+    created: 1662319305719
+    name: Family house
+    description: ""
+    environment: {}
+    environmentPropertyOrder: null
+    metaSortKey: -1661744520220.4375
+    _type: request_group
+  - _id: req_12213ad753f040a1a696f7c2ceff7c7a
+    parentId: fld_1c3b25931bb84aa192f8b54c70b16ffd
+    modified: 1662924930308
+    created: 1662319305728
+    url: "{{ base_url }}/houses/family-houses"
+    name: Family house
+    description: ""
+    method: POST
+    body:
+      mimeType: application/json
+      text: |-
+        {
+        	"address": {
+        		"streetId": 102,
+        		"houseNumber": "9A"
+        	},
+        	"numberOfFloors": 9,
+        	"buildingYear": "1998",
+        	"houseMaterialId": 107,
+        	"housingType": "SECONDARY",
+        	"swimmingPool": true
+        }
+    parameters: []
+    headers:
+      - id: pair_3106f588dd9940008dd9ac0341593329
+        name: Authorization
+        value: "{{ token }}"
+        description: ""
+      - name: Content-Type
+        value: application/json
+        id: pair_ac6ea50a230f4e6caf27bb258e879c27
+    authentication: {}
+    metaSortKey: -1661124326389.25
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_1703028b01394632b31f118750b842a5
+    parentId: fld_1c3b25931bb84aa192f8b54c70b16ffd
+    modified: 1662319305731
+    created: 1662319305731
+    url: "{{ base_url }}/houses/family-houses/101"
+    name: Family houses by id
+    description: ""
+    method: GET
+    body: {}
+    parameters: []
+    headers:
+      - id: pair_3106f588dd9940008dd9ac0341593329
+        name: Authorization
+        value: "{{ token }}"
+        description: ""
+    authentication: {}
+    metaSortKey: -1661124326364.25
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_5c58458bcb2f409ba5ac5f89c75b6539
+    parentId: fld_1c3b25931bb84aa192f8b54c70b16ffd
+    modified: 1662319305735
+    created: 1662319305735
+    url: "{{ base_url }}/houses/family-houses/101"
+    name: Family houses by id
+    description: ""
+    method: DELETE
+    body: {}
+    parameters: []
+    headers:
+      - id: pair_3106f588dd9940008dd9ac0341593329
+        name: Authorization
+        value: "{{ token }}"
+        description: ""
+    authentication: {}
+    metaSortKey: -1661124326314.25
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_202a9f1c655e47adad3a83381f5136e3
+    parentId: fld_1c3b25931bb84aa192f8b54c70b16ffd
+    modified: 1662925029631
+    created: 1662924942198
+    url: "{{ base_url }}/houses/family-houses/100"
+    name: Family house by id
+    description: ""
+    method: PUT
+    body:
+      mimeType: application/json
+      text: |-
+        {
+        	"address": {
+        		"streetId": 102,
+        		"houseNumber": "9A"
+        	},
+        	"numberOfFloors": 9,
+        	"buildingYear": "1998",
+        	"houseMaterialId": 107,
+        	"housingType": "SECONDARY",
+        	"swimmingPool": true
+        }
+    parameters: []
+    headers:
+      - id: pair_3106f588dd9940008dd9ac0341593329
+        name: Authorization
+        value: "{{ token }}"
+        description: ""
+      - name: Content-Type
+        value: application/json
+        id: pair_ac6ea50a230f4e6caf27bb258e879c27
+    authentication: {}
+    metaSortKey: -1661124326264.25
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_134b628cf16e4aadb69d588ef113e220
+    parentId: fld_07342a904c364a24ac9b7072ec005b4a
+    modified: 1662925024412
+    created: 1662319305739
+    url: "{{ base_url }}/houses"
+    name: All houses
+    description: ""
+    method: GET
+    body: {}
+    parameters: []
+    headers:
+      - id: pair_3106f588dd9940008dd9ac0341593329
+        name: Authorization
+        value: "{{ token }}"
+        description: ""
+    authentication: {}
+    metaSortKey: -1661548442159.875
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_88bc6433c1c64315abbe465450716b2b
+    parentId: fld_666bba03e22a4568bad58fcf6f5c387e
+    modified: 1662924673134
+    created: 1662319298437
+    url: "{{ base_url }}/renovation-types"
+    name: All renovation types
+    description: ""
+    method: GET
+    body: {}
+    parameters: []
+    headers:
+      - id: pair_9166fe45d9814ea89d69bd5f846002a4
+        name: Authorization
+        value: "{{ token }}"
+        description: ""
+    authentication: {}
+    metaSortKey: -1661788131094.6562
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: fld_666bba03e22a4568bad58fcf6f5c387e
+    parentId: fld_abfc5b7e34104be09ad28e0183df1d23
+    modified: 1662924619683
+    created: 1662924619683
+    name: Renovation type
+    description: ""
+    environment: {}
+    environmentPropertyOrder: null
+    metaSortKey: -1662924619683
+    _type: request_group
+  - _id: fld_abfc5b7e34104be09ad28e0183df1d23
+    parentId: wrk_b9c5b3d18bbe460fb180ea678719b6c4
+    modified: 1662319344766
+    created: 1662319298375
+    name: Property
+    description: ""
+    environment: {}
+    environmentPropertyOrder: null
+    metaSortKey: 500
+    _type: request_group
+  - _id: req_338620e3f372446a8b1251d9ad8c0a12
+    parentId: fld_666bba03e22a4568bad58fcf6f5c387e
+    modified: 1662924663833
+    created: 1662319298440
+    url: "{{ base_url }}/renovation-types"
+    name: Renovation type
+    description: ""
+    method: POST
+    body:
+      mimeType: application/json
+      text: |-
+        {
+        	"name": "new renovation type"
+        }
+    parameters: []
+    headers:
+      - id: pair_9166fe45d9814ea89d69bd5f846002a4
+        name: Authorization
+        value: "{{ token }}"
+        description: ""
+      - name: Content-Type
+        value: application/json
+        id: pair_39c1036970c04b32aa44b054932abac4
+    authentication: {}
+    metaSortKey: -1661788131044.6562
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_aba369f4f99642aaa409083e7a657e41
+    parentId: fld_666bba03e22a4568bad58fcf6f5c387e
+    modified: 1662924626160
+    created: 1662319298443
+    url: "{{ base_url }}/renovation-types/100"
+    name: Renovation types by id
+    description: ""
+    method: GET
+    body: {}
+    parameters: []
+    headers:
+      - id: pair_9166fe45d9814ea89d69bd5f846002a4
+        name: Authorization
+        value: "{{ token }}"
+        description: ""
+    authentication: {}
+    metaSortKey: -1661788130994.6562
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_3b7159360c994e82aa4a3a62a1bf646f
+    parentId: fld_666bba03e22a4568bad58fcf6f5c387e
+    modified: 1662924628373
+    created: 1662319298446
+    url: "{{ base_url }}/renovation-types/100"
+    name: Renovation types by id
+    description: ""
+    method: DELETE
+    body: {}
+    parameters: []
+    headers:
+      - id: pair_9166fe45d9814ea89d69bd5f846002a4
+        name: Authorization
+        value: "{{ token }}"
+        description: ""
+    authentication: {}
+    metaSortKey: -1661788130944.6562
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_02eccdeabf3d4afbac0cc531794db732
+    parentId: fld_666bba03e22a4568bad58fcf6f5c387e
+    modified: 1662924667592
+    created: 1662924652745
+    url: "{{ base_url }}/renovation-types/100"
+    name: Renovation type by id
+    description: ""
+    method: PUT
+    body:
+      mimeType: application/json
+      text: |-
+        {
+        	"name": "new renovation type"
+        }
+    parameters: []
+    headers:
+      - id: pair_9166fe45d9814ea89d69bd5f846002a4
+        name: Authorization
+        value: "{{ token }}"
+        description: ""
+      - name: Content-Type
+        value: application/json
+        id: pair_39c1036970c04b32aa44b054932abac4
+    authentication: {}
+    metaSortKey: -1661788130894.6562
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_71336985aadd43779b56fa4acfc86789
+    parentId: fld_ba74f69973d344a0ac2732e5fc84852a
+    modified: 1662800012993
+    created: 1662319298383
+    url: "{{ base_url }}/properties/housing/apartments"
+    name: All apartment properties
+    description: ""
+    method: GET
+    body: {}
+    parameters: []
+    headers:
+      - id: pair_6b4623881f834f3fa63c016cf38f6059
+        name: Authorization
+        value: "{{ token }}"
+        description: ""
+    authentication: {}
+    metaSortKey: -1661788190296
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: fld_ba74f69973d344a0ac2732e5fc84852a
+    parentId: fld_abfc5b7e34104be09ad28e0183df1d23
+    modified: 1662584502925
+    created: 1662319298377
+    name: Apartment property
+    description: ""
+    environment: {}
+    environmentPropertyOrder: null
+    metaSortKey: -1661940708080
+    _type: request_group
+  - _id: req_ea3d1a7e30404f0bb367a9299f0cc146
+    parentId: fld_ba74f69973d344a0ac2732e5fc84852a
+    modified: 1662924749219
+    created: 1662319298380
+    url: "{{ base_url }}/properties/housing/apartments"
+    name: Apartment property
+    description: ""
+    method: POST
+    body:
+      mimeType: application/json
+      text: |-
+        {
+        	"area": 25,
+        	"numberOfRooms": 1,
+        	"renovationTypeId": 104,
+        	"apartmentNumber": 1,
+        	"floor": 1,
+        	"apartmentHouseId": 102,
+        	"userIdOfOwner": 100
+        }
+    parameters: []
+    headers:
+      - name: Content-Type
+        value: application/json
+        id: pair_60fc676e133d4a82a0241049fe58b721
+      - id: pair_5154c58561a945318c117264d58b68d7
+        name: Authorization
+        value: "{{ token }}"
+        description: ""
+    authentication: {}
+    metaSortKey: -1661788190271
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_4c41c424044944508475b5e405094242
+    parentId: fld_ba74f69973d344a0ac2732e5fc84852a
+    modified: 1662898937476
+    created: 1662319298386
+    url: "{{ base_url }}/properties/housing/apartments/100"
+    name: Apartment property by id
+    description: ""
+    method: GET
+    body: {}
+    parameters: []
+    headers:
+      - id: pair_9166fe45d9814ea89d69bd5f846002a4
+        name: Authorization
+        value: "{{ token }}"
+        description: ""
+    authentication: {}
+    metaSortKey: -1661788190246
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_c231e5ec0d5441449a30bdc9bb05dd90
+    parentId: fld_ba74f69973d344a0ac2732e5fc84852a
+    modified: 1662898936815
+    created: 1662319298390
+    url: "{{ base_url }}/properties/housing/apartments/100"
+    name: Apartment property by id
+    description: ""
+    method: DELETE
+    body: {}
+    parameters: []
+    headers:
+      - id: pair_9166fe45d9814ea89d69bd5f846002a4
+        name: Authorization
+        value: "{{ token }}"
+        description: ""
+    authentication: {}
+    metaSortKey: -1661788190196
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_1eaa9f6826f14ce1b6d092a87d112ba0
+    parentId: fld_ba74f69973d344a0ac2732e5fc84852a
+    modified: 1662899221635
+    created: 1662898913479
+    url: "{{ base_url }}/properties/housing/apartments/100"
+    name: Apartment property by id
+    description: ""
+    method: PUT
+    body:
+      mimeType: application/json
+      text: |-
+        {
+        	"area": 25,
+        	"numberOfRooms": 1,
+        	"renovationTypeId": 104,
+        	"apartmentNumber": 1,
+        	"floor": 1,
+        	"apartmentHouseId": 102
+        }
+    parameters: []
+    headers:
+      - name: Content-Type
+        value: application/json
+        id: pair_60fc676e133d4a82a0241049fe58b721
+      - id: pair_5154c58561a945318c117264d58b68d7
+        name: Authorization
+        value: "{{ token }}"
+        description: ""
+    authentication: {}
+    metaSortKey: -1661788190133.5
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_5438680fed4d4e649280067e75d08949
+    parentId: fld_ba74f69973d344a0ac2732e5fc84852a
+    modified: 1662924767084
+    created: 1662798388776
+    url: "{{ base_url }}/properties/housing/apartments/current"
+    name: All apartment properties of current user
+    description: ""
+    method: GET
+    body: {}
+    parameters: []
+    headers:
+      - id: pair_6b4623881f834f3fa63c016cf38f6059
+        name: Authorization
+        value: "{{ token }}"
+        description: ""
+    authentication: {}
+    metaSortKey: -1661788190096
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_be9db3b67ee24bf183fd5c99eb014173
+    parentId: fld_ba74f69973d344a0ac2732e5fc84852a
+    modified: 1662924600353
+    created: 1662899316775
+    url: "{{ base_url }}/properties/housing/apartments/current"
+    name: Apartment property from current user
+    description: ""
+    method: POST
+    body:
+      mimeType: application/json
+      text: |-
+        {
+        	"area": 25,
+        	"numberOfRooms": 1,
+        	"renovationTypeId": 104,
+        	"apartmentNumber": 1,
+        	"floor": 1,
+        	"apartmentHouseId": 102
+        }
+    parameters: []
+    headers:
+      - name: Content-Type
+        value: application/json
+        id: pair_60fc676e133d4a82a0241049fe58b721
+      - id: pair_5154c58561a945318c117264d58b68d7
+        name: Authorization
+        value: "{{ token }}"
+        description: ""
+    authentication: {}
+    metaSortKey: -1661788190071
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_e03ae11e535a4c6ea899267a31e09522
+    parentId: fld_ba74f69973d344a0ac2732e5fc84852a
+    modified: 1662924702320
+    created: 1662798401380
+    url: "{{ base_url }}/properties/housing/apartments/current/100"
+    name: Apartment property by id of current user
+    description: ""
+    method: GET
+    body: {}
+    parameters: []
+    headers:
+      - id: pair_9166fe45d9814ea89d69bd5f846002a4
+        name: Authorization
+        value: "{{ token }}"
+        description: ""
+    authentication: {}
+    metaSortKey: -1661788190046
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_df0856dbd9d14ccabf8aeab9a5846c10
+    parentId: fld_ba74f69973d344a0ac2732e5fc84852a
+    modified: 1662924707483
+    created: 1662899307918
+    url: "{{ base_url }}/properties/housing/apartments/current/100"
+    name: Apartment property by id of current user
+    description: ""
+    method: PUT
+    body:
+      mimeType: application/json
+      text: |-
+        {
+        	"area": 25,
+        	"numberOfRooms": 1,
+        	"renovationTypeId": 100,
+        	"apartmentNumber": 1,
+        	"floor": 1,
+        	"apartmentHouseId": 102
+        }
+    parameters: []
+    headers:
+      - name: Content-Type
+        value: application/json
+        id: pair_60fc676e133d4a82a0241049fe58b721
+      - id: pair_5154c58561a945318c117264d58b68d7
+        name: Authorization
+        value: "{{ token }}"
+        description: ""
+    authentication: {}
+    metaSortKey: -1661788189996
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_f3f1508b71f443c9be6909b65f6c220a
+    parentId: fld_84a0e84b64524593a65b8de1984e02ad
+    modified: 1662924791947
+    created: 1662319298399
+    url: "{{ base_url }}/properties/housing/family-houses"
+    name: All family house properties
+    description: ""
+    method: GET
+    body: {}
+    parameters: []
+    headers:
+      - id: pair_77856ccbef1045639765c15f63b90ae4
+        name: Authorization
+        value: "{{ token }}"
+        description: ""
+    authentication: {}
+    metaSortKey: -1661788190271
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: fld_84a0e84b64524593a65b8de1984e02ad
+    parentId: fld_abfc5b7e34104be09ad28e0183df1d23
+    modified: 1662899403324
+    created: 1662319298396
+    name: Family house property
+    description: ""
+    environment: {}
+    environmentPropertyOrder: null
+    metaSortKey: -1661940708055
+    _type: request_group
+  - _id: req_60d8fc96a8a1484e8a6b6f955a802f6c
+    parentId: fld_84a0e84b64524593a65b8de1984e02ad
+    modified: 1662924755424
+    created: 1662319298403
+    url: "{{ base_url }}/properties/housing/family-houses"
+    name: Family house property
+    description: ""
+    method: POST
+    body:
+      mimeType: application/json
+      text: |-
+        {
+        	"area": 125,
+        	"numberOfRooms": 4,
+        	"renovationTypeId": 104,
+        	"familyHouseId": 103,
+        	"userIdOfOwner": 100
+        }
+    parameters: []
+    headers:
+      - name: Content-Type
+        value: application/json
+        id: pair_60fc676e133d4a82a0241049fe58b721
+      - id: pair_5154c58561a945318c117264d58b68d7
+        name: Authorization
+        value: "{{ token }}"
+        description: ""
+    authentication: {}
+    metaSortKey: -1661788190246
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_0764fe9432644a93bd497b06ec1d92e4
+    parentId: fld_84a0e84b64524593a65b8de1984e02ad
+    modified: 1662924796132
+    created: 1662319298407
+    url: "{{ base_url }}/properties/housing/family-houses/105"
+    name: Family house property by id
+    description: ""
+    method: GET
+    body: {}
+    parameters: []
+    headers:
+      - id: pair_9166fe45d9814ea89d69bd5f846002a4
+        name: Authorization
+        value: "{{ token }}"
+        description: ""
+    authentication: {}
+    metaSortKey: -1661788190221
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_16fbc95feffe4c828d119f898f364970
+    parentId: fld_84a0e84b64524593a65b8de1984e02ad
+    modified: 1662899539271
+    created: 1662319298409
+    url: "{{ base_url }}/properties/housing/family-houses/102"
+    name: Family house property by id
+    description: ""
+    method: DELETE
+    body: {}
+    parameters: []
+    headers:
+      - id: pair_9166fe45d9814ea89d69bd5f846002a4
+        name: Authorization
+        value: "{{ token }}"
+        description: ""
+    authentication: {}
+    metaSortKey: -1661788190171
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_272e3e79cc3c46af9d100c67754d1922
+    parentId: fld_84a0e84b64524593a65b8de1984e02ad
+    modified: 1662899843596
+    created: 1662899522674
+    url: "{{ base_url }}/properties/housing/family-houses/102"
+    name: Family house property by id
+    description: ""
+    method: PUT
+    body:
+      mimeType: application/json
+      text: |-
+        {
+        	"area": 125,
+        	"numberOfRooms": 4,
+        	"renovationTypeId": 104,
+        	"familyHouseId": 103
+        }
+    parameters: []
+    headers:
+      - name: Content-Type
+        value: application/json
+        id: pair_60fc676e133d4a82a0241049fe58b721
+      - id: pair_5154c58561a945318c117264d58b68d7
+        name: Authorization
+        value: "{{ token }}"
+        description: ""
+    authentication: {}
+    metaSortKey: -1661788190108.5
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_0f1f1a13bccc4c968b3f69a0da4a905a
+    parentId: fld_84a0e84b64524593a65b8de1984e02ad
+    modified: 1662924817839
+    created: 1662899884894
+    url: "{{ base_url }}/properties/housing/family-houses/current"
+    name: All family house properties of current user
+    description: ""
+    method: GET
+    body: {}
+    parameters: []
+    headers:
+      - id: pair_77856ccbef1045639765c15f63b90ae4
+        name: Authorization
+        value: "{{ token }}"
+        description: ""
+    authentication: {}
+    metaSortKey: -1661788190083.5
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_1849ba6e6dd448309970e57c41cc693f
+    parentId: fld_84a0e84b64524593a65b8de1984e02ad
+    modified: 1662899966116
+    created: 1662899901215
+    url: "{{ base_url }}/properties/housing/family-houses/current"
+    name: Family house property from current user
+    description: ""
+    method: POST
+    body:
+      mimeType: application/json
+      text: |-
+        {
+        	"area": 125,
+        	"numberOfRooms": 4,
+        	"renovationTypeId": 104,
+        	"familyHouseId": 103
+        }
+    parameters: []
+    headers:
+      - name: Content-Type
+        value: application/json
+        id: pair_60fc676e133d4a82a0241049fe58b721
+      - id: pair_5154c58561a945318c117264d58b68d7
+        name: Authorization
+        value: "{{ token }}"
+        description: ""
+    authentication: {}
+    metaSortKey: -1661788190071
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_4a99617b48274d8ba75e9a5956a32292
+    parentId: fld_84a0e84b64524593a65b8de1984e02ad
+    modified: 1662924810718
+    created: 1662899862744
+    url: "{{ base_url }}/properties/housing/family-houses/current/102"
+    name: Family house property by id of current user
+    description: ""
+    method: GET
+    body: {}
+    parameters: []
+    headers:
+      - id: pair_9166fe45d9814ea89d69bd5f846002a4
+        name: Authorization
+        value: "{{ token }}"
+        description: ""
+    authentication: {}
+    metaSortKey: -1661788190058.5
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_ee142a5acef14d0ab9bbe01ecb7e0f9b
+    parentId: fld_84a0e84b64524593a65b8de1984e02ad
+    modified: 1662899959308
+    created: 1662899923304
+    url: "{{ base_url }}/properties/housing/family-houses/current/102"
+    name: Family house property by id of current user
+    description: ""
+    method: PUT
+    body:
+      mimeType: application/json
+      text: |-
+        {
+        	"area": 125,
+        	"numberOfRooms": 4,
+        	"renovationTypeId": 104,
+        	"familyHouseId": 103
+        }
+    parameters: []
+    headers:
+      - name: Content-Type
+        value: application/json
+        id: pair_60fc676e133d4a82a0241049fe58b721
+      - id: pair_5154c58561a945318c117264d58b68d7
+        name: Authorization
+        value: "{{ token }}"
+        description: ""
+    authentication: {}
+    metaSortKey: -1661788190008.5
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_60139bc2b87c424e8aaaace704c7d709
+    parentId: fld_3aa1e6e118354b14b8b590d964761455
+    modified: 1662924870304
+    created: 1662319298416
+    url: "{{ base_url }}/properties/lands"
+    name: All lands
+    description: ""
+    method: GET
+    body: {}
+    parameters: []
+    headers:
+      - id: pair_327564b40ae54360b325b50704899122
+        name: Authorization
+        value: "{{ token }}"
+        description: ""
+    authentication: {}
+    metaSortKey: -1661788117315.5
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: fld_3aa1e6e118354b14b8b590d964761455
+    parentId: fld_abfc5b7e34104be09ad28e0183df1d23
+    modified: 1662319298414
+    created: 1662319298414
+    name: Land property
+    description: ""
+    environment: {}
+    environmentPropertyOrder: null
+    metaSortKey: -1661940708030
+    _type: request_group
+  - _id: req_52a5eda53d3c4bb39f50db72ebe0853f
+    parentId: fld_3aa1e6e118354b14b8b590d964761455
+    modified: 1662924822065
+    created: 1662319298426
+    url: "{{ base_url }}/properties/lands"
+    name: Land property
+    description: ""
+    method: POST
+    body:
+      mimeType: application/json
+      text: |-
+        {
+        	"area": 250,
+        	"streetId": 102,
+        	"userIdOfOwner": 100
+        }
+    parameters: []
+    headers:
+      - id: pair_327564b40ae54360b325b50704899122
+        name: Authorization
+        value: "{{ token }}"
+        description: ""
+      - name: Content-Type
+        value: application/json
+        id: pair_6d523faf2d9348f08d3d6806902d6680
+    authentication: {}
+    metaSortKey: -1661788117290.5
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_8f40a10cace04fdeabb651952c84f654
+    parentId: fld_3aa1e6e118354b14b8b590d964761455
+    modified: 1662924872131
+    created: 1662319298419
+    url: "{{ base_url }}/properties/lands/106"
+    name: Land property by id
+    description: ""
+    method: GET
+    body: {}
+    parameters: []
+    headers:
+      - id: pair_327564b40ae54360b325b50704899122
+        name: Authorization
+        value: "{{ token }}"
+        description: ""
+    authentication: {}
+    metaSortKey: -1661788117265.5
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_e0ecc6a23403452aba699f65c161dbc4
+    parentId: fld_3aa1e6e118354b14b8b590d964761455
+    modified: 1662900001396
+    created: 1662319298423
+    url: "{{ base_url }}/properties/lands/103"
+    name: Land property by id
+    description: ""
+    method: DELETE
+    body: {}
+    parameters: []
+    headers:
+      - id: pair_327564b40ae54360b325b50704899122
+        name: Authorization
+        value: "{{ token }}"
+        description: ""
+    authentication: {}
+    metaSortKey: -1661788117215.5
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_d164f3b9ce674ceb826fa45021dc566e
+    parentId: fld_3aa1e6e118354b14b8b590d964761455
+    modified: 1662924844617
+    created: 1662900066725
+    url: "{{ base_url }}/properties/lands/106"
+    name: Land property by id
+    description: ""
+    method: PUT
+    body:
+      mimeType: application/json
+      text: |-
+        {
+        	"area": 250,
+        	"streetId": 102
+        }
+    parameters: []
+    headers:
+      - id: pair_327564b40ae54360b325b50704899122
+        name: Authorization
+        value: "{{ token }}"
+        description: ""
+      - name: Content-Type
+        value: application/json
+        id: pair_6d523faf2d9348f08d3d6806902d6680
+    authentication: {}
+    metaSortKey: -1661788117140.5
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_caaeba5d1e814763b78521fb575284b2
+    parentId: fld_3aa1e6e118354b14b8b590d964761455
+    modified: 1662924848806
+    created: 1662899990371
+    url: "{{ base_url }}/properties/lands/current"
+    name: All lands of current user
+    description: ""
+    method: GET
+    body: {}
+    parameters: []
+    headers:
+      - id: pair_327564b40ae54360b325b50704899122
+        name: Authorization
+        value: "{{ token }}"
+        description: ""
+    authentication: {}
+    metaSortKey: -1661788117115.5
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_f2956b6b58f64262a02c7a5ebb94e186
+    parentId: fld_3aa1e6e118354b14b8b590d964761455
+    modified: 1662900124651
+    created: 1662900115957
+    url: "{{ base_url }}/properties/lands/current"
+    name: Land property from current user
+    description: ""
+    method: POST
+    body:
+      mimeType: application/json
+      text: |-
+        {
+        	"area": 250,
+        	"streetId": 102
+        }
+    parameters: []
+    headers:
+      - id: pair_327564b40ae54360b325b50704899122
+        name: Authorization
+        value: "{{ token }}"
+        description: ""
+      - name: Content-Type
+        value: application/json
+        id: pair_6d523faf2d9348f08d3d6806902d6680
+    authentication: {}
+    metaSortKey: -1661728198376.5938
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_8bf9bbe2fcfa4f4d8bf80ade203a4bf1
+    parentId: fld_3aa1e6e118354b14b8b590d964761455
+    modified: 1662924873636
+    created: 1662900015129
+    url: "{{ base_url }}/properties/lands/current/106"
+    name: Land by id of current user
+    description: ""
+    method: GET
+    body: {}
+    parameters: []
+    headers:
+      - id: pair_327564b40ae54360b325b50704899122
+        name: Authorization
+        value: "{{ token }}"
+        description: ""
+    authentication: {}
+    metaSortKey: -1661668279637.6875
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_27dc14f4c6c34c728dff7c48e7ea2c2a
+    parentId: fld_3aa1e6e118354b14b8b590d964761455
+    modified: 1662924890326
+    created: 1662900145122
+    url: "{{ base_url }}/properties/lands/current/106"
+    name: Land property by id of current user
+    description: ""
+    method: PUT
+    body:
+      mimeType: application/json
+      text: |-
+        {
+        	"area": 250,
+        	"streetId": 102
+        }
+    parameters: []
+    headers:
+      - id: pair_327564b40ae54360b325b50704899122
+        name: Authorization
+        value: "{{ token }}"
+        description: ""
+      - name: Content-Type
+        value: application/json
+        id: pair_6d523faf2d9348f08d3d6806902d6680
+    authentication: {}
+    metaSortKey: -1661668279587.6875
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_af0e0417a0f14a77826f7e5ea12601f1
+    parentId: fld_abfc5b7e34104be09ad28e0183df1d23
+    modified: 1662924895829
+    created: 1662319298433
+    url: "{{ base_url }}/properties/"
+    name: All properties
+    description: ""
+    method: GET
+    body: {}
+    parameters: []
+    headers:
+      - id: pair_9166fe45d9814ea89d69bd5f846002a4
+        name: Authorization
+        value: "{{ token }}"
+        description: ""
+    authentication: {}
+    metaSortKey: -1661788190321
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_885055e302e4430eb31fddd99966ed8a
+    parentId: fld_abfc5b7e34104be09ad28e0183df1d23
+    modified: 1662924903597
+    created: 1662319298449
+    url: "{{ base_url }}/properties/housing"
+    name: All housing properties
+    description: ""
+    method: GET
+    body: {}
+    parameters: []
+    headers:
+      - id: pair_9166fe45d9814ea89d69bd5f846002a4
+        name: Authorization
+        value: "{{ token }}"
+        description: ""
+    authentication: {}
+    metaSortKey: -1661788190308.5
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_51f6132407c047aa980b3c6d48bf8010
+    parentId: fld_cc9f840cbdc54007b3754fc0a2801bf2
+    modified: 1662909583827
+    created: 1662457757465
+    url: "{{ _.base_url }}/announcement-top-prices"
+    name: Announcement top prices
+    description: ""
+    method: GET
+    body: {}
+    parameters: []
+    headers:
+      - id: pair_662044d125c440de88e762b8a1d10761
+        name: Authorization
+        value: "{{ token }}"
+        description: ""
+    authentication: {}
+    metaSortKey: -1661529955495
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: fld_cc9f840cbdc54007b3754fc0a2801bf2
+    parentId: fld_c694fb2941054412ad21392e1c949748
+    modified: 1662458441413
+    created: 1662458441413
+    name: Announcement top prices
+    description: ""
+    environment: {}
+    environmentPropertyOrder: null
+    metaSortKey: -1662458441413
+    _type: request_group
+  - _id: fld_c694fb2941054412ad21392e1c949748
+    parentId: wrk_b9c5b3d18bbe460fb180ea678719b6c4
+    modified: 1662319347016
+    created: 1662319291373
+    name: Announcement
+    description: ""
+    environment: {}
+    environmentPropertyOrder: null
+    metaSortKey: 550
+    _type: request_group
+  - _id: req_afa42d1ab34447839cf4efd018c8a746
+    parentId: fld_cc9f840cbdc54007b3754fc0a2801bf2
+    modified: 1662501351451
+    created: 1662458363167
+    url: "{{ _.base_url }}/announcement-top-prices/100"
+    name: Announcement top prices
+    description: ""
+    method: PUT
+    body:
+      mimeType: application/json
+      text: |-
+        {
+        	"pricePerHour": "850"
+        }
+    parameters: []
+    headers:
+      - id: pair_662044d125c440de88e762b8a1d10761
+        name: Authorization
+        value: "{{ token }}"
+        description: ""
+      - name: Content-Type
+        value: application/json
+        id: pair_f8bd76722b3640e2ab2971cbd6db7a1c
+    authentication: {}
+    metaSortKey: -1661529955445
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_05bb73926ac34907a47d6bff38cf5139
+    parentId: fld_9d82da5d82da4cd480378dd0b9d7346e
+    modified: 1662909588079
+    created: 1662500700903
+    url: "{{ base_url }}/announcements/housing/apartments/100/timetables/top"
+    name: Top timetable of apartment announcements by id
+    description: ""
+    method: GET
+    body: {}
+    parameters: []
+    headers:
+      - id: pair_9c241edd84bf4d8ebd17487b46c74029
+        name: Authorization
+        value: "{{ token }}"
+        description: ""
+    authentication: {}
+    metaSortKey: -1661529953986
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: fld_9d82da5d82da4cd480378dd0b9d7346e
+    parentId: fld_f8e3fc8894364201a0a0fe6d8e8faa02
+    modified: 1662500682105
+    created: 1662500682105
+    name: Top timetable
+    description: ""
+    environment: {}
+    environmentPropertyOrder: null
+    metaSortKey: -1662500682105
+    _type: request_group
+  - _id: fld_f8e3fc8894364201a0a0fe6d8e8faa02
+    parentId: fld_c694fb2941054412ad21392e1c949748
+    modified: 1662458461513
+    created: 1662319291377
+    name: Apartment announcement
+    description: ""
+    environment: {}
+    environmentPropertyOrder: null
+    metaSortKey: -1662199622734
+    _type: request_group
+  - _id: req_2d562108a8a347f89f9ed76fe24dacce
+    parentId: fld_9d82da5d82da4cd480378dd0b9d7346e
+    modified: 1662578015556
+    created: 1662500924466
+    url: "{{ base_url }}/announcements/housing/apartments/101/timetables/top"
+    name: Top timetable of apartment announcements by id
+    description: ""
+    method: POST
+    body:
+      mimeType: application/json
+      text: |-
+        {
+          "fromDt": "2022-09-12T01:00:00",
+          "toDt": "2022-09-25T02:00:00"
+        }
+    parameters: []
+    headers:
+      - id: pair_9c241edd84bf4d8ebd17487b46c74029
+        name: Authorization
+        value: "{{ token }}"
+        description: ""
+      - name: Content-Type
+        value: application/json
+        id: pair_47d7bb4f23a049fb8e79b02fa469d55e
+    authentication: {}
+    metaSortKey: -1661529953973.5
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_4b4172e1831a4fd7902bc0157c31a1da
+    parentId: fld_f8e3fc8894364201a0a0fe6d8e8faa02
+    modified: 1662909616975
+    created: 1662319291379
+    url: "{{ base_url }}/announcements/housing/apartments"
+    name: All apartment announcements
+    description: ""
+    method: GET
+    body: {}
+    parameters: []
+    headers:
+      - id: pair_9c241edd84bf4d8ebd17487b46c74029
+        name: Authorization
+        value: "{{ token }}"
+        description: ""
+    authentication: {}
+    metaSortKey: -1661529954061
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_4abe6a9c79944f24b065928ab7b031bf
+    parentId: fld_f8e3fc8894364201a0a0fe6d8e8faa02
+    modified: 1662909618466
+    created: 1662319291382
+    url: "{{ base_url }}/announcements/housing/apartments"
+    name: Apartment announcements
+    description: ""
+    method: POST
+    body:
+      mimeType: application/json
+      text: |-
+        {
+        	"price": 4500,
+        	"description": "DESCRIPTION",
+        	"type": "DAILY_RENT",
+        	"apartmentPropertyId": 104
+        }
+    parameters: []
+    headers:
+      - id: pair_9c241edd84bf4d8ebd17487b46c74029
+        name: Authorization
+        value: "{{ token }}"
+        description: ""
+      - name: Content-Type
+        value: application/json
+        id: pair_823ac1af8d0b44d4959b9b85c8a1b9f4
+    authentication: {}
+    metaSortKey: -1661529954036
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_644deee64a624830808048af42531349
+    parentId: fld_f8e3fc8894364201a0a0fe6d8e8faa02
+    modified: 1662545915872
+    created: 1662319291388
+    url: "{{ base_url }}/announcements/housing/apartments/101"
+    name: Apartment announcements by id
+    description: ""
+    method: GET
+    body: {}
+    parameters: []
+    headers:
+      - id: pair_9c241edd84bf4d8ebd17487b46c74029
+        name: Authorization
+        value: "{{ token }}"
+        description: ""
+    authentication: {}
+    metaSortKey: -1661529954011
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_de23c5edccee468794a9df755a1797cf
+    parentId: fld_f8e3fc8894364201a0a0fe6d8e8faa02
+    modified: 1662319291393
+    created: 1662319291393
+    url: "{{ base_url }}/announcements/housing/apartments/101"
+    name: Apartment announcements by id
+    description: ""
+    method: DELETE
+    body: {}
+    parameters: []
+    headers:
+      - id: pair_9c241edd84bf4d8ebd17487b46c74029
+        name: Authorization
+        value: "{{ token }}"
+        description: ""
+    authentication: {}
+    metaSortKey: -1661529953961
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_21ed4dccb3f2423d915ef021dd298eed
+    parentId: fld_f8e3fc8894364201a0a0fe6d8e8faa02
+    modified: 1662898650586
+    created: 1662319291396
+    url: "{{ base_url }}/announcements/housing/apartments/101"
+    name: Apartment announcements by id
+    description: ""
+    method: PUT
+    body:
+      mimeType: application/json
+      text: |-
+        {
+        	"price": 4500,
+        	"description": "DESCRIPTION",
+        	"type": "DAILY_RENT",
+        	"apartmentPropertyId": 104
+        }
+    parameters: []
+    headers:
+      - id: pair_9c241edd84bf4d8ebd17487b46c74029
+        name: Authorization
+        value: "{{ token }}"
+        description: ""
+      - name: Content-Type
+        value: application/json
+        id: pair_823ac1af8d0b44d4959b9b85c8a1b9f4
+    authentication: {}
+    metaSortKey: -1661529953936
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_3e6bcd13615e4f8ba8fa6f9ecff6327e
+    parentId: fld_f8e3fc8894364201a0a0fe6d8e8faa02
+    modified: 1662583327429
+    created: 1662392489105
+    url: "{{ base_url }}/announcements/housing/apartments/open"
+    name: All open apartment announcements
+    description: ""
+    method: GET
+    body: {}
+    parameters: []
+    headers:
+      - id: pair_9c241edd84bf4d8ebd17487b46c74029
+        name: Authorization
+        value: "{{ token }}"
+        description: ""
+    authentication: {}
+    metaSortKey: -1661529953886
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_3691eb321ee24614ac63bed85e0f8607
+    parentId: fld_f8e3fc8894364201a0a0fe6d8e8faa02
+    modified: 1662898807745
+    created: 1662395296819
+    url: "{{ base_url }}/announcements/housing/apartments/open/101"
+    name: Open apartment announcements by id
+    description: ""
+    method: GET
+    body: {}
+    parameters: []
+    headers:
+      - id: pair_9c241edd84bf4d8ebd17487b46c74029
+        name: Authorization
+        value: "{{ token }}"
+        description: ""
+    authentication: {}
+    metaSortKey: -1661529953873.5
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_bb61e95c8d6847b6bf8caeb847f976e3
+    parentId: fld_f8e3fc8894364201a0a0fe6d8e8faa02
+    modified: 1662911857984
+    created: 1662389245863
+    url: "{{ base_url }}/announcements/housing/apartments/current"
+    name: All apartment announcements of current user
+    description: ""
+    method: GET
+    body: {}
+    parameters: []
+    headers:
+      - id: pair_9c241edd84bf4d8ebd17487b46c74029
+        name: Authorization
+        value: "{{ token }}"
+        description: ""
+    authentication: {}
+    metaSortKey: -1661529953861
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_84c43b1ddc1c4c358e1df8b870283907
+    parentId: fld_f8e3fc8894364201a0a0fe6d8e8faa02
+    modified: 1662898854805
+    created: 1662898690080
+    url: "{{ base_url }}/announcements/housing/apartments/current"
+    name: Apartment announcements from current user
+    description: ""
+    method: POST
+    body:
+      mimeType: application/json
+      text: |-
+        {
+        	"price": 4500,
+        	"description": "DESCRIPTION",
+        	"type": "DAILY_RENT",
+        	"apartmentPropertyId": 104
+        }
+    parameters: []
+    headers:
+      - id: pair_9c241edd84bf4d8ebd17487b46c74029
+        name: Authorization
+        value: "{{ token }}"
+        description: ""
+      - name: Content-Type
+        value: application/json
+        id: pair_823ac1af8d0b44d4959b9b85c8a1b9f4
+    authentication: {}
+    metaSortKey: -1661529953725.5
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_f36182f3bdf54d53991b321ce4525909
+    parentId: fld_f8e3fc8894364201a0a0fe6d8e8faa02
+    modified: 1662898633231
+    created: 1662395278321
+    url: "{{ base_url }}/announcements/housing/apartments/current/100"
+    name: Apartment announcements by id of current user
+    description: ""
+    method: GET
+    body: {}
+    parameters: []
+    headers:
+      - id: pair_9c241edd84bf4d8ebd17487b46c74029
+        name: Authorization
+        value: "{{ token }}"
+        description: ""
+    authentication: {}
+    metaSortKey: -1661529953590
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_1c4d96575c4947e8a4f40ebb8e5b7626
+    parentId: fld_f8e3fc8894364201a0a0fe6d8e8faa02
+    modified: 1662898831172
+    created: 1662898662924
+    url: "{{ base_url }}/announcements/housing/apartments/current/101"
+    name: Apartment announcements by id of current user
+    description: ""
+    method: PUT
+    body:
+      mimeType: application/json
+      text: |-
+        {
+        	"price": 4500,
+        	"description": "DESCRIPTION",
+        	"type": "DAILY_RENT",
+        	"apartmentPropertyId": 104
+        }
+    parameters: []
+    headers:
+      - id: pair_9c241edd84bf4d8ebd17487b46c74029
+        name: Authorization
+        value: "{{ token }}"
+        description: ""
+      - name: Content-Type
+        value: application/json
+        id: pair_823ac1af8d0b44d4959b9b85c8a1b9f4
+    authentication: {}
+    metaSortKey: -1661529953565
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_b3c1334e221c467180ecd54bb59eae52
+    parentId: fld_f8e3fc8894364201a0a0fe6d8e8faa02
+    modified: 1662898631705
+    created: 1662648408277
+    url: "{{ base_url }}/announcements/housing/apartments/closed/owner/100"
+    name: All closed apartment announcements by user id of owner
+    description: ""
+    method: GET
+    body: {}
+    parameters: []
+    headers:
+      - id: pair_9c241edd84bf4d8ebd17487b46c74029
+        name: Authorization
+        value: "{{ token }}"
+        description: ""
+    authentication: {}
+    metaSortKey: -1661529953540
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_7b93112dde92458e8ec4da0a6eb657b6
+    parentId: fld_519027e5bb364eee9fb5600d1d2c65a3
+    modified: 1662909546022
+    created: 1662578041620
+    url: "{{ base_url }}/announcements/housing/family-house/105/timetables/top"
+    name: Top timetable of family house announcements by id
+    description: ""
+    method: GET
+    body: {}
+    parameters: []
+    headers:
+      - id: pair_9c241edd84bf4d8ebd17487b46c74029
+        name: Authorization
+        value: "{{ token }}"
+        description: ""
+    authentication: {}
+    metaSortKey: -1661529954017.25
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: fld_519027e5bb364eee9fb5600d1d2c65a3
+    parentId: fld_290b02e755db474d94d13a1eb5793015
+    modified: 1662578946961
+    created: 1662578946961
+    name: Top timetable
+    description: ""
+    environment: {}
+    environmentPropertyOrder: null
+    metaSortKey: -1662578946961
+    _type: request_group
+  - _id: fld_290b02e755db474d94d13a1eb5793015
+    parentId: fld_c694fb2941054412ad21392e1c949748
+    modified: 1662458462694
+    created: 1662319291400
+    name: Family house announcement
+    description: ""
+    environment: {}
+    environmentPropertyOrder: null
+    metaSortKey: -1662070213394.5
+    _type: request_group
+  - _id: req_e94dac5c8413475bb657140a721effec
+    parentId: fld_519027e5bb364eee9fb5600d1d2c65a3
+    modified: 1662909563730
+    created: 1662578053116
+    url: "{{ base_url }}/announcements/housing/family-house/105/timetables/top"
+    name: Top timetable of family house announcements by id from current user
+    description: ""
+    method: POST
+    body:
+      mimeType: application/json
+      text: |-
+        {
+          "fromDt": "2022-09-12T01:00:00",
+          "toDt": "2022-09-25T02:00:00"
+        }
+    parameters: []
+    headers:
+      - id: pair_9c241edd84bf4d8ebd17487b46c74029
+        name: Authorization
+        value: "{{ token }}"
+        description: ""
+      - name: Content-Type
+        value: application/json
+        id: pair_47d7bb4f23a049fb8e79b02fa469d55e
+    authentication: {}
+    metaSortKey: -1661529953967.25
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_f4fdb1302bfb4dd887043abb2871808c
+    parentId: fld_290b02e755db474d94d13a1eb5793015
+    modified: 1662909565646
+    created: 1662319291402
+    url: "{{ base_url }}/announcements/housing/family-houses"
+    name: All family house announcements
+    description: ""
+    method: GET
+    body: {}
+    parameters: []
+    headers:
+      - id: pair_9c241edd84bf4d8ebd17487b46c74029
+        name: Authorization
+        value: "{{ token }}"
+        description: ""
+    authentication: {}
+    metaSortKey: -1661529953319
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_ef152d2fa9244fb48206a71a6eaa73a2
+    parentId: fld_290b02e755db474d94d13a1eb5793015
+    modified: 1662900316779
+    created: 1662319291406
+    url: "{{ base_url }}/announcements/housing/family-houses"
+    name: Family house announcements
+    description: ""
+    method: POST
+    body:
+      mimeType: application/json
+      text: |-
+        {
+        	"price": 15000,
+        	"description": "DESCRIPTION",
+        	"type": "DAILY_RENT",
+        	"familyHousePropertyId": 105
+        }
+    parameters: []
+    headers:
+      - id: pair_9c241edd84bf4d8ebd17487b46c74029
+        name: Authorization
+        value: "{{ token }}"
+        description: ""
+      - name: Content-Type
+        value: application/json
+        id: pair_41058ddda2944527bcaca0a7800c769d
+    authentication: {}
+    metaSortKey: -1661529953294
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_ec55895e63634f2cbcbd6d5bb1a16dd1
+    parentId: fld_290b02e755db474d94d13a1eb5793015
+    modified: 1662319291409
+    created: 1662319291409
+    url: "{{ base_url }}/announcements/housing/family-houses/102"
+    name: Family house announcements by id
+    description: ""
+    method: GET
+    body: {}
+    parameters: []
+    headers:
+      - id: pair_9c241edd84bf4d8ebd17487b46c74029
+        name: Authorization
+        value: "{{ token }}"
+        description: ""
+    authentication: {}
+    metaSortKey: -1661529953269
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_df28c3cde00749f790a81743fc38cd42
+    parentId: fld_290b02e755db474d94d13a1eb5793015
+    modified: 1662319291412
+    created: 1662319291412
+    url: "{{ base_url }}/announcements/housing/family-houses/102"
+    name: Family house announcements by id
+    description: ""
+    method: DELETE
+    body: {}
+    parameters: []
+    headers:
+      - id: pair_9c241edd84bf4d8ebd17487b46c74029
+        name: Authorization
+        value: "{{ token }}"
+        description: ""
+    authentication: {}
+    metaSortKey: -1661529953219
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_db731bcdb6e9490faead7957f039068d
+    parentId: fld_290b02e755db474d94d13a1eb5793015
+    modified: 1662319291415
+    created: 1662319291415
+    url: "{{ base_url }}/announcements/housing/family-houses/102"
+    name: Family house announcements by id
+    description: ""
+    method: PUT
+    body:
+      mimeType: application/json
+      text: |-
+        {
+        	"price": 15000,
+        	"description": "DESCRIPTION",
+        	"type": "DAILY_RENT",
+        	"familyHousePropertyId": 105
+        }
+    parameters: []
+    headers:
+      - id: pair_9c241edd84bf4d8ebd17487b46c74029
+        name: Authorization
+        value: "{{ token }}"
+        description: ""
+      - name: Content-Type
+        value: application/json
+        id: pair_41058ddda2944527bcaca0a7800c769d
+    authentication: {}
+    metaSortKey: -1661529953194
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_5eebbec5ba3349ee868c68709b06a07e
+    parentId: fld_290b02e755db474d94d13a1eb5793015
+    modified: 1662583260271
+    created: 1662583180850
+    url: "{{ base_url }}/announcements/housing/family-houses/current"
+    name: All family house announcements of current user
+    description: ""
+    method: GET
+    body: {}
+    parameters: []
+    headers:
+      - id: pair_9c241edd84bf4d8ebd17487b46c74029
+        name: Authorization
+        value: "{{ token }}"
+        description: ""
+    authentication: {}
+    metaSortKey: -1661529952983.5
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_49a3c00b25ef40f9816a6a2d058530a7
+    parentId: fld_290b02e755db474d94d13a1eb5793015
+    modified: 1662900272548
+    created: 1662900251861
+    url: "{{ base_url }}/announcements/housing/family-houses/current"
+    name: Family house announcements from current user
+    description: ""
+    method: POST
+    body:
+      mimeType: application/json
+      text: |-
+        {
+        	"price": 15000,
+        	"description": "DESCRIPTION",
+        	"type": "DAILY_RENT",
+        	"familyHousePropertyId": 105
+        }
+    parameters: []
+    headers:
+      - id: pair_9c241edd84bf4d8ebd17487b46c74029
+        name: Authorization
+        value: "{{ token }}"
+        description: ""
+      - name: Content-Type
+        value: application/json
+        id: pair_41058ddda2944527bcaca0a7800c769d
+    authentication: {}
+    metaSortKey: -1661529952915.75
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_082f7c16c73947199059415f81ee380e
+    parentId: fld_290b02e755db474d94d13a1eb5793015
+    modified: 1662583258920
+    created: 1662583021545
+    url: "{{ base_url }}/announcements/housing/family-houses/current/100"
+    name: Family house announcement by id of current user
+    description: ""
+    method: GET
+    body: {}
+    parameters: []
+    headers:
+      - id: pair_9c241edd84bf4d8ebd17487b46c74029
+        name: Authorization
+        value: "{{ token }}"
+        description: ""
+    authentication: {}
+    metaSortKey: -1661529952848
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_c6becbb80bca4af59e5c714060706892
+    parentId: fld_290b02e755db474d94d13a1eb5793015
+    modified: 1662900235937
+    created: 1662900225334
+    url: "{{ base_url }}/announcements/housing/family-houses/current/102"
+    name: Family house announcements by id of current user
+    description: ""
+    method: PUT
+    body:
+      mimeType: application/json
+      text: |-
+        {
+        	"price": 15000,
+        	"description": "DESCRIPTION",
+        	"type": "DAILY_RENT",
+        	"familyHousePropertyId": 105
+        }
+    parameters: []
+    headers:
+      - id: pair_9c241edd84bf4d8ebd17487b46c74029
+        name: Authorization
+        value: "{{ token }}"
+        description: ""
+      - name: Content-Type
+        value: application/json
+        id: pair_41058ddda2944527bcaca0a7800c769d
+    authentication: {}
+    metaSortKey: -1661529952823
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_191519730118414b897a203ed4ad8ea9
+    parentId: fld_290b02e755db474d94d13a1eb5793015
+    modified: 1662900289041
+    created: 1662582969027
+    url: "{{ base_url }}/announcements/housing/family-houses/open"
+    name: All open family house announcements
+    description: ""
+    method: GET
+    body: {}
+    parameters: []
+    headers:
+      - id: pair_9c241edd84bf4d8ebd17487b46c74029
+        name: Authorization
+        value: "{{ token }}"
+        description: ""
+    authentication: {}
+    metaSortKey: -1661529952798
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_8b27313024c44e4a94a6c4c0cdb55dcd
+    parentId: fld_290b02e755db474d94d13a1eb5793015
+    modified: 1662900286422
+    created: 1662583225754
+    url: "{{ base_url }}/announcements/housing/family-houses/open/100"
+    name: Open family house announcement by id
+    description: ""
+    method: GET
+    body: {}
+    parameters: []
+    headers:
+      - id: pair_9c241edd84bf4d8ebd17487b46c74029
+        name: Authorization
+        value: "{{ token }}"
+        description: ""
+    authentication: {}
+    metaSortKey: -1661529952773
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_45c60d63cf1c4cda895fa2dfd17cd22d
+    parentId: fld_290b02e755db474d94d13a1eb5793015
+    modified: 1662900387138
+    created: 1662648448667
+    url: "{{ base_url }}/announcements/housing/family-houses/closed/owner/100"
+    name: All closed family house announcements by user id of owner
+    description: ""
+    method: GET
+    body: {}
+    parameters: []
+    headers:
+      - id: pair_9c241edd84bf4d8ebd17487b46c74029
+        name: Authorization
+        value: "{{ token }}"
+        description: ""
+    authentication: {}
+    metaSortKey: -1661529952723
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_7ed6eee7e6ac420888bfd24e449a669a
+    parentId: fld_7668693e92c146c5b339d58977d10ded
+    modified: 1662579166131
+    created: 1662578072787
+    url: "{{ base_url }}/announcements/land/106/timetables/top"
+    name: Top timetable of land announcements by id
+    description: ""
+    method: POST
+    body:
+      mimeType: application/json
+      text: |-
+        {
+          "fromDt": "2022-09-01T01:00:00",
+          "toDt": "2022-09-22T02:00:00"
+        }
+    parameters: []
+    headers:
+      - id: pair_9c241edd84bf4d8ebd17487b46c74029
+        name: Authorization
+        value: "{{ token }}"
+        description: ""
+      - name: Content-Type
+        value: application/json
+        id: pair_47d7bb4f23a049fb8e79b02fa469d55e
+    authentication: {}
+    metaSortKey: -1662054453882.5
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: fld_7668693e92c146c5b339d58977d10ded
+    parentId: fld_cf7da02fa3114657a25f14fc361ac1f1
+    modified: 1662578954471
+    created: 1662578954471
+    name: Top timetable
+    description: ""
+    environment: {}
+    environmentPropertyOrder: null
+    metaSortKey: -1662578954471
+    _type: request_group
+  - _id: fld_cf7da02fa3114657a25f14fc361ac1f1
+    parentId: fld_c694fb2941054412ad21392e1c949748
+    modified: 1662319291421
+    created: 1662319291421
+    name: Land announcement
+    description: ""
+    environment: {}
+    environmentPropertyOrder: null
+    metaSortKey: -1661940804055
+    _type: request_group
+  - _id: req_01cda994464c4f8d88b6adf138d391f5
+    parentId: fld_7668693e92c146c5b339d58977d10ded
+    modified: 1662579171905
+    created: 1662578066545
+    url: "{{ base_url }}/announcements/land/106/timetables/top"
+    name: Top timetable of land announcements by id
+    description: ""
+    method: GET
+    body: {}
+    parameters: []
+    headers:
+      - id: pair_9c241edd84bf4d8ebd17487b46c74029
+        name: Authorization
+        value: "{{ token }}"
+        description: ""
+    authentication: {}
+    metaSortKey: -1662054453832.5
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_1e1763d1ae554c2ab5e58630b0fbf076
+    parentId: fld_cf7da02fa3114657a25f14fc361ac1f1
+    modified: 1662583548595
+    created: 1662319291423
+    url: "{{ base_url }}/announcements/lands"
+    name: All land announcements
+    description: ""
+    method: GET
+    body: {}
+    parameters: []
+    headers:
+      - id: pair_9c241edd84bf4d8ebd17487b46c74029
+        name: Authorization
+        value: "{{ token }}"
+        description: ""
+    authentication: {}
+    metaSortKey: -1661529953294
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_f2c14e0f44e147ac915b5cc991b57f08
+    parentId: fld_cf7da02fa3114657a25f14fc361ac1f1
+    modified: 1662900314436
+    created: 1662319291435
+    url: "{{ base_url }}/announcements/lands"
+    name: Land announcements
+    description: ""
+    method: POST
+    body:
+      mimeType: application/json
+      text: |-
+        {
+        	"price": 15000,
+        	"description": "DESCRIPTION",
+        	"type": "SELL",
+        	"landPropertyId": 103
+        }
+    parameters: []
+    headers:
+      - id: pair_9c241edd84bf4d8ebd17487b46c74029
+        name: Authorization
+        value: "{{ token }}"
+        description: ""
+      - name: Content-Type
+        value: application/json
+        id: pair_10061ba627264da8aa1a56350f8dddc9
+    authentication: {}
+    metaSortKey: -1661529953287.75
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_0ab71f06d87d45fa87e4746c1073e59f
+    parentId: fld_cf7da02fa3114657a25f14fc361ac1f1
+    modified: 1662319291427
+    created: 1662319291427
+    url: "{{ base_url }}/announcements/lands/103"
+    name: Land announcements by id
+    description: ""
+    method: GET
+    body: {}
+    parameters: []
+    headers:
+      - id: pair_9c241edd84bf4d8ebd17487b46c74029
+        name: Authorization
+        value: "{{ token }}"
+        description: ""
+    authentication: {}
+    metaSortKey: -1661529953281.5
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_2afeafe6c64f402584b25ef9b0de0570
+    parentId: fld_cf7da02fa3114657a25f14fc361ac1f1
+    modified: 1662319291431
+    created: 1662319291431
+    url: "{{ base_url }}/announcements/lands/106"
+    name: Land announcements by id
+    description: ""
+    method: DELETE
+    body: {}
+    parameters: []
+    headers:
+      - id: pair_9c241edd84bf4d8ebd17487b46c74029
+        name: Authorization
+        value: "{{ token }}"
+        description: ""
+    authentication: {}
+    metaSortKey: -1661529953275.25
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_86908cf50cca419b84cfa885a587c6a7
+    parentId: fld_cf7da02fa3114657a25f14fc361ac1f1
+    modified: 1662319291439
+    created: 1662319291439
+    url: "{{ base_url }}/announcements/lands/103"
+    name: Land announcements by id
+    description: ""
+    method: PUT
+    body:
+      mimeType: application/json
+      text: |-
+        {
+        	"price": 15000,
+        	"description": "DESCRIPTION",
+        	"type": "SELL",
+        	"landPropertyId": 103
+        }
+    parameters: []
+    headers:
+      - id: pair_9c241edd84bf4d8ebd17487b46c74029
+        name: Authorization
+        value: "{{ token }}"
+        description: ""
+      - name: Content-Type
+        value: application/json
+        id: pair_10061ba627264da8aa1a56350f8dddc9
+    authentication: {}
+    metaSortKey: -1661529953250.25
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_4e3f96c4314d4d7b8c107803959573f5
+    parentId: fld_cf7da02fa3114657a25f14fc361ac1f1
+    modified: 1662583484320
+    created: 1662583384962
+    url: "{{ base_url }}/announcements/lands/current"
+    name: All land announcements of current user
+    description: ""
+    method: GET
+    body: {}
+    parameters: []
+    headers:
+      - id: pair_9c241edd84bf4d8ebd17487b46c74029
+        name: Authorization
+        value: "{{ token }}"
+        description: ""
+    authentication: {}
+    metaSortKey: -1661529953075.25
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_f229d04763ac41ef9d8057a1f70c6ef1
+    parentId: fld_cf7da02fa3114657a25f14fc361ac1f1
+    modified: 1662900360698
+    created: 1662900352610
+    url: "{{ base_url }}/announcements/lands/current"
+    name: Land announcements form current user
+    description: ""
+    method: POST
+    body:
+      mimeType: application/json
+      text: |-
+        {
+        	"price": 15000,
+        	"description": "DESCRIPTION",
+        	"type": "SELL",
+        	"landPropertyId": 103
+        }
+    parameters: []
+    headers:
+      - id: pair_9c241edd84bf4d8ebd17487b46c74029
+        name: Authorization
+        value: "{{ token }}"
+        description: ""
+      - name: Content-Type
+        value: application/json
+        id: pair_10061ba627264da8aa1a56350f8dddc9
+    authentication: {}
+    metaSortKey: -1661529953050.25
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_6365fdbe023641adbee38c034a6e0840
+    parentId: fld_cf7da02fa3114657a25f14fc361ac1f1
+    modified: 1662583481106
+    created: 1662583400429
+    url: "{{ base_url }}/announcements/lands/current/100"
+    name: Land announcements by id of current user
+    description: ""
+    method: GET
+    body: {}
+    parameters: []
+    headers:
+      - id: pair_9c241edd84bf4d8ebd17487b46c74029
+        name: Authorization
+        value: "{{ token }}"
+        description: ""
+    authentication: {}
+    metaSortKey: -1661529953025.25
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_921457cd7dd84e0f92d2e7f50e3c94e1
+    parentId: fld_cf7da02fa3114657a25f14fc361ac1f1
+    modified: 1662900344033
+    created: 1662900329782
+    url: "{{ base_url }}/announcements/lands/current/103"
+    name: Land announcements by id of current user
+    description: ""
+    method: PUT
+    body:
+      mimeType: application/json
+      text: |-
+        {
+        	"price": 15000,
+        	"description": "DESCRIPTION",
+        	"type": "SELL",
+        	"landPropertyId": 103
+        }
+    parameters: []
+    headers:
+      - id: pair_9c241edd84bf4d8ebd17487b46c74029
+        name: Authorization
+        value: "{{ token }}"
+        description: ""
+      - name: Content-Type
+        value: application/json
+        id: pair_10061ba627264da8aa1a56350f8dddc9
+    authentication: {}
+    metaSortKey: -1661529953019
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_8bfc4c283e9443f582bbb6219b2fb482
+    parentId: fld_cf7da02fa3114657a25f14fc361ac1f1
+    modified: 1662900307808
+    created: 1662583371156
+    url: "{{ base_url }}/announcements/lands/open"
+    name: All open land announcements
+    description: ""
+    method: GET
+    body: {}
+    parameters: []
+    headers:
+      - id: pair_9c241edd84bf4d8ebd17487b46c74029
+        name: Authorization
+        value: "{{ token }}"
+        description: ""
+    authentication: {}
+    metaSortKey: -1661529953012.75
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_862d67b710d542a1a1d5a1337cdbefd6
+    parentId: fld_cf7da02fa3114657a25f14fc361ac1f1
+    modified: 1662900306411
+    created: 1662583378345
+    url: "{{ base_url }}/announcements/lands/open/101"
+    name: Open land announcements by id
+    description: ""
+    method: GET
+    body: {}
+    parameters: []
+    headers:
+      - id: pair_9c241edd84bf4d8ebd17487b46c74029
+        name: Authorization
+        value: "{{ token }}"
+        description: ""
+    authentication: {}
+    metaSortKey: -1661529953000.25
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_e09aee78a5b147fcbc7d80f5b3956e44
+    parentId: fld_cf7da02fa3114657a25f14fc361ac1f1
+    modified: 1662798228938
+    created: 1662648509503
+    url: "{{ base_url }}/announcements/lands/closed/owner/100"
+    name: All closed land announcements by user id of owner
+    description: ""
+    method: GET
+    body: {}
+    parameters: []
+    headers:
+      - id: pair_9c241edd84bf4d8ebd17487b46c74029
+        name: Authorization
+        value: "{{ token }}"
+        description: ""
+    authentication: {}
+    metaSortKey: -1661529952975.25
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_7e0b1a1186ed4060b174c958bc6ba6a5
+    parentId: fld_c694fb2941054412ad21392e1c949748
+    modified: 1662909456013
+    created: 1662319291443
+    url: "{{ base_url }}/announcements"
+    name: All announcements
+    description: ""
+    method: GET
+    body: {}
+    parameters: []
+    headers:
+      - id: pair_9c241edd84bf4d8ebd17487b46c74029
+        name: Authorization
+        value: "{{ token }}"
+        description: ""
+    authentication: {}
+    metaSortKey: -1661529955545
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_ae2592ce6133435c9be7ae1db64949fd
+    parentId: fld_c694fb2941054412ad21392e1c949748
+    modified: 1662584375420
+    created: 1662583617660
+    url: "{{ base_url }}/announcements/housing"
+    name: All housing announcements
+    description: ""
+    method: GET
+    body: {}
+    parameters: []
+    headers:
+      - id: pair_9c241edd84bf4d8ebd17487b46c74029
+        name: Authorization
+        value: "{{ token }}"
+        description: ""
+    authentication: {}
+    metaSortKey: -1661529955532.5
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_7ce6aacc382a455d81545ae0540eddf6
+    parentId: fld_c694fb2941054412ad21392e1c949748
+    modified: 1662584375596
+    created: 1662583631113
+    url: "{{ base_url }}/announcements/housing/open"
+    name: All open housing announcements
+    description: ""
+    method: GET
+    body: {}
+    parameters: []
+    headers:
+      - id: pair_9c241edd84bf4d8ebd17487b46c74029
+        name: Authorization
+        value: "{{ token }}"
+        description: ""
+    authentication: {}
+    metaSortKey: -1661529955529.375
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_940d7537d21e451591d2747522bb464e
+    parentId: fld_c694fb2941054412ad21392e1c949748
+    modified: 1662583656756
+    created: 1662583625890
+    url: "{{ base_url }}/announcements/housing/current"
+    name: All housing announcements of current user
+    description: ""
+    method: GET
+    body: {}
+    parameters: []
+    headers:
+      - id: pair_9c241edd84bf4d8ebd17487b46c74029
+        name: Authorization
+        value: "{{ token }}"
+        description: ""
+    authentication: {}
+    metaSortKey: -1661529955526.25
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_e3cae813db3e40c08523a51aa5c5601d
+    parentId: fld_c694fb2941054412ad21392e1c949748
+    modified: 1662624331275
+    created: 1662583578828
+    url: "{{ base_url }}/announcements/open"
+    name: All open announcements
+    description: ""
+    method: GET
+    body: {}
+    parameters: []
+    headers:
+      - id: pair_9c241edd84bf4d8ebd17487b46c74029
+        name: Authorization
+        value: "{{ token }}"
+        description: ""
+    authentication: {}
+    metaSortKey: -1661529955520
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_c785f390d9c741a99121b44eb46277ac
+    parentId: fld_c694fb2941054412ad21392e1c949748
+    modified: 1662647392236
+    created: 1662583589103
+    url: "{{ base_url }}/announcements/current"
+    name: All announcements of current user
+    description: ""
+    method: GET
+    body: {}
+    parameters: []
+    headers:
+      - id: pair_9c241edd84bf4d8ebd17487b46c74029
+        name: Authorization
+        value: "{{ token }}"
+        description: ""
+    authentication: {}
+    metaSortKey: -1661529955507.5
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: env_a34eeeca15978c8917903129a4fefaa00c578135
+    parentId: wrk_b9c5b3d18bbe460fb180ea678719b6c4
+    modified: 1662924028424
+    created: 1662319129537
+    name: Base Environment
+    data:
+      scheme: http
+      base_path: /real-estate-market/api
+      host: localhost
+      port: 8080
+      base_url: "{{ scheme }}://{{ host }}:{{ port }}{{ base_path }}"
+      token: eyJhbGciOiJIUzI1NiJ9.eyJyb2xlIjpbIkFETUlOIl0sInVzZXJJZCI6MTAwLCJzdWIiOiJhZG1pbiIsImlhdCI6MTY2MjkyNzYxMywiZXhwIjoxNjYyOTI3NjEzfQ.p7P52ODwTk-8S9J_gVmHEEcesc9LLnXtR4QvrBHP-_4
+    dataPropertyOrder:
+      "&":
+        - scheme
+        - base_path
+        - host
+        - port
+        - base_url
+        - token
+    color: null
+    isPrivate: false
+    metaSortKey: 1662319129537
+    _type: environment
+  - _id: jar_a34eeeca15978c8917903129a4fefaa00c578135
+    parentId: wrk_b9c5b3d18bbe460fb180ea678719b6c4
+    modified: 1662624378050
+    created: 1662319129539
+    name: Default Jar
+    cookies:
+      - key: remixir
+        value: DELETED
+        expires: 1970-01-01T00:00:01.000Z
+        domain: vk.com
+        path: /
+        secure: true
+        httpOnly: true
+        hostOnly: false
+        creation: 2022-09-08T08:06:18.047Z
+        lastAccessed: 2022-09-08T08:06:18.047Z
+        id: "9988001788394341"
+    _type: cookie_jar
+  - _id: spc_23918864f0d645a6afe2aff4e251389b
+    parentId: wrk_b9c5b3d18bbe460fb180ea678719b6c4
+    modified: 1662319129531
+    created: 1662319129531
+    fileName: SENLA - Real Estate Market
+    contents: ""
+    contentType: yaml
+    _type: api_spec

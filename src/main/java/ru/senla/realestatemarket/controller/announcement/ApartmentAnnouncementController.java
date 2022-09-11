@@ -35,11 +35,10 @@ public class ApartmentAnnouncementController {
 
     @ApiOperation(
             value = "",
-            notes = "",
             authorizations = @Authorization("ADMIN")
     )
     @GetMapping("/{id}")
-    public ApartmentAnnouncementDto getApartmentAnnouncementById(
+    public ApartmentAnnouncementDto getById(
             @PathVariable Long id
     ) {
         return apartmentAnnouncementService.getDtoById(id);
@@ -47,11 +46,10 @@ public class ApartmentAnnouncementController {
 
     @ApiOperation(
             value = "",
-            notes = "",
             authorizations = @Authorization("ADMIN")
     )
     @DeleteMapping("/{id}")
-    public ResponseEntity<RestResponseDto> deleteApartmentAnnouncementById(
+    public ResponseEntity<RestResponseDto> deleteById(
             @PathVariable Long id
     ) {
         apartmentAnnouncementService.deleteById(id);
@@ -62,15 +60,14 @@ public class ApartmentAnnouncementController {
 
     @ApiOperation(
             value = "",
-            notes = "",
             authorizations = @Authorization("ADMIN")
     )
     @PutMapping("/{id}")
-    public ResponseEntity<RestResponseDto> updateApartmentAnnouncementById(
+    public ResponseEntity<RestResponseDto> updateById(
             @PathVariable Long id,
             @RequestBody @Valid UpdateRequestApartmentAnnouncementDto updateRequestApartmentAnnouncementDto
     ) {
-        apartmentAnnouncementService.updateById(updateRequestApartmentAnnouncementDto, id);
+        apartmentAnnouncementService.updateFromDtoById(updateRequestApartmentAnnouncementDto, id);
 
         return ResponseEntity.ok(
                 new RestResponseDto("Apartment announcement has been updated", HttpStatus.OK.value()));
@@ -78,11 +75,10 @@ public class ApartmentAnnouncementController {
 
     @ApiOperation(
             value = "",
-            notes = "",
             authorizations = @Authorization("ADMIN")
     )
     @GetMapping
-    public List<ApartmentAnnouncementDto> getAllApartmentAnnouncements(
+    public List<ApartmentAnnouncementDto> getAll(
             @RequestParam(value = "q", required = false) String rsqlQuery,
             @RequestParam(value = "sort", required = false) String sortQuery
     ) {
@@ -95,7 +91,7 @@ public class ApartmentAnnouncementController {
             authorizations = @Authorization("ADMIN")
     )
     @PostMapping
-    public ResponseEntity<RestResponseDto> addNewApartmentAnnouncement(
+    public ResponseEntity<RestResponseDto> add(
             @RequestBody @Valid RequestApartmentAnnouncementDto requestApartmentAnnouncementDto
     ) {
         apartmentAnnouncementService.addFromDto(requestApartmentAnnouncementDto);
@@ -110,7 +106,7 @@ public class ApartmentAnnouncementController {
             notes = "Get all apartment announcement with OPEN status"
     )
     @GetMapping("/open")
-    public List<ApartmentAnnouncementDto> getAllOpenApartmentAnnouncements(
+    public List<ApartmentAnnouncementDto> getAllWithOpenStatus(
             @RequestParam(value = "q", required = false) String rsqlQuery,
             @RequestParam(value = "sort", required = false) String sortQuery
     ) {
@@ -122,19 +118,28 @@ public class ApartmentAnnouncementController {
             notes = "Get apartment announcement by id with OPEN status"
     )
     @GetMapping("/open/{id}")
-    public ApartmentAnnouncementDto getByIdOpenApartmentAnnouncements(
+    public ApartmentAnnouncementDto getByIdWithOpenStatus(
             @PathVariable Long id
     ) {
         return apartmentAnnouncementService.getByIdWithOpenStatusDto(id);
     }
 
+    @GetMapping("/closed/owner/{userIdOfOwner}")
+    public List<ApartmentAnnouncementDto> getAllWithClosedStatusByUserIfOfOwner(
+            @PathVariable Long userIdOfOwner,
+            @RequestParam(value = "q", required = false) String rsqlQuery,
+            @RequestParam(value = "sort", required = false) String sortQuery
+    ) {
+        return apartmentAnnouncementService.getAllWithClosedStatusByUserIdOfOwnerDto(
+                userIdOfOwner, rsqlQuery, sortQuery);
+    }
+
     @ApiOperation(
             value = "",
-            notes = "",
             authorizations = @Authorization("Authorized user")
     )
     @GetMapping("/current")
-    public List<ApartmentAnnouncementDto> getAllApartmentAnnouncementsOfCurrentUser(
+    public List<ApartmentAnnouncementDto> getAllOfCurrentUser(
             @RequestParam(value = "q", required = false) String rsqlQuery,
             @RequestParam(value = "sort", required = false) String sortQuery
     ) {
@@ -143,14 +148,13 @@ public class ApartmentAnnouncementController {
 
     @ApiOperation(
             value = "",
-            notes = "",
             authorizations = @Authorization("Authorized user")
     )
     @PostMapping("/current")
-    public ResponseEntity<RestResponseDto> addApartmentAnnouncementsFromCurrentUser(
+    public ResponseEntity<RestResponseDto> addFromCurrentUser(
             @RequestBody @Valid RequestApartmentAnnouncementDto requestApartmentAnnouncementDto
     ) {
-        apartmentAnnouncementService.addFromCurrentUser(requestApartmentAnnouncementDto);
+        apartmentAnnouncementService.addFromDtoFromCurrentUser(requestApartmentAnnouncementDto);
 
         return new ResponseEntity<>(new RestResponseDto(
                 "Apartment announcement has been added with HIDDEN status",
@@ -159,11 +163,10 @@ public class ApartmentAnnouncementController {
 
     @ApiOperation(
             value = "",
-            notes = "",
             authorizations = @Authorization("Authorized user")
     )
     @GetMapping("/current/{id}")
-    public ApartmentAnnouncementDto getByIdApartmentAnnouncementOfCurrentUser(
+    public ApartmentAnnouncementDto getByIdOfCurrentUser(
             @PathVariable Long id
     ) {
         return apartmentAnnouncementService.getByIdDtoOfCurrentUser(id);
@@ -175,11 +178,11 @@ public class ApartmentAnnouncementController {
             authorizations = @Authorization("Authorized user")
     )
     @PutMapping("/current/{id}")
-    public ResponseEntity<RestResponseDto> updateApartmentAnnouncementByIdFromCurrentUser(
+    public ResponseEntity<RestResponseDto> updateByIdFromCurrentUser(
             @PathVariable Long id,
             @RequestBody @Valid UpdateRequestApartmentAnnouncementDto updateRequestApartmentAnnouncementDto
     ) {
-        apartmentAnnouncementService.updateByIdFromCurrentUser(updateRequestApartmentAnnouncementDto, id);
+        apartmentAnnouncementService.updateByIdFromDtoFromCurrentUser(updateRequestApartmentAnnouncementDto, id);
 
         return ResponseEntity.ok(
                 new RestResponseDto("Apartment announcement has been updated", HttpStatus.OK.value()));

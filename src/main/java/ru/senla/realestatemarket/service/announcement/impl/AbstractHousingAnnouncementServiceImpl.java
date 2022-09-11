@@ -4,7 +4,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Service;
 import ru.senla.realestatemarket.exception.InvalidStatusAnnouncementException;
-import ru.senla.realestatemarket.model.IModel;
 import ru.senla.realestatemarket.model.announcement.AnnouncementStatusEnum;
 import ru.senla.realestatemarket.model.announcement.HousingAnnouncement;
 import ru.senla.realestatemarket.model.announcement.HousingAnnouncementTypeEnum;
@@ -14,7 +13,7 @@ import ru.senla.realestatemarket.service.announcement.IAbstractHousingAnnounceme
 
 @Slf4j
 @Service
-public abstract class AbstractHousingAnnouncementServiceImpl<M extends IModel<Long>>
+public abstract class AbstractHousingAnnouncementServiceImpl<M extends HousingAnnouncement>
         extends AbstractAnnouncementServiceImpl<M>
         implements IAbstractHousingAnnouncementService<M> {
 

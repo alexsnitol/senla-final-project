@@ -19,7 +19,7 @@ public class AnnouncementDto {
 
     private String description;
 
-    @JsonFormat(pattern = "dd.MM.yyyy hh:mm:ss")
+    @JsonFormat(pattern = "dd.MM.yyyy HH:mm:ss")
     private LocalDateTime createdDt;
 
     private AnnouncementStatusEnum status;
@@ -28,5 +28,8 @@ public class AnnouncementDto {
     private PropertyTypeEnum propertyType;
 
     private Boolean top;
+
+    @JsonFormat(pattern = "dd.MM.yyyy HH:mm:ss")
+    private LocalDateTime closedDt;
 
 }

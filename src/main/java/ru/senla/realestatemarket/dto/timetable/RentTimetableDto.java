@@ -1,9 +1,9 @@
 package ru.senla.realestatemarket.dto.timetable;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 
 @Getter
@@ -12,8 +12,10 @@ public class RentTimetableDto {
 
     private Long announcementId;
 
-    private LocalDateTime fromDateTime;
+    @JsonFormat(pattern = "dd.MM.yyyy HH:mm:ss")
+    private LocalDateTime fromDt;
 
-    private LocalDateTime toDateTime;
+    @JsonFormat(pattern = "dd.MM.yyyy HH:mm:ss")
+    private LocalDateTime toDt;
 
 }

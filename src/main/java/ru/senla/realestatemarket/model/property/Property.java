@@ -8,7 +8,6 @@ import lombok.Setter;
 import ru.senla.realestatemarket.model.IModel;
 import ru.senla.realestatemarket.model.user.User;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -43,8 +42,7 @@ public class Property implements IModel<Long> {
     private User owner;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "status")
-    private PropertyStatusEnum propertyStatusEnum = PropertyStatusEnum.ACTIVE;
+    private PropertyStatusEnum status = PropertyStatusEnum.ACTIVE;
 
     @Transient
     @Setter(AccessLevel.PROTECTED)

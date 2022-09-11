@@ -14,13 +14,19 @@ import ru.senla.realestatemarket.model.announcement.SellAnnouncementStatusEnum;
 import ru.senla.realestatemarket.model.property.LandProperty;
 import ru.senla.realestatemarket.repo.announcement.ILandAnnouncementRepository;
 import ru.senla.realestatemarket.repo.announcement.sort.AnnouncementSort;
+import ru.senla.realestatemarket.repo.announcement.specification.GenericAnnouncementSpecification;
+import ru.senla.realestatemarket.repo.announcement.specification.LandAnnouncementSpecification;
 import ru.senla.realestatemarket.repo.property.ILandPropertyRepository;
 import ru.senla.realestatemarket.service.announcement.ILandAnnouncementService;
 import ru.senla.realestatemarket.service.helper.EntityHelper;
+import ru.senla.realestatemarket.util.UserUtil;
 
 import javax.annotation.PostConstruct;
 import javax.transaction.Transactional;
 import java.util.List;
+
+import static ru.senla.realestatemarket.repo.announcement.specification.GenericAnnouncementSpecification.hasIdAndUserIdOfOwnerInProperty;
+import static ru.senla.realestatemarket.repo.announcement.specification.LandAnnouncementSpecification.hasUserIdOfOwnerInProperty;
 
 @Slf4j
 @Service
@@ -65,21 +71,161 @@ public class LandAnnouncementServiceImpl
     }
 
     @Override
+    @Transactional
+    public List<LandAnnouncementDto> getAllWithOpenStatusDto(String rsqlQuery, String sortQuery) {
+        List<LandAnnouncement> landAnnouncementList;
+
+        if (sortQuery == null) {
+            // default sort
+            landAnnouncementList = getAll(
+                    GenericAnnouncementSpecification.hasStatuses(List.of(AnnouncementStatusEnum.OPEN)),
+                    rsqlQuery,
+                    AnnouncementSort.byTopDescAndPropertyOwnerRatingAscAndCreatedDtAsc());
+        } else {
+            landAnnouncementList = getAll(
+                    GenericAnnouncementSpecification.hasStatuses(List.of(AnnouncementStatusEnum.OPEN)),
+                    rsqlQuery,
+                    sortQuery);
+        }
+
+        return landAnnouncementMapper.toLandAnnouncementDto(landAnnouncementList);
+    }
+
+    @Override
+    @Transactional
+    public List<LandAnnouncementDto> getAllWithClosedStatusByUserIdOfOwnerDto(Long useIdOfOwner, String rsqlQuery, String sortQuery) {
+        List<LandAnnouncement> landAnnouncementList;
+
+        if (sortQuery == null) {
+            // default sort
+            landAnnouncementList = getAll(
+                    LandAnnouncementSpecification.hasStatuses(List.of(AnnouncementStatusEnum.CLOSED)).and(
+                            LandAnnouncementSpecification.hasUserIdOfOwnerInProperty(useIdOfOwner)
+                    ),
+                    rsqlQuery,
+                    AnnouncementSort.byTopDescAndPropertyOwnerRatingAscAndCreatedDtAsc());
+        } else {
+            landAnnouncementList = getAll(
+                    LandAnnouncementSpecification.hasStatuses(List.of(AnnouncementStatusEnum.CLOSED)).and(
+                            LandAnnouncementSpecification.hasUserIdOfOwnerInProperty(useIdOfOwner)
+                    ),
+                    rsqlQuery,
+                    sortQuery);
+        }
+
+        return landAnnouncementMapper.toLandAnnouncementDto(landAnnouncementList);
+    }
+
+    @Override
+    @Transactional
+    public List<LandAnnouncementDto> getAllDtoOfCurrentUser(String rsqlQuery, String sortQuery) {
+        List<LandAnnouncement> landAnnouncementList;
+
+        if (sortQuery == null) {
+            // default sort
+            landAnnouncementList = getAll(hasUserIdOfOwnerInProperty(UserUtil.getCurrentUserId()),
+                    rsqlQuery, AnnouncementSort.byCreatedDtAsc());
+        } else {
+            landAnnouncementList = getAll(hasUserIdOfOwnerInProperty(UserUtil.getCurrentUserId()),
+                    rsqlQuery, sortQuery);
+        }
+
+        return landAnnouncementMapper.toLandAnnouncementDto(landAnnouncementList);
+    }
+
+    @Override
+    @Transactional
     public LandAnnouncementDto getDtoById(Long id) {
         return landAnnouncementMapper.toLandAnnouncementDto(getById(id));
     }
 
     @Override
     @Transactional
-    public void add(RequestLandAnnouncementDto requestLandAnnouncementDto) {
-        LandAnnouncement landAnnouncement
-                = landAnnouncementMapper.toLandAnnouncement(requestLandAnnouncementDto);
+    public LandAnnouncementDto getByIdWithOpenStatusDto(Long id) {
+        return landAnnouncementMapper.toLandAnnouncementDto(
+                getOne(LandAnnouncementSpecification.hasId(id).and(
+                        LandAnnouncementSpecification.hasStatuses(List.of(AnnouncementStatusEnum.OPEN))))
+        );
+    }
 
-        Long landPropertyId = requestLandAnnouncementDto.getLandPropertyId();
+    @Override
+    @Transactional
+    public LandAnnouncementDto getByIdDtoOfCurrentUser(Long id) {
+        return landAnnouncementMapper.toLandAnnouncementDto(
+                getOne(hasIdAndUserIdOfOwnerInProperty(id, UserUtil.getCurrentUserId()))
+        );
+    }
+
+    @Override
+    @Transactional
+    public void addFromDto(RequestLandAnnouncementDto requestDto) {
+        LandAnnouncement landAnnouncement
+                = landAnnouncementMapper.toLandAnnouncement(requestDto);
+
+        Long landPropertyId = requestDto.getLandPropertyId();
         setLandPropertyById(landAnnouncement, landPropertyId);
 
 
         landAnnouncementRepository.create(landAnnouncement);
+    }
+
+    @Override
+    @Transactional
+    public void addFromDtoFromCurrentUser(RequestLandAnnouncementDto requestDto) {
+        Long landPropertyId = requestDto.getLandPropertyId();
+
+        LandProperty landProperty = landPropertyRepository.findById(landPropertyId);
+        EntityHelper.checkEntityOnNull(landProperty, LandProperty.class, landPropertyId);
+
+        validateAccessCurrentUserToProperty(landProperty);
+
+        addFromDto(requestDto);
+    }
+
+    @Override
+    @Transactional
+    public void updateFromDtoById(UpdateRequestLandAnnouncementDto updateRequestDto, Long id) {
+        LandAnnouncement landAnnouncement = getById(id);
+        
+        updateFromDto(updateRequestDto, landAnnouncement);
+    }
+
+    @Override
+    @Transactional
+    public void updateByIdFromCurrentUser(UpdateRequestLandAnnouncementDto updateRequestDto, Long id) {
+        LandAnnouncement landAnnouncement = getOne(hasIdAndUserIdOfOwnerInProperty(id, UserUtil.getCurrentUserId()));
+
+
+        Long landPropertyId = updateRequestDto.getLandPropertyId();
+        LandProperty landProperty = landPropertyRepository.findById(landPropertyId);
+        EntityHelper.checkEntityOnNull(landProperty, LandProperty.class, landPropertyId);
+
+        validateAccessCurrentUserToProperty(landProperty);
+
+
+        updateFromDto(updateRequestDto, landAnnouncement);
+    }
+
+    private void updateFromDto(UpdateRequestLandAnnouncementDto updateRequestDto, LandAnnouncement landAnnouncement) {
+        Long landPropertyId = updateRequestDto.getLandPropertyId();
+        if (landPropertyId != null) {
+            setLandPropertyById(landAnnouncement, landPropertyId);
+        }
+
+
+        AnnouncementStatusEnum announcementStatus = updateRequestDto.getStatus();
+        if (announcementStatus != null) {
+            validSellAnnouncementTypeOnAccordanceWithStatus(announcementStatus);
+        }
+
+        setStatusIfNotNull(landAnnouncement, announcementStatus);
+
+        landAnnouncementMapper.updateLandAnnouncementFromUpdateRequestLandAnnouncement(
+                updateRequestDto, landAnnouncement
+        );
+
+
+        landAnnouncementRepository.update(landAnnouncement);
     }
 
     private void setLandPropertyById(LandAnnouncement landAnnouncement, Long landPropertyId) {
@@ -87,32 +233,6 @@ public class LandAnnouncementServiceImpl
         EntityHelper.checkEntityOnNull(landProperty, LandProperty.class, landPropertyId);
 
         landAnnouncement.setProperty(landProperty);
-    }
-
-    @Override
-    @Transactional
-    public void updateById(UpdateRequestLandAnnouncementDto updateRequestLandAnnouncementDto, Long id) {
-        LandAnnouncement landAnnouncement = getById(id);
-
-
-        Long landPropertyId = updateRequestLandAnnouncementDto.getLandPropertyId();
-        if (landPropertyId != null) {
-            setLandPropertyById(landAnnouncement, landPropertyId);
-        }
-
-
-        AnnouncementStatusEnum announcementStatus = updateRequestLandAnnouncementDto.getStatus();
-        if (announcementStatus != null) {
-            validSellAnnouncementTypeOnAccordanceWithStatus(announcementStatus);
-        }
-
-
-        landAnnouncementMapper.updateLandAnnouncementFromUpdateRequestLandAnnouncement(
-                updateRequestLandAnnouncementDto, landAnnouncement
-        );
-
-
-        landAnnouncementRepository.update(landAnnouncement);
     }
 
     private void validSellAnnouncementTypeOnAccordanceWithStatus(AnnouncementStatusEnum announcementStatus) {
@@ -126,14 +246,4 @@ public class LandAnnouncementServiceImpl
         }
     }
 
-    @Override
-    @Transactional
-    public void setDeletedStatusByIdAndUpdate(Long id) {
-        LandAnnouncement landAnnouncement = getById(id);
-        
-        setDeletedStatus(landAnnouncement);
-        
-        landAnnouncementRepository.update(landAnnouncement);
-    }
-    
 }

@@ -11,11 +11,20 @@ public interface ILandAnnouncementService
         extends IAbstractAnnouncementService<LandAnnouncement> {
 
     List<LandAnnouncementDto> getAllDto(String rsqlQuery, String sortQuery);
+    List<LandAnnouncementDto> getAllWithOpenStatusDto(String rsqlQuery, String sortQuery);
+    List<LandAnnouncementDto> getAllWithClosedStatusByUserIdOfOwnerDto(
+            Long useIdOfOwner, String rsqlQuery, String sortQuery);
+    List<LandAnnouncementDto> getAllDtoOfCurrentUser(String rsqlQuery, String sortQuery);
 
     LandAnnouncementDto getDtoById(Long id);
+    LandAnnouncementDto getByIdWithOpenStatusDto(Long id);
+    LandAnnouncementDto getByIdDtoOfCurrentUser(Long id);
 
-    void add(RequestLandAnnouncementDto requestLandAnnouncementDto);
+    void addFromDto(RequestLandAnnouncementDto requestLandAnnouncementDto);
+    void addFromDtoFromCurrentUser(RequestLandAnnouncementDto requestLandAnnouncementDto);
 
-    void updateById(UpdateRequestLandAnnouncementDto updateRequestLandAnnouncementDto, Long id);
+    void updateFromDtoById(UpdateRequestLandAnnouncementDto updateRequestLandAnnouncementDto, Long id);
+    void updateByIdFromCurrentUser(UpdateRequestLandAnnouncementDto updateRequestLandAnnouncementDto,
+                                   Long id);
 
 }

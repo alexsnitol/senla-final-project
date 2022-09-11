@@ -14,6 +14,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import java.time.LocalDateTime;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -29,5 +30,11 @@ public class LandAnnouncementTopTimetable extends AnnouncementTopTimetable {
 
     @OneToOne(mappedBy = "timetable", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private LandAnnouncementTopPurchase landAnnouncementTopPurchase;
+
+
+    public LandAnnouncementTopTimetable(LandAnnouncement announcement, LocalDateTime fromDt, LocalDateTime toDt) {
+        super(fromDt, toDt);
+        this.announcement = announcement;
+    }
 
 }

@@ -8,7 +8,7 @@ import ru.senla.realestatemarket.dto.property.PropertyDto;
 import ru.senla.realestatemarket.mapper.property.PropertyMapper;
 import ru.senla.realestatemarket.model.property.Property;
 import ru.senla.realestatemarket.repo.property.IPropertyRepository;
-import ru.senla.realestatemarket.repo.user.IUserRepository;
+import ru.senla.realestatemarket.service.AbstractServiceImpl;
 import ru.senla.realestatemarket.service.property.IPropertyService;
 import ru.senla.realestatemarket.util.SortUtil;
 import ru.senla.realestatemarket.util.UserUtil;
@@ -20,7 +20,7 @@ import java.util.List;
 @Slf4j
 @Service
 public class PropertyServiceImpl
-        extends AbstractPropertyServiceImpl<Property>
+        extends AbstractServiceImpl<Property, Long>
         implements IPropertyService {
 
     private final IPropertyRepository propertyRepository;
@@ -29,9 +29,7 @@ public class PropertyServiceImpl
             = Mappers.getMapper(PropertyMapper.class);
 
 
-    public PropertyServiceImpl(IPropertyRepository propertyRepository,
-                               IUserRepository userRepository) {
-        super(userRepository);
+    public PropertyServiceImpl(IPropertyRepository propertyRepository) {
         this.propertyRepository = propertyRepository;
     }
 
@@ -51,6 +49,7 @@ public class PropertyServiceImpl
     }
 
     @Override
+    @Transactional
     public List<PropertyDto> getAllDtoOfCurrentUser(String rsqlQuery, String sortQuery) {
         Sort sort = SortUtil.parseSortQuery(sortQuery);
 

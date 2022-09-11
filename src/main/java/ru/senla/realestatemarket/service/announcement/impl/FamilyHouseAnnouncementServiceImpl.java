@@ -13,13 +13,20 @@ import ru.senla.realestatemarket.model.announcement.HousingAnnouncementTypeEnum;
 import ru.senla.realestatemarket.model.property.FamilyHouseProperty;
 import ru.senla.realestatemarket.repo.announcement.IFamilyHouseAnnouncementRepository;
 import ru.senla.realestatemarket.repo.announcement.sort.AnnouncementSort;
+import ru.senla.realestatemarket.repo.announcement.specification.FamilyHouseAnnouncementSpecification;
+import ru.senla.realestatemarket.repo.announcement.specification.GenericAnnouncementSpecification;
 import ru.senla.realestatemarket.repo.property.IFamilyHousePropertyRepository;
 import ru.senla.realestatemarket.service.announcement.IFamilyHouseAnnouncementService;
 import ru.senla.realestatemarket.service.helper.EntityHelper;
+import ru.senla.realestatemarket.util.UserUtil;
 
 import javax.annotation.PostConstruct;
 import javax.transaction.Transactional;
 import java.util.List;
+
+import static ru.senla.realestatemarket.repo.announcement.sort.AnnouncementSort.byTopDescAndPropertyOwnerRatingAscAndCreatedDtAsc;
+import static ru.senla.realestatemarket.repo.announcement.specification.FamilyHouseAnnouncementSpecification.hasUserIdOfOwnerInProperty;
+import static ru.senla.realestatemarket.repo.announcement.specification.GenericAnnouncementSpecification.hasIdAndUserIdOfOwnerInProperty;
 
 @Slf4j
 @Service
@@ -54,7 +61,7 @@ public class FamilyHouseAnnouncementServiceImpl
 
         if (sortQuery == null) {
             // default sort
-            familyHouseAnnouncementList = getAll(rsqlQuery, AnnouncementSort.byTopDescAndPropertyOwnerRatingAscAndCreatedDtAsc());
+            familyHouseAnnouncementList = getAll(rsqlQuery, byTopDescAndPropertyOwnerRatingAscAndCreatedDtAsc());
         } else {
             familyHouseAnnouncementList = getAll(rsqlQuery, sortQuery);
         }
@@ -63,13 +70,94 @@ public class FamilyHouseAnnouncementServiceImpl
     }
 
     @Override
+    @Transactional
+    public List<FamilyHouseAnnouncementDto> getAllWithOpenStatusDto(String rsqlQuery, String sortQuery) {
+        List<FamilyHouseAnnouncement> familyHouseAnnouncementList;
+
+        if (sortQuery == null) {
+            // default sort
+            familyHouseAnnouncementList = getAll(
+                    GenericAnnouncementSpecification.hasStatuses(List.of(AnnouncementStatusEnum.OPEN)),
+                    rsqlQuery,
+                    byTopDescAndPropertyOwnerRatingAscAndCreatedDtAsc());
+        } else {
+            familyHouseAnnouncementList = getAll(
+                    GenericAnnouncementSpecification.hasStatuses(List.of(AnnouncementStatusEnum.OPEN)),
+                    rsqlQuery,
+                    sortQuery);
+        }
+
+        return familyHouseAnnouncementMapper.toFamilyHouseAnnouncementDto(familyHouseAnnouncementList);
+    }
+
+    @Override
+    @Transactional
+    public List<FamilyHouseAnnouncementDto> getAllWithClosedStatusByUserIdOfOwnerDto(Long useIdOfOwner, String rsqlQuery, String sortQuery) {
+        List<FamilyHouseAnnouncement> familyHouseAnnouncementList;
+
+        if (sortQuery == null) {
+            // default sort
+            familyHouseAnnouncementList = getAll(
+                    FamilyHouseAnnouncementSpecification.hasStatuses(List.of(AnnouncementStatusEnum.CLOSED)).and(
+                            FamilyHouseAnnouncementSpecification.hasUserIdOfOwnerInProperty(useIdOfOwner)
+                    ),
+                    rsqlQuery,
+                    byTopDescAndPropertyOwnerRatingAscAndCreatedDtAsc());
+        } else {
+            familyHouseAnnouncementList = getAll(
+                    FamilyHouseAnnouncementSpecification.hasStatuses(List.of(AnnouncementStatusEnum.CLOSED)).and(
+                            FamilyHouseAnnouncementSpecification.hasUserIdOfOwnerInProperty(useIdOfOwner)
+                    ),
+                    rsqlQuery,
+                    sortQuery);
+        }
+
+        return familyHouseAnnouncementMapper.toFamilyHouseAnnouncementDto(familyHouseAnnouncementList);
+    }
+
+    @Override
+    @Transactional
+    public List<FamilyHouseAnnouncementDto> getAllDtoOfCurrentUser(String rsqlQuery, String sortQuery) {
+        List<FamilyHouseAnnouncement> familyHouseAnnouncementList;
+
+        if (sortQuery == null) {
+            // default sort
+            familyHouseAnnouncementList = getAll(hasUserIdOfOwnerInProperty(UserUtil.getCurrentUserId()),
+                    rsqlQuery, AnnouncementSort.byCreatedDtAsc());
+        } else {
+            familyHouseAnnouncementList = getAll(hasUserIdOfOwnerInProperty(UserUtil.getCurrentUserId()),
+                    rsqlQuery, sortQuery);
+        }
+
+        return familyHouseAnnouncementMapper.toFamilyHouseAnnouncementDto(familyHouseAnnouncementList);
+    }
+
+    @Override
+    @Transactional
     public FamilyHouseAnnouncementDto getDtoById(Long id) {
         return familyHouseAnnouncementMapper.toFamilyHouseAnnouncementDto(getById(id));
     }
 
     @Override
     @Transactional
-    public void add(RequestFamilyHouseAnnouncementDto requestFamilyHouseAnnouncementDto) {
+    public FamilyHouseAnnouncementDto getByIdWithOpenStatusDto(Long id) {
+        return familyHouseAnnouncementMapper.toFamilyHouseAnnouncementDto(
+                getOne(FamilyHouseAnnouncementSpecification.hasId(id).and(
+                        FamilyHouseAnnouncementSpecification.hasStatuses(List.of(AnnouncementStatusEnum.OPEN))))
+        );
+    }
+
+    @Override
+    @Transactional
+    public FamilyHouseAnnouncementDto getByIdDtoOfCurrentUser(Long id) {
+        return familyHouseAnnouncementMapper.toFamilyHouseAnnouncementDto(
+                getOne(hasIdAndUserIdOfOwnerInProperty(id, UserUtil.getCurrentUserId()))
+        );
+    }
+
+    @Override
+    @Transactional
+    public void addFromDto(RequestFamilyHouseAnnouncementDto requestFamilyHouseAnnouncementDto) {
         FamilyHouseAnnouncement familyHouseAnnouncement
                 = familyHouseAnnouncementMapper.toFamilyHouseAnnouncement(requestFamilyHouseAnnouncementDto);
 
@@ -80,13 +168,17 @@ public class FamilyHouseAnnouncementServiceImpl
         familyHouseAnnouncementRepository.create(familyHouseAnnouncement);
     }
 
-    private void setFamilyHouseAnnouncementById(
-            FamilyHouseAnnouncement familyHouseAnnouncement, Long familyHousePropertyId
-    ) {
+    @Override
+    @Transactional
+    public void addFromCurrentUser(RequestFamilyHouseAnnouncementDto requestFamilyHouseAnnouncementDto) {
+        Long familyHousePropertyId = requestFamilyHouseAnnouncementDto.getFamilyHousePropertyId();
+
         FamilyHouseProperty familyHouseProperty = familyHousePropertyRepository.findById(familyHousePropertyId);
         EntityHelper.checkEntityOnNull(familyHouseProperty, FamilyHouseProperty.class, familyHousePropertyId);
 
-        familyHouseAnnouncement.setProperty(familyHouseProperty);
+        validateAccessCurrentUserToProperty(familyHouseProperty);
+
+        addFromDto(requestFamilyHouseAnnouncementDto);
     }
 
     @Override
@@ -94,7 +186,28 @@ public class FamilyHouseAnnouncementServiceImpl
     public void updateById(UpdateRequestFamilyHouseAnnouncementDto updateRequestFamilyHouseAnnouncementDto, Long id) {
         FamilyHouseAnnouncement familyHouseAnnouncement = getById(id);
 
-        
+        updateFromDto(updateRequestFamilyHouseAnnouncementDto, familyHouseAnnouncement);
+    }
+
+    @Override
+    @Transactional
+    public void updateByIdFromCurrentUser(UpdateRequestFamilyHouseAnnouncementDto updateRequestFamilyHouseAnnouncementDto, Long id) {
+        FamilyHouseAnnouncement familyHouseAnnouncement = getOne(
+                hasIdAndUserIdOfOwnerInProperty(id, UserUtil.getCurrentUserId()));
+
+
+        Long familyHousePropertyId = updateRequestFamilyHouseAnnouncementDto.getFamilyHousePropertyId();
+        FamilyHouseProperty familyHouseProperty = familyHousePropertyRepository.findById(familyHousePropertyId);
+        EntityHelper.checkEntityOnNull(familyHouseProperty, FamilyHouseProperty.class, familyHousePropertyId);
+
+        validateAccessCurrentUserToProperty(familyHouseProperty);
+
+
+        updateFromDto(updateRequestFamilyHouseAnnouncementDto, familyHouseAnnouncement);
+    }
+
+    private void updateFromDto(UpdateRequestFamilyHouseAnnouncementDto updateRequestFamilyHouseAnnouncementDto,
+                               FamilyHouseAnnouncement familyHouseAnnouncement) {
         Long familyHousePropertyId = updateRequestFamilyHouseAnnouncementDto.getFamilyHousePropertyId();
         if (familyHousePropertyId != null) {
             setFamilyHouseAnnouncementById(familyHouseAnnouncement, familyHousePropertyId);
@@ -107,6 +220,7 @@ public class FamilyHouseAnnouncementServiceImpl
         validateAnnouncementTypeOnAccordanceWithStatusIfItNotNull(familyHouseAnnouncement,
                 announcementType, announcementStatus);
 
+        setStatusIfNotNull(familyHouseAnnouncement, announcementStatus);
 
         familyHouseAnnouncementMapper.updateFamilyHouseAnnouncementFormUpdateRequestFamilyHouseAnnouncement(
                 updateRequestFamilyHouseAnnouncementDto, familyHouseAnnouncement
@@ -116,13 +230,13 @@ public class FamilyHouseAnnouncementServiceImpl
         familyHouseAnnouncementRepository.update(familyHouseAnnouncement);
     }
 
-    @Override
-    @Transactional
-    public void setDeletedStatusByIdAndUpdate(Long id) {
-        FamilyHouseAnnouncement familyHouseAnnouncement = getById(id);
-        
-        setDeletedStatus(familyHouseAnnouncement);
-        
-        familyHouseAnnouncementRepository.update(familyHouseAnnouncement);
+    private void setFamilyHouseAnnouncementById(
+            FamilyHouseAnnouncement familyHouseAnnouncement, Long familyHousePropertyId
+    ) {
+        FamilyHouseProperty familyHouseProperty = familyHousePropertyRepository.findById(familyHousePropertyId);
+        EntityHelper.checkEntityOnNull(familyHouseProperty, FamilyHouseProperty.class, familyHousePropertyId);
+
+        familyHouseAnnouncement.setProperty(familyHouseProperty);
     }
+
 }

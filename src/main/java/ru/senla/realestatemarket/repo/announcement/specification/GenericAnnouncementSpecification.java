@@ -22,6 +22,18 @@ public class GenericAnnouncementSpecification {
         };
     }
 
+    public static <T> Specification<T> hasIdAndUserIdOfOwnerInProperty(Long id, Long userIdOfOwner) {
+        return (root, query, criteriaBuilder) -> {
+            Join<T, Property> propertyJoin = root.join("property");
+            Join<Property, User> userJoin = propertyJoin.join("owner");
+
+            return criteriaBuilder.and(
+                    criteriaBuilder.equal(root.get("id"), id),
+                    criteriaBuilder.equal(userJoin.get("id"), userIdOfOwner)
+            );
+        };
+    }
+
     public static <T> Specification<T> hasStatuses(List<AnnouncementStatusEnum> statuses) {
         return (root, query, criteriaBuilder) -> root.get("status").in(statuses);
     }

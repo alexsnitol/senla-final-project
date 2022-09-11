@@ -1,10 +1,11 @@
-package ru.senla.realestatemarket.model.announcement;
+package ru.senla.realestatemarket.model.dictionary;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import ru.senla.realestatemarket.model.IModel;
+import ru.senla.realestatemarket.model.announcement.AnnouncementTypeEnum;
 import ru.senla.realestatemarket.model.property.PropertyTypeEnum;
 
 import javax.persistence.Column;

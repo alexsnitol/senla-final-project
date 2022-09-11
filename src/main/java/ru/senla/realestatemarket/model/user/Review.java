@@ -44,7 +44,7 @@ public class Review implements IModel<Long> {
     private Short note;
 
     @Column(name = "created_date_time")
-    @JsonFormat(pattern = "dd.MM.yyyy hh:mm:ss")
+    @JsonFormat(pattern = "dd.MM.yyyy HH:mm:ss")
     private LocalDateTime createdDt = LocalDateTime.now();
 
 }

@@ -8,7 +8,7 @@ import javax.persistence.criteria.Join;
 
 public class GenericPropertySpecification {
 
-    GenericPropertySpecification() {}
+    private GenericPropertySpecification() {}
 
 
     public static <M> Specification<M> hasId(Long id) {

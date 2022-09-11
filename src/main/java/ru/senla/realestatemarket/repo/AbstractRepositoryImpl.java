@@ -189,7 +189,7 @@ public abstract class AbstractRepositoryImpl<M, I> implements IAbstractRepositor
 
     @Override
     public boolean isExist(Specification<M> specification) {
-        return findOne(specification) != null;
+        return !findAll(specification).isEmpty();
     }
 
     @Override
