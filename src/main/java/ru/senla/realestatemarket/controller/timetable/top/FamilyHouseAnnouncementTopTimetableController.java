@@ -1,5 +1,7 @@
 package ru.senla.realestatemarket.controller.timetable.top;
 
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.Authorization;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -22,14 +24,18 @@ import java.util.List;
 @Slf4j
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("/api/announcements/housing/family-house/{familyHouseAnnouncementId}/timetables/top")
+@RequestMapping("/api/announcements/housing/family-houses")
 public class FamilyHouseAnnouncementTopTimetableController {
 
     private final IFamilyHouseAnnouncementTopTimetableService familyHouseAnnouncementTopTimetableService;
 
 
-    @GetMapping
-    public List<TopTimetableWithoutAnnouncementIdDto> getAllFamilyHouseAnnouncementTopTimetableByFamilyHouseId(
+    @ApiOperation(
+            value = "",
+            authorizations = {@Authorization("ADMIN")}
+    )
+    @GetMapping("/{familyHouseAnnouncementId}/timetables/top")
+    public List<TopTimetableWithoutAnnouncementIdDto> getAllByFamilyHouseId(
             @PathVariable Long familyHouseAnnouncementId,
             @RequestParam(required = false) String rsqlQuery,
             @RequestParam(required = false) String sortQuery
@@ -38,8 +44,43 @@ public class FamilyHouseAnnouncementTopTimetableController {
                 familyHouseAnnouncementId, rsqlQuery, sortQuery);
     }
 
-    @PostMapping
-    public ResponseEntity<RestResponseDto> addFamilyHouseAnnouncementTopTimetableByFamilyHouseIdWithPayFromCurrentUser(
+    @ApiOperation(
+            value = "",
+            authorizations = {@Authorization("ADMIN")}
+    )
+    @PostMapping("/{familyHouseAnnouncementId}/timetables/top")
+    public ResponseEntity<RestResponseDto> addByFamilyHouseIdWithoutPay(
+            @PathVariable Long familyHouseAnnouncementId,
+            @RequestBody @Valid RequestTopTimetableDto requestTopTimetableDto
+    ) {
+        familyHouseAnnouncementTopTimetableService.addByFamilyHouseAnnouncementIdWithoutPay(
+                requestTopTimetableDto, familyHouseAnnouncementId);
+
+        return new ResponseEntity<>(new RestResponseDto(
+                "Family house announcement top timetable has been added",
+                HttpStatus.CREATED.value()), HttpStatus.CREATED);
+    }
+
+    @ApiOperation(
+            value = "",
+            authorizations = {@Authorization("Authorized user")}
+    )
+    @GetMapping("/owner/current/{familyHouseAnnouncementId}/timetables/top")
+    public List<TopTimetableWithoutAnnouncementIdDto> getAllOfCurrentUserByFamilyHouseId(
+            @PathVariable Long familyHouseAnnouncementId,
+            @RequestParam(required = false) String rsqlQuery,
+            @RequestParam(required = false) String sortQuery
+    ) {
+        return familyHouseAnnouncementTopTimetableService.getAllOfCurrentUserByFamilyHouseIdDto(
+                familyHouseAnnouncementId, rsqlQuery, sortQuery);
+    }
+
+    @ApiOperation(
+            value = "",
+            authorizations = {@Authorization("Authorized user")}
+    )
+    @PostMapping("/owner/current/{familyHouseAnnouncementId}/timetables/top")
+    public ResponseEntity<RestResponseDto> addByFamilyHouseIdWithPayFromCurrentUser(
             @PathVariable Long familyHouseAnnouncementId,
             @RequestBody @Valid RequestTopTimetableDto requestTopTimetableDto
     ) {
@@ -47,7 +88,7 @@ public class FamilyHouseAnnouncementTopTimetableController {
                 requestTopTimetableDto, familyHouseAnnouncementId);
 
         return new ResponseEntity<>(new RestResponseDto(
-                "FamilyHouse announcement top timetable has been added",
+                "Family house announcement top timetable has been added",
                 HttpStatus.CREATED.value()), HttpStatus.CREATED);
     }
     

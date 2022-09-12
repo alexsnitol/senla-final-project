@@ -6,7 +6,8 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import ru.senla.realestatemarket.dto.timetable.RequestTopTimetableDto;
 import ru.senla.realestatemarket.dto.timetable.TopTimetableWithoutAnnouncementIdDto;
-import ru.senla.realestatemarket.mapper.timetable.ApartmentAnnouncementTopTimetableMapper;
+import ru.senla.realestatemarket.exception.SpecificIntervalFullyBusyException;
+import ru.senla.realestatemarket.mapper.timetable.top.ApartmentAnnouncementTopTimetableMapper;
 import ru.senla.realestatemarket.model.announcement.AnnouncementTypeEnum;
 import ru.senla.realestatemarket.model.announcement.ApartmentAnnouncement;
 import ru.senla.realestatemarket.model.dictionary.AnnouncementTopPrice;
@@ -34,8 +35,10 @@ import java.util.List;
 
 import static ru.senla.realestatemarket.repo.announcement.specification.ApartmentAnnouncementSpecification.hasId;
 import static ru.senla.realestatemarket.repo.announcement.specification.ApartmentAnnouncementSpecification.hasUserIdOfOwnerInProperty;
-import static ru.senla.realestatemarket.repo.timetable.specification.ApartmentAnnouncementTopTimetableSpecification.fromDtOrToDtMustBeBetweenSpecificFromAndTo;
-import static ru.senla.realestatemarket.repo.timetable.specification.ApartmentAnnouncementTopTimetableSpecification.hasApartmentAnnouncementId;
+import static ru.senla.realestatemarket.repo.timetable.specification.GenericTimetableSpecification.intervalWithSpecificFromAndTo;
+import static ru.senla.realestatemarket.repo.timetable.top.specification.ApartmentAnnouncementTopTimetableSpecification.concernsTheIntervalBetweenSpecificFromAndTo;
+import static ru.senla.realestatemarket.repo.timetable.top.specification.ApartmentAnnouncementTopTimetableSpecification.hasApartmentAnnouncementId;
+import static ru.senla.realestatemarket.repo.timetable.top.specification.ApartmentAnnouncementTopTimetableSpecification.hasApartmentAnnouncementIdAndUserIdOfOwnerInPropertyItAnnouncement;
 
 @Slf4j
 @Service
@@ -93,8 +96,57 @@ public class ApartmentAnnouncementTopTimetableServiceImpl
 
     @Override
     @Transactional
+    public List<TopTimetableWithoutAnnouncementIdDto> getAllOfCurrentUserByApartmentIdDto(
+            Long apartmentAnnouncementId, String rsqlQuery, String sortQuery
+    ) {
+        List<ApartmentAnnouncementTopTimetable> apartmentAnnouncementTopTimetables;
+
+        if (sortQuery == null) {
+            // default sort
+            apartmentAnnouncementTopTimetables = getAll(
+                    hasApartmentAnnouncementIdAndUserIdOfOwnerInPropertyItAnnouncement(
+                            apartmentAnnouncementId, UserUtil.getCurrentUserId()),
+                    rsqlQuery, Sort.by(Sort.Direction.ASC, "fromDt"));
+        } else {
+            apartmentAnnouncementTopTimetables = getAll(
+                    hasApartmentAnnouncementIdAndUserIdOfOwnerInPropertyItAnnouncement(
+                            apartmentAnnouncementId, UserUtil.getCurrentUserId()),
+                    rsqlQuery, sortQuery);
+        }
+
+        return timetableMapper.toTopTimetableWithoutAnnouncementIdDtoFromApartmentAnnouncementTopTimetable(
+                apartmentAnnouncementTopTimetables);
+    }
+
+    @Override
+    @Transactional
+    public void addByApartmentAnnouncementIdWithoutPay(
+            RequestTopTimetableDto requestDto, Long apartmentAnnouncementId
+    ) {
+        ApartmentAnnouncement apartmentAnnouncement = apartmentAnnouncementRepository.findById(apartmentAnnouncementId);
+        EntityHelper.checkEntityOnNull(apartmentAnnouncement, ApartmentAnnouncement.class, apartmentAnnouncementId);
+
+
+        ApartmentAnnouncementTopTimetable apartmentAnnouncementTopTimetable
+                = timetableMapper.toApartmentAnnouncementTopTimetable(requestDto);
+
+
+        LocalDateTime specificFromDt = apartmentAnnouncementTopTimetable.getFromDt();
+        LocalDateTime specificToDt = apartmentAnnouncementTopTimetable.getToDt();
+
+        checkForSpecificFromAndToHaveZerosMinutesAndSecondsAndNanoSeconds(specificFromDt, specificToDt);
+
+        List<ApartmentAnnouncementTopTimetable> finalIntervalsOfApartmentAnnouncementTopTimetables
+                = getIntervalsOfTimetablesByApartmentAnnouncement(
+                apartmentAnnouncement, specificFromDt, specificToDt);
+
+        createTimetables(finalIntervalsOfApartmentAnnouncementTopTimetables);
+    }
+
+    @Override
+    @Transactional
     public void addByApartmentAnnouncementIdWithPayFromCurrentUser(
-            RequestTopTimetableDto requestTopTimetableDto, Long apartmentAnnouncementId
+            RequestTopTimetableDto requestDto, Long apartmentAnnouncementId
     ) {
         ApartmentAnnouncement apartmentAnnouncement = apartmentAnnouncementRepository.findOne(
                 hasId(apartmentAnnouncementId)
@@ -104,11 +156,14 @@ public class ApartmentAnnouncementTopTimetableServiceImpl
 
 
         ApartmentAnnouncementTopTimetable apartmentAnnouncementTopTimetable
-                = timetableMapper.toApartmentAnnouncementTopTimetable(requestTopTimetableDto);
+                = timetableMapper.toApartmentAnnouncementTopTimetable(requestDto);
 
 
         LocalDateTime specificFromDt = apartmentAnnouncementTopTimetable.getFromDt();
         LocalDateTime specificToDt = apartmentAnnouncementTopTimetable.getToDt();
+
+        checkForSpecificFromAndToHaveZerosMinutesAndSecondsAndNanoSeconds(specificFromDt, specificToDt);
+
         List<ApartmentAnnouncementTopTimetable> finalIntervalsOfApartmentAnnouncementTopTimetables
                 = getIntervalsOfTimetablesByApartmentAnnouncement(
                         apartmentAnnouncement, specificFromDt, specificToDt);
@@ -139,10 +194,19 @@ public class ApartmentAnnouncementTopTimetableServiceImpl
     private List<ApartmentAnnouncementTopTimetable> getIntervalsOfTimetablesByApartmentAnnouncement(
             ApartmentAnnouncement apartmentAnnouncement, LocalDateTime specificFromDt, LocalDateTime specificToDt
     ) {
+        if (apartmentAnnouncementTopTimetableRepository.isExist(
+                intervalWithSpecificFromAndTo(specificFromDt, specificToDt))
+        ) {
+            String message = "Specific interval fully busy. Adding new interval is impossible.";
+
+            log.error(message);
+            throw new SpecificIntervalFullyBusyException(message);
+        }
+
         List<ApartmentAnnouncementTopTimetable> existingTimetablesInInterval
                 = new ArrayList<>(apartmentAnnouncementTopTimetableRepository.findAll(
                 hasApartmentAnnouncementId(apartmentAnnouncement.getId())
-                        .and(fromDtOrToDtMustBeBetweenSpecificFromAndTo(specificFromDt, specificToDt)),
+                        .and(concernsTheIntervalBetweenSpecificFromAndTo(specificFromDt, specificToDt)),
                 Sort.by(Sort.Direction.ASC, "fromDt")));
 
 
@@ -151,20 +215,39 @@ public class ApartmentAnnouncementTopTimetableServiceImpl
         if (existingTimetablesInInterval.isEmpty()) {
             unoccupiedIntervalsOfTimetables.add(
                     new ApartmentAnnouncementTopTimetable(apartmentAnnouncement, specificFromDt, specificToDt));
+        } else if (
+                // check the first interval on fully busy
+                (existingTimetablesInInterval.get(0).getFromDt().isBefore(specificFromDt)
+                        || existingTimetablesInInterval.get(0).getFromDt().equals(specificFromDt))
+                &&
+                (existingTimetablesInInterval.get(0).getToDt().isAfter(specificToDt)
+                        || existingTimetablesInInterval.get(0).getToDt().equals(specificToDt))
+        ) {
+            String message = "Specific interval fully busy. Adding new interval is impossible.";
+
+            log.error(message);
+            throw new SpecificIntervalFullyBusyException(message);
         } else {
             LocalDateTime tmpFromDt = specificFromDt;
             LocalDateTime tmpToDt;
 
             for (ApartmentAnnouncementTopTimetable timetable : existingTimetablesInInterval) {
-                if (timetable.getFromDt().isAfter(specificFromDt) && timetable.getFromDt().isBefore(specificToDt)) {
-                    tmpToDt = timetable.getFromDt();
+                LocalDateTime intervalFromDt = timetable.getFromDt();
+                LocalDateTime intervalToDt = timetable.getToDt();
+
+                if (intervalFromDt.isAfter(specificFromDt)
+                        && (intervalFromDt.isBefore(specificToDt) || intervalFromDt.equals(specificToDt))
+                ) {
+                    tmpToDt = intervalFromDt;
 
                     unoccupiedIntervalsOfTimetables.add(
                             new ApartmentAnnouncementTopTimetable(apartmentAnnouncement, tmpFromDt, tmpToDt));
                 }
 
-                if (timetable.getToDt().isAfter(specificFromDt) && timetable.getToDt().isBefore(specificToDt)) {
-                    tmpFromDt = timetable.getToDt();
+                if ((intervalToDt.isAfter(specificFromDt) || intervalToDt.equals(specificFromDt))
+                        && intervalToDt.isBefore(specificToDt)
+                ) {
+                    tmpFromDt = intervalToDt;
 
                     // current timetable is the last interval?
                     if (existingTimetablesInInterval.get(existingTimetablesInInterval.size() - 1).equals(timetable)) {
@@ -180,6 +263,14 @@ public class ApartmentAnnouncementTopTimetableServiceImpl
         }
 
         return unoccupiedIntervalsOfTimetables;
+    }
+
+    private void createTimetables(
+            List<ApartmentAnnouncementTopTimetable> finalIntervalsOfApartmentAnnouncementTopTimetables
+    ) {
+        for (ApartmentAnnouncementTopTimetable timetable : finalIntervalsOfApartmentAnnouncementTopTimetables) {
+            apartmentAnnouncementTopTimetableRepository.create(timetable);
+        }
     }
 
     private void createTimetablesAndPurchasesAndApplyOperationsWithSumsFromTheListFromCurrentUser(
@@ -201,11 +292,11 @@ public class ApartmentAnnouncementTopTimetableServiceImpl
             apartmentAnnouncementTopTimetableRepository.create(timetable);
 
 
-            ApartmentAnnouncementTopPurchase apartmentAnnouncementTopPurchase = new ApartmentAnnouncementTopPurchase();
-            apartmentAnnouncementTopPurchase.setBalanceOperation(balanceOperation);
-            apartmentAnnouncementTopPurchase.setTimetable(timetable);
+            ApartmentAnnouncementTopPurchase purchase = new ApartmentAnnouncementTopPurchase();
+            purchase.setBalanceOperation(balanceOperation);
+            purchase.setTimetable(timetable);
 
-            apartmentAnnouncementTopPurchaseRepository.create(apartmentAnnouncementTopPurchase);
+            apartmentAnnouncementTopPurchaseRepository.create(purchase);
         }
     }
 

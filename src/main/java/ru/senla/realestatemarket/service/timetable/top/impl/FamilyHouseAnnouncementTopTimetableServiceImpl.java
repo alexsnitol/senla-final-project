@@ -6,7 +6,8 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import ru.senla.realestatemarket.dto.timetable.RequestTopTimetableDto;
 import ru.senla.realestatemarket.dto.timetable.TopTimetableWithoutAnnouncementIdDto;
-import ru.senla.realestatemarket.mapper.timetable.FamilyHouseAnnouncementTopTimetableMapper;
+import ru.senla.realestatemarket.exception.SpecificIntervalFullyBusyException;
+import ru.senla.realestatemarket.mapper.timetable.top.FamilyHouseAnnouncementTopTimetableMapper;
 import ru.senla.realestatemarket.model.announcement.AnnouncementTypeEnum;
 import ru.senla.realestatemarket.model.announcement.FamilyHouseAnnouncement;
 import ru.senla.realestatemarket.model.dictionary.AnnouncementTopPrice;
@@ -32,14 +33,12 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
-import static ru.senla.realestatemarket.repo.announcement
-        .specification.FamilyHouseAnnouncementSpecification.hasId;
-import static ru.senla.realestatemarket.repo.announcement
-        .specification.FamilyHouseAnnouncementSpecification.hasUserIdOfOwnerInProperty;
-import static ru.senla.realestatemarket.repo.timetable
-        .specification.FamilyHouseAnnouncementTopTimetableSpecification.fromDtOrToDtMustBeBetweenSpecificFromAndTo;
-import static ru.senla.realestatemarket.repo.timetable
-        .specification.FamilyHouseAnnouncementTopTimetableSpecification.hasFamilyHouseAnnouncementId;
+import static ru.senla.realestatemarket.repo.announcement.specification.FamilyHouseAnnouncementSpecification.hasId;
+import static ru.senla.realestatemarket.repo.announcement.specification.FamilyHouseAnnouncementSpecification.hasUserIdOfOwnerInProperty;
+import static ru.senla.realestatemarket.repo.timetable.specification.GenericTimetableSpecification.intervalWithSpecificFromAndTo;
+import static ru.senla.realestatemarket.repo.timetable.top.specification.FamilyHouseAnnouncementTopTimetableSpecification.concernsTheIntervalBetweenSpecificFromAndTo;
+import static ru.senla.realestatemarket.repo.timetable.top.specification.FamilyHouseAnnouncementTopTimetableSpecification.hasFamilyHouseAnnouncementId;
+import static ru.senla.realestatemarket.repo.timetable.top.specification.FamilyHouseAnnouncementTopTimetableSpecification.hasFamilyHouseAnnouncementIdAndUserIdOfOwnerInPropertyOfAnnouncementById;
 
 @Slf4j
 @Service
@@ -97,8 +96,58 @@ public class FamilyHouseAnnouncementTopTimetableServiceImpl
 
     @Override
     @Transactional
+    public List<TopTimetableWithoutAnnouncementIdDto> getAllOfCurrentUserByFamilyHouseIdDto(
+            Long familyHouseAnnouncementId, String rsqlQuery, String sortQuery
+    ) {
+        List<FamilyHouseAnnouncementTopTimetable> familyHouseAnnouncementTopTimetables;
+
+        if (sortQuery == null) {
+            familyHouseAnnouncementTopTimetables = getAll(
+                    hasFamilyHouseAnnouncementIdAndUserIdOfOwnerInPropertyOfAnnouncementById(
+                            familyHouseAnnouncementId, UserUtil.getCurrentUserId()),
+                    rsqlQuery, Sort.by(Sort.Direction.ASC, "fromDt"));
+        } else {
+            familyHouseAnnouncementTopTimetables = getAll(
+                    hasFamilyHouseAnnouncementIdAndUserIdOfOwnerInPropertyOfAnnouncementById(
+                            familyHouseAnnouncementId, UserUtil.getCurrentUserId()),
+                    rsqlQuery, sortQuery);
+        }
+
+        return timetableMapper.toTopTimetableWithoutAnnouncementIdDtoFromFamilyHouseAnnouncementTopTimetable(
+                familyHouseAnnouncementTopTimetables);
+    }
+
+    @Override
+    @Transactional
+    public void addByFamilyHouseAnnouncementIdWithoutPay(
+            RequestTopTimetableDto requestDto, Long familyHouseAnnouncementId
+    ) {
+        FamilyHouseAnnouncement familyHouseAnnouncement
+                = familyHouseAnnouncementRepository.findById(familyHouseAnnouncementId);
+        EntityHelper.checkEntityOnNull(
+                familyHouseAnnouncement, FamilyHouseAnnouncement.class, familyHouseAnnouncementId);
+
+
+        FamilyHouseAnnouncementTopTimetable familyHouseAnnouncementTopTimetable
+                = timetableMapper.toFamilyHouseAnnouncementTopTimetable(requestDto);
+
+
+        LocalDateTime specificFromDt = familyHouseAnnouncementTopTimetable.getFromDt();
+        LocalDateTime specificToDt = familyHouseAnnouncementTopTimetable.getToDt();
+
+        checkForSpecificFromAndToHaveZerosMinutesAndSecondsAndNanoSeconds(specificFromDt, specificToDt);
+
+        List<FamilyHouseAnnouncementTopTimetable> finalIntervalsOfFamilyHouseAnnouncementTopTimetables
+                = getIntervalsOfTimetablesByFamilyHouseAnnouncement(
+                familyHouseAnnouncement, specificFromDt, specificToDt);
+
+        createTimetables(finalIntervalsOfFamilyHouseAnnouncementTopTimetables);
+    }
+
+    @Override
+    @Transactional
     public void addByFamilyHouseAnnouncementIdWithPayFromCurrentUser(
-            RequestTopTimetableDto requestTopTimetableDto, Long familyHouseAnnouncementId
+            RequestTopTimetableDto requestDto, Long familyHouseAnnouncementId
     ) {
         FamilyHouseAnnouncement familyHouseAnnouncement = familyHouseAnnouncementRepository.findOne(
                 hasId(familyHouseAnnouncementId)
@@ -109,11 +158,14 @@ public class FamilyHouseAnnouncementTopTimetableServiceImpl
 
 
         FamilyHouseAnnouncementTopTimetable familyHouseAnnouncementTopTimetable
-                = timetableMapper.toFamilyHouseAnnouncementTopTimetable(requestTopTimetableDto);
+                = timetableMapper.toFamilyHouseAnnouncementTopTimetable(requestDto);
 
 
         LocalDateTime specificFromDt = familyHouseAnnouncementTopTimetable.getFromDt();
         LocalDateTime specificToDt = familyHouseAnnouncementTopTimetable.getToDt();
+
+        checkForSpecificFromAndToHaveZerosMinutesAndSecondsAndNanoSeconds(specificFromDt, specificToDt);
+
         List<FamilyHouseAnnouncementTopTimetable> finalIntervalsOfFamilyHouseAnnouncementTopTimetables
                 = getIntervalsOfTimetablesByFamilyHouseAnnouncement(
                 familyHouseAnnouncement, specificFromDt, specificToDt);
@@ -144,10 +196,19 @@ public class FamilyHouseAnnouncementTopTimetableServiceImpl
     private List<FamilyHouseAnnouncementTopTimetable> getIntervalsOfTimetablesByFamilyHouseAnnouncement(
             FamilyHouseAnnouncement familyHouseAnnouncement, LocalDateTime specificFromDt, LocalDateTime specificToDt
     ) {
+        if (familyHouseAnnouncementTopTimetableRepository.isExist(
+                intervalWithSpecificFromAndTo(specificFromDt, specificToDt))
+        ) {
+            String message = "Specific interval fully busy. Adding new interval is impossible.";
+
+            log.error(message);
+            throw new SpecificIntervalFullyBusyException(message);
+        }
+
         List<FamilyHouseAnnouncementTopTimetable> existingTimetablesInInterval
                 = new ArrayList<>(familyHouseAnnouncementTopTimetableRepository.findAll(
                 hasFamilyHouseAnnouncementId(familyHouseAnnouncement.getId())
-                        .and(fromDtOrToDtMustBeBetweenSpecificFromAndTo(specificFromDt, specificToDt)),
+                        .and(concernsTheIntervalBetweenSpecificFromAndTo(specificFromDt, specificToDt)),
                 Sort.by(Sort.Direction.ASC, "fromDt")));
 
 
@@ -156,26 +217,44 @@ public class FamilyHouseAnnouncementTopTimetableServiceImpl
         if (existingTimetablesInInterval.isEmpty()) {
             unoccupiedIntervalsOfTimetables.add(
                     new FamilyHouseAnnouncementTopTimetable(familyHouseAnnouncement, specificFromDt, specificToDt));
+        } else if (
+                // check the first interval on fully busy
+                (existingTimetablesInInterval.get(0).getFromDt().isBefore(specificFromDt)
+                        || existingTimetablesInInterval.get(0).getFromDt().equals(specificFromDt))
+                &&
+                (existingTimetablesInInterval.get(0).getToDt().isAfter(specificToDt)
+                        || existingTimetablesInInterval.get(0).getToDt().equals(specificToDt))
+        ) {
+            String message = "Specific interval fully busy. Adding new interval is impossible.";
+
+            log.error(message);
+            throw new SpecificIntervalFullyBusyException(message);
         } else {
             LocalDateTime tmpFromDt = specificFromDt;
             LocalDateTime tmpToDt;
 
             for (FamilyHouseAnnouncementTopTimetable timetable : existingTimetablesInInterval) {
-                if (timetable.getFromDt().isAfter(specificFromDt) && timetable.getFromDt().isBefore(specificToDt)) {
-                    tmpToDt = timetable.getFromDt();
+                LocalDateTime intervalFromDt = timetable.getFromDt();
+                LocalDateTime intervalToDt = timetable.getToDt();
+
+                if (intervalFromDt.isAfter(specificFromDt)
+                        && (intervalFromDt.isBefore(specificToDt) || intervalFromDt.equals(specificToDt))
+                ) {
+                    tmpToDt = intervalFromDt;
 
                     unoccupiedIntervalsOfTimetables.add(
                             new FamilyHouseAnnouncementTopTimetable(familyHouseAnnouncement, tmpFromDt, tmpToDt));
                 }
 
-                if (timetable.getToDt().isAfter(specificFromDt) && timetable.getToDt().isBefore(specificToDt)) {
-                    tmpFromDt = timetable.getToDt();
+                if ((intervalToDt.isAfter(specificFromDt) || intervalToDt.equals(specificFromDt))
+                        && intervalToDt.isBefore(specificToDt)
+                ) {
+                    tmpFromDt = intervalToDt;
 
                     // current timetable is the last interval?
                     if (existingTimetablesInInterval.get(existingTimetablesInInterval.size() - 1).equals(timetable)) {
                         unoccupiedIntervalsOfTimetables.add(
-                                new FamilyHouseAnnouncementTopTimetable(
-                                        familyHouseAnnouncement, tmpFromDt, specificToDt)
+                                new FamilyHouseAnnouncementTopTimetable(familyHouseAnnouncement, tmpFromDt, specificToDt)
                         );
                     }
                 } else {
@@ -188,6 +267,14 @@ public class FamilyHouseAnnouncementTopTimetableServiceImpl
         return unoccupiedIntervalsOfTimetables;
     }
 
+    private void createTimetables(
+            List<FamilyHouseAnnouncementTopTimetable> finalIntervalsOfFamilyHouseAnnouncementTopTimetables
+    ) {
+        for (FamilyHouseAnnouncementTopTimetable timetable : finalIntervalsOfFamilyHouseAnnouncementTopTimetables) {
+            familyHouseAnnouncementTopTimetableRepository.create(timetable);
+        }
+    }
+    
     private void createTimetablesAndPurchasesAndApplyOperationsWithSumsFromTheListFromCurrentUser(
             List<FamilyHouseAnnouncementTopTimetable> finalIntervalsOfFamilyHouseAnnouncementTopTimetables,
             List<Double> sumList

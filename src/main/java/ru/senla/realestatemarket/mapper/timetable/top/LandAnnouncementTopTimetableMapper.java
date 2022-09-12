@@ -1,4 +1,4 @@
-package ru.senla.realestatemarket.mapper.timetable;
+package ru.senla.realestatemarket.mapper.timetable.top;
 
 import org.mapstruct.Mapper;
 import ru.senla.realestatemarket.dto.timetable.RequestTopTimetableDto;
@@ -25,7 +25,7 @@ public abstract class LandAnnouncementTopTimetableMapper {
             Collection<LandAnnouncementTopTimetable> landAnnouncementTopTimetables
     );
 
-    public abstract LandAnnouncementTopTimetable toLandAnnouncementTopTimetable(
+    public abstract LandAnnouncementTopTimetable toTopTimetableDtoFromLandAnnouncementTopTimetable(
             RequestTopTimetableDto requestTopTimetableDto);
 
     public abstract TopTimetableDto toTopTimetableDtoFromLandAnnouncementTopTimetable(

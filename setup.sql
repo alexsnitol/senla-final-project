@@ -365,7 +365,6 @@ CREATE TABLE land_announcements (
 CREATE TABLE announcement_rent_timetables (
   id                      int8 NOT NULL DEFAULT nextval('seq_announcement_rent_timetables'),
   user_id_tenant          int8 NOT NULL,
-  housing_announcement_id int8 NOT NULL,
   from_date_time          timestamp NOT NULL,
   to_date_time            timestamp NOT NULL,
 
@@ -512,8 +511,8 @@ CREATE TABLE land_announcement_top_purchases (
 
 INSERT INTO roles(name)
 VALUES
-    ('ADMIN'),
-    ('USER');
+    ('ROLE_ADMIN'),
+    ('ROLE_USER');
 
 INSERT INTO users(username, password, last_name, first_name, patronymic, email, phone_number)
 VALUES
@@ -665,7 +664,8 @@ VALUES
 
 INSERT INTO family_house_announcements(price, description, type, status, family_house_property_id)
 VALUES
-    (25000, 'sample description', 'MONTHLY_RENT', 'HIDDEN', 105);
+    (25000, 'sample description', 'MONTHLY_RENT', 'HIDDEN', 105),
+    (4500, 'sample description', 'DAILY_RENT', 'OPEN', 105);
 
 INSERT INTO land_announcements(price, description, created_date_time, type, status, land_property_id, closed_date_time)
 VALUES
@@ -708,5 +708,28 @@ VALUES
 INSERT INTO family_house_announcement_top_purchases(balance_operation_id, family_house_announcement_top_timetable_id)
 VALUES
     (101, 101);
+
+
+
+INSERT INTO apartment_announcement_rent_timetables(user_id_tenant, apartment_announcement_id, from_date_time, to_date_time)
+VALUES
+    (100, 101, '2022-08-01 14:00:00', '2022-09-01 14:00:00'),
+    (102, 101, '2022-10-01 14:00:00', '2023-02-01 14:00:00');
+
+INSERT INTO balance_operations(user_id, sum, comment)
+VALUES
+    (100, -35000, 'DAILY_RENT');
+
+INSERT INTO apartment_announcement_rent_purchases(balance_operation_id, apartment_announcement_rent_timetable_id)
+VALUES
+    (102, 100);
+
+
+INSERT INTO family_house_announcement_rent_timetables(user_id_tenant, family_house_announcement_id, from_date_time, to_date_time)
+VALUES
+    (105, 106, '2022-08-10 14:00:00', '2022-08-15 14:00:00'),
+    (102, 106, '2022-08-15 14:00:00', '2022-08-21 14:00:00'),
+    (103, 106, '2022-08-23 14:00:00', '2022-08-24 14:00:00'),
+    (105, 106, '2022-09-10 14:00:00', '2022-09-20 14:00:00');
 
 

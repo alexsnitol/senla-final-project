@@ -77,16 +77,19 @@ public class UserServiceImpl extends AbstractServiceImpl<User, Long> implements 
     }
 
     @Override
+    @Transactional
     public UserDto getDtoById(Long id) {
         return userMapper.toUserDto(getById(id));
     }
 
     @Override
+    @Transactional
     public List<UserDto> getAllDto(String rsqlQuery, String sortQuery) {
         return userMapper.toUserDto(getAll(rsqlQuery, sortQuery));
     }
 
     @Override
+    @Transactional
     public UserDto getDtoOfCurrentUser() {
         User user = getById(UserUtil.getCurrentUserId());
 

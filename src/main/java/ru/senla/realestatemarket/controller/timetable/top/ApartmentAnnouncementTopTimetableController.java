@@ -1,5 +1,7 @@
 package ru.senla.realestatemarket.controller.timetable.top;
 
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.Authorization;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -22,14 +24,18 @@ import java.util.List;
 @Slf4j
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("/api/announcements/housing/apartments/{apartmentAnnouncementId}/timetables/top")
+@RequestMapping("/api/announcements/housing/apartments")
 public class ApartmentAnnouncementTopTimetableController {
 
     private final IApartmentAnnouncementTopTimetableService apartmentAnnouncementTopTimetableService;
 
 
-    @GetMapping
-    public List<TopTimetableWithoutAnnouncementIdDto> getAllApartmentAnnouncementTopTimetableByApartmentId(
+    @ApiOperation(
+            value = "",
+            authorizations = {@Authorization("ADMIN")}
+    )
+    @GetMapping("/{apartmentAnnouncementId}/timetables/top")
+    public List<TopTimetableWithoutAnnouncementIdDto> getAllByApartmentId(
             @PathVariable Long apartmentAnnouncementId,
             @RequestParam(required = false) String rsqlQuery,
             @RequestParam(required = false) String sortQuery
@@ -38,8 +44,43 @@ public class ApartmentAnnouncementTopTimetableController {
                 apartmentAnnouncementId, rsqlQuery, sortQuery);
     }
 
-    @PostMapping
-    public ResponseEntity<RestResponseDto> addApartmentAnnouncementTopTimetableByApartmentIdWithPayFromCurrentUser(
+    @ApiOperation(
+            value = "",
+            authorizations = {@Authorization("ADMIN")}
+    )
+    @PostMapping("/{apartmentAnnouncementId}/timetables/top")
+    public ResponseEntity<RestResponseDto> addByApartmentIdWithoutPay(
+            @PathVariable Long apartmentAnnouncementId,
+            @RequestBody @Valid RequestTopTimetableDto requestTopTimetableDto
+    ) {
+        apartmentAnnouncementTopTimetableService.addByApartmentAnnouncementIdWithoutPay(
+                requestTopTimetableDto, apartmentAnnouncementId);
+
+        return new ResponseEntity<>(new RestResponseDto(
+                "Apartment announcement top timetable has been added",
+                HttpStatus.CREATED.value()), HttpStatus.CREATED);
+    }
+
+    @ApiOperation(
+            value = "",
+            authorizations = {@Authorization("Authorized user")}
+    )
+    @GetMapping("/owner/current/{apartmentAnnouncementId}/timetables/top")
+    public List<TopTimetableWithoutAnnouncementIdDto> getAllOfCurrentUserByApartmentId(
+            @PathVariable Long apartmentAnnouncementId,
+            @RequestParam(required = false) String rsqlQuery,
+            @RequestParam(required = false) String sortQuery
+    ) {
+        return apartmentAnnouncementTopTimetableService.getAllOfCurrentUserByApartmentIdDto(
+                apartmentAnnouncementId, rsqlQuery, sortQuery);
+    }
+
+    @ApiOperation(
+            value = "",
+            authorizations = {@Authorization("Authorized user")}
+    )
+    @PostMapping("/owner/current/{apartmentAnnouncementId}/timetables/top")
+    public ResponseEntity<RestResponseDto> addByApartmentIdWithPayFromCurrentUser(
             @PathVariable Long apartmentAnnouncementId,
             @RequestBody @Valid RequestTopTimetableDto requestTopTimetableDto
     ) {

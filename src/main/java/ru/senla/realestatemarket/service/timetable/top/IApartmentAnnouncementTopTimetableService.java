@@ -12,9 +12,13 @@ public interface IApartmentAnnouncementTopTimetableService
     List<TopTimetableWithoutAnnouncementIdDto> getAllByApartmentIdDto(
             Long apartmentAnnouncementId, String rsqlQuery, String sortQuery
     );
+    List<TopTimetableWithoutAnnouncementIdDto> getAllOfCurrentUserByApartmentIdDto(
+            Long apartmentAnnouncementId, String rsqlQuery, String sortQuery);
 
+    void addByApartmentAnnouncementIdWithoutPay(
+            RequestTopTimetableDto requestDto, Long apartmentAnnouncementId);
     void addByApartmentAnnouncementIdWithPayFromCurrentUser(
-            RequestTopTimetableDto requestTopTimetableDto, Long apartmentAnnouncementId
+            RequestTopTimetableDto requestDto, Long apartmentAnnouncementId
     );
 
 }

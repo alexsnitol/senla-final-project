@@ -1,5 +1,7 @@
 package ru.senla.realestatemarket.controller.timetable.top;
 
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.Authorization;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -22,14 +24,18 @@ import java.util.List;
 @Slf4j
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("/api/announcements/land/{landAnnouncementId}/timetables/top")
+@RequestMapping("/api/announcements/lands")
 public class LandAnnouncementTopTimetableController {
 
     private final ILandAnnouncementTopTimetableService landAnnouncementTopTimetableService;
 
 
-    @GetMapping
-    public List<TopTimetableWithoutAnnouncementIdDto> getAllLandAnnouncementTopTimetableByLandId(
+    @ApiOperation(
+            value = "",
+            authorizations = {@Authorization("ADMIN")}
+    )
+    @GetMapping("/{landAnnouncementId}/timetables/top")
+    public List<TopTimetableWithoutAnnouncementIdDto> getAllByLandId(
             @PathVariable Long landAnnouncementId,
             @RequestParam(required = false) String rsqlQuery,
             @RequestParam(required = false) String sortQuery
@@ -38,8 +44,43 @@ public class LandAnnouncementTopTimetableController {
                 landAnnouncementId, rsqlQuery, sortQuery);
     }
 
-    @PostMapping
-    public ResponseEntity<RestResponseDto> addLandAnnouncementTopTimetableByLandIdWithPayFromCurrentUser(
+    @ApiOperation(
+            value = "",
+            authorizations = {@Authorization("ADMIN")}
+    )
+    @PostMapping("/{landAnnouncementId}/timetables/top")
+    public ResponseEntity<RestResponseDto> addByLandIdWithoutPay(
+            @PathVariable Long landAnnouncementId,
+            @RequestBody @Valid RequestTopTimetableDto requestTopTimetableDto
+    ) {
+        landAnnouncementTopTimetableService.addByLandAnnouncementIdWithoutPay(
+                requestTopTimetableDto, landAnnouncementId);
+
+        return new ResponseEntity<>(new RestResponseDto(
+                "Land announcement top timetable has been added",
+                HttpStatus.CREATED.value()), HttpStatus.CREATED);
+    }
+
+    @ApiOperation(
+            value = "",
+            authorizations = {@Authorization("Authorized user")}
+    )
+    @GetMapping("/owner/current/{landAnnouncementId}/timetables/top")
+    public List<TopTimetableWithoutAnnouncementIdDto> getAllOfCurrentUserByLandId(
+            @PathVariable Long landAnnouncementId,
+            @RequestParam(required = false) String rsqlQuery,
+            @RequestParam(required = false) String sortQuery
+    ) {
+        return landAnnouncementTopTimetableService.getAllOfCurrentUserByLandIdDto(
+                landAnnouncementId, rsqlQuery, sortQuery);
+    }
+
+    @ApiOperation(
+            value = "",
+            authorizations = {@Authorization("Authorized user")}
+    )
+    @PostMapping("/owner/current/{landAnnouncementId}/timetables/top")
+    public ResponseEntity<RestResponseDto> addByLandIdWithPayFromCurrentUser(
             @PathVariable Long landAnnouncementId,
             @RequestBody @Valid RequestTopTimetableDto requestTopTimetableDto
     ) {

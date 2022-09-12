@@ -6,7 +6,8 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import ru.senla.realestatemarket.dto.timetable.RequestTopTimetableDto;
 import ru.senla.realestatemarket.dto.timetable.TopTimetableWithoutAnnouncementIdDto;
-import ru.senla.realestatemarket.mapper.timetable.LandAnnouncementTopTimetableMapper;
+import ru.senla.realestatemarket.exception.SpecificIntervalFullyBusyException;
+import ru.senla.realestatemarket.mapper.timetable.top.LandAnnouncementTopTimetableMapper;
 import ru.senla.realestatemarket.model.announcement.AnnouncementTypeEnum;
 import ru.senla.realestatemarket.model.announcement.LandAnnouncement;
 import ru.senla.realestatemarket.model.dictionary.AnnouncementTopPrice;
@@ -34,8 +35,10 @@ import java.util.List;
 
 import static ru.senla.realestatemarket.repo.announcement.specification.LandAnnouncementSpecification.hasId;
 import static ru.senla.realestatemarket.repo.announcement.specification.LandAnnouncementSpecification.hasUserIdOfOwnerInProperty;
-import static ru.senla.realestatemarket.repo.timetable.specification.LandAnnouncementTopTimetableSpecification.fromDtOrToDtMustBeBetweenSpecificFromAndTo;
-import static ru.senla.realestatemarket.repo.timetable.specification.LandAnnouncementTopTimetableSpecification.hasLandAnnouncementId;
+import static ru.senla.realestatemarket.repo.timetable.specification.GenericTimetableSpecification.intervalWithSpecificFromAndTo;
+import static ru.senla.realestatemarket.repo.timetable.top.specification.LandAnnouncementTopTimetableSpecification.concernsTheIntervalBetweenSpecificFromAndTo;
+import static ru.senla.realestatemarket.repo.timetable.top.specification.LandAnnouncementTopTimetableSpecification.hasLandAnnouncementId;
+import static ru.senla.realestatemarket.repo.timetable.top.specification.LandAnnouncementTopTimetableSpecification.hasLandAnnouncementIdAndUserIdOfOwnerInPropertyItAnnouncement;
 
 @Slf4j
 @Service
@@ -93,8 +96,54 @@ public class LandAnnouncementTopTimetableServiceImpl
 
     @Override
     @Transactional
+    public List<TopTimetableWithoutAnnouncementIdDto> getAllOfCurrentUserByLandIdDto(
+            Long landAnnouncementId, String rsqlQuery, String sortQuery
+    ) {
+        List<LandAnnouncementTopTimetable> landAnnouncementTopTimetables;
+
+        if (sortQuery == null) {
+            landAnnouncementTopTimetables = getAll(
+                    hasLandAnnouncementIdAndUserIdOfOwnerInPropertyItAnnouncement(
+                            landAnnouncementId, UserUtil.getCurrentUserId()),
+                    rsqlQuery, Sort.by(Sort.Direction.ASC, "fromDt"));
+        } else {
+            landAnnouncementTopTimetables = getAll(
+                    hasLandAnnouncementIdAndUserIdOfOwnerInPropertyItAnnouncement(
+                            landAnnouncementId, UserUtil.getCurrentUserId()),
+                    rsqlQuery, sortQuery);
+        }
+
+        return timetableMapper.toTopTimetableWithoutAnnouncementIdDtoFromLandAnnouncementTopTimetable(
+                landAnnouncementTopTimetables);
+    }
+
+    @Override
+    @Transactional
+    public void addByLandAnnouncementIdWithoutPay(RequestTopTimetableDto requestDto, Long landAnnouncementId) {
+        LandAnnouncement landAnnouncement = landAnnouncementRepository.findById(landAnnouncementId);
+        EntityHelper.checkEntityOnNull(landAnnouncement, LandAnnouncement.class, landAnnouncementId);
+
+
+        LandAnnouncementTopTimetable landAnnouncementTopTimetable
+                = timetableMapper.toTopTimetableDtoFromLandAnnouncementTopTimetable(requestDto);
+
+
+        LocalDateTime specificFromDt = landAnnouncementTopTimetable.getFromDt();
+        LocalDateTime specificToDt = landAnnouncementTopTimetable.getToDt();
+
+        checkForSpecificFromAndToHaveZerosMinutesAndSecondsAndNanoSeconds(specificFromDt, specificToDt);
+
+        List<LandAnnouncementTopTimetable> finalIntervalsOfLandAnnouncementTopTimetables
+                = getIntervalsOfTimetablesByLandAnnouncement(
+                landAnnouncement, specificFromDt, specificToDt);
+
+        createTimetables(finalIntervalsOfLandAnnouncementTopTimetables);
+    }
+
+    @Override
+    @Transactional
     public void addByLandAnnouncementIdWithPayFromCurrentUser(
-            RequestTopTimetableDto requestTopTimetableDto, Long landAnnouncementId
+            RequestTopTimetableDto requestDto, Long landAnnouncementId
     ) {
         LandAnnouncement landAnnouncement = landAnnouncementRepository.findOne(
                 hasId(landAnnouncementId)
@@ -104,11 +153,14 @@ public class LandAnnouncementTopTimetableServiceImpl
 
 
         LandAnnouncementTopTimetable landAnnouncementTopTimetable
-                = timetableMapper.toLandAnnouncementTopTimetable(requestTopTimetableDto);
+                = timetableMapper.toTopTimetableDtoFromLandAnnouncementTopTimetable(requestDto);
 
 
         LocalDateTime specificFromDt = landAnnouncementTopTimetable.getFromDt();
         LocalDateTime specificToDt = landAnnouncementTopTimetable.getToDt();
+
+        checkForSpecificFromAndToHaveZerosMinutesAndSecondsAndNanoSeconds(specificFromDt, specificToDt);
+
         List<LandAnnouncementTopTimetable> finalIntervalsOfLandAnnouncementTopTimetables
                 = getIntervalsOfTimetablesByLandAnnouncement(
                 landAnnouncement, specificFromDt, specificToDt);
@@ -139,10 +191,19 @@ public class LandAnnouncementTopTimetableServiceImpl
     private List<LandAnnouncementTopTimetable> getIntervalsOfTimetablesByLandAnnouncement(
             LandAnnouncement landAnnouncement, LocalDateTime specificFromDt, LocalDateTime specificToDt
     ) {
+        if (landAnnouncementTopTimetableRepository.isExist(
+                intervalWithSpecificFromAndTo(specificFromDt, specificToDt))
+        ) {
+            String message = "Specific interval fully busy. Adding new interval is impossible.";
+
+            log.error(message);
+            throw new SpecificIntervalFullyBusyException(message);
+        }
+
         List<LandAnnouncementTopTimetable> existingTimetablesInInterval
                 = new ArrayList<>(landAnnouncementTopTimetableRepository.findAll(
                 hasLandAnnouncementId(landAnnouncement.getId())
-                        .and(fromDtOrToDtMustBeBetweenSpecificFromAndTo(specificFromDt, specificToDt)),
+                        .and(concernsTheIntervalBetweenSpecificFromAndTo(specificFromDt, specificToDt)),
                 Sort.by(Sort.Direction.ASC, "fromDt")));
 
 
@@ -151,20 +212,39 @@ public class LandAnnouncementTopTimetableServiceImpl
         if (existingTimetablesInInterval.isEmpty()) {
             unoccupiedIntervalsOfTimetables.add(
                     new LandAnnouncementTopTimetable(landAnnouncement, specificFromDt, specificToDt));
+        } else if (
+                // check the first interval on fully busy
+                (existingTimetablesInInterval.get(0).getFromDt().isBefore(specificFromDt)
+                        || existingTimetablesInInterval.get(0).getFromDt().equals(specificFromDt))
+                &&
+                (existingTimetablesInInterval.get(0).getToDt().isAfter(specificToDt)
+                        || existingTimetablesInInterval.get(0).getToDt().equals(specificToDt))
+        ) {
+            String message = "Specific interval fully busy. Adding new interval is impossible.";
+
+            log.error(message);
+            throw new SpecificIntervalFullyBusyException(message);
         } else {
             LocalDateTime tmpFromDt = specificFromDt;
             LocalDateTime tmpToDt;
 
             for (LandAnnouncementTopTimetable timetable : existingTimetablesInInterval) {
-                if (timetable.getFromDt().isAfter(specificFromDt) && timetable.getFromDt().isBefore(specificToDt)) {
-                    tmpToDt = timetable.getFromDt();
+                LocalDateTime intervalFromDt = timetable.getFromDt();
+                LocalDateTime intervalToDt = timetable.getToDt();
+
+                if (intervalFromDt.isAfter(specificFromDt)
+                        && (intervalFromDt.isBefore(specificToDt) || intervalFromDt.equals(specificToDt))
+                ) {
+                    tmpToDt = intervalFromDt;
 
                     unoccupiedIntervalsOfTimetables.add(
                             new LandAnnouncementTopTimetable(landAnnouncement, tmpFromDt, tmpToDt));
                 }
 
-                if (timetable.getToDt().isAfter(specificFromDt) && timetable.getToDt().isBefore(specificToDt)) {
-                    tmpFromDt = timetable.getToDt();
+                if ((intervalToDt.isAfter(specificFromDt) || intervalToDt.equals(specificFromDt))
+                        && intervalToDt.isBefore(specificToDt)
+                ) {
+                    tmpFromDt = intervalToDt;
 
                     // current timetable is the last interval?
                     if (existingTimetablesInInterval.get(existingTimetablesInInterval.size() - 1).equals(timetable)) {
@@ -182,6 +262,14 @@ public class LandAnnouncementTopTimetableServiceImpl
         return unoccupiedIntervalsOfTimetables;
     }
 
+    private void createTimetables(
+            List<LandAnnouncementTopTimetable> finalIntervalsOfLandAnnouncementTopTimetables
+    ) {
+        for (LandAnnouncementTopTimetable timetable : finalIntervalsOfLandAnnouncementTopTimetables) {
+            landAnnouncementTopTimetableRepository.create(timetable);
+        }
+    }
+    
     private void createTimetablesAndPurchasesAndApplyOperationsWithSumsFromTheListFromCurrentUser(
             List<LandAnnouncementTopTimetable> finalIntervalsOfLandAnnouncementTopTimetables,
             List<Double> sumList

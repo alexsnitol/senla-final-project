@@ -109,6 +109,9 @@ public class BalanceOperationServiceImpl
         addByUserIdAndApplyOperation(requestBalanceOperationDto, UserUtil.getCurrentUserId());
     }
 
+    /**
+     * @exception  OnSpecificUserNotEnoughMoneyException if a specific user has a not specific sum on it balance
+     */
     @Override
     @Transactional
     public void applyOperationToUserBalance(User user, Double sum) {
