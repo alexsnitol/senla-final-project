@@ -1,8 +1,295 @@
 _type: export
 __export_format: 4
-__export_date: 2022-09-12T12:28:04.024Z
+__export_date: 2022-09-12T21:40:07.635Z
 __export_source: insomnia.desktop.app:v2022.6.0-beta.4
 resources:
+  - _id: getAllOfCurrentTenantUserUsingGET
+    parentId: fld_wrk_55e708dec8734d4cbe639dec705f67320155fe16
+    modified: 1663018788875
+    created: 1663018788875
+    url: "{{ base_url
+      }}/real-estate-market/api/announcements/housing/apartments/timetables/ren\
+      t/tenants/current"
+    name: getAllOfCurrentTenantUser
+    description: ""
+    method: GET
+    body: {}
+    parameters:
+      - name: rsqlQuery
+        disabled: true
+        value: string
+      - name: sortQuery
+        disabled: true
+        value: string
+    headers:
+      - name: Authorization
+        disabled: true
+        value: string
+    authentication: {}
+    metaSortKey: -1663018788875
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: fld_wrk_55e708dec8734d4cbe639dec705f67320155fe16
+    parentId: wrk_55e708dec8734d4cbe639dec705f6732
+    modified: 1663018790965
+    created: 1663018790965
+    name: apartment-announcement-rent-timetable-controller
+    description: Apartment Announcement Rent Timetable Controller
+    environment: {}
+    environmentPropertyOrder: null
+    metaSortKey: -1663018790965
+    _type: request_group
+  - _id: wrk_55e708dec8734d4cbe639dec705f6732
+    parentId: null
+    modified: 1662378273411
+    created: 1662378273411
+    name: SENLA
+    description: ""
+    scope: design
+    _type: workspace
+  - _id: getAllByApartmentIdOnlyDateTimesUsingGET
+    parentId: fld_wrk_55e708dec8734d4cbe639dec705f67320155fe16
+    modified: 1663018788739
+    created: 1663018788739
+    url: "{{ base_url }}/real-estate-market/api/announcements/housing/apartments/{{
+      apartmentAnnouncementId }}/timetables/rent/only-date-times"
+    name: getAllByApartmentIdOnlyDateTimes
+    description: ""
+    method: GET
+    body: {}
+    parameters:
+      - name: rsqlQuery
+        disabled: true
+        value: string
+      - name: sortQuery
+        disabled: true
+        value: string
+    headers:
+      - name: Authorization
+        disabled: true
+        value: string
+    authentication: {}
+    metaSortKey: -1663018788739
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: getAllOfCurrentTenantUserByApartmentAnnouncementIdUsingGET
+    parentId: fld_wrk_55e708dec8734d4cbe639dec705f67320155fe16
+    modified: 1663018788692
+    created: 1663018788692
+    url: "{{ base_url }}/real-estate-market/api/announcements/housing/apartments/{{
+      apartmentAnnouncementId }}/timetables/rent/tenants/current"
+    name: getAllOfCurrentTenantUserByApartmentAnnouncementId
+    description: ""
+    method: GET
+    body: {}
+    parameters:
+      - name: rsqlQuery
+        disabled: true
+        value: string
+      - name: sortQuery
+        disabled: true
+        value: string
+    headers:
+      - name: Authorization
+        disabled: true
+        value: string
+    authentication: {}
+    metaSortKey: -1663018788692
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: addByApartmentIdWithPayFromCurrentTenantUserUsingPOST
+    parentId: fld_wrk_55e708dec8734d4cbe639dec705f67320155fe16
+    modified: 1663018788690
+    created: 1663018788690
+    url: "{{ base_url }}/real-estate-market/api/announcements/housing/apartments/{{
+      apartmentAnnouncementId }}/timetables/rent/tenants/current"
+    name: addByApartmentIdWithPayFromCurrentTenantUser
+    description: ""
+    method: POST
+    body:
+      mimeType: application/json
+      text: |-
+        {
+          "fromDt": "2022-09-12T21:39:44.808Z",
+          "toDt": "2022-09-12T21:39:44.808Z"
+        }
+    parameters: []
+    headers:
+      - name: Content-Type
+        disabled: false
+        value: application/json
+      - name: Authorization
+        disabled: true
+        value: string
+    authentication: {}
+    metaSortKey: -1663018788690
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: getAllOfCurrentTenantUserUsingGET_1
+    parentId: fld_wrk_55e708dec8734d4cbe639dec705f673254510046
+    modified: 1663018788042
+    created: 1663018788042
+    url: "{{ base_url
+      }}/real-estate-market/api/announcements/housing/family-houses/timetables/\
+      rent/tenants/current"
+    name: getAllOfCurrentTenantUser
+    description: ""
+    method: GET
+    body: {}
+    parameters:
+      - name: rsqlQuery
+        disabled: true
+        value: string
+      - name: sortQuery
+        disabled: true
+        value: string
+    headers:
+      - name: Authorization
+        disabled: true
+        value: string
+    authentication: {}
+    metaSortKey: -1663018788042
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: fld_wrk_55e708dec8734d4cbe639dec705f673254510046
+    parentId: wrk_55e708dec8734d4cbe639dec705f6732
+    modified: 1663018790589
+    created: 1663018790589
+    name: family-house-announcement-rent-timetable-controller
+    description: Family House Announcement Rent Timetable Controller
+    environment: {}
+    environmentPropertyOrder: null
+    metaSortKey: -1663018790589
+    _type: request_group
+  - _id: getAllByFamilyHouseIdOnlyDateTimesUsingGET
+    parentId: fld_wrk_55e708dec8734d4cbe639dec705f673254510046
+    modified: 1663018787902
+    created: 1663018787902
+    url: "{{ base_url
+      }}/real-estate-market/api/announcements/housing/family-houses/{{
+      familyHouseAnnouncementId }}/timetables/rent/only-date-times"
+    name: getAllByFamilyHouseIdOnlyDateTimes
+    description: ""
+    method: GET
+    body: {}
+    parameters:
+      - name: rsqlQuery
+        disabled: true
+        value: string
+      - name: sortQuery
+        disabled: true
+        value: string
+    headers:
+      - name: Authorization
+        disabled: true
+        value: string
+    authentication: {}
+    metaSortKey: -1663018787902
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: getAllOfCurrentTenantUserByFamilyHouseAnnouncementIdUsingGET
+    parentId: fld_wrk_55e708dec8734d4cbe639dec705f673254510046
+    modified: 1663018787859
+    created: 1663018787859
+    url: "{{ base_url
+      }}/real-estate-market/api/announcements/housing/family-houses/{{
+      familyHouseAnnouncementId }}/timetables/rent/tenants/current"
+    name: getAllOfCurrentTenantUserByFamilyHouseAnnouncementId
+    description: ""
+    method: GET
+    body: {}
+    parameters:
+      - name: rsqlQuery
+        disabled: true
+        value: string
+      - name: sortQuery
+        disabled: true
+        value: string
+    headers:
+      - name: Authorization
+        disabled: true
+        value: string
+    authentication: {}
+    metaSortKey: -1663018787859
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: addByFamilyHouseIdWithPayFromCurrentTenantUserUsingPOST
+    parentId: fld_wrk_55e708dec8734d4cbe639dec705f673254510046
+    modified: 1663018787811
+    created: 1663018787811
+    url: "{{ base_url
+      }}/real-estate-market/api/announcements/housing/family-houses/{{
+      familyHouseAnnouncementId }}/timetables/rent/tenants/current"
+    name: addByFamilyHouseIdWithPayFromCurrentTenantUser
+    description: ""
+    method: POST
+    body:
+      mimeType: application/json
+      text: |-
+        {
+          "fromDt": "2022-09-12T21:39:44.808Z",
+          "toDt": "2022-09-12T21:39:44.808Z"
+        }
+    parameters: []
+    headers:
+      - name: Content-Type
+        disabled: false
+        value: application/json
+      - name: Authorization
+        disabled: true
+        value: string
+    authentication: {}
+    metaSortKey: -1663018787811
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
   - _id: getAllAnnouncementTopPricesUsingGET
     parentId: fld_wrk_55e708dec8734d4cbe639dec705f6732238d877f
     modified: 1662985644375
@@ -43,14 +330,6 @@ resources:
     environmentPropertyOrder: null
     metaSortKey: -1662985645517
     _type: request_group
-  - _id: wrk_55e708dec8734d4cbe639dec705f6732
-    parentId: null
-    modified: 1662378273411
-    created: 1662378273411
-    name: SENLA
-    description: ""
-    scope: design
-    _type: workspace
   - _id: getAnnouncementTopPriceByIdUsingGET
     parentId: fld_wrk_55e708dec8734d4cbe639dec705f6732238d877f
     modified: 1662985644336
@@ -107,13 +386,120 @@ resources:
     settingRebuildPath: true
     settingFollowRedirects: global
     _type: request
+  - _id: getAllOfCurrentUserByApartmentIdUsingGET_1
+    parentId: fld_wrk_55e708dec8734d4cbe639dec705f6732c29c0ab3
+    modified: 1663018788963
+    created: 1663018788963
+    url: "{{ base_url
+      }}/real-estate-market/api/announcements/housing/apartments/owner/current/\
+      {{ apartmentAnnouncementId }}/timetables/top"
+    name: getAllOfCurrentUserByApartmentId
+    description: ""
+    method: GET
+    body: {}
+    parameters:
+      - name: rsqlQuery
+        disabled: true
+        value: string
+      - name: sortQuery
+        disabled: true
+        value: string
+    headers:
+      - name: Authorization
+        disabled: true
+        value: string
+    authentication: {}
+    metaSortKey: -1663018788963
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: fld_wrk_55e708dec8734d4cbe639dec705f6732c29c0ab3
+    parentId: wrk_55e708dec8734d4cbe639dec705f6732
+    modified: 1662985645433
+    created: 1662985645433
+    name: apartment-announcement-top-timetable-controller
+    description: Apartment Announcement Top Timetable Controller
+    environment: {}
+    environmentPropertyOrder: null
+    metaSortKey: -1662985645433
+    _type: request_group
+  - _id: getAllByApartmentIdUsingGET_1
+    parentId: fld_wrk_55e708dec8734d4cbe639dec705f6732c29c0ab3
+    modified: 1663018788644
+    created: 1663018788644
+    url: "{{ base_url }}/real-estate-market/api/announcements/housing/apartments/{{
+      apartmentAnnouncementId }}/timetables/top"
+    name: getAllByApartmentId
+    description: ""
+    method: GET
+    body: {}
+    parameters:
+      - name: rsqlQuery
+        disabled: true
+        value: string
+      - name: sortQuery
+        disabled: true
+        value: string
+    headers:
+      - name: Authorization
+        disabled: true
+        value: string
+    authentication: {}
+    metaSortKey: -1663018788644
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: addByApartmentIdWithoutPayUsingPOST_1
+    parentId: fld_wrk_55e708dec8734d4cbe639dec705f6732c29c0ab3
+    modified: 1663018788593
+    created: 1663018788593
+    url: "{{ base_url }}/real-estate-market/api/announcements/housing/apartments/{{
+      apartmentAnnouncementId }}/timetables/top"
+    name: addByApartmentIdWithoutPay
+    description: ""
+    method: POST
+    body:
+      mimeType: application/json
+      text: |-
+        {
+          "fromDt": "2022-09-12T21:39:44.808Z",
+          "toDt": "2022-09-12T21:39:44.808Z"
+        }
+    parameters: []
+    headers:
+      - name: Content-Type
+        disabled: false
+        value: application/json
+      - name: Authorization
+        disabled: true
+        value: string
+    authentication: {}
+    metaSortKey: -1663018788593
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
   - _id: getAllOfCurrentUserByApartmentIdUsingGET
     parentId: fld_wrk_55e708dec8734d4cbe639dec705f6732c29c0ab3
     modified: 1662985643834
     created: 1662985643834
     url: "{{ base_url
       }}/real-estate-market/api/announcements/housing/apartments/owner/current/\
-      {{ apartmentAnnouncementId }}/timetables/top"
+      {{ apartmentAnnouncementId }}/timetables/rent"
     name: getAllOfCurrentUserByApartmentId
     description: ""
     method: GET
@@ -139,16 +525,6 @@ resources:
     settingRebuildPath: true
     settingFollowRedirects: global
     _type: request
-  - _id: fld_wrk_55e708dec8734d4cbe639dec705f6732c29c0ab3
-    parentId: wrk_55e708dec8734d4cbe639dec705f6732
-    modified: 1662985645433
-    created: 1662985645433
-    name: apartment-announcement-top-timetable-controller
-    description: Apartment Announcement Top Timetable Controller
-    environment: {}
-    environmentPropertyOrder: null
-    metaSortKey: -1662985645433
-    _type: request_group
   - _id: addByApartmentIdWithPayFromCurrentUserUsingPOST
     parentId: fld_wrk_55e708dec8734d4cbe639dec705f6732c29c0ab3
     modified: 1662985643794
@@ -189,7 +565,7 @@ resources:
     modified: 1662985643757
     created: 1662985643757
     url: "{{ base_url }}/real-estate-market/api/announcements/housing/apartments/{{
-      apartmentAnnouncementId }}/timetables/top"
+      apartmentAnnouncementId }}/timetables/rent"
     name: getAllByApartmentId
     description: ""
     method: GET
@@ -220,7 +596,7 @@ resources:
     modified: 1662985643722
     created: 1662985643722
     url: "{{ base_url }}/real-estate-market/api/announcements/housing/apartments/{{
-      apartmentAnnouncementId }}/timetables/top"
+      apartmentAnnouncementId }}/timetables/rent"
     name: addByApartmentIdWithoutPay
     description: ""
     method: POST
@@ -354,13 +730,122 @@ resources:
     settingRebuildPath: true
     settingFollowRedirects: global
     _type: request
+  - _id: getAllOfCurrentUserByFamilyHouseIdUsingGET_1
+    parentId: fld_wrk_55e708dec8734d4cbe639dec705f6732e6a5f1a3
+    modified: 1663018788134
+    created: 1663018788134
+    url: "{{ base_url
+      }}/real-estate-market/api/announcements/housing/family-houses/owner/curre\
+      nt/{{ familyHouseAnnouncementId }}/timetables/top"
+    name: getAllOfCurrentUserByFamilyHouseId
+    description: ""
+    method: GET
+    body: {}
+    parameters:
+      - name: rsqlQuery
+        disabled: true
+        value: string
+      - name: sortQuery
+        disabled: true
+        value: string
+    headers:
+      - name: Authorization
+        disabled: true
+        value: string
+    authentication: {}
+    metaSortKey: -1663018788134
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: fld_wrk_55e708dec8734d4cbe639dec705f6732e6a5f1a3
+    parentId: wrk_55e708dec8734d4cbe639dec705f6732
+    modified: 1662985645152
+    created: 1662985645152
+    name: family-house-announcement-top-timetable-controller
+    description: Family House Announcement Top Timetable Controller
+    environment: {}
+    environmentPropertyOrder: null
+    metaSortKey: -1662985645152
+    _type: request_group
+  - _id: getAllByFamilyHouseIdUsingGET_1
+    parentId: fld_wrk_55e708dec8734d4cbe639dec705f6732e6a5f1a3
+    modified: 1663018787771
+    created: 1663018787771
+    url: "{{ base_url
+      }}/real-estate-market/api/announcements/housing/family-houses/{{
+      familyHouseAnnouncementId }}/timetables/top"
+    name: getAllByFamilyHouseId
+    description: ""
+    method: GET
+    body: {}
+    parameters:
+      - name: rsqlQuery
+        disabled: true
+        value: string
+      - name: sortQuery
+        disabled: true
+        value: string
+    headers:
+      - name: Authorization
+        disabled: true
+        value: string
+    authentication: {}
+    metaSortKey: -1663018787771
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: addByFamilyHouseIdWithoutPayUsingPOST_1
+    parentId: fld_wrk_55e708dec8734d4cbe639dec705f6732e6a5f1a3
+    modified: 1663018787726
+    created: 1663018787726
+    url: "{{ base_url
+      }}/real-estate-market/api/announcements/housing/family-houses/{{
+      familyHouseAnnouncementId }}/timetables/top"
+    name: addByFamilyHouseIdWithoutPay
+    description: ""
+    method: POST
+    body:
+      mimeType: application/json
+      text: |-
+        {
+          "fromDt": "2022-09-12T21:39:44.808Z",
+          "toDt": "2022-09-12T21:39:44.808Z"
+        }
+    parameters: []
+    headers:
+      - name: Content-Type
+        disabled: false
+        value: application/json
+      - name: Authorization
+        disabled: true
+        value: string
+    authentication: {}
+    metaSortKey: -1663018787726
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
   - _id: getAllOfCurrentUserByFamilyHouseIdUsingGET
     parentId: fld_wrk_55e708dec8734d4cbe639dec705f6732e6a5f1a3
     modified: 1662985643221
     created: 1662985643221
     url: "{{ base_url
       }}/real-estate-market/api/announcements/housing/family-houses/owner/curre\
-      nt/{{ familyHouseAnnouncementId }}/timetables/top"
+      nt/{{ familyHouseAnnouncementId }}/timetables/rent"
     name: getAllOfCurrentUserByFamilyHouseId
     description: ""
     method: GET
@@ -386,16 +871,6 @@ resources:
     settingRebuildPath: true
     settingFollowRedirects: global
     _type: request
-  - _id: fld_wrk_55e708dec8734d4cbe639dec705f6732e6a5f1a3
-    parentId: wrk_55e708dec8734d4cbe639dec705f6732
-    modified: 1662985645152
-    created: 1662985645152
-    name: family-house-announcement-top-timetable-controller
-    description: Family House Announcement Top Timetable Controller
-    environment: {}
-    environmentPropertyOrder: null
-    metaSortKey: -1662985645152
-    _type: request_group
   - _id: addByFamilyHouseIdWithPayFromCurrentUserUsingPOST
     parentId: fld_wrk_55e708dec8734d4cbe639dec705f6732e6a5f1a3
     modified: 1662985643187
@@ -437,7 +912,7 @@ resources:
     created: 1662985643149
     url: "{{ base_url
       }}/real-estate-market/api/announcements/housing/family-houses/{{
-      familyHouseAnnouncementId }}/timetables/top"
+      familyHouseAnnouncementId }}/timetables/rent"
     name: getAllByFamilyHouseId
     description: ""
     method: GET
@@ -469,7 +944,7 @@ resources:
     created: 1662985643116
     url: "{{ base_url
       }}/real-estate-market/api/announcements/housing/family-houses/{{
-      familyHouseAnnouncementId }}/timetables/top"
+      familyHouseAnnouncementId }}/timetables/rent"
     name: addByFamilyHouseIdWithoutPay
     description: ""
     method: POST
@@ -1906,7 +2381,7 @@ resources:
     _type: request
   - _id: createAuthTokenUsingPOST
     parentId: fld_wrk_55e708dec8734d4cbe639dec705f6732b2bbbcd0
-    modified: 1662985646323
+    modified: 1663018791629
     created: 1662378677428
     url: "{{ base_url }}/real-estate-market/api/auth"
     name: Create auth token
@@ -5273,7 +5748,7 @@ resources:
     _type: cookie_jar
   - _id: spc_9d7f37c53aa6468ca6eed1f5bb15d49f
     parentId: wrk_55e708dec8734d4cbe639dec705f6732
-    modified: 1662985656253
+    modified: 1663018791272
     created: 1662378273422
     fileName: SENLA - Real estate market (final project) Document
     contents: '{"swagger":"2.0","info":{"description":"This project was developed as
@@ -5287,6 +5762,8 @@ resources:
       Top Price
       Controller"},{"name":"apartment-announcement-controller","description":"Apartment
       Announcement
+      Controller"},{"name":"apartment-announcement-rent-timetable-controller","description":"Apartment
+      Announcement Rent Timetable
       Controller"},{"name":"apartment-announcement-top-timetable-controller","description":"Apartment
       Announcement Top Timetable
       Controller"},{"name":"apartment-house-controller","description":"Apartment
@@ -5297,6 +5774,8 @@ resources:
       Operation Controller"},{"name":"city-controller","description":"City
       Controller"},{"name":"family-house-announcement-controller","description":"Family
       House Announcement
+      Controller"},{"name":"family-house-announcement-rent-timetable-controller","description":"Family
+      House Announcement Rent Timetable
       Controller"},{"name":"family-house-announcement-top-timetable-controller","description":"Family
       House Announcement Top Timetable
       Controller"},{"name":"family-house-controller","description":"Family House
@@ -5370,15 +5849,33 @@ resources:
       apartment announcement by id with OPEN
       status","operationId":"getByIdWithOpenStatusUsingGET","produces":["*/*"],"parameters":[{"name":"Authorization","in":"header","description":"JWT
       token","required":false,"type":"string"},{"name":"id","in":"path","description":"id","required":true,"type":"integer","format":"int64"}],"responses":{"200":{"description":"OK","schema":{"$ref":"#/definitions/ApartmentAnnouncementDto"}},"401":{"description":"Unauthorized"},"403":{"description":"Forbidden"},"404":{"description":"Not
-      Found"}}}},"/real-estate-market/api/announcements/housing/apartments/owner/current/{apartmentAnnouncementId}/timetables/top":{"get":{"tags":["apartment-announcement-top-timetable-controller"],"summary":"getAllOfCurrentUserByApartmentId","operationId":"getAllOfCurrentUserByApartmentIdUsingGET","produces":["*/*"],"parameters":[{"name":"apartmentAnnouncementId","in":"path","description":"apartmentAnnouncementId","required":true,"type":"integer","format":"int64"},{"name":"Authorization","in":"header","description":"JWT
+      Found"}}}},"/real-estate-market/api/announcements/housing/apartments/owner/current/{apartmentAnnouncementId}/timetables/rent":{"get":{"tags":["apartment-announcement-rent-timetable-controller"],"summary":"getAllOfCurrentUserByApartmentId","operationId":"getAllOfCurrentUserByApartmentIdUsingGET","produces":["*/*"],"parameters":[{"name":"apartmentAnnouncementId","in":"path","description":"apartmentAnnouncementId","required":true,"type":"integer","format":"int64"},{"name":"Authorization","in":"header","description":"JWT
+      token","required":false,"type":"string"},{"name":"rsqlQuery","in":"query","description":"rsqlQuery","required":false,"type":"string"},{"name":"sortQuery","in":"query","description":"sortQuery","required":false,"type":"string"}],"responses":{"200":{"description":"OK","schema":{"type":"array","items":{"$ref":"#/definitions/RentTimetableWithoutAnnouncementIdDto"}}},"401":{"description":"Unauthorized"},"403":{"description":"Forbidden"},"404":{"description":"Not
+      Found"}},"security":[{"Authorized
+      user":[]}]}},"/real-estate-market/api/announcements/housing/apartments/owner/current/{apartmentAnnouncementId}/timetables/top":{"get":{"tags":["apartment-announcement-top-timetable-controller"],"summary":"getAllOfCurrentUserByApartmentId","operationId":"getAllOfCurrentUserByApartmentIdUsingGET_1","produces":["*/*"],"parameters":[{"name":"apartmentAnnouncementId","in":"path","description":"apartmentAnnouncementId","required":true,"type":"integer","format":"int64"},{"name":"Authorization","in":"header","description":"JWT
       token","required":false,"type":"string"},{"name":"rsqlQuery","in":"query","description":"rsqlQuery","required":false,"type":"string"},{"name":"sortQuery","in":"query","description":"sortQuery","required":false,"type":"string"}],"responses":{"200":{"description":"OK","schema":{"type":"array","items":{"$ref":"#/definitions/TopTimetableWithoutAnnouncementIdDto"}}},"401":{"description":"Unauthorized"},"403":{"description":"Forbidden"},"404":{"description":"Not
       Found"}},"security":[{"Authorized
       user":[]}]},"post":{"tags":["apartment-announcement-top-timetable-controller"],"summary":"addByApartmentIdWithPayFromCurrentUser","operationId":"addByApartmentIdWithPayFromCurrentUserUsingPOST","consumes":["application/json"],"produces":["*/*"],"parameters":[{"name":"apartmentAnnouncementId","in":"path","description":"apartmentAnnouncementId","required":true,"type":"integer","format":"int64"},{"name":"Authorization","in":"header","description":"JWT
       token","required":false,"type":"string"},{"in":"body","name":"requestTopTimetableDto","description":"requestTopTimetableDto","required":true,"schema":{"$ref":"#/definitions/RequestTopTimetableDto"}}],"responses":{"200":{"description":"OK","schema":{"$ref":"#/definitions/RestResponseDto"}},"201":{"description":"Created"},"401":{"description":"Unauthorized"},"403":{"description":"Forbidden"},"404":{"description":"Not
       Found"}},"security":[{"Authorized
-      user":[]}]}},"/real-estate-market/api/announcements/housing/apartments/{apartmentAnnouncementId}/timetables/top":{"get":{"tags":["apartment-announcement-top-timetable-controller"],"summary":"getAllByApartmentId","operationId":"getAllByApartmentIdUsingGET","produces":["*/*"],"parameters":[{"name":"apartmentAnnouncementId","in":"path","description":"apartmentAnnouncementId","required":true,"type":"integer","format":"int64"},{"name":"Authorization","in":"header","description":"JWT
+      user":[]}]}},"/real-estate-market/api/announcements/housing/apartments/timetables/rent/tenants/current":{"get":{"tags":["apartment-announcement-rent-timetable-controller"],"summary":"getAllOfCurrentTenantUser","operationId":"getAllOfCurrentTenantUserUsingGET","produces":["*/*"],"parameters":[{"name":"Authorization","in":"header","description":"JWT
+      token","required":false,"type":"string"},{"name":"rsqlQuery","in":"query","description":"rsqlQuery","required":false,"type":"string"},{"name":"sortQuery","in":"query","description":"sortQuery","required":false,"type":"string"}],"responses":{"200":{"description":"OK","schema":{"type":"array","items":{"$ref":"#/definitions/RentTimetableDto"}}},"401":{"description":"Unauthorized"},"403":{"description":"Forbidden"},"404":{"description":"Not
+      Found"}},"security":[{"Authorized
+      user":[]}]}},"/real-estate-market/api/announcements/housing/apartments/{apartmentAnnouncementId}/timetables/rent":{"get":{"tags":["apartment-announcement-rent-timetable-controller"],"summary":"getAllByApartmentId","operationId":"getAllByApartmentIdUsingGET","produces":["*/*"],"parameters":[{"name":"apartmentAnnouncementId","in":"path","description":"apartmentAnnouncementId","required":true,"type":"integer","format":"int64"},{"name":"Authorization","in":"header","description":"JWT
+      token","required":false,"type":"string"},{"name":"rsqlQuery","in":"query","description":"rsqlQuery","required":false,"type":"string"},{"name":"sortQuery","in":"query","description":"sortQuery","required":false,"type":"string"}],"responses":{"200":{"description":"OK","schema":{"type":"array","items":{"$ref":"#/definitions/RentTimetableWithoutAnnouncementIdAndWithUserIdOfTenantDto"}}},"401":{"description":"Unauthorized"},"403":{"description":"Forbidden"},"404":{"description":"Not
+      Found"}},"security":[{"ADMIN":[]}]},"post":{"tags":["apartment-announcement-rent-timetable-controller"],"summary":"addByApartmentIdWithoutPay","operationId":"addByApartmentIdWithoutPayUsingPOST","consumes":["application/json"],"produces":["*/*"],"parameters":[{"name":"apartmentAnnouncementId","in":"path","description":"apartmentAnnouncementId","required":true,"type":"integer","format":"int64"},{"name":"Authorization","in":"header","description":"JWT
+      token","required":false,"type":"string"},{"in":"body","name":"requestRentTimetableWithUserIdOfTenantDto","description":"requestRentTimetableWithUserIdOfTenantDto","required":true,"schema":{"$ref":"#/definitions/RequestRentTimetableWithUserIdOfTenantDto"}}],"responses":{"200":{"description":"OK","schema":{"$ref":"#/definitions/RestResponseDto"}},"201":{"description":"Created"},"401":{"description":"Unauthorized"},"403":{"description":"Forbidden"},"404":{"description":"Not
+      Found"}},"security":[{"ADMIN":[]}]}},"/real-estate-market/api/announcements/housing/apartments/{apartmentAnnouncementId}/timetables/rent/only-date-times":{"get":{"tags":["apartment-announcement-rent-timetable-controller"],"summary":"getAllByApartmentIdOnlyDateTimes","operationId":"getAllByApartmentIdOnlyDateTimesUsingGET","produces":["*/*"],"parameters":[{"name":"apartmentAnnouncementId","in":"path","description":"apartmentAnnouncementId","required":true,"type":"integer","format":"int64"},{"name":"Authorization","in":"header","description":"JWT
+      token","required":false,"type":"string"},{"name":"rsqlQuery","in":"query","description":"rsqlQuery","required":false,"type":"string"},{"name":"sortQuery","in":"query","description":"sortQuery","required":false,"type":"string"}],"responses":{"200":{"description":"OK","schema":{"type":"array","items":{"$ref":"#/definitions/RentTimetableWithoutAnnouncementIdDto"}}},"401":{"description":"Unauthorized"},"403":{"description":"Forbidden"},"404":{"description":"Not
+      Found"}}}},"/real-estate-market/api/announcements/housing/apartments/{apartmentAnnouncementId}/timetables/rent/tenants/current":{"get":{"tags":["apartment-announcement-rent-timetable-controller"],"summary":"getAllOfCurrentTenantUserByApartmentAnnouncementId","operationId":"getAllOfCurrentTenantUserByApartmentAnnouncementIdUsingGET","produces":["*/*"],"parameters":[{"name":"apartmentAnnouncementId","in":"path","description":"apartmentAnnouncementId","required":true,"type":"integer","format":"int64"},{"name":"Authorization","in":"header","description":"JWT
+      token","required":false,"type":"string"},{"name":"rsqlQuery","in":"query","description":"rsqlQuery","required":false,"type":"string"},{"name":"sortQuery","in":"query","description":"sortQuery","required":false,"type":"string"}],"responses":{"200":{"description":"OK","schema":{"type":"array","items":{"$ref":"#/definitions/RentTimetableWithoutAnnouncementIdDto"}}},"401":{"description":"Unauthorized"},"403":{"description":"Forbidden"},"404":{"description":"Not
+      Found"}},"security":[{"Authorized
+      user":[]}]},"post":{"tags":["apartment-announcement-rent-timetable-controller"],"summary":"addByApartmentIdWithPayFromCurrentTenantUser","operationId":"addByApartmentIdWithPayFromCurrentTenantUserUsingPOST","consumes":["application/json"],"produces":["*/*"],"parameters":[{"name":"apartmentAnnouncementId","in":"path","description":"apartmentAnnouncementId","required":true,"type":"integer","format":"int64"},{"name":"Authorization","in":"header","description":"JWT
+      token","required":false,"type":"string"},{"in":"body","name":"requestRentTimetableDto","description":"requestRentTimetableDto","required":true,"schema":{"$ref":"#/definitions/RequestRentTimetableDto"}}],"responses":{"200":{"description":"OK","schema":{"$ref":"#/definitions/RestResponseDto"}},"201":{"description":"Created"},"401":{"description":"Unauthorized"},"403":{"description":"Forbidden"},"404":{"description":"Not
+      Found"}},"security":[{"Authorized
+      user":[]}]}},"/real-estate-market/api/announcements/housing/apartments/{apartmentAnnouncementId}/timetables/top":{"get":{"tags":["apartment-announcement-top-timetable-controller"],"summary":"getAllByApartmentId","operationId":"getAllByApartmentIdUsingGET_1","produces":["*/*"],"parameters":[{"name":"apartmentAnnouncementId","in":"path","description":"apartmentAnnouncementId","required":true,"type":"integer","format":"int64"},{"name":"Authorization","in":"header","description":"JWT
       token","required":false,"type":"string"},{"name":"rsqlQuery","in":"query","description":"rsqlQuery","required":false,"type":"string"},{"name":"sortQuery","in":"query","description":"sortQuery","required":false,"type":"string"}],"responses":{"200":{"description":"OK","schema":{"type":"array","items":{"$ref":"#/definitions/TopTimetableWithoutAnnouncementIdDto"}}},"401":{"description":"Unauthorized"},"403":{"description":"Forbidden"},"404":{"description":"Not
-      Found"}},"security":[{"ADMIN":[]}]},"post":{"tags":["apartment-announcement-top-timetable-controller"],"summary":"addByApartmentIdWithoutPay","operationId":"addByApartmentIdWithoutPayUsingPOST","consumes":["application/json"],"produces":["*/*"],"parameters":[{"name":"apartmentAnnouncementId","in":"path","description":"apartmentAnnouncementId","required":true,"type":"integer","format":"int64"},{"name":"Authorization","in":"header","description":"JWT
+      Found"}},"security":[{"ADMIN":[]}]},"post":{"tags":["apartment-announcement-top-timetable-controller"],"summary":"addByApartmentIdWithoutPay","operationId":"addByApartmentIdWithoutPayUsingPOST_1","consumes":["application/json"],"produces":["*/*"],"parameters":[{"name":"apartmentAnnouncementId","in":"path","description":"apartmentAnnouncementId","required":true,"type":"integer","format":"int64"},{"name":"Authorization","in":"header","description":"JWT
       token","required":false,"type":"string"},{"in":"body","name":"requestTopTimetableDto","description":"requestTopTimetableDto","required":true,"schema":{"$ref":"#/definitions/RequestTopTimetableDto"}}],"responses":{"200":{"description":"OK","schema":{"$ref":"#/definitions/RestResponseDto"}},"201":{"description":"Created"},"401":{"description":"Unauthorized"},"403":{"description":"Forbidden"},"404":{"description":"Not
       Found"}},"security":[{"ADMIN":[]}]}},"/real-estate-market/api/announcements/housing/apartments/{id}":{"get":{"tags":["apartment-announcement-controller"],"summary":"getById","operationId":"getByIdUsingGET_1","produces":["*/*"],"parameters":[{"name":"Authorization","in":"header","description":"JWT
       token","required":false,"type":"string"},{"name":"id","in":"path","description":"id","required":true,"type":"integer","format":"int64"}],"responses":{"200":{"description":"OK","schema":{"$ref":"#/definitions/ApartmentAnnouncementDto"}},"401":{"description":"Unauthorized"},"403":{"description":"Forbidden"},"404":{"description":"Not
@@ -5417,15 +5914,33 @@ resources:
       family house announcements by id with OPEN
       status","operationId":"getByIdWithOpenStatusUsingGET_1","produces":["*/*"],"parameters":[{"name":"Authorization","in":"header","description":"JWT
       token","required":false,"type":"string"},{"name":"id","in":"path","description":"id","required":true,"type":"integer","format":"int64"}],"responses":{"200":{"description":"OK","schema":{"$ref":"#/definitions/FamilyHouseAnnouncementDto"}},"401":{"description":"Unauthorized"},"403":{"description":"Forbidden"},"404":{"description":"Not
-      Found"}}}},"/real-estate-market/api/announcements/housing/family-houses/owner/current/{familyHouseAnnouncementId}/timetables/top":{"get":{"tags":["family-house-announcement-top-timetable-controller"],"summary":"getAllOfCurrentUserByFamilyHouseId","operationId":"getAllOfCurrentUserByFamilyHouseIdUsingGET","produces":["*/*"],"parameters":[{"name":"Authorization","in":"header","description":"JWT
+      Found"}}}},"/real-estate-market/api/announcements/housing/family-houses/owner/current/{familyHouseAnnouncementId}/timetables/rent":{"get":{"tags":["family-house-announcement-rent-timetable-controller"],"summary":"getAllOfCurrentUserByFamilyHouseId","operationId":"getAllOfCurrentUserByFamilyHouseIdUsingGET","produces":["*/*"],"parameters":[{"name":"Authorization","in":"header","description":"JWT
+      token","required":false,"type":"string"},{"name":"familyHouseAnnouncementId","in":"path","description":"familyHouseAnnouncementId","required":true,"type":"integer","format":"int64"},{"name":"rsqlQuery","in":"query","description":"rsqlQuery","required":false,"type":"string"},{"name":"sortQuery","in":"query","description":"sortQuery","required":false,"type":"string"}],"responses":{"200":{"description":"OK","schema":{"type":"array","items":{"$ref":"#/definitions/RentTimetableWithoutAnnouncementIdDto"}}},"401":{"description":"Unauthorized"},"403":{"description":"Forbidden"},"404":{"description":"Not
+      Found"}},"security":[{"Authorized
+      user":[]}]}},"/real-estate-market/api/announcements/housing/family-houses/owner/current/{familyHouseAnnouncementId}/timetables/top":{"get":{"tags":["family-house-announcement-top-timetable-controller"],"summary":"getAllOfCurrentUserByFamilyHouseId","operationId":"getAllOfCurrentUserByFamilyHouseIdUsingGET_1","produces":["*/*"],"parameters":[{"name":"Authorization","in":"header","description":"JWT
       token","required":false,"type":"string"},{"name":"familyHouseAnnouncementId","in":"path","description":"familyHouseAnnouncementId","required":true,"type":"integer","format":"int64"},{"name":"rsqlQuery","in":"query","description":"rsqlQuery","required":false,"type":"string"},{"name":"sortQuery","in":"query","description":"sortQuery","required":false,"type":"string"}],"responses":{"200":{"description":"OK","schema":{"type":"array","items":{"$ref":"#/definitions/TopTimetableWithoutAnnouncementIdDto"}}},"401":{"description":"Unauthorized"},"403":{"description":"Forbidden"},"404":{"description":"Not
       Found"}},"security":[{"Authorized
       user":[]}]},"post":{"tags":["family-house-announcement-top-timetable-controller"],"summary":"addByFamilyHouseIdWithPayFromCurrentUser","operationId":"addByFamilyHouseIdWithPayFromCurrentUserUsingPOST","consumes":["application/json"],"produces":["*/*"],"parameters":[{"name":"Authorization","in":"header","description":"JWT
       token","required":false,"type":"string"},{"name":"familyHouseAnnouncementId","in":"path","description":"familyHouseAnnouncementId","required":true,"type":"integer","format":"int64"},{"in":"body","name":"requestTopTimetableDto","description":"requestTopTimetableDto","required":true,"schema":{"$ref":"#/definitions/RequestTopTimetableDto"}}],"responses":{"200":{"description":"OK","schema":{"$ref":"#/definitions/RestResponseDto"}},"201":{"description":"Created"},"401":{"description":"Unauthorized"},"403":{"description":"Forbidden"},"404":{"description":"Not
       Found"}},"security":[{"Authorized
-      user":[]}]}},"/real-estate-market/api/announcements/housing/family-houses/{familyHouseAnnouncementId}/timetables/top":{"get":{"tags":["family-house-announcement-top-timetable-controller"],"summary":"getAllByFamilyHouseId","operationId":"getAllByFamilyHouseIdUsingGET","produces":["*/*"],"parameters":[{"name":"Authorization","in":"header","description":"JWT
+      user":[]}]}},"/real-estate-market/api/announcements/housing/family-houses/timetables/rent/tenants/current":{"get":{"tags":["family-house-announcement-rent-timetable-controller"],"summary":"getAllOfCurrentTenantUser","operationId":"getAllOfCurrentTenantUserUsingGET_1","produces":["*/*"],"parameters":[{"name":"Authorization","in":"header","description":"JWT
+      token","required":false,"type":"string"},{"name":"rsqlQuery","in":"query","description":"rsqlQuery","required":false,"type":"string"},{"name":"sortQuery","in":"query","description":"sortQuery","required":false,"type":"string"}],"responses":{"200":{"description":"OK","schema":{"type":"array","items":{"$ref":"#/definitions/RentTimetableDto"}}},"401":{"description":"Unauthorized"},"403":{"description":"Forbidden"},"404":{"description":"Not
+      Found"}},"security":[{"Authorized
+      user":[]}]}},"/real-estate-market/api/announcements/housing/family-houses/{familyHouseAnnouncementId}/timetables/rent":{"get":{"tags":["family-house-announcement-rent-timetable-controller"],"summary":"getAllByFamilyHouseId","operationId":"getAllByFamilyHouseIdUsingGET","produces":["*/*"],"parameters":[{"name":"Authorization","in":"header","description":"JWT
+      token","required":false,"type":"string"},{"name":"familyHouseAnnouncementId","in":"path","description":"familyHouseAnnouncementId","required":true,"type":"integer","format":"int64"},{"name":"rsqlQuery","in":"query","description":"rsqlQuery","required":false,"type":"string"},{"name":"sortQuery","in":"query","description":"sortQuery","required":false,"type":"string"}],"responses":{"200":{"description":"OK","schema":{"type":"array","items":{"$ref":"#/definitions/RentTimetableWithoutAnnouncementIdAndWithUserIdOfTenantDto"}}},"401":{"description":"Unauthorized"},"403":{"description":"Forbidden"},"404":{"description":"Not
+      Found"}},"security":[{"ADMIN":[]}]},"post":{"tags":["family-house-announcement-rent-timetable-controller"],"summary":"addByFamilyHouseIdWithoutPay","operationId":"addByFamilyHouseIdWithoutPayUsingPOST","consumes":["application/json"],"produces":["*/*"],"parameters":[{"name":"Authorization","in":"header","description":"JWT
+      token","required":false,"type":"string"},{"name":"familyHouseAnnouncementId","in":"path","description":"familyHouseAnnouncementId","required":true,"type":"integer","format":"int64"},{"in":"body","name":"requestRentTimetableWithUserIdOfTenantDto","description":"requestRentTimetableWithUserIdOfTenantDto","required":true,"schema":{"$ref":"#/definitions/RequestRentTimetableWithUserIdOfTenantDto"}}],"responses":{"200":{"description":"OK","schema":{"$ref":"#/definitions/RestResponseDto"}},"201":{"description":"Created"},"401":{"description":"Unauthorized"},"403":{"description":"Forbidden"},"404":{"description":"Not
+      Found"}},"security":[{"ADMIN":[]}]}},"/real-estate-market/api/announcements/housing/family-houses/{familyHouseAnnouncementId}/timetables/rent/only-date-times":{"get":{"tags":["family-house-announcement-rent-timetable-controller"],"summary":"getAllByFamilyHouseIdOnlyDateTimes","operationId":"getAllByFamilyHouseIdOnlyDateTimesUsingGET","produces":["*/*"],"parameters":[{"name":"Authorization","in":"header","description":"JWT
+      token","required":false,"type":"string"},{"name":"familyHouseAnnouncementId","in":"path","description":"familyHouseAnnouncementId","required":true,"type":"integer","format":"int64"},{"name":"rsqlQuery","in":"query","description":"rsqlQuery","required":false,"type":"string"},{"name":"sortQuery","in":"query","description":"sortQuery","required":false,"type":"string"}],"responses":{"200":{"description":"OK","schema":{"type":"array","items":{"$ref":"#/definitions/RentTimetableWithoutAnnouncementIdDto"}}},"401":{"description":"Unauthorized"},"403":{"description":"Forbidden"},"404":{"description":"Not
+      Found"}}}},"/real-estate-market/api/announcements/housing/family-houses/{familyHouseAnnouncementId}/timetables/rent/tenants/current":{"get":{"tags":["family-house-announcement-rent-timetable-controller"],"summary":"getAllOfCurrentTenantUserByFamilyHouseAnnouncementId","operationId":"getAllOfCurrentTenantUserByFamilyHouseAnnouncementIdUsingGET","produces":["*/*"],"parameters":[{"name":"Authorization","in":"header","description":"JWT
+      token","required":false,"type":"string"},{"name":"familyHouseAnnouncementId","in":"path","description":"familyHouseAnnouncementId","required":true,"type":"integer","format":"int64"},{"name":"rsqlQuery","in":"query","description":"rsqlQuery","required":false,"type":"string"},{"name":"sortQuery","in":"query","description":"sortQuery","required":false,"type":"string"}],"responses":{"200":{"description":"OK","schema":{"type":"array","items":{"$ref":"#/definitions/RentTimetableWithoutAnnouncementIdDto"}}},"401":{"description":"Unauthorized"},"403":{"description":"Forbidden"},"404":{"description":"Not
+      Found"}},"security":[{"Authorized
+      user":[]}]},"post":{"tags":["family-house-announcement-rent-timetable-controller"],"summary":"addByFamilyHouseIdWithPayFromCurrentTenantUser","operationId":"addByFamilyHouseIdWithPayFromCurrentTenantUserUsingPOST","consumes":["application/json"],"produces":["*/*"],"parameters":[{"name":"Authorization","in":"header","description":"JWT
+      token","required":false,"type":"string"},{"name":"familyHouseAnnouncementId","in":"path","description":"familyHouseAnnouncementId","required":true,"type":"integer","format":"int64"},{"in":"body","name":"requestRentTimetableDto","description":"requestRentTimetableDto","required":true,"schema":{"$ref":"#/definitions/RequestRentTimetableDto"}}],"responses":{"200":{"description":"OK","schema":{"$ref":"#/definitions/RestResponseDto"}},"201":{"description":"Created"},"401":{"description":"Unauthorized"},"403":{"description":"Forbidden"},"404":{"description":"Not
+      Found"}},"security":[{"Authorized
+      user":[]}]}},"/real-estate-market/api/announcements/housing/family-houses/{familyHouseAnnouncementId}/timetables/top":{"get":{"tags":["family-house-announcement-top-timetable-controller"],"summary":"getAllByFamilyHouseId","operationId":"getAllByFamilyHouseIdUsingGET_1","produces":["*/*"],"parameters":[{"name":"Authorization","in":"header","description":"JWT
       token","required":false,"type":"string"},{"name":"familyHouseAnnouncementId","in":"path","description":"familyHouseAnnouncementId","required":true,"type":"integer","format":"int64"},{"name":"rsqlQuery","in":"query","description":"rsqlQuery","required":false,"type":"string"},{"name":"sortQuery","in":"query","description":"sortQuery","required":false,"type":"string"}],"responses":{"200":{"description":"OK","schema":{"type":"array","items":{"$ref":"#/definitions/TopTimetableWithoutAnnouncementIdDto"}}},"401":{"description":"Unauthorized"},"403":{"description":"Forbidden"},"404":{"description":"Not
-      Found"}},"security":[{"ADMIN":[]}]},"post":{"tags":["family-house-announcement-top-timetable-controller"],"summary":"addByFamilyHouseIdWithoutPay","operationId":"addByFamilyHouseIdWithoutPayUsingPOST","consumes":["application/json"],"produces":["*/*"],"parameters":[{"name":"Authorization","in":"header","description":"JWT
+      Found"}},"security":[{"ADMIN":[]}]},"post":{"tags":["family-house-announcement-top-timetable-controller"],"summary":"addByFamilyHouseIdWithoutPay","operationId":"addByFamilyHouseIdWithoutPayUsingPOST_1","consumes":["application/json"],"produces":["*/*"],"parameters":[{"name":"Authorization","in":"header","description":"JWT
       token","required":false,"type":"string"},{"name":"familyHouseAnnouncementId","in":"path","description":"familyHouseAnnouncementId","required":true,"type":"integer","format":"int64"},{"in":"body","name":"requestTopTimetableDto","description":"requestTopTimetableDto","required":true,"schema":{"$ref":"#/definitions/RequestTopTimetableDto"}}],"responses":{"200":{"description":"OK","schema":{"$ref":"#/definitions/RestResponseDto"}},"201":{"description":"Created"},"401":{"description":"Unauthorized"},"403":{"description":"Forbidden"},"404":{"description":"Not
       Found"}},"security":[{"ADMIN":[]}]}},"/real-estate-market/api/announcements/housing/family-houses/{id}":{"get":{"tags":["family-house-announcement-controller"],"summary":"getById","operationId":"getByIdUsingGET_5","produces":["*/*"],"parameters":[{"name":"Authorization","in":"header","description":"JWT
       token","required":false,"type":"string"},{"name":"id","in":"path","description":"id","required":true,"type":"integer","format":"int64"}],"responses":{"200":{"description":"OK","schema":{"$ref":"#/definitions/FamilyHouseAnnouncementDto"}},"401":{"description":"Unauthorized"},"403":{"description":"Forbidden"},"404":{"description":"Not
@@ -5711,7 +6226,7 @@ resources:
       balance operation such as replenishment or reduction by user
       id","operationId":"addBalanceOperationByUserIdUsingPOST","consumes":["application/json"],"produces":["*/*"],"parameters":[{"name":"Authorization","in":"header","description":"JWT
       token","required":false,"type":"string"},{"in":"body","name":"requestBalanceOperationDto","description":"requestBalanceOperationDto","required":true,"schema":{"$ref":"#/definitions/RequestBalanceOperationDto"}},{"name":"userId","in":"path","description":"userId","required":true,"type":"integer","format":"int64"}],"responses":{"200":{"description":"OK","schema":{"$ref":"#/definitions/RestResponseDto"}},"201":{"description":"Created"},"401":{"description":"Unauthorized"},"403":{"description":"Forbidden"},"404":{"description":"Not
-      Found"}},"security":[{"ADMIN":[]}]}}},"definitions":{"AddressDto":{"type":"object","properties":{"city":{"$ref":"#/definitions/CityDto"},"houseNumber":{"type":"string"},"id":{"type":"integer","format":"int64"},"region":{"$ref":"#/definitions/RegionDto"},"street":{"$ref":"#/definitions/StreetDto"}},"title":"AddressDto"},"AnnouncementDto":{"type":"object","properties":{"closedDt":{"type":"string","format":"date-time"},"createdDt":{"type":"string","format":"date-time"},"description":{"type":"string"},"id":{"type":"integer","format":"int64"},"price":{"type":"number","format":"double"},"propertyType":{"type":"string","enum":["APARTMENT","FAMILY_HOUSE","LAND"]},"status":{"type":"string","enum":["CLOSED","DELETED","HIDDEN","OPEN"]},"top":{"type":"boolean"}},"title":"AnnouncementDto"},"AnnouncementTopPrice":{"type":"object","properties":{"announcementType":{"type":"string","enum":["DAILY_RENT","MONTHLY_RENT","SELL"]},"id":{"type":"integer","format":"int64"},"pricePerHour":{"type":"number","format":"float"},"propertyType":{"type":"string","enum":["APARTMENT","FAMILY_HOUSE","LAND"]}},"title":"AnnouncementTopPrice"},"ApartmentAnnouncementDto":{"type":"object","properties":{"closedDt":{"type":"string","format":"date-time"},"createdDt":{"type":"string","format":"date-time"},"description":{"type":"string"},"id":{"type":"integer","format":"int64"},"price":{"type":"number","format":"double"},"property":{"$ref":"#/definitions/ApartmentPropertyDto"},"propertyType":{"type":"string","enum":["APARTMENT","FAMILY_HOUSE","LAND"]},"status":{"type":"string","enum":["CLOSED","DELETED","HIDDEN","OPEN"]},"top":{"type":"boolean"},"type":{"type":"string","enum":["DAILY_RENT","MONTHLY_RENT","SELL"]}},"title":"ApartmentAnnouncementDto"},"ApartmentHouseDto":{"type":"object","properties":{"address":{"$ref":"#/definitions/AddressDto"},"buildingYear":{"type":"integer","format":"int32"},"elevator":{"type":"boolean"},"houseMaterial":{"type":"string"},"houseType":{"type":"string","enum":["APARTMENT_HOUSE","FAMILY_HOUSE"]},"housingType":{"type":"string","enum":["NEW_CONSTRUCTION","SECONDARY"]},"id":{"type":"integer","format":"int64"},"numberOfApartmentProperties":{"type":"integer","format":"int32"},"numberOfFloors":{"type":"integer","format":"int32"}},"title":"ApartmentHouseDto"},"ApartmentPropertyDto":{"type":"object","properties":{"apartmentHouse":{"$ref":"#/definitions/ApartmentHouseDto"},"apartmentNumber":{"type":"string"},"area":{"type":"number","format":"float"},"floor":{"type":"integer","format":"int32"},"id":{"type":"integer","format":"int64"},"numberOfRooms":{"type":"integer","format":"int32"},"owner":{"$ref":"#/definitions/SimplyUserWithContactsAndRatingDto"},"propertyType":{"type":"string","enum":["APARTMENT","FAMILY_HOUSE","LAND"]},"renovationType":{"type":"string"},"status":{"type":"string","enum":["ACTIVE","DELETED"]}},"title":"ApartmentPropertyDto"},"BalanceOperationWithoutUserIdDto":{"type":"object","properties":{"comment":{"type":"string"},"createdDt":{"type":"string","format":"date-time"},"sum":{"type":"number","format":"double"}},"title":"BalanceOperationWithoutUserIdDto"},"CityDto":{"type":"object","properties":{"id":{"type":"integer","format":"int64"},"name":{"type":"string"}},"title":"CityDto"},"FamilyHouseAnnouncementDto":{"type":"object","properties":{"closedDt":{"type":"string","format":"date-time"},"createdDt":{"type":"string","format":"date-time"},"description":{"type":"string"},"id":{"type":"integer","format":"int64"},"price":{"type":"number","format":"double"},"property":{"$ref":"#/definitions/FamilyHousePropertyDto"},"propertyType":{"type":"string","enum":["APARTMENT","FAMILY_HOUSE","LAND"]},"status":{"type":"string","enum":["CLOSED","DELETED","HIDDEN","OPEN"]},"top":{"type":"boolean"},"type":{"type":"string","enum":["DAILY_RENT","MONTHLY_RENT","SELL"]}},"title":"FamilyHouseAnnouncementDto"},"FamilyHouseDto":{"type":"object","properties":{"address":{"$ref":"#/definitions/AddressDto"},"buildingYear":{"type":"integer","format":"int32"},"houseMaterial":{"type":"string"},"houseType":{"type":"string","enum":["APARTMENT_HOUSE","FAMILY_HOUSE"]},"housingType":{"type":"string","enum":["NEW_CONSTRUCTION","SECONDARY"]},"id":{"type":"integer","format":"int64"},"numberOfFloors":{"type":"integer","format":"int32"},"swimmingPool":{"type":"boolean"}},"title":"FamilyHouseDto"},"FamilyHousePropertyDto":{"type":"object","properties":{"area":{"type":"number","format":"float"},"familyHouse":{"$ref":"#/definitions/FamilyHouseDto"},"id":{"type":"integer","format":"int64"},"numberOfRooms":{"type":"integer","format":"int32"},"owner":{"$ref":"#/definitions/SimplyUserWithContactsAndRatingDto"},"propertyType":{"type":"string","enum":["APARTMENT","FAMILY_HOUSE","LAND"]},"renovationType":{"type":"string"},"status":{"type":"string","enum":["ACTIVE","DELETED"]}},"title":"FamilyHousePropertyDto"},"HouseDto":{"type":"object","properties":{"address":{"$ref":"#/definitions/AddressDto"},"buildingYear":{"type":"integer","format":"int32"},"houseMaterial":{"type":"string"},"houseType":{"type":"string","enum":["APARTMENT_HOUSE","FAMILY_HOUSE"]},"housingType":{"type":"string","enum":["NEW_CONSTRUCTION","SECONDARY"]},"id":{"type":"integer","format":"int64"},"numberOfFloors":{"type":"integer","format":"int32"}},"title":"HouseDto"},"HouseMaterial":{"type":"object","properties":{"id":{"type":"integer","format":"int64"},"name":{"type":"string"}},"title":"HouseMaterial"},"HouseNumberDto":{"type":"object","properties":{"houseNumber":{"type":"string"}},"title":"HouseNumberDto"},"HousingAnnouncementDto":{"type":"object","properties":{"closedDt":{"type":"string","format":"date-time"},"createdDt":{"type":"string","format":"date-time"},"description":{"type":"string"},"id":{"type":"integer","format":"int64"},"price":{"type":"number","format":"double"},"propertyType":{"type":"string","enum":["APARTMENT","FAMILY_HOUSE","LAND"]},"status":{"type":"string","enum":["CLOSED","DELETED","HIDDEN","OPEN"]},"top":{"type":"boolean"},"type":{"type":"string","enum":["DAILY_RENT","MONTHLY_RENT","SELL"]}},"title":"HousingAnnouncementDto"},"HousingPropertyDto":{"type":"object","properties":{"area":{"type":"number","format":"float"},"id":{"type":"integer","format":"int64"},"numberOfRooms":{"type":"integer","format":"int32"},"owner":{"$ref":"#/definitions/SimplyUserWithContactsAndRatingDto"},"propertyType":{"type":"string","enum":["APARTMENT","FAMILY_HOUSE","LAND"]},"renovationType":{"type":"string"},"status":{"type":"string","enum":["ACTIVE","DELETED"]}},"title":"HousingPropertyDto"},"JwtRequestDto":{"type":"object","properties":{"password":{"type":"string"},"username":{"type":"string"}},"title":"JwtRequestDto"},"JwtResponseDto":{"type":"object","properties":{"token":{"type":"string"}},"title":"JwtResponseDto"},"LandAnnouncementDto":{"type":"object","properties":{"closedDt":{"type":"string","format":"date-time"},"createdDt":{"type":"string","format":"date-time"},"description":{"type":"string"},"id":{"type":"integer","format":"int64"},"price":{"type":"number","format":"double"},"property":{"$ref":"#/definitions/LandPropertyDto"},"propertyType":{"type":"string","enum":["APARTMENT","FAMILY_HOUSE","LAND"]},"status":{"type":"string","enum":["CLOSED","DELETED","HIDDEN","OPEN"]},"top":{"type":"boolean"},"type":{"type":"string","enum":["SELL"]}},"title":"LandAnnouncementDto"},"LandPropertyDto":{"type":"object","properties":{"address":{"$ref":"#/definitions/AddressDto"},"area":{"type":"number","format":"float"},"id":{"type":"integer","format":"int64"},"owner":{"$ref":"#/definitions/SimplyUserWithContactsAndRatingDto"},"propertyType":{"type":"string","enum":["APARTMENT","FAMILY_HOUSE","LAND"]},"status":{"type":"string","enum":["ACTIVE","DELETED"]}},"title":"LandPropertyDto"},"LocalTime":{"type":"object","properties":{"hour":{"type":"integer","format":"int32"},"minute":{"type":"integer","format":"int32"},"nano":{"type":"integer","format":"int32"},"second":{"type":"integer","format":"int32"}},"title":"LocalTime"},"MessageDto":{"type":"object","properties":{"createdDate":{"type":"string","format":"date"},"createdTime":{"$ref":"#/definitions/LocalTime"},"id":{"type":"integer","format":"int64"},"receiver":{"$ref":"#/definitions/SimplyUserDto"},"sender":{"$ref":"#/definitions/SimplyUserDto"},"text":{"type":"string"}},"title":"MessageDto"},"PropertyDto":{"type":"object","properties":{"area":{"type":"number","format":"float"},"id":{"type":"integer","format":"int64"},"owner":{"$ref":"#/definitions/SimplyUserWithContactsAndRatingDto"},"propertyType":{"type":"string","enum":["APARTMENT","FAMILY_HOUSE","LAND"]},"status":{"type":"string","enum":["ACTIVE","DELETED"]}},"title":"PropertyDto"},"RegionDto":{"type":"object","properties":{"id":{"type":"integer","format":"int64"},"name":{"type":"string"}},"title":"RegionDto"},"RenovationType":{"type":"object","properties":{"id":{"type":"integer","format":"int64"},"name":{"type":"string"}},"title":"RenovationType"},"RequestAddressDto":{"type":"object","required":["houseNumber","streetId"],"properties":{"houseNumber":{"type":"string","minLength":0,"maxLength":255},"streetId":{"type":"integer","format":"int64"}},"title":"RequestAddressDto"},"RequestApartmentAnnouncementDto":{"type":"object","required":["apartmentPropertyId","price","type"],"properties":{"apartmentPropertyId":{"type":"integer","format":"int64"},"description":{"type":"string","minLength":1,"maxLength":4095},"price":{"type":"number","format":"double"},"type":{"type":"string","enum":["DAILY_RENT","MONTHLY_RENT","SELL"]}},"title":"RequestApartmentAnnouncementDto"},"RequestApartmentHouseDto":{"type":"object","required":["address"],"properties":{"address":{"$ref":"#/definitions/RequestAddressDto"},"buildingYear":{"type":"integer","format":"int32"},"elevator":{"type":"boolean"},"houseMaterialId":{"type":"integer","format":"int64"},"housingType":{"type":"string","enum":["NEW_CONSTRUCTION","SECONDARY"]},"numberOfFloors":{"type":"integer","format":"int32"}},"title":"RequestApartmentHouseDto"},"RequestApartmentPropertyDto":{"type":"object","required":["apartmentHouseId"],"properties":{"apartmentHouseId":{"type":"integer","format":"int64"},"apartmentNumber":{"type":"string","minLength":1,"maxLength":255},"area":{"type":"number","format":"float"},"floor":{"type":"integer","format":"int32"},"numberOfRooms":{"type":"integer","format":"int32"},"renovationTypeId":{"type":"integer","format":"int64"}},"title":"RequestApartmentPropertyDto"},"RequestApartmentPropertyWithUserIdOfOwnerDto":{"type":"object","required":["apartmentHouseId","userIdOfOwner"],"properties":{"apartmentHouseId":{"type":"integer","format":"int64"},"apartmentNumber":{"type":"string","minLength":1,"maxLength":255},"area":{"type":"number","format":"float"},"floor":{"type":"integer","format":"int32"},"numberOfRooms":{"type":"integer","format":"int32"},"renovationTypeId":{"type":"integer","format":"int64"},"userIdOfOwner":{"type":"integer","format":"int64"}},"title":"RequestApartmentPropertyWithUserIdOfOwnerDto"},"RequestBalanceOperationDto":{"type":"object","required":["sum"],"properties":{"comment":{"type":"string","minLength":1,"maxLength":255},"sum":{"type":"number","format":"double"}},"title":"RequestBalanceOperationDto"},"RequestCityDto":{"type":"object","required":["name","regionId"],"properties":{"name":{"type":"string","minLength":0,"maxLength":255},"regionId":{"type":"integer","format":"int64"}},"title":"RequestCityDto"},"RequestCityWithoutRegionIdDto":{"type":"object","required":["name"],"properties":{"name":{"type":"string","minLength":0,"maxLength":255}},"title":"RequestCityWithoutRegionIdDto"},"RequestFamilyHouseAnnouncementDto":{"type":"object","required":["familyHousePropertyId","price","type"],"properties":{"description":{"type":"string","minLength":1,"maxLength":4095},"familyHousePropertyId":{"type":"integer","format":"int64"},"price":{"type":"number","format":"double"},"type":{"type":"string","enum":["DAILY_RENT","MONTHLY_RENT","SELL"]}},"title":"RequestFamilyHouseAnnouncementDto"},"RequestFamilyHouseDto":{"type":"object","required":["address"],"properties":{"address":{"$ref":"#/definitions/RequestAddressDto"},"buildingYear":{"type":"integer","format":"int32"},"houseMaterialId":{"type":"integer","format":"int64"},"housingType":{"type":"string","enum":["NEW_CONSTRUCTION","SECONDARY"]},"numberOfFloors":{"type":"integer","format":"int32"},"swimmingPool":{"type":"boolean"}},"title":"RequestFamilyHouseDto"},"RequestFamilyHousePropertyDto":{"type":"object","required":["familyHouseId"],"properties":{"area":{"type":"number","format":"float"},"familyHouseId":{"type":"integer","format":"int64"},"numberOfRooms":{"type":"integer","format":"int32"},"renovationTypeId":{"type":"integer","format":"int64"}},"title":"RequestFamilyHousePropertyDto"},"RequestFamilyHousePropertyWithUserIdOfOwnerDto":{"type":"object","required":["familyHouseId","userIdOfOwner"],"properties":{"area":{"type":"number","format":"float"},"familyHouseId":{"type":"integer","format":"int64"},"numberOfRooms":{"type":"integer","format":"int32"},"renovationTypeId":{"type":"integer","format":"int64"},"userIdOfOwner":{"type":"integer","format":"int64"}},"title":"RequestFamilyHousePropertyWithUserIdOfOwnerDto"},"RequestHouseMaterialDto":{"type":"object","required":["name"],"properties":{"name":{"type":"string"}},"title":"RequestHouseMaterialDto"},"RequestHouseNumberDto":{"type":"object","required":["houseNumber"],"properties":{"houseNumber":{"type":"string","minLength":0,"maxLength":255}},"title":"RequestHouseNumberDto"},"RequestLandAnnouncementDto":{"type":"object","required":["landPropertyId","price","type"],"properties":{"description":{"type":"string","minLength":1,"maxLength":4095},"landPropertyId":{"type":"integer","format":"int64"},"price":{"type":"number","format":"double"},"type":{"type":"string","enum":["SELL"]}},"title":"RequestLandAnnouncementDto"},"RequestLandPropertyDto":{"type":"object","required":["streetId"],"properties":{"area":{"type":"number","format":"float"},"streetId":{"type":"integer","format":"int64"}},"title":"RequestLandPropertyDto"},"RequestLandPropertyWithUserIdOfOwnerDto":{"type":"object","required":["streetId","userIdOfOwner"],"properties":{"area":{"type":"number","format":"float"},"streetId":{"type":"integer","format":"int64"},"userIdOfOwner":{"type":"integer","format":"int64"}},"title":"RequestLandPropertyWithUserIdOfOwnerDto"},"RequestMessageDto":{"type":"object","required":["text"],"properties":{"text":{"type":"string","minLength":1,"maxLength":1023}},"title":"RequestMessageDto"},"RequestRegionDto":{"type":"object","required":["name"],"properties":{"name":{"type":"string","minLength":0,"maxLength":255}},"title":"RequestRegionDto"},"RequestRenovationTypeDto":{"type":"object","required":["name"],"properties":{"name":{"type":"string"}},"title":"RequestRenovationTypeDto"},"RequestReviewDto":{"type":"object","required":["comment"],"properties":{"comment":{"type":"string","minLength":1,"maxLength":1023},"note":{"type":"integer","format":"int32"}},"title":"RequestReviewDto"},"RequestStreetDto":{"type":"object","required":["cityId","name"],"properties":{"cityId":{"type":"integer","format":"int64"},"name":{"type":"string","minLength":0,"maxLength":255}},"title":"RequestStreetDto"},"RequestStreetWithoutCityIdDto":{"type":"object","required":["name"],"properties":{"name":{"type":"string","minLength":0,"maxLength":255}},"title":"RequestStreetWithoutCityIdDto"},"RequestTopTimetableDto":{"type":"object","required":["fromDt","toDt"],"properties":{"fromDt":{"type":"string","format":"date-time"},"toDt":{"type":"string","format":"date-time"}},"title":"RequestTopTimetableDto"},"RequestUserDto":{"type":"object","required":["password","username"],"properties":{"email":{"type":"string","minLength":1,"maxLength":255},"firstName":{"type":"string","minLength":1,"maxLength":255},"lastName":{"type":"string","minLength":1,"maxLength":255},"password":{"type":"string","minLength":8,"maxLength":1024},"patronymic":{"type":"string","minLength":1,"maxLength":255},"phoneNumber":{"type":"string","minLength":1,"maxLength":15},"username":{"type":"string","minLength":0,"maxLength":255}},"title":"RequestUserDto"},"RestResponseDto":{"type":"object","properties":{"message":{"type":"string"},"status":{"type":"integer","format":"int32"}},"title":"RestResponseDto"},"ReviewDto":{"type":"object","properties":{"comment":{"type":"string"},"createdDt":{"type":"string","format":"date-time"},"customer":{"$ref":"#/definitions/SimplyUserDto"},"id":{"type":"integer","format":"int64"},"note":{"type":"integer","format":"int32"},"seller":{"$ref":"#/definitions/SimplyUserWithRatingDto"}},"title":"ReviewDto"},"RoleDto":{"type":"object","properties":{"name":{"type":"string"}},"title":"RoleDto"},"SimplyUserDto":{"type":"object","properties":{"firstName":{"type":"string"},"id":{"type":"integer","format":"int64"},"lastName":{"type":"string"},"patronymic":{"type":"string"}},"title":"SimplyUserDto"},"SimplyUserWithContactsAndRatingDto":{"type":"object","properties":{"email":{"type":"string"},"firstName":{"type":"string"},"id":{"type":"integer","format":"int64"},"lastName":{"type":"string"},"patronymic":{"type":"string"},"phoneNumber":{"type":"string"},"rating":{"type":"number","format":"float"}},"title":"SimplyUserWithContactsAndRatingDto"},"SimplyUserWithRatingDto":{"type":"object","properties":{"firstName":{"type":"string"},"id":{"type":"integer","format":"int64"},"lastName":{"type":"string"},"patronymic":{"type":"string"},"rating":{"type":"number","format":"float"}},"title":"SimplyUserWithRatingDto"},"StreetDto":{"type":"object","properties":{"id":{"type":"integer","format":"int64"},"name":{"type":"string"}},"title":"StreetDto"},"TopTimetableWithoutAnnouncementIdDto":{"type":"object","properties":{"fromDt":{"type":"string","format":"date-time"},"toDt":{"type":"string","format":"date-time"}},"title":"TopTimetableWithoutAnnouncementIdDto"},"UpdateRequestAddressDto":{"type":"object","properties":{"houseNumber":{"type":"string","minLength":1,"maxLength":255},"streetId":{"type":"integer","format":"int64"}},"title":"UpdateRequestAddressDto"},"UpdateRequestAnnouncementTopPriceDto":{"type":"object","properties":{"pricePerHour":{"type":"number","format":"float","minimum":0,"exclusiveMinimum":false}},"title":"UpdateRequestAnnouncementTopPriceDto"},"UpdateRequestApartmentAnnouncementDto":{"type":"object","properties":{"apartmentPropertyId":{"type":"integer","format":"int64"},"description":{"type":"string","minLength":1,"maxLength":4095},"price":{"type":"number","format":"double"},"status":{"type":"string","enum":["CLOSED","DELETED","HIDDEN","OPEN"]},"type":{"type":"string","enum":["DAILY_RENT","MONTHLY_RENT","SELL"]}},"title":"UpdateRequestApartmentAnnouncementDto"},"UpdateRequestApartmentHouseDto":{"type":"object","properties":{"address":{"$ref":"#/definitions/RequestAddressDto"},"buildingYear":{"type":"integer","format":"int32"},"elevator":{"type":"boolean"},"houseMaterialId":{"type":"integer","format":"int64"},"housingType":{"type":"string","enum":["NEW_CONSTRUCTION","SECONDARY"]},"numberOfFloors":{"type":"integer","format":"int32"}},"title":"UpdateRequestApartmentHouseDto"},"UpdateRequestApartmentPropertyDto":{"type":"object","properties":{"apartmentHouseId":{"type":"integer","format":"int64"},"apartmentNumber":{"type":"string","minLength":1,"maxLength":255},"area":{"type":"number","format":"float"},"floor":{"type":"integer","format":"int32"},"numberOfRooms":{"type":"integer","format":"int32"},"renovationTypeId":{"type":"integer","format":"int64"},"status":{"type":"string","enum":["ACTIVE","DELETED"]}},"title":"UpdateRequestApartmentPropertyDto"},"UpdateRequestApartmentPropertyWithUserIdOfOwnerDto":{"type":"object","properties":{"apartmentHouseId":{"type":"integer","format":"int64"},"apartmentNumber":{"type":"string","minLength":1,"maxLength":255},"area":{"type":"number","format":"float"},"floor":{"type":"integer","format":"int32"},"numberOfRooms":{"type":"integer","format":"int32"},"renovationTypeId":{"type":"integer","format":"int64"},"status":{"type":"string","enum":["ACTIVE","DELETED"]},"userIdOfOwner":{"type":"integer","format":"int64"}},"title":"UpdateRequestApartmentPropertyWithUserIdOfOwnerDto"},"UpdateRequestCityDto":{"type":"object","properties":{"name":{"type":"string","minLength":1,"maxLength":255},"regionId":{"type":"integer","format":"int64"}},"title":"UpdateRequestCityDto"},"UpdateRequestFamilyHouseAnnouncementDto":{"type":"object","properties":{"description":{"type":"string","minLength":1,"maxLength":4095},"familyHousePropertyId":{"type":"integer","format":"int64"},"price":{"type":"number","format":"double"},"status":{"type":"string","enum":["CLOSED","DELETED","HIDDEN","OPEN"]},"type":{"type":"string","enum":["DAILY_RENT","MONTHLY_RENT","SELL"]}},"title":"UpdateRequestFamilyHouseAnnouncementDto"},"UpdateRequestFamilyHouseDto":{"type":"object","properties":{"address":{"$ref":"#/definitions/RequestAddressDto"},"buildingYear":{"type":"integer","format":"int32"},"houseMaterialId":{"type":"integer","format":"int64"},"housingType":{"type":"string","enum":["NEW_CONSTRUCTION","SECONDARY"]},"numberOfFloors":{"type":"integer","format":"int32"},"swimmingPool":{"type":"boolean"}},"title":"UpdateRequestFamilyHouseDto"},"UpdateRequestFamilyHousePropertyDto":{"type":"object","properties":{"area":{"type":"number","format":"float"},"familyHouseId":{"type":"integer","format":"int64"},"numberOfRooms":{"type":"integer","format":"int32"},"renovationTypeId":{"type":"integer","format":"int64"},"status":{"type":"string","enum":["ACTIVE","DELETED"]}},"title":"UpdateRequestFamilyHousePropertyDto"},"UpdateRequestFamilyHousePropertyWithUserIdOfOwnerDto":{"type":"object","properties":{"area":{"type":"number","format":"float"},"familyHouseId":{"type":"integer","format":"int64"},"numberOfRooms":{"type":"integer","format":"int32"},"renovationTypeId":{"type":"integer","format":"int64"},"status":{"type":"string","enum":["ACTIVE","DELETED"]},"userIdOfOwner":{"type":"integer","format":"int64"}},"title":"UpdateRequestFamilyHousePropertyWithUserIdOfOwnerDto"},"UpdateRequestLandAnnouncementDto":{"type":"object","properties":{"description":{"type":"string","minLength":1,"maxLength":4095},"landPropertyId":{"type":"integer","format":"int64"},"price":{"type":"number","format":"double"},"status":{"type":"string","enum":["CLOSED","DELETED","HIDDEN","OPEN"]},"type":{"type":"string","enum":["SELL"]}},"title":"UpdateRequestLandAnnouncementDto"},"UpdateRequestLandPropertyDto":{"type":"object","properties":{"area":{"type":"number","format":"float"},"status":{"type":"string","enum":["ACTIVE","DELETED"]},"streetId":{"type":"integer","format":"int64"}},"title":"UpdateRequestLandPropertyDto"},"UpdateRequestLandPropertyWithUserIdOfOwnerDto":{"type":"object","properties":{"area":{"type":"number","format":"float"},"status":{"type":"string","enum":["ACTIVE","DELETED"]},"streetId":{"type":"integer","format":"int64"},"userIdOfOwner":{"type":"integer","format":"int64"}},"title":"UpdateRequestLandPropertyWithUserIdOfOwnerDto"},"UpdateRequestStreetDto":{"type":"object","properties":{"cityId":{"type":"integer","format":"int64"},"name":{"type":"string","minLength":1,"maxLength":255}},"title":"UpdateRequestStreetDto"},"UpdateRequestUserDto":{"type":"object","properties":{"email":{"type":"string","minLength":1,"maxLength":255},"firstName":{"type":"string","minLength":1,"maxLength":255},"lastName":{"type":"string","minLength":1,"maxLength":255},"password":{"type":"string","minLength":8,"maxLength":1024},"patronymic":{"type":"string","minLength":1,"maxLength":255},"phoneNumber":{"type":"string","minLength":1,"maxLength":15},"username":{"type":"string","minLength":1,"maxLength":255}},"title":"UpdateRequestUserDto"},"UserDto":{"type":"object","properties":{"balance":{"type":"number","format":"double"},"email":{"type":"string"},"enabled":{"type":"boolean"},"firstName":{"type":"string"},"id":{"type":"integer","format":"int64"},"lastName":{"type":"string"},"patronymic":{"type":"string"},"phoneNumber":{"type":"string"},"rating":{"type":"number","format":"float"},"roles":{"type":"array","items":{"$ref":"#/definitions/RoleDto"}},"username":{"type":"string"}},"title":"UserDto"}}}'
+      Found"}},"security":[{"ADMIN":[]}]}}},"definitions":{"AddressDto":{"type":"object","properties":{"city":{"$ref":"#/definitions/CityDto"},"houseNumber":{"type":"string"},"id":{"type":"integer","format":"int64"},"region":{"$ref":"#/definitions/RegionDto"},"street":{"$ref":"#/definitions/StreetDto"}},"title":"AddressDto"},"AnnouncementDto":{"type":"object","properties":{"closedDt":{"type":"string","format":"date-time"},"createdDt":{"type":"string","format":"date-time"},"description":{"type":"string"},"id":{"type":"integer","format":"int64"},"price":{"type":"number","format":"double"},"propertyType":{"type":"string","enum":["APARTMENT","FAMILY_HOUSE","LAND"]},"status":{"type":"string","enum":["CLOSED","DELETED","HIDDEN","OPEN"]},"top":{"type":"boolean"}},"title":"AnnouncementDto"},"AnnouncementTopPrice":{"type":"object","properties":{"announcementType":{"type":"string","enum":["DAILY_RENT","MONTHLY_RENT","SELL"]},"id":{"type":"integer","format":"int64"},"pricePerHour":{"type":"number","format":"float"},"propertyType":{"type":"string","enum":["APARTMENT","FAMILY_HOUSE","LAND"]}},"title":"AnnouncementTopPrice"},"ApartmentAnnouncementDto":{"type":"object","properties":{"closedDt":{"type":"string","format":"date-time"},"createdDt":{"type":"string","format":"date-time"},"description":{"type":"string"},"id":{"type":"integer","format":"int64"},"price":{"type":"number","format":"double"},"property":{"$ref":"#/definitions/ApartmentPropertyDto"},"propertyType":{"type":"string","enum":["APARTMENT","FAMILY_HOUSE","LAND"]},"status":{"type":"string","enum":["CLOSED","DELETED","HIDDEN","OPEN"]},"top":{"type":"boolean"},"type":{"type":"string","enum":["DAILY_RENT","MONTHLY_RENT","SELL"]}},"title":"ApartmentAnnouncementDto"},"ApartmentHouseDto":{"type":"object","properties":{"address":{"$ref":"#/definitions/AddressDto"},"buildingYear":{"type":"integer","format":"int32"},"elevator":{"type":"boolean"},"houseMaterial":{"type":"string"},"houseType":{"type":"string","enum":["APARTMENT_HOUSE","FAMILY_HOUSE"]},"housingType":{"type":"string","enum":["NEW_CONSTRUCTION","SECONDARY"]},"id":{"type":"integer","format":"int64"},"numberOfApartmentProperties":{"type":"integer","format":"int32"},"numberOfFloors":{"type":"integer","format":"int32"}},"title":"ApartmentHouseDto"},"ApartmentPropertyDto":{"type":"object","properties":{"apartmentHouse":{"$ref":"#/definitions/ApartmentHouseDto"},"apartmentNumber":{"type":"string"},"area":{"type":"number","format":"float"},"floor":{"type":"integer","format":"int32"},"id":{"type":"integer","format":"int64"},"numberOfRooms":{"type":"integer","format":"int32"},"owner":{"$ref":"#/definitions/SimplyUserWithContactsAndRatingDto"},"propertyType":{"type":"string","enum":["APARTMENT","FAMILY_HOUSE","LAND"]},"renovationType":{"type":"string"},"status":{"type":"string","enum":["ACTIVE","DELETED"]}},"title":"ApartmentPropertyDto"},"BalanceOperationWithoutUserIdDto":{"type":"object","properties":{"comment":{"type":"string"},"createdDt":{"type":"string","format":"date-time"},"sum":{"type":"number","format":"double"}},"title":"BalanceOperationWithoutUserIdDto"},"CityDto":{"type":"object","properties":{"id":{"type":"integer","format":"int64"},"name":{"type":"string"}},"title":"CityDto"},"FamilyHouseAnnouncementDto":{"type":"object","properties":{"closedDt":{"type":"string","format":"date-time"},"createdDt":{"type":"string","format":"date-time"},"description":{"type":"string"},"id":{"type":"integer","format":"int64"},"price":{"type":"number","format":"double"},"property":{"$ref":"#/definitions/FamilyHousePropertyDto"},"propertyType":{"type":"string","enum":["APARTMENT","FAMILY_HOUSE","LAND"]},"status":{"type":"string","enum":["CLOSED","DELETED","HIDDEN","OPEN"]},"top":{"type":"boolean"},"type":{"type":"string","enum":["DAILY_RENT","MONTHLY_RENT","SELL"]}},"title":"FamilyHouseAnnouncementDto"},"FamilyHouseDto":{"type":"object","properties":{"address":{"$ref":"#/definitions/AddressDto"},"buildingYear":{"type":"integer","format":"int32"},"houseMaterial":{"type":"string"},"houseType":{"type":"string","enum":["APARTMENT_HOUSE","FAMILY_HOUSE"]},"housingType":{"type":"string","enum":["NEW_CONSTRUCTION","SECONDARY"]},"id":{"type":"integer","format":"int64"},"numberOfFloors":{"type":"integer","format":"int32"},"swimmingPool":{"type":"boolean"}},"title":"FamilyHouseDto"},"FamilyHousePropertyDto":{"type":"object","properties":{"area":{"type":"number","format":"float"},"familyHouse":{"$ref":"#/definitions/FamilyHouseDto"},"id":{"type":"integer","format":"int64"},"numberOfRooms":{"type":"integer","format":"int32"},"owner":{"$ref":"#/definitions/SimplyUserWithContactsAndRatingDto"},"propertyType":{"type":"string","enum":["APARTMENT","FAMILY_HOUSE","LAND"]},"renovationType":{"type":"string"},"status":{"type":"string","enum":["ACTIVE","DELETED"]}},"title":"FamilyHousePropertyDto"},"HouseDto":{"type":"object","properties":{"address":{"$ref":"#/definitions/AddressDto"},"buildingYear":{"type":"integer","format":"int32"},"houseMaterial":{"type":"string"},"houseType":{"type":"string","enum":["APARTMENT_HOUSE","FAMILY_HOUSE"]},"housingType":{"type":"string","enum":["NEW_CONSTRUCTION","SECONDARY"]},"id":{"type":"integer","format":"int64"},"numberOfFloors":{"type":"integer","format":"int32"}},"title":"HouseDto"},"HouseMaterial":{"type":"object","properties":{"id":{"type":"integer","format":"int64"},"name":{"type":"string"}},"title":"HouseMaterial"},"HouseNumberDto":{"type":"object","properties":{"houseNumber":{"type":"string"}},"title":"HouseNumberDto"},"HousingAnnouncementDto":{"type":"object","properties":{"closedDt":{"type":"string","format":"date-time"},"createdDt":{"type":"string","format":"date-time"},"description":{"type":"string"},"id":{"type":"integer","format":"int64"},"price":{"type":"number","format":"double"},"propertyType":{"type":"string","enum":["APARTMENT","FAMILY_HOUSE","LAND"]},"status":{"type":"string","enum":["CLOSED","DELETED","HIDDEN","OPEN"]},"top":{"type":"boolean"},"type":{"type":"string","enum":["DAILY_RENT","MONTHLY_RENT","SELL"]}},"title":"HousingAnnouncementDto"},"HousingPropertyDto":{"type":"object","properties":{"area":{"type":"number","format":"float"},"id":{"type":"integer","format":"int64"},"numberOfRooms":{"type":"integer","format":"int32"},"owner":{"$ref":"#/definitions/SimplyUserWithContactsAndRatingDto"},"propertyType":{"type":"string","enum":["APARTMENT","FAMILY_HOUSE","LAND"]},"renovationType":{"type":"string"},"status":{"type":"string","enum":["ACTIVE","DELETED"]}},"title":"HousingPropertyDto"},"JwtRequestDto":{"type":"object","properties":{"password":{"type":"string"},"username":{"type":"string"}},"title":"JwtRequestDto"},"JwtResponseDto":{"type":"object","properties":{"token":{"type":"string"}},"title":"JwtResponseDto"},"LandAnnouncementDto":{"type":"object","properties":{"closedDt":{"type":"string","format":"date-time"},"createdDt":{"type":"string","format":"date-time"},"description":{"type":"string"},"id":{"type":"integer","format":"int64"},"price":{"type":"number","format":"double"},"property":{"$ref":"#/definitions/LandPropertyDto"},"propertyType":{"type":"string","enum":["APARTMENT","FAMILY_HOUSE","LAND"]},"status":{"type":"string","enum":["CLOSED","DELETED","HIDDEN","OPEN"]},"top":{"type":"boolean"},"type":{"type":"string","enum":["SELL"]}},"title":"LandAnnouncementDto"},"LandPropertyDto":{"type":"object","properties":{"address":{"$ref":"#/definitions/AddressDto"},"area":{"type":"number","format":"float"},"id":{"type":"integer","format":"int64"},"owner":{"$ref":"#/definitions/SimplyUserWithContactsAndRatingDto"},"propertyType":{"type":"string","enum":["APARTMENT","FAMILY_HOUSE","LAND"]},"status":{"type":"string","enum":["ACTIVE","DELETED"]}},"title":"LandPropertyDto"},"LocalTime":{"type":"object","properties":{"hour":{"type":"integer","format":"int32"},"minute":{"type":"integer","format":"int32"},"nano":{"type":"integer","format":"int32"},"second":{"type":"integer","format":"int32"}},"title":"LocalTime"},"MessageDto":{"type":"object","properties":{"createdDate":{"type":"string","format":"date"},"createdTime":{"$ref":"#/definitions/LocalTime"},"id":{"type":"integer","format":"int64"},"receiver":{"$ref":"#/definitions/SimplyUserDto"},"sender":{"$ref":"#/definitions/SimplyUserDto"},"text":{"type":"string"}},"title":"MessageDto"},"PropertyDto":{"type":"object","properties":{"area":{"type":"number","format":"float"},"id":{"type":"integer","format":"int64"},"owner":{"$ref":"#/definitions/SimplyUserWithContactsAndRatingDto"},"propertyType":{"type":"string","enum":["APARTMENT","FAMILY_HOUSE","LAND"]},"status":{"type":"string","enum":["ACTIVE","DELETED"]}},"title":"PropertyDto"},"RegionDto":{"type":"object","properties":{"id":{"type":"integer","format":"int64"},"name":{"type":"string"}},"title":"RegionDto"},"RenovationType":{"type":"object","properties":{"id":{"type":"integer","format":"int64"},"name":{"type":"string"}},"title":"RenovationType"},"RentTimetableDto":{"type":"object","properties":{"announcementId":{"type":"integer","format":"int64"},"fromDt":{"type":"string","format":"date-time"},"toDt":{"type":"string","format":"date-time"}},"title":"RentTimetableDto"},"RentTimetableWithoutAnnouncementIdAndWithUserIdOfTenantDto":{"type":"object","properties":{"fromDt":{"type":"string","format":"date-time"},"tenant":{"$ref":"#/definitions/SimplyUserWithContactsAndRatingDto"},"toDt":{"type":"string","format":"date-time"}},"title":"RentTimetableWithoutAnnouncementIdAndWithUserIdOfTenantDto"},"RentTimetableWithoutAnnouncementIdDto":{"type":"object","properties":{"fromDt":{"type":"string","format":"date-time"},"toDt":{"type":"string","format":"date-time"}},"title":"RentTimetableWithoutAnnouncementIdDto"},"RequestAddressDto":{"type":"object","required":["houseNumber","streetId"],"properties":{"houseNumber":{"type":"string","minLength":0,"maxLength":255},"streetId":{"type":"integer","format":"int64"}},"title":"RequestAddressDto"},"RequestApartmentAnnouncementDto":{"type":"object","required":["apartmentPropertyId","price","type"],"properties":{"apartmentPropertyId":{"type":"integer","format":"int64"},"description":{"type":"string","minLength":1,"maxLength":4095},"price":{"type":"number","format":"double"},"type":{"type":"string","enum":["DAILY_RENT","MONTHLY_RENT","SELL"]}},"title":"RequestApartmentAnnouncementDto"},"RequestApartmentHouseDto":{"type":"object","required":["address"],"properties":{"address":{"$ref":"#/definitions/RequestAddressDto"},"buildingYear":{"type":"integer","format":"int32"},"elevator":{"type":"boolean"},"houseMaterialId":{"type":"integer","format":"int64"},"housingType":{"type":"string","enum":["NEW_CONSTRUCTION","SECONDARY"]},"numberOfFloors":{"type":"integer","format":"int32"}},"title":"RequestApartmentHouseDto"},"RequestApartmentPropertyDto":{"type":"object","required":["apartmentHouseId"],"properties":{"apartmentHouseId":{"type":"integer","format":"int64"},"apartmentNumber":{"type":"string","minLength":1,"maxLength":255},"area":{"type":"number","format":"float"},"floor":{"type":"integer","format":"int32"},"numberOfRooms":{"type":"integer","format":"int32"},"renovationTypeId":{"type":"integer","format":"int64"}},"title":"RequestApartmentPropertyDto"},"RequestApartmentPropertyWithUserIdOfOwnerDto":{"type":"object","required":["apartmentHouseId","userIdOfOwner"],"properties":{"apartmentHouseId":{"type":"integer","format":"int64"},"apartmentNumber":{"type":"string","minLength":1,"maxLength":255},"area":{"type":"number","format":"float"},"floor":{"type":"integer","format":"int32"},"numberOfRooms":{"type":"integer","format":"int32"},"renovationTypeId":{"type":"integer","format":"int64"},"userIdOfOwner":{"type":"integer","format":"int64"}},"title":"RequestApartmentPropertyWithUserIdOfOwnerDto"},"RequestBalanceOperationDto":{"type":"object","required":["sum"],"properties":{"comment":{"type":"string","minLength":1,"maxLength":255},"sum":{"type":"number","format":"double"}},"title":"RequestBalanceOperationDto"},"RequestCityDto":{"type":"object","required":["name","regionId"],"properties":{"name":{"type":"string","minLength":0,"maxLength":255},"regionId":{"type":"integer","format":"int64"}},"title":"RequestCityDto"},"RequestCityWithoutRegionIdDto":{"type":"object","required":["name"],"properties":{"name":{"type":"string","minLength":0,"maxLength":255}},"title":"RequestCityWithoutRegionIdDto"},"RequestFamilyHouseAnnouncementDto":{"type":"object","required":["familyHousePropertyId","price","type"],"properties":{"description":{"type":"string","minLength":1,"maxLength":4095},"familyHousePropertyId":{"type":"integer","format":"int64"},"price":{"type":"number","format":"double"},"type":{"type":"string","enum":["DAILY_RENT","MONTHLY_RENT","SELL"]}},"title":"RequestFamilyHouseAnnouncementDto"},"RequestFamilyHouseDto":{"type":"object","required":["address"],"properties":{"address":{"$ref":"#/definitions/RequestAddressDto"},"buildingYear":{"type":"integer","format":"int32"},"houseMaterialId":{"type":"integer","format":"int64"},"housingType":{"type":"string","enum":["NEW_CONSTRUCTION","SECONDARY"]},"numberOfFloors":{"type":"integer","format":"int32"},"swimmingPool":{"type":"boolean"}},"title":"RequestFamilyHouseDto"},"RequestFamilyHousePropertyDto":{"type":"object","required":["familyHouseId"],"properties":{"area":{"type":"number","format":"float"},"familyHouseId":{"type":"integer","format":"int64"},"numberOfRooms":{"type":"integer","format":"int32"},"renovationTypeId":{"type":"integer","format":"int64"}},"title":"RequestFamilyHousePropertyDto"},"RequestFamilyHousePropertyWithUserIdOfOwnerDto":{"type":"object","required":["familyHouseId","userIdOfOwner"],"properties":{"area":{"type":"number","format":"float"},"familyHouseId":{"type":"integer","format":"int64"},"numberOfRooms":{"type":"integer","format":"int32"},"renovationTypeId":{"type":"integer","format":"int64"},"userIdOfOwner":{"type":"integer","format":"int64"}},"title":"RequestFamilyHousePropertyWithUserIdOfOwnerDto"},"RequestHouseMaterialDto":{"type":"object","required":["name"],"properties":{"name":{"type":"string"}},"title":"RequestHouseMaterialDto"},"RequestHouseNumberDto":{"type":"object","required":["houseNumber"],"properties":{"houseNumber":{"type":"string","minLength":0,"maxLength":255}},"title":"RequestHouseNumberDto"},"RequestLandAnnouncementDto":{"type":"object","required":["landPropertyId","price","type"],"properties":{"description":{"type":"string","minLength":1,"maxLength":4095},"landPropertyId":{"type":"integer","format":"int64"},"price":{"type":"number","format":"double"},"type":{"type":"string","enum":["SELL"]}},"title":"RequestLandAnnouncementDto"},"RequestLandPropertyDto":{"type":"object","required":["streetId"],"properties":{"area":{"type":"number","format":"float"},"streetId":{"type":"integer","format":"int64"}},"title":"RequestLandPropertyDto"},"RequestLandPropertyWithUserIdOfOwnerDto":{"type":"object","required":["streetId","userIdOfOwner"],"properties":{"area":{"type":"number","format":"float"},"streetId":{"type":"integer","format":"int64"},"userIdOfOwner":{"type":"integer","format":"int64"}},"title":"RequestLandPropertyWithUserIdOfOwnerDto"},"RequestMessageDto":{"type":"object","required":["text"],"properties":{"text":{"type":"string","minLength":1,"maxLength":1023}},"title":"RequestMessageDto"},"RequestRegionDto":{"type":"object","required":["name"],"properties":{"name":{"type":"string","minLength":0,"maxLength":255}},"title":"RequestRegionDto"},"RequestRenovationTypeDto":{"type":"object","required":["name"],"properties":{"name":{"type":"string"}},"title":"RequestRenovationTypeDto"},"RequestRentTimetableDto":{"type":"object","required":["fromDt","toDt"],"properties":{"fromDt":{"type":"string","format":"date-time"},"toDt":{"type":"string","format":"date-time"}},"title":"RequestRentTimetableDto"},"RequestRentTimetableWithUserIdOfTenantDto":{"type":"object","required":["fromDt","toDt","userIdOfTenant"],"properties":{"fromDt":{"type":"string","format":"date-time"},"toDt":{"type":"string","format":"date-time"},"userIdOfTenant":{"type":"integer","format":"int64"}},"title":"RequestRentTimetableWithUserIdOfTenantDto"},"RequestReviewDto":{"type":"object","required":["comment"],"properties":{"comment":{"type":"string","minLength":1,"maxLength":1023},"note":{"type":"integer","format":"int32"}},"title":"RequestReviewDto"},"RequestStreetDto":{"type":"object","required":["cityId","name"],"properties":{"cityId":{"type":"integer","format":"int64"},"name":{"type":"string","minLength":0,"maxLength":255}},"title":"RequestStreetDto"},"RequestStreetWithoutCityIdDto":{"type":"object","required":["name"],"properties":{"name":{"type":"string","minLength":0,"maxLength":255}},"title":"RequestStreetWithoutCityIdDto"},"RequestTopTimetableDto":{"type":"object","required":["fromDt","toDt"],"properties":{"fromDt":{"type":"string","format":"date-time"},"toDt":{"type":"string","format":"date-time"}},"title":"RequestTopTimetableDto"},"RequestUserDto":{"type":"object","required":["password","username"],"properties":{"email":{"type":"string","minLength":1,"maxLength":255},"firstName":{"type":"string","minLength":1,"maxLength":255},"lastName":{"type":"string","minLength":1,"maxLength":255},"password":{"type":"string","minLength":8,"maxLength":1024},"patronymic":{"type":"string","minLength":1,"maxLength":255},"phoneNumber":{"type":"string","minLength":1,"maxLength":15},"username":{"type":"string","minLength":0,"maxLength":255}},"title":"RequestUserDto"},"RestResponseDto":{"type":"object","properties":{"message":{"type":"string"},"status":{"type":"integer","format":"int32"}},"title":"RestResponseDto"},"ReviewDto":{"type":"object","properties":{"comment":{"type":"string"},"createdDt":{"type":"string","format":"date-time"},"customer":{"$ref":"#/definitions/SimplyUserDto"},"id":{"type":"integer","format":"int64"},"note":{"type":"integer","format":"int32"},"seller":{"$ref":"#/definitions/SimplyUserWithRatingDto"}},"title":"ReviewDto"},"RoleDto":{"type":"object","properties":{"name":{"type":"string"}},"title":"RoleDto"},"SimplyUserDto":{"type":"object","properties":{"firstName":{"type":"string"},"id":{"type":"integer","format":"int64"},"lastName":{"type":"string"},"patronymic":{"type":"string"}},"title":"SimplyUserDto"},"SimplyUserWithContactsAndRatingDto":{"type":"object","properties":{"email":{"type":"string"},"firstName":{"type":"string"},"id":{"type":"integer","format":"int64"},"lastName":{"type":"string"},"patronymic":{"type":"string"},"phoneNumber":{"type":"string"},"rating":{"type":"number","format":"float"}},"title":"SimplyUserWithContactsAndRatingDto"},"SimplyUserWithRatingDto":{"type":"object","properties":{"firstName":{"type":"string"},"id":{"type":"integer","format":"int64"},"lastName":{"type":"string"},"patronymic":{"type":"string"},"rating":{"type":"number","format":"float"}},"title":"SimplyUserWithRatingDto"},"StreetDto":{"type":"object","properties":{"id":{"type":"integer","format":"int64"},"name":{"type":"string"}},"title":"StreetDto"},"TopTimetableWithoutAnnouncementIdDto":{"type":"object","properties":{"fromDt":{"type":"string","format":"date-time"},"toDt":{"type":"string","format":"date-time"}},"title":"TopTimetableWithoutAnnouncementIdDto"},"UpdateRequestAddressDto":{"type":"object","properties":{"houseNumber":{"type":"string","minLength":1,"maxLength":255},"streetId":{"type":"integer","format":"int64"}},"title":"UpdateRequestAddressDto"},"UpdateRequestAnnouncementTopPriceDto":{"type":"object","properties":{"pricePerHour":{"type":"number","format":"float","minimum":0,"exclusiveMinimum":false}},"title":"UpdateRequestAnnouncementTopPriceDto"},"UpdateRequestApartmentAnnouncementDto":{"type":"object","properties":{"apartmentPropertyId":{"type":"integer","format":"int64"},"description":{"type":"string","minLength":1,"maxLength":4095},"price":{"type":"number","format":"double"},"status":{"type":"string","enum":["CLOSED","DELETED","HIDDEN","OPEN"]},"type":{"type":"string","enum":["DAILY_RENT","MONTHLY_RENT","SELL"]}},"title":"UpdateRequestApartmentAnnouncementDto"},"UpdateRequestApartmentHouseDto":{"type":"object","properties":{"address":{"$ref":"#/definitions/RequestAddressDto"},"buildingYear":{"type":"integer","format":"int32"},"elevator":{"type":"boolean"},"houseMaterialId":{"type":"integer","format":"int64"},"housingType":{"type":"string","enum":["NEW_CONSTRUCTION","SECONDARY"]},"numberOfFloors":{"type":"integer","format":"int32"}},"title":"UpdateRequestApartmentHouseDto"},"UpdateRequestApartmentPropertyDto":{"type":"object","properties":{"apartmentHouseId":{"type":"integer","format":"int64"},"apartmentNumber":{"type":"string","minLength":1,"maxLength":255},"area":{"type":"number","format":"float"},"floor":{"type":"integer","format":"int32"},"numberOfRooms":{"type":"integer","format":"int32"},"renovationTypeId":{"type":"integer","format":"int64"},"status":{"type":"string","enum":["ACTIVE","DELETED"]}},"title":"UpdateRequestApartmentPropertyDto"},"UpdateRequestApartmentPropertyWithUserIdOfOwnerDto":{"type":"object","properties":{"apartmentHouseId":{"type":"integer","format":"int64"},"apartmentNumber":{"type":"string","minLength":1,"maxLength":255},"area":{"type":"number","format":"float"},"floor":{"type":"integer","format":"int32"},"numberOfRooms":{"type":"integer","format":"int32"},"renovationTypeId":{"type":"integer","format":"int64"},"status":{"type":"string","enum":["ACTIVE","DELETED"]},"userIdOfOwner":{"type":"integer","format":"int64"}},"title":"UpdateRequestApartmentPropertyWithUserIdOfOwnerDto"},"UpdateRequestCityDto":{"type":"object","properties":{"name":{"type":"string","minLength":1,"maxLength":255},"regionId":{"type":"integer","format":"int64"}},"title":"UpdateRequestCityDto"},"UpdateRequestFamilyHouseAnnouncementDto":{"type":"object","properties":{"description":{"type":"string","minLength":1,"maxLength":4095},"familyHousePropertyId":{"type":"integer","format":"int64"},"price":{"type":"number","format":"double"},"status":{"type":"string","enum":["CLOSED","DELETED","HIDDEN","OPEN"]},"type":{"type":"string","enum":["DAILY_RENT","MONTHLY_RENT","SELL"]}},"title":"UpdateRequestFamilyHouseAnnouncementDto"},"UpdateRequestFamilyHouseDto":{"type":"object","properties":{"address":{"$ref":"#/definitions/RequestAddressDto"},"buildingYear":{"type":"integer","format":"int32"},"houseMaterialId":{"type":"integer","format":"int64"},"housingType":{"type":"string","enum":["NEW_CONSTRUCTION","SECONDARY"]},"numberOfFloors":{"type":"integer","format":"int32"},"swimmingPool":{"type":"boolean"}},"title":"UpdateRequestFamilyHouseDto"},"UpdateRequestFamilyHousePropertyDto":{"type":"object","properties":{"area":{"type":"number","format":"float"},"familyHouseId":{"type":"integer","format":"int64"},"numberOfRooms":{"type":"integer","format":"int32"},"renovationTypeId":{"type":"integer","format":"int64"},"status":{"type":"string","enum":["ACTIVE","DELETED"]}},"title":"UpdateRequestFamilyHousePropertyDto"},"UpdateRequestFamilyHousePropertyWithUserIdOfOwnerDto":{"type":"object","properties":{"area":{"type":"number","format":"float"},"familyHouseId":{"type":"integer","format":"int64"},"numberOfRooms":{"type":"integer","format":"int32"},"renovationTypeId":{"type":"integer","format":"int64"},"status":{"type":"string","enum":["ACTIVE","DELETED"]},"userIdOfOwner":{"type":"integer","format":"int64"}},"title":"UpdateRequestFamilyHousePropertyWithUserIdOfOwnerDto"},"UpdateRequestLandAnnouncementDto":{"type":"object","properties":{"description":{"type":"string","minLength":1,"maxLength":4095},"landPropertyId":{"type":"integer","format":"int64"},"price":{"type":"number","format":"double"},"status":{"type":"string","enum":["CLOSED","DELETED","HIDDEN","OPEN"]},"type":{"type":"string","enum":["SELL"]}},"title":"UpdateRequestLandAnnouncementDto"},"UpdateRequestLandPropertyDto":{"type":"object","properties":{"area":{"type":"number","format":"float"},"status":{"type":"string","enum":["ACTIVE","DELETED"]},"streetId":{"type":"integer","format":"int64"}},"title":"UpdateRequestLandPropertyDto"},"UpdateRequestLandPropertyWithUserIdOfOwnerDto":{"type":"object","properties":{"area":{"type":"number","format":"float"},"status":{"type":"string","enum":["ACTIVE","DELETED"]},"streetId":{"type":"integer","format":"int64"},"userIdOfOwner":{"type":"integer","format":"int64"}},"title":"UpdateRequestLandPropertyWithUserIdOfOwnerDto"},"UpdateRequestStreetDto":{"type":"object","properties":{"cityId":{"type":"integer","format":"int64"},"name":{"type":"string","minLength":1,"maxLength":255}},"title":"UpdateRequestStreetDto"},"UpdateRequestUserDto":{"type":"object","properties":{"email":{"type":"string","minLength":1,"maxLength":255},"firstName":{"type":"string","minLength":1,"maxLength":255},"lastName":{"type":"string","minLength":1,"maxLength":255},"password":{"type":"string","minLength":8,"maxLength":1024},"patronymic":{"type":"string","minLength":1,"maxLength":255},"phoneNumber":{"type":"string","minLength":1,"maxLength":15},"username":{"type":"string","minLength":1,"maxLength":255}},"title":"UpdateRequestUserDto"},"UserDto":{"type":"object","properties":{"balance":{"type":"number","format":"double"},"email":{"type":"string"},"enabled":{"type":"boolean"},"firstName":{"type":"string"},"id":{"type":"integer","format":"int64"},"lastName":{"type":"string"},"patronymic":{"type":"string"},"phoneNumber":{"type":"string"},"rating":{"type":"number","format":"float"},"roles":{"type":"array","items":{"$ref":"#/definitions/RoleDto"}},"username":{"type":"string"}},"title":"UserDto"}}}'
     contentType: yaml
     _type: api_spec
   - _id: env_env_a70ce56d93d1747f5a09f5f2e7a2dbcb2a8d59d4_sub
