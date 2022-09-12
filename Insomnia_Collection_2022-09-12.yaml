@@ -1,13 +1,13 @@
 _type: export
 __export_format: 4
-__export_date: 2022-09-11T19:38:53.313Z
+__export_date: 2022-09-12T12:28:52.604Z
 __export_source: insomnia.desktop.app:v2022.6.0-beta.4
 resources:
   - _id: req_5502e68461fd4c6caebeaf5e2932f397
     parentId: wrk_b9c5b3d18bbe460fb180ea678719b6c4
-    modified: 1662637539578
+    modified: 1662977341466
     created: 1662327412801
-    url: https://api.vk.com/method/groups.get?params[user_id]=141066071&params[extended]=1&params[count]=3&params[v]=5.131
+    url: "{{ _.base_url }}/logout"
     name: New Request
     description: ""
     method: GET
@@ -38,7 +38,7 @@ resources:
     _type: workspace
   - _id: req_f18e6a1c44e64dd7b33d245a8c05cc65
     parentId: fld_8ed44d8a33624e9ea53b6307aad33fe7
-    modified: 1662924029048
+    modified: 1662977800526
     created: 1662319317271
     url: "{{ base_url }}/auth"
     name: Admin login
@@ -138,7 +138,7 @@ resources:
     _type: request
   - _id: req_99440e9c1f0847ff8425ccf89bc06304
     parentId: fld_6584936e712943bf9d98065c8303f542
-    modified: 1662647315347
+    modified: 1662977443747
     created: 1662319317277
     url: "{{ base_url }}/users"
     name: All users
@@ -173,7 +173,7 @@ resources:
     _type: request_group
   - _id: req_9898dc261a7e45a7881a565f4aada577
     parentId: fld_6584936e712943bf9d98065c8303f542
-    modified: 1662457419588
+    modified: 1662977813769
     created: 1662319317280
     url: "{{ base_url }}/users"
     name: User
@@ -212,7 +212,7 @@ resources:
     _type: request
   - _id: req_442c5be5f1d346e4957cb819b39e4094
     parentId: fld_6584936e712943bf9d98065c8303f542
-    modified: 1662501466668
+    modified: 1662977808287
     created: 1662319317288
     url: "{{ base_url }}/users/105"
     name: User by id
@@ -271,7 +271,7 @@ resources:
     _type: request
   - _id: req_a508a97dbfc5406c9cd3eb76c9a876be
     parentId: fld_6584936e712943bf9d98065c8303f542
-    modified: 1662899469183
+    modified: 1662977809729
     created: 1662319317298
     url: "{{ base_url }}/users/current"
     name: Current user
@@ -296,7 +296,7 @@ resources:
     _type: request
   - _id: req_0aca3d11fe534e9a95c479533242f843
     parentId: fld_6584936e712943bf9d98065c8303f542
-    modified: 1662899470320
+    modified: 1662977788357
     created: 1662319317301
     url: "{{ base_url }}/users/current"
     name: Current user
@@ -307,7 +307,7 @@ resources:
       text: |-
         {
         	"username": "admin",
-        	"password": "admin",
+        	//"password": "admin",
         	"lastName": "Слотин",
         	"firstName": "Александр",
         	"patronymic": "Сергеевич",
@@ -2973,7 +2973,7 @@ resources:
     _type: request
   - _id: req_05bb73926ac34907a47d6bff38cf5139
     parentId: fld_9d82da5d82da4cd480378dd0b9d7346e
-    modified: 1662909588079
+    modified: 1662978439402
     created: 1662500700903
     url: "{{ base_url }}/announcements/housing/apartments/100/timetables/top"
     name: Top timetable of apartment announcements by id
@@ -3018,7 +3018,7 @@ resources:
     _type: request_group
   - _id: req_2d562108a8a347f89f9ed76fe24dacce
     parentId: fld_9d82da5d82da4cd480378dd0b9d7346e
-    modified: 1662578015556
+    modified: 1662978440811
     created: 1662500924466
     url: "{{ base_url }}/announcements/housing/apartments/101/timetables/top"
     name: Top timetable of apartment announcements by id
@@ -3050,9 +3050,70 @@ resources:
     settingRebuildPath: true
     settingFollowRedirects: global
     _type: request
+  - _id: req_93878200c55a4125985b151338418096
+    parentId: fld_9d82da5d82da4cd480378dd0b9d7346e
+    modified: 1662978438511
+    created: 1662977893416
+    url: "{{ base_url
+      }}/announcements/housing/apartments/owner/current/100/timetables/top"
+    name: Top timetable of apartment announcements of current user by id
+    description: ""
+    method: GET
+    body: {}
+    parameters: []
+    headers:
+      - id: pair_9c241edd84bf4d8ebd17487b46c74029
+        name: Authorization
+        value: "{{ token }}"
+        description: ""
+    authentication: {}
+    metaSortKey: -1661529953971.9375
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_71a92992070e464d9f9fb50aa05e251e
+    parentId: fld_9d82da5d82da4cd480378dd0b9d7346e
+    modified: 1662978385083
+    created: 1662977876691
+    url: "{{ base_url
+      }}/announcements/housing/apartments/owner/current/101/timetables/top"
+    name: Top timetable of apartment announcements by id from current user
+    description: ""
+    method: POST
+    body:
+      mimeType: application/json
+      text: |-
+        {
+          "fromDt": "2022-09-12T01:00:00",
+          "toDt": "2022-09-25T02:00:00"
+        }
+    parameters: []
+    headers:
+      - id: pair_9c241edd84bf4d8ebd17487b46c74029
+        name: Authorization
+        value: "{{ token }}"
+        description: ""
+      - name: Content-Type
+        value: application/json
+        id: pair_47d7bb4f23a049fb8e79b02fa469d55e
+    authentication: {}
+    metaSortKey: -1661529953970.375
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
   - _id: req_4b4172e1831a4fd7902bc0157c31a1da
     parentId: fld_f8e3fc8894364201a0a0fe6d8e8faa02
-    modified: 1662909616975
+    modified: 1662978332817
     created: 1662319291379
     url: "{{ base_url }}/announcements/housing/apartments"
     name: All apartment announcements
@@ -3199,7 +3260,7 @@ resources:
     _type: request
   - _id: req_3e6bcd13615e4f8ba8fa6f9ecff6327e
     parentId: fld_f8e3fc8894364201a0a0fe6d8e8faa02
-    modified: 1662583327429
+    modified: 1662977201607
     created: 1662392489105
     url: "{{ base_url }}/announcements/housing/apartments/open"
     name: All open apartment announcements
@@ -3224,7 +3285,7 @@ resources:
     _type: request
   - _id: req_3691eb321ee24614ac63bed85e0f8607
     parentId: fld_f8e3fc8894364201a0a0fe6d8e8faa02
-    modified: 1662898807745
+    modified: 1662976222385
     created: 1662395296819
     url: "{{ base_url }}/announcements/housing/apartments/open/101"
     name: Open apartment announcements by id
@@ -3249,7 +3310,7 @@ resources:
     _type: request
   - _id: req_bb61e95c8d6847b6bf8caeb847f976e3
     parentId: fld_f8e3fc8894364201a0a0fe6d8e8faa02
-    modified: 1662911857984
+    modified: 1662978340394
     created: 1662389245863
     url: "{{ base_url }}/announcements/housing/apartments/current"
     name: All apartment announcements of current user
@@ -3371,7 +3432,7 @@ resources:
     _type: request
   - _id: req_b3c1334e221c467180ecd54bb59eae52
     parentId: fld_f8e3fc8894364201a0a0fe6d8e8faa02
-    modified: 1662898631705
+    modified: 1662977816367
     created: 1662648408277
     url: "{{ base_url }}/announcements/housing/apartments/closed/owner/100"
     name: All closed apartment announcements by user id of owner
@@ -3396,9 +3457,9 @@ resources:
     _type: request
   - _id: req_7b93112dde92458e8ec4da0a6eb657b6
     parentId: fld_519027e5bb364eee9fb5600d1d2c65a3
-    modified: 1662909546022
+    modified: 1662978664212
     created: 1662578041620
-    url: "{{ base_url }}/announcements/housing/family-house/105/timetables/top"
+    url: "{{ base_url }}/announcements/housing/family-houses/105/timetables/top"
     name: Top timetable of family house announcements by id
     description: ""
     method: GET
@@ -3439,11 +3500,72 @@ resources:
     environmentPropertyOrder: null
     metaSortKey: -1662070213394.5
     _type: request_group
+  - _id: req_fd415e33becf46c79657c83a711979bf
+    parentId: fld_519027e5bb364eee9fb5600d1d2c65a3
+    modified: 1662978661920
+    created: 1662978393887
+    url: "{{ base_url }}/announcements/housing/family-houses/105/timetables/top"
+    name: Top timetable of family house announcements by id
+    description: ""
+    method: POST
+    body:
+      mimeType: application/json
+      text: |-
+        {
+          "fromDt": "2022-09-12T01:00:00",
+          "toDt": "2022-09-25T02:00:00"
+        }
+    parameters: []
+    headers:
+      - id: pair_9c241edd84bf4d8ebd17487b46c74029
+        name: Authorization
+        value: "{{ token }}"
+        description: ""
+      - name: Content-Type
+        value: application/json
+        id: pair_47d7bb4f23a049fb8e79b02fa469d55e
+    authentication: {}
+    metaSortKey: -1661529953992.25
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_01eba2bd13334653a8342739cf800908
+    parentId: fld_519027e5bb364eee9fb5600d1d2c65a3
+    modified: 1662978573195
+    created: 1662978402820
+    url: "{{ base_url
+      }}/announcements/housing/family-houses/owner/current/105/timetables/top"
+    name: Top timetable of family house announcements of current user by id
+    description: ""
+    method: GET
+    body: {}
+    parameters: []
+    headers:
+      - id: pair_9c241edd84bf4d8ebd17487b46c74029
+        name: Authorization
+        value: "{{ token }}"
+        description: ""
+    authentication: {}
+    metaSortKey: -1661529953979.75
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
   - _id: req_e94dac5c8413475bb657140a721effec
     parentId: fld_519027e5bb364eee9fb5600d1d2c65a3
-    modified: 1662909563730
+    modified: 1662978584524
     created: 1662578053116
-    url: "{{ base_url }}/announcements/housing/family-house/105/timetables/top"
+    url: "{{ base_url
+      }}/announcements/housing/family-houses/owner/current/105/timetables/top"
     name: Top timetable of family house announcements by id from current user
     description: ""
     method: POST
@@ -3475,7 +3597,7 @@ resources:
     _type: request
   - _id: req_f4fdb1302bfb4dd887043abb2871808c
     parentId: fld_290b02e755db474d94d13a1eb5793015
-    modified: 1662909565646
+    modified: 1662978577677
     created: 1662319291402
     url: "{{ base_url }}/announcements/housing/family-houses"
     name: All family house announcements
@@ -3817,32 +3939,23 @@ resources:
     settingRebuildPath: true
     settingFollowRedirects: global
     _type: request
-  - _id: req_7ed6eee7e6ac420888bfd24e449a669a
+  - _id: req_01cda994464c4f8d88b6adf138d391f5
     parentId: fld_7668693e92c146c5b339d58977d10ded
-    modified: 1662579166131
-    created: 1662578072787
-    url: "{{ base_url }}/announcements/land/106/timetables/top"
+    modified: 1662978760336
+    created: 1662578066545
+    url: "{{ base_url }}/announcements/lands/106/timetables/top"
     name: Top timetable of land announcements by id
     description: ""
-    method: POST
-    body:
-      mimeType: application/json
-      text: |-
-        {
-          "fromDt": "2022-09-01T01:00:00",
-          "toDt": "2022-09-22T02:00:00"
-        }
+    method: GET
+    body: {}
     parameters: []
     headers:
       - id: pair_9c241edd84bf4d8ebd17487b46c74029
         name: Authorization
         value: "{{ token }}"
         description: ""
-      - name: Content-Type
-        value: application/json
-        id: pair_47d7bb4f23a049fb8e79b02fa469d55e
     authentication: {}
-    metaSortKey: -1662054453882.5
+    metaSortKey: -1662054453832.5
     isPrivate: false
     settingStoreCookies: true
     settingSendCookies: true
@@ -3871,12 +3984,46 @@ resources:
     environmentPropertyOrder: null
     metaSortKey: -1661940804055
     _type: request_group
-  - _id: req_01cda994464c4f8d88b6adf138d391f5
+  - _id: req_7ed6eee7e6ac420888bfd24e449a669a
     parentId: fld_7668693e92c146c5b339d58977d10ded
-    modified: 1662579171905
-    created: 1662578066545
-    url: "{{ base_url }}/announcements/land/106/timetables/top"
+    modified: 1662978723070
+    created: 1662578072787
+    url: "{{ base_url }}/announcements/lands/106/timetables/top"
     name: Top timetable of land announcements by id
+    description: ""
+    method: POST
+    body:
+      mimeType: application/json
+      text: |-
+        {
+          "fromDt": "2022-09-01T01:00:00",
+          "toDt": "2022-09-22T02:00:00"
+        }
+    parameters: []
+    headers:
+      - id: pair_9c241edd84bf4d8ebd17487b46c74029
+        name: Authorization
+        value: "{{ token }}"
+        description: ""
+      - name: Content-Type
+        value: application/json
+        id: pair_47d7bb4f23a049fb8e79b02fa469d55e
+    authentication: {}
+    metaSortKey: -1662054453782.5
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_39dd2458039a4aae975824be72870de6
+    parentId: fld_7668693e92c146c5b339d58977d10ded
+    modified: 1662985695520
+    created: 1662978715660
+    url: "{{ base_url }}/announcements/lands/owner/current/106/timetables/top"
+    name: Top timetable of land announcements of current user by id
     description: ""
     method: GET
     body: {}
@@ -3887,7 +4034,41 @@ resources:
         value: "{{ token }}"
         description: ""
     authentication: {}
-    metaSortKey: -1662054453832.5
+    metaSortKey: -1662003469500.1875
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_bd37c9a447d34d289bb4eaae08556f7d
+    parentId: fld_7668693e92c146c5b339d58977d10ded
+    modified: 1662978739277
+    created: 1662978707494
+    url: "{{ base_url }}/announcements/lands/owner/current/106/timetables/top"
+    name: Top timetable of land announcements by id from current user
+    description: ""
+    method: POST
+    body:
+      mimeType: application/json
+      text: |-
+        {
+          "fromDt": "2022-09-01T01:00:00",
+          "toDt": "2022-09-22T02:00:00"
+        }
+    parameters: []
+    headers:
+      - id: pair_9c241edd84bf4d8ebd17487b46c74029
+        name: Authorization
+        value: "{{ token }}"
+        description: ""
+      - name: Content-Type
+        value: application/json
+        id: pair_47d7bb4f23a049fb8e79b02fa469d55e
+    authentication: {}
+    metaSortKey: -1661952485217.875
     isPrivate: false
     settingStoreCookies: true
     settingSendCookies: true
@@ -3898,7 +4079,7 @@ resources:
     _type: request
   - _id: req_1e1763d1ae554c2ab5e58630b0fbf076
     parentId: fld_cf7da02fa3114657a25f14fc361ac1f1
-    modified: 1662583548595
+    modified: 1662927808252
     created: 1662319291423
     url: "{{ base_url }}/announcements/lands"
     name: All land announcements
@@ -3959,7 +4140,7 @@ resources:
     _type: request
   - _id: req_0ab71f06d87d45fa87e4746c1073e59f
     parentId: fld_cf7da02fa3114657a25f14fc361ac1f1
-    modified: 1662319291427
+    modified: 1662978757184
     created: 1662319291427
     url: "{{ base_url }}/announcements/lands/103"
     name: Land announcements by id
@@ -4045,7 +4226,7 @@ resources:
     _type: request
   - _id: req_4e3f96c4314d4d7b8c107803959573f5
     parentId: fld_cf7da02fa3114657a25f14fc361ac1f1
-    modified: 1662583484320
+    modified: 1662978770729
     created: 1662583384962
     url: "{{ base_url }}/announcements/lands/current"
     name: All land announcements of current user
@@ -4167,7 +4348,7 @@ resources:
     _type: request
   - _id: req_8bfc4c283e9443f582bbb6219b2fb482
     parentId: fld_cf7da02fa3114657a25f14fc361ac1f1
-    modified: 1662900307808
+    modified: 1662927803423
     created: 1662583371156
     url: "{{ base_url }}/announcements/lands/open"
     name: All open land announcements
@@ -4217,7 +4398,7 @@ resources:
     _type: request
   - _id: req_e09aee78a5b147fcbc7d80f5b3956e44
     parentId: fld_cf7da02fa3114657a25f14fc361ac1f1
-    modified: 1662798228938
+    modified: 1662976180916
     created: 1662648509503
     url: "{{ base_url }}/announcements/lands/closed/owner/100"
     name: All closed land announcements by user id of owner
@@ -4267,7 +4448,7 @@ resources:
     _type: request
   - _id: req_ae2592ce6133435c9be7ae1db64949fd
     parentId: fld_c694fb2941054412ad21392e1c949748
-    modified: 1662584375420
+    modified: 1662927743000
     created: 1662583617660
     url: "{{ base_url }}/announcements/housing"
     name: All housing announcements
@@ -4292,7 +4473,7 @@ resources:
     _type: request
   - _id: req_7ce6aacc382a455d81545ae0540eddf6
     parentId: fld_c694fb2941054412ad21392e1c949748
-    modified: 1662584375596
+    modified: 1662927745455
     created: 1662583631113
     url: "{{ base_url }}/announcements/housing/open"
     name: All open housing announcements
@@ -4315,34 +4496,9 @@ resources:
     settingRebuildPath: true
     settingFollowRedirects: global
     _type: request
-  - _id: req_940d7537d21e451591d2747522bb464e
-    parentId: fld_c694fb2941054412ad21392e1c949748
-    modified: 1662583656756
-    created: 1662583625890
-    url: "{{ base_url }}/announcements/housing/current"
-    name: All housing announcements of current user
-    description: ""
-    method: GET
-    body: {}
-    parameters: []
-    headers:
-      - id: pair_9c241edd84bf4d8ebd17487b46c74029
-        name: Authorization
-        value: "{{ token }}"
-        description: ""
-    authentication: {}
-    metaSortKey: -1661529955526.25
-    isPrivate: false
-    settingStoreCookies: true
-    settingSendCookies: true
-    settingDisableRenderRequestBody: false
-    settingEncodeUrl: true
-    settingRebuildPath: true
-    settingFollowRedirects: global
-    _type: request
   - _id: req_e3cae813db3e40c08523a51aa5c5601d
     parentId: fld_c694fb2941054412ad21392e1c949748
-    modified: 1662624331275
+    modified: 1662927767195
     created: 1662583578828
     url: "{{ base_url }}/announcements/open"
     name: All open announcements
@@ -4365,34 +4521,9 @@ resources:
     settingRebuildPath: true
     settingFollowRedirects: global
     _type: request
-  - _id: req_c785f390d9c741a99121b44eb46277ac
-    parentId: fld_c694fb2941054412ad21392e1c949748
-    modified: 1662647392236
-    created: 1662583589103
-    url: "{{ base_url }}/announcements/current"
-    name: All announcements of current user
-    description: ""
-    method: GET
-    body: {}
-    parameters: []
-    headers:
-      - id: pair_9c241edd84bf4d8ebd17487b46c74029
-        name: Authorization
-        value: "{{ token }}"
-        description: ""
-    authentication: {}
-    metaSortKey: -1661529955507.5
-    isPrivate: false
-    settingStoreCookies: true
-    settingSendCookies: true
-    settingDisableRenderRequestBody: false
-    settingEncodeUrl: true
-    settingRebuildPath: true
-    settingFollowRedirects: global
-    _type: request
   - _id: env_a34eeeca15978c8917903129a4fefaa00c578135
     parentId: wrk_b9c5b3d18bbe460fb180ea678719b6c4
-    modified: 1662924028424
+    modified: 1662977443086
     created: 1662319129537
     name: Base Environment
     data:
@@ -4401,7 +4532,7 @@ resources:
       host: localhost
       port: 8080
       base_url: "{{ scheme }}://{{ host }}:{{ port }}{{ base_path }}"
-      token: eyJhbGciOiJIUzI1NiJ9.eyJyb2xlIjpbIkFETUlOIl0sInVzZXJJZCI6MTAwLCJzdWIiOiJhZG1pbiIsImlhdCI6MTY2MjkyNzYxMywiZXhwIjoxNjYyOTI3NjEzfQ.p7P52ODwTk-8S9J_gVmHEEcesc9LLnXtR4QvrBHP-_4
+      token: eyJhbGciOiJIUzI1NiJ9.eyJyb2xlIjpbIkFETUlOIl0sInVzZXJJZCI6MTAwLCJzdWIiOiJhZG1pbiIsImlhdCI6MTY2Mjk4MTAzMCwiZXhwIjoxNjYyOTgxMDMwfQ.gYuq5bU8_vNz0HVJrHf6Iyr5HWO11VjllMtYzMjDAnw
     dataPropertyOrder:
       "&":
         - scheme
