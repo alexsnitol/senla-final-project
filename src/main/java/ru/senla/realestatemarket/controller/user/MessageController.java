@@ -8,7 +8,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -63,15 +62,6 @@ public class MessageController {
 
         return new ResponseEntity<>(new RestResponseDto("Message has been sent",
                 HttpStatus.CREATED.value()), HttpStatus.CREATED);
-    }
-
-    @PutMapping("/{id}")
-    public ResponseEntity<RestResponseDto> updateById(
-            @PathVariable Long id,
-            @RequestBody @Valid RequestMessageDto requestMessageDto
-    ) {
-        // TODO
-        return null;
     }
 
 }
