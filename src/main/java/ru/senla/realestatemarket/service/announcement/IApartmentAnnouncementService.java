@@ -15,6 +15,7 @@ public interface IApartmentAnnouncementService
     List<ApartmentAnnouncementDto> getAllWithClosedStatusByUserIdOfOwnerDto(
             Long useIdOfOwner, String rsqlQuery, String sortQuery);
     List<ApartmentAnnouncementDto> getAllDtoOfCurrentUser(String rsqlQuery, String sortQuery);
+    List<ApartmentAnnouncementDto> getAllByKeyWords(String keyWords);
 
     ApartmentAnnouncementDto getDtoById(Long id);
     ApartmentAnnouncementDto getByIdWithOpenStatusDto(Long id);

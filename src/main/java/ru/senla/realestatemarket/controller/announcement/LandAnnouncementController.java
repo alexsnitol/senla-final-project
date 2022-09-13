@@ -35,6 +35,17 @@ public class LandAnnouncementController {
 
     @ApiOperation(
             value = "",
+            notes = "Search by key words in all string fields"
+    )
+    @GetMapping("/search")
+    public List<LandAnnouncementDto> getAllByKeyWords(
+            @RequestParam(value = "keywords", required = false) String keyWords
+    ) {
+        return landAnnouncementService.getAllByKeyWords(keyWords);
+    }
+
+    @ApiOperation(
+            value = "",
             authorizations = @Authorization("ADMIN")
     )
     @GetMapping

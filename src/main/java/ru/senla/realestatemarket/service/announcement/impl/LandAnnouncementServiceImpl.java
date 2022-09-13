@@ -23,7 +23,9 @@ import ru.senla.realestatemarket.util.UserUtil;
 
 import javax.annotation.PostConstruct;
 import javax.transaction.Transactional;
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static ru.senla.realestatemarket.repo.announcement.specification.GenericAnnouncementSpecification.hasIdAndUserIdOfOwnerInProperty;
 import static ru.senla.realestatemarket.repo.announcement.specification.LandAnnouncementSpecification.hasUserIdOfOwnerInProperty;
@@ -131,6 +133,15 @@ public class LandAnnouncementServiceImpl
         }
 
         return landAnnouncementMapper.toLandAnnouncementDto(landAnnouncementList);
+    }
+
+    @Override
+    @Transactional
+    public List<LandAnnouncementDto> getAllByKeyWords(String keyWords) {
+        List<String> keyWordsSplit = Arrays.stream(keyWords.split(",")).collect(Collectors.toList());
+
+        return landAnnouncementMapper.toLandAnnouncementDto(
+                landAnnouncementRepository.findAllInTheTextFieldsOfWhichContainsTheKeys(keyWordsSplit));
     }
 
     @Override

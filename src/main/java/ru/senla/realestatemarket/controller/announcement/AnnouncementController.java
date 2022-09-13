@@ -24,6 +24,17 @@ public class AnnouncementController {
     private final IHousingAnnouncementService housingAnnouncementService;
 
 
+    @ApiOperation(
+            value = "",
+            notes = "Search by key words in all string fields"
+    )
+    @GetMapping("/search")
+    public List<AnnouncementDto> getAllByKeyWords(
+            @RequestParam(value = "keywords", required = false) String keyWords
+    ) {
+        return announcementService.getAllByKeyWords(keyWords);
+    }
+
     @GetMapping
     public List<AnnouncementDto> getAllAnnouncements(
             @RequestParam(value = "q", required = false) String rsqlQuery,

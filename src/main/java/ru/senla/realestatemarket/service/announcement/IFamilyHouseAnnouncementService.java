@@ -15,6 +15,7 @@ public interface IFamilyHouseAnnouncementService
     List<FamilyHouseAnnouncementDto> getAllWithClosedStatusByUserIdOfOwnerDto(
             Long useIdOfOwner, String rsqlQuery, String sortQuery);
     List<FamilyHouseAnnouncementDto> getAllDtoOfCurrentUser(String rsqlQuery, String sortQuery);
+    List<FamilyHouseAnnouncementDto> getAllByKeyWords(String keyWords);
 
     FamilyHouseAnnouncementDto getDtoById(Long id);
     FamilyHouseAnnouncementDto getByIdWithOpenStatusDto(Long id);

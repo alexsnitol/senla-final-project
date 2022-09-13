@@ -15,6 +15,7 @@ public interface ILandAnnouncementService
     List<LandAnnouncementDto> getAllWithClosedStatusByUserIdOfOwnerDto(
             Long useIdOfOwner, String rsqlQuery, String sortQuery);
     List<LandAnnouncementDto> getAllDtoOfCurrentUser(String rsqlQuery, String sortQuery);
+    List<LandAnnouncementDto> getAllByKeyWords(String keyWords);
 
     LandAnnouncementDto getDtoById(Long id);
     LandAnnouncementDto getByIdWithOpenStatusDto(Long id);

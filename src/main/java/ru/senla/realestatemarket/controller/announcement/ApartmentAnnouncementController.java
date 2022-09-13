@@ -33,6 +33,18 @@ public class ApartmentAnnouncementController {
     private final IApartmentAnnouncementService apartmentAnnouncementService;
 
 
+
+    @ApiOperation(
+            value = "",
+            notes = "Search by key words in all string fields"
+    )
+    @GetMapping("/search")
+    public List<ApartmentAnnouncementDto> getAllByKeyWords(
+            @RequestParam(value = "keywords", required = false) String keyWords
+    ) {
+        return apartmentAnnouncementService.getAllByKeyWords(keyWords);
+    }
+
     @ApiOperation(
             value = "",
             authorizations = @Authorization("ADMIN")
