@@ -65,6 +65,9 @@ dependencies {
 
 
     implementation 'org.springframework:spring-aop:5.3.22'
+    implementation 'org.aspectj:aspectjtools:1.7.4'
+    runtimeOnly 'org.aspectj:aspectjweaver:1.7.4'
+    runtimeOnly 'org.aspectj:aspectjrt:1.7.4'
 
 
 

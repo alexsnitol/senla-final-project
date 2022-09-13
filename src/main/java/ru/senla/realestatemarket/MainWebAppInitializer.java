@@ -1,6 +1,7 @@
 package ru.senla.realestatemarket;
 
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
+import ru.senla.realestatemarket.config.AspectJConfig;
 import ru.senla.realestatemarket.config.CoreConfig;
 import ru.senla.realestatemarket.config.SpringFoxConfig;
 import ru.senla.realestatemarket.config.WebConfig;
@@ -17,7 +18,7 @@ public class MainWebAppInitializer extends AbstractAnnotationConfigDispatcherSer
 
     @Override
     protected Class<?>[] getRootConfigClasses() {
-        return new Class[] {WebSecurityConfig.class, CoreConfig.class};
+        return new Class[] {WebSecurityConfig.class, CoreConfig.class, AspectJConfig.class};
     }
 
     @Override
