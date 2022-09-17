@@ -1,12 +1,10 @@
 package ru.senla.realestatemarket.dto.address;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
-@Getter
-@Setter
+@Data
 public class AddressDto {
 
     private Long id;

@@ -1,10 +1,8 @@
 package ru.senla.realestatemarket.dto.house;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
-@Getter
-@Setter
+@Data
 public class FamilyHouseDto extends HouseDto {
 
     private Boolean swimmingPool;

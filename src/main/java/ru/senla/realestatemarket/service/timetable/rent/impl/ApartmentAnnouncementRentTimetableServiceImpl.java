@@ -1,7 +1,6 @@
 package ru.senla.realestatemarket.service.timetable.rent.impl;
 
 import lombok.extern.slf4j.Slf4j;
-import org.mapstruct.factory.Mappers;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import ru.senla.realestatemarket.dto.timetable.RentTimetableDto;
@@ -44,21 +43,22 @@ public class ApartmentAnnouncementRentTimetableServiceImpl
     private final IApartmentAnnouncementRepository apartmentAnnouncementRepository;
     private final IApartmentAnnouncementRentPurchaseRepository apartmentAnnouncementRentPurchaseRepository;
 
-    private final ApartmentAnnouncementRentTimetableMapper timetableMapper
-            = Mappers.getMapper(ApartmentAnnouncementRentTimetableMapper.class);
+    private final ApartmentAnnouncementRentTimetableMapper timetableMapper;
 
 
     public ApartmentAnnouncementRentTimetableServiceImpl(
             IUserRepository userRepository,
+            UserUtil userUtil,
             IBalanceOperationService balanceOperationService,
             IApartmentAnnouncementRentTimetableRepository apartmentAnnouncementRentTimetableRepository,
             IApartmentAnnouncementRepository apartmentAnnouncementRepository,
-            IApartmentAnnouncementRentPurchaseRepository apartmentAnnouncementRentPurchaseRepository
-    ) {
-        super(userRepository, balanceOperationService);
+            IApartmentAnnouncementRentPurchaseRepository apartmentAnnouncementRentPurchaseRepository,
+            ApartmentAnnouncementRentTimetableMapper timetableMapper) {
+        super(userRepository, userUtil, balanceOperationService);
         this.apartmentAnnouncementRentTimetableRepository = apartmentAnnouncementRentTimetableRepository;
         this.apartmentAnnouncementRepository = apartmentAnnouncementRepository;
         this.apartmentAnnouncementRentPurchaseRepository = apartmentAnnouncementRentPurchaseRepository;
+        this.timetableMapper = timetableMapper;
     }
 
 
@@ -117,11 +117,11 @@ public class ApartmentAnnouncementRentTimetableServiceImpl
         if (sortQuery == null) {
             // default sort
             apartmentAnnouncementRentTimetables = getAll(
-                    hasUserIdOfTenant(UserUtil.getCurrentUserId()),
+                    hasUserIdOfTenant(userUtil.getCurrentUserId()),
                     rsqlQuery, Sort.by(Sort.Direction.ASC, "fromDt"));
         } else {
             apartmentAnnouncementRentTimetables = getAll(
-                    hasUserIdOfTenant(UserUtil.getCurrentUserId()),
+                    hasUserIdOfTenant(userUtil.getCurrentUserId()),
                     rsqlQuery, sortQuery);
         }
 
@@ -139,12 +139,12 @@ public class ApartmentAnnouncementRentTimetableServiceImpl
         if (sortQuery == null) {
             // default sort
             apartmentAnnouncementRentTimetables = getAll(
-                    hasUserIdOfTenant(UserUtil.getCurrentUserId())
+                    hasUserIdOfTenant(userUtil.getCurrentUserId())
                             .and(hasApartmentAnnouncementId(apartmentAnnouncementId)),
                     rsqlQuery, Sort.by(Sort.Direction.ASC, "fromDt"));
         } else {
             apartmentAnnouncementRentTimetables = getAll(
-                    hasUserIdOfTenant(UserUtil.getCurrentUserId())
+                    hasUserIdOfTenant(userUtil.getCurrentUserId())
                             .and(hasApartmentAnnouncementId(apartmentAnnouncementId)),
                     rsqlQuery, sortQuery);
         }
@@ -164,12 +164,12 @@ public class ApartmentAnnouncementRentTimetableServiceImpl
             // default sort
             apartmentAnnouncementRentTimetables = getAll(
                     hasApartmentAnnouncementIdAndUserIdOfOwnerInPropertyItAnnouncement(
-                            apartmentAnnouncementId, UserUtil.getCurrentUserId()),
+                            apartmentAnnouncementId, userUtil.getCurrentUserId()),
                     rsqlQuery, Sort.by(Sort.Direction.ASC, "fromDt"));
         } else {
             apartmentAnnouncementRentTimetables = getAll(
                     hasApartmentAnnouncementIdAndUserIdOfOwnerInPropertyItAnnouncement(
-                            apartmentAnnouncementId, UserUtil.getCurrentUserId()),
+                            apartmentAnnouncementId, userUtil.getCurrentUserId()),
                     rsqlQuery, sortQuery);
         }
 
@@ -223,7 +223,7 @@ public class ApartmentAnnouncementRentTimetableServiceImpl
 
         timetable.setAnnouncement(apartmentAnnouncement);
 
-        User currentTenantUser = userRepository.findById(UserUtil.getCurrentUserId());
+        User currentTenantUser = userRepository.findById(userUtil.getCurrentUserId());
         timetable.setTenant(currentTenantUser);
 
 

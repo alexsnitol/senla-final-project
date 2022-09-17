@@ -1,10 +1,8 @@
 package ru.senla.realestatemarket.dto.property;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
-@Getter
-@Setter
+@Data
 public class HousingPropertyDto extends PropertyDto {
 
     private Short numberOfRooms;

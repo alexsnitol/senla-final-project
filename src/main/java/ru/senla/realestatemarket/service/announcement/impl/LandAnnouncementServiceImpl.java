@@ -1,7 +1,6 @@
 package ru.senla.realestatemarket.service.announcement.impl;
 
 import lombok.extern.slf4j.Slf4j;
-import org.mapstruct.factory.Mappers;
 import org.springframework.stereotype.Service;
 import ru.senla.realestatemarket.dto.announcement.LandAnnouncementDto;
 import ru.senla.realestatemarket.dto.announcement.RequestLandAnnouncementDto;
@@ -39,14 +38,17 @@ public class LandAnnouncementServiceImpl
     private final ILandAnnouncementRepository landAnnouncementRepository;
     private final ILandPropertyRepository landPropertyRepository;
 
-    private final LandAnnouncementMapper landAnnouncementMapper
-            = Mappers.getMapper(LandAnnouncementMapper.class);
+    private final LandAnnouncementMapper landAnnouncementMapper;
 
 
     public LandAnnouncementServiceImpl(ILandAnnouncementRepository landAnnouncementRepository,
-                                       ILandPropertyRepository landPropertyRepository) {
+                                       ILandPropertyRepository landPropertyRepository,
+                                       UserUtil userUtil,
+                                       LandAnnouncementMapper landAnnouncementMapper) {
+        super(userUtil);
         this.landAnnouncementRepository = landAnnouncementRepository;
         this.landPropertyRepository = landPropertyRepository;
+        this.landAnnouncementMapper = landAnnouncementMapper;
     }
 
     @PostConstruct
@@ -125,10 +127,10 @@ public class LandAnnouncementServiceImpl
 
         if (sortQuery == null) {
             // default sort
-            landAnnouncementList = getAll(hasUserIdOfOwnerInProperty(UserUtil.getCurrentUserId()),
+            landAnnouncementList = getAll(hasUserIdOfOwnerInProperty(userUtil.getCurrentUserId()),
                     rsqlQuery, AnnouncementSort.byCreatedDtAsc());
         } else {
-            landAnnouncementList = getAll(hasUserIdOfOwnerInProperty(UserUtil.getCurrentUserId()),
+            landAnnouncementList = getAll(hasUserIdOfOwnerInProperty(userUtil.getCurrentUserId()),
                     rsqlQuery, sortQuery);
         }
 
@@ -163,7 +165,7 @@ public class LandAnnouncementServiceImpl
     @Transactional
     public LandAnnouncementDto getByIdDtoOfCurrentUser(Long id) {
         return landAnnouncementMapper.toLandAnnouncementDto(
-                getOne(hasIdAndUserIdOfOwnerInProperty(id, UserUtil.getCurrentUserId()))
+                getOne(hasIdAndUserIdOfOwnerInProperty(id, userUtil.getCurrentUserId()))
         );
     }
 
@@ -204,7 +206,7 @@ public class LandAnnouncementServiceImpl
     @Override
     @Transactional
     public void updateByIdFromCurrentUser(UpdateRequestLandAnnouncementDto updateRequestDto, Long id) {
-        LandAnnouncement landAnnouncement = getOne(hasIdAndUserIdOfOwnerInProperty(id, UserUtil.getCurrentUserId()));
+        LandAnnouncement landAnnouncement = getOne(hasIdAndUserIdOfOwnerInProperty(id, userUtil.getCurrentUserId()));
 
 
         Long landPropertyId = updateRequestDto.getLandPropertyId();

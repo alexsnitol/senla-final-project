@@ -3,7 +3,8 @@ package ru.senla.realestatemarket.mapper.property;
 import org.mapstruct.IterableMapping;
 import org.mapstruct.Mapper;
 import org.mapstruct.Named;
-import org.mapstruct.factory.Mappers;
+import org.mapstruct.ReportingPolicy;
+import org.springframework.beans.factory.annotation.Autowired;
 import ru.senla.realestatemarket.dto.property.ApartmentPropertyDto;
 import ru.senla.realestatemarket.dto.property.FamilyHousePropertyDto;
 import ru.senla.realestatemarket.dto.property.HousingPropertyDto;
@@ -16,13 +17,24 @@ import ru.senla.realestatemarket.model.property.PropertyTypeEnum;
 import java.util.Collection;
 import java.util.List;
 
-@Mapper(uses = {UserMapper.class, RenovationTypeMapper.class})
+@Mapper(uses = {UserMapper.class, RenovationTypeMapper.class},
+        unmappedTargetPolicy = ReportingPolicy.IGNORE,
+        componentModel = "spring")
 public abstract class HousingPropertyMapper {
 
-    private final ApartmentPropertyMapper apartmentPropertyMapper
-            = Mappers.getMapper(ApartmentPropertyMapper.class);
-    private final FamilyHousePropertyMapper familyHousePropertyMapper
-            = Mappers.getMapper(FamilyHousePropertyMapper.class);
+    protected ApartmentPropertyMapper apartmentPropertyMapper;
+    protected FamilyHousePropertyMapper familyHousePropertyMapper;
+
+
+    @Autowired
+    public void setApartmentPropertyMapper(ApartmentPropertyMapper apartmentPropertyMapper) {
+        this.apartmentPropertyMapper = apartmentPropertyMapper;
+    }
+
+    @Autowired
+    public void setFamilyHousePropertyMapper(FamilyHousePropertyMapper familyHousePropertyMapper) {
+        this.familyHousePropertyMapper = familyHousePropertyMapper;
+    }
 
 
     public abstract HousingPropertyDto toHousingPropertyDto(HousingProperty housingProperty);
@@ -55,4 +67,5 @@ public abstract class HousingPropertyMapper {
 
     @IterableMapping(qualifiedByName = "MappedInheritors")
     public abstract List<HousingPropertyDto> toHousingPropertyDtoWithMappedInheritors(List<HousingProperty> housingPropertyList);
+
 }

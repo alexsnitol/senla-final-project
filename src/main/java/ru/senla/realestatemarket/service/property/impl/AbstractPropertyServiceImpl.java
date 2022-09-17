@@ -23,15 +23,20 @@ public abstract class AbstractPropertyServiceImpl
         implements IAbstractPropertyService<P> {
 
     protected final IUserRepository userRepository;
+    protected final UserUtil userUtil;
 
 
-    protected AbstractPropertyServiceImpl(IUserRepository userRepository) {
+    protected AbstractPropertyServiceImpl(
+            IUserRepository userRepository,
+            UserUtil userUtil
+    ) {
         this.userRepository = userRepository;
+        this.userUtil = userUtil;
     }
 
 
     protected void validateAccessCurrentUserToProperty(P property) {
-        if (!property.getOwner().getId().equals(UserUtil.getCurrentUserId())) {
+        if (!property.getOwner().getId().equals(userUtil.getCurrentUserId())) {
             String message = "Access denied, because owner of it property is different from requested owner";
 
             log.error(message);

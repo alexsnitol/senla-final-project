@@ -1,7 +1,6 @@
 package ru.senla.realestatemarket.service.property.impl;
 
 import lombok.extern.slf4j.Slf4j;
-import org.mapstruct.factory.Mappers;
 import org.springframework.stereotype.Service;
 import ru.senla.realestatemarket.dto.property.LandPropertyDto;
 import ru.senla.realestatemarket.dto.property.RequestLandPropertyDto;
@@ -35,15 +34,18 @@ public class LandPropertyServiceImpl
     private final ILandPropertyRepository landPropertyRepository;
     private final IStreetRepository streetRepository;
 
-    private final LandPropertyMapper landPropertyMapper = Mappers.getMapper(LandPropertyMapper.class);
+    private final LandPropertyMapper landPropertyMapper;
 
 
     public LandPropertyServiceImpl(IUserRepository userRepository,
                                    ILandPropertyRepository landPropertyRepository,
-                                   IStreetRepository streetRepository) {
-        super(userRepository);
+                                   IStreetRepository streetRepository,
+                                   UserUtil userUtil,
+                                   LandPropertyMapper landPropertyMapper) {
+        super(userRepository, userUtil);
         this.landPropertyRepository = landPropertyRepository;
         this.streetRepository = streetRepository;
+        this.landPropertyMapper = landPropertyMapper;
     }
 
     @PostConstruct
@@ -64,7 +66,7 @@ public class LandPropertyServiceImpl
     @Transactional
     public List<LandPropertyDto> getAllDtoOfCurrentUser(String rsqlQuery, String sortQuery) {
         List<LandProperty> landPropertyList = getAll(
-                GenericPropertySpecification.hasUserIdOfOwner(UserUtil.getCurrentUserId()), rsqlQuery, sortQuery);
+                GenericPropertySpecification.hasUserIdOfOwner(userUtil.getCurrentUserId()), rsqlQuery, sortQuery);
 
         return landPropertyMapper.toLandPropertyDto(landPropertyList);
     }
@@ -79,7 +81,7 @@ public class LandPropertyServiceImpl
     @Transactional
     public LandPropertyDto getDtoByIdOfCurrentUser(Long id) {
         return landPropertyMapper.toLandPropertyDto(
-                getOne(GenericPropertySpecification.hasIdAndUserIdOfOwner(id, UserUtil.getCurrentUserId())));
+                getOne(GenericPropertySpecification.hasIdAndUserIdOfOwner(id, userUtil.getCurrentUserId())));
     }
 
     @Override
@@ -96,7 +98,7 @@ public class LandPropertyServiceImpl
     @Override
     @Transactional
     public void addFromDtoFromCurrentUser(RequestLandPropertyDto requestDto) {
-        addFromDtoWithSpecificUserIdOfOwner(requestDto, UserUtil.getCurrentUserId());
+        addFromDtoWithSpecificUserIdOfOwner(requestDto, userUtil.getCurrentUserId());
     }
 
     private void addFromDtoWithSpecificUserIdOfOwner(RequestLandPropertyDto requestDto, Long userIdOfOwner) {

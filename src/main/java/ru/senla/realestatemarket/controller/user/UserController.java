@@ -53,7 +53,7 @@ public class UserController {
     public ResponseEntity<RestResponseDto> add(
             @RequestBody @Valid RequestUserDto requestUserDto
     ) {
-        userService.add(requestUserDto);
+        userService.addFromDto(requestUserDto);
 
         return new ResponseEntity<>(new RestResponseDto("User has been registered",
                 HttpStatus.CREATED.value()), HttpStatus.CREATED);
@@ -92,7 +92,7 @@ public class UserController {
             @PathVariable Long id,
             @RequestBody @Valid UpdateRequestUserDto updateRequestUserDto
     ) {
-        userService.updateById(updateRequestUserDto, id);
+        userService.updateByIdFromDto(updateRequestUserDto, id);
 
         return ResponseEntity.ok(new RestResponseDto("User has been updated", HttpStatus.OK.value()));
     }
@@ -106,7 +106,7 @@ public class UserController {
     public ResponseEntity<RestResponseDto> updateCurrentUser(
             @RequestBody @Valid UpdateRequestUserDto updateRequestUserDto
     ) {
-        userService.updateCurrentUser(updateRequestUserDto);
+        userService.updateCurrentUserFromDto(updateRequestUserDto);
 
         return ResponseEntity.ok(new RestResponseDto("Current user has been updated", HttpStatus.OK.value()));
     }

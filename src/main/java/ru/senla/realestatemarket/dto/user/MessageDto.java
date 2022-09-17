@@ -1,14 +1,12 @@
 package ru.senla.realestatemarket.dto.user;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
 
-@Getter
-@Setter
+@Data
 public class MessageDto {
 
     private Long id;

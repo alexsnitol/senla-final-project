@@ -1,6 +1,7 @@
 package ru.senla.realestatemarket.mapper.timetable.top;
 
 import org.mapstruct.Mapper;
+import org.mapstruct.ReportingPolicy;
 import ru.senla.realestatemarket.dto.timetable.RequestTopTimetableDto;
 import ru.senla.realestatemarket.dto.timetable.TopTimetableDto;
 import ru.senla.realestatemarket.dto.timetable.TopTimetableWithoutAnnouncementIdDto;
@@ -9,7 +10,8 @@ import ru.senla.realestatemarket.model.timetable.top.FamilyHouseAnnouncementTopT
 import java.util.Collection;
 import java.util.List;
 
-@Mapper
+@Mapper(unmappedTargetPolicy = ReportingPolicy.IGNORE,
+        componentModel = "spring")
 public abstract class FamilyHouseAnnouncementTopTimetableMapper {
 
     public abstract FamilyHouseAnnouncementTopTimetable toFamilyHouseAnnouncementTopTimetable(

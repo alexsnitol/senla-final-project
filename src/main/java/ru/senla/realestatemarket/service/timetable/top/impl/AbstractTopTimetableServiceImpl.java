@@ -7,6 +7,7 @@ import ru.senla.realestatemarket.repo.user.IUserRepository;
 import ru.senla.realestatemarket.service.timetable.AbstractTimetableServiceImpl;
 import ru.senla.realestatemarket.service.timetable.top.IAbstractTopTimetableService;
 import ru.senla.realestatemarket.service.user.IBalanceOperationService;
+import ru.senla.realestatemarket.util.UserUtil;
 
 import java.time.LocalDateTime;
 
@@ -18,9 +19,10 @@ public abstract class AbstractTopTimetableServiceImpl<M extends IModel<Long>>
     protected final IAnnouncementTopPriceRepository announcementTopPriceRepository;
 
     protected AbstractTopTimetableServiceImpl(IUserRepository userRepository,
+                                              UserUtil userUtil,
                                               IBalanceOperationService balanceOperationService,
                                               IAnnouncementTopPriceRepository announcementTopPriceRepository) {
-        super(userRepository, balanceOperationService);
+        super(userRepository, userUtil, balanceOperationService);
         this.announcementTopPriceRepository = announcementTopPriceRepository;
     }
 

@@ -1,10 +1,8 @@
 package ru.senla.realestatemarket.dto.address;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
-@Getter
-@Setter
+@Data
 public class InlineAddressDto {
 
     private String address;

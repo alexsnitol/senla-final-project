@@ -3,7 +3,8 @@ package ru.senla.realestatemarket.mapper.announcement;
 import org.mapstruct.IterableMapping;
 import org.mapstruct.Mapper;
 import org.mapstruct.Named;
-import org.mapstruct.factory.Mappers;
+import org.mapstruct.ReportingPolicy;
+import org.springframework.beans.factory.annotation.Autowired;
 import ru.senla.realestatemarket.dto.announcement.ApartmentAnnouncementDto;
 import ru.senla.realestatemarket.dto.announcement.FamilyHouseAnnouncementDto;
 import ru.senla.realestatemarket.dto.announcement.HousingAnnouncementDto;
@@ -15,14 +16,24 @@ import ru.senla.realestatemarket.model.property.PropertyTypeEnum;
 import java.util.Collection;
 import java.util.List;
 
-@Mapper
+@Mapper(unmappedTargetPolicy = ReportingPolicy.IGNORE,
+        componentModel = "spring")
 public abstract class HousingAnnouncementMapper {
 
-    private final ApartmentAnnouncementMapper apartmentAnnouncementMapper
-            = Mappers.getMapper(ApartmentAnnouncementMapper.class);
+    protected ApartmentAnnouncementMapper apartmentAnnouncementMapper;
 
-    private final FamilyHouseAnnouncementMapper familyHouseAnnouncementMapper
-            = Mappers.getMapper(FamilyHouseAnnouncementMapper.class);
+    protected FamilyHouseAnnouncementMapper familyHouseAnnouncementMapper;
+
+
+    @Autowired
+    public void setApartmentAnnouncementMapper(ApartmentAnnouncementMapper apartmentAnnouncementMapper) {
+        this.apartmentAnnouncementMapper = apartmentAnnouncementMapper;
+    }
+
+    @Autowired
+    public void setFamilyHouseAnnouncementMapper(FamilyHouseAnnouncementMapper familyHouseAnnouncementMapper) {
+        this.familyHouseAnnouncementMapper = familyHouseAnnouncementMapper;
+    }
 
 
     public abstract HousingAnnouncementDto toHousingAnnouncementDto(HousingAnnouncement housingAnnouncement);

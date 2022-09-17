@@ -4,6 +4,7 @@ import org.mapstruct.BeanMapping;
 import org.mapstruct.Mapper;
 import org.mapstruct.MappingTarget;
 import org.mapstruct.NullValuePropertyMappingStrategy;
+import org.mapstruct.ReportingPolicy;
 import ru.senla.realestatemarket.dto.address.AddressDto;
 import ru.senla.realestatemarket.dto.address.HouseNumberDto;
 import ru.senla.realestatemarket.dto.address.InlineAddressDto;
@@ -18,7 +19,9 @@ import ru.senla.realestatemarket.model.address.Street;
 import java.util.Collection;
 import java.util.List;
 
-@Mapper(uses = {RegionMapper.class, CityMapper.class, StreetMapper.class})
+@Mapper(uses = {RegionMapper.class, CityMapper.class, StreetMapper.class},
+        unmappedTargetPolicy = ReportingPolicy.IGNORE,
+        componentModel = "spring")
 public abstract class AddressMapper {
 
     public InlineAddressDto toInlineAddressDto(Address address) {

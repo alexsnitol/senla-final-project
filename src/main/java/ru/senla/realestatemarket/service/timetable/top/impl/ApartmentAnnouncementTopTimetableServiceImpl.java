@@ -1,7 +1,6 @@
 package ru.senla.realestatemarket.service.timetable.top.impl;
 
 import lombok.extern.slf4j.Slf4j;
-import org.mapstruct.factory.Mappers;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import ru.senla.realestatemarket.dto.timetable.RequestTopTimetableDto;
@@ -24,6 +23,7 @@ import ru.senla.realestatemarket.repo.user.IUserRepository;
 import ru.senla.realestatemarket.service.helper.EntityHelper;
 import ru.senla.realestatemarket.service.timetable.top.IApartmentAnnouncementTopTimetableService;
 import ru.senla.realestatemarket.service.user.IBalanceOperationService;
+import ru.senla.realestatemarket.util.SortUtil;
 import ru.senla.realestatemarket.util.UserUtil;
 
 import javax.annotation.PostConstruct;
@@ -36,9 +36,6 @@ import java.util.List;
 import static ru.senla.realestatemarket.repo.announcement.specification.ApartmentAnnouncementSpecification.hasId;
 import static ru.senla.realestatemarket.repo.announcement.specification.ApartmentAnnouncementSpecification.hasUserIdOfOwnerInProperty;
 import static ru.senla.realestatemarket.repo.timetable.specification.GenericTimetableSpecification.intervalWithSpecificFromAndTo;
-import static ru.senla.realestatemarket.repo.timetable.top.specification.ApartmentAnnouncementTopTimetableSpecification.concernsTheIntervalBetweenSpecificFromAndTo;
-import static ru.senla.realestatemarket.repo.timetable.top.specification.ApartmentAnnouncementTopTimetableSpecification.hasApartmentAnnouncementId;
-import static ru.senla.realestatemarket.repo.timetable.top.specification.ApartmentAnnouncementTopTimetableSpecification.hasApartmentAnnouncementIdAndUserIdOfOwnerInPropertyItAnnouncement;
 
 @Slf4j
 @Service
@@ -50,22 +47,24 @@ public class ApartmentAnnouncementTopTimetableServiceImpl
     private final IApartmentAnnouncementRepository apartmentAnnouncementRepository;
     private final IApartmentAnnouncementTopPurchaseRepository apartmentAnnouncementTopPurchaseRepository;
 
-    private final ApartmentAnnouncementTopTimetableMapper timetableMapper
-            = Mappers.getMapper(ApartmentAnnouncementTopTimetableMapper.class);
+    private final ApartmentAnnouncementTopTimetableMapper timetableMapper;
 
 
     public ApartmentAnnouncementTopTimetableServiceImpl(
             IUserRepository userRepository,
+            UserUtil userUtil,
             IBalanceOperationService balanceOperationService,
             IApartmentAnnouncementTopTimetableRepository apartmentAnnouncementTopTimetableRepository,
             IApartmentAnnouncementRepository apartmentAnnouncementRepository,
             IApartmentAnnouncementTopPurchaseRepository apartmentAnnouncementTopPurchaseRepository,
-            IAnnouncementTopPriceRepository announcementTopPriceRepository
+            IAnnouncementTopPriceRepository announcementTopPriceRepository,
+            ApartmentAnnouncementTopTimetableMapper timetableMapper
     ) {
-        super(userRepository, balanceOperationService, announcementTopPriceRepository);
+        super(userRepository, userUtil, balanceOperationService, announcementTopPriceRepository);
         this.apartmentAnnouncementTopTimetableRepository = apartmentAnnouncementTopTimetableRepository;
         this.apartmentAnnouncementRepository = apartmentAnnouncementRepository;
         this.apartmentAnnouncementTopPurchaseRepository = apartmentAnnouncementTopPurchaseRepository;
+        this.timetableMapper = timetableMapper;
     }
 
     @PostConstruct
@@ -83,11 +82,13 @@ public class ApartmentAnnouncementTopTimetableServiceImpl
         List<ApartmentAnnouncementTopTimetable> apartmentAnnouncementTopTimetables;
 
         if (sortQuery == null) {
-            apartmentAnnouncementTopTimetables = getAll(hasApartmentAnnouncementId(apartmentAnnouncementId),
-                    rsqlQuery, Sort.by(Sort.Direction.ASC, "fromDt"));
+            apartmentAnnouncementTopTimetables = apartmentAnnouncementTopTimetableRepository
+                    .findAllByApartmentAnnouncementId(apartmentAnnouncementId,
+                            rsqlQuery, Sort.by(Sort.Direction.ASC, "fromDt"));
         } else {
-            apartmentAnnouncementTopTimetables = getAll(hasApartmentAnnouncementId(apartmentAnnouncementId),
-                    rsqlQuery, sortQuery);
+            apartmentAnnouncementTopTimetables = apartmentAnnouncementTopTimetableRepository
+                    .findAllByApartmentAnnouncementId(apartmentAnnouncementId,
+                            rsqlQuery, SortUtil.parseSortQuery(sortQuery));
         }
 
         return timetableMapper.toTopTimetableWithoutAnnouncementIdDtoFromApartmentAnnouncementTopTimetable(
@@ -103,15 +104,15 @@ public class ApartmentAnnouncementTopTimetableServiceImpl
 
         if (sortQuery == null) {
             // default sort
-            apartmentAnnouncementTopTimetables = getAll(
-                    hasApartmentAnnouncementIdAndUserIdOfOwnerInPropertyItAnnouncement(
-                            apartmentAnnouncementId, UserUtil.getCurrentUserId()),
-                    rsqlQuery, Sort.by(Sort.Direction.ASC, "fromDt"));
+            apartmentAnnouncementTopTimetables = apartmentAnnouncementTopTimetableRepository.
+                    findAllByApartmentAnnouncementIdAndUserIdOfOwnerInPropertyItAnnouncement(
+                            apartmentAnnouncementId, userUtil.getCurrentUserId(),
+                            rsqlQuery, Sort.by(Sort.Direction.ASC, "fromDt"));
         } else {
-            apartmentAnnouncementTopTimetables = getAll(
-                    hasApartmentAnnouncementIdAndUserIdOfOwnerInPropertyItAnnouncement(
-                            apartmentAnnouncementId, UserUtil.getCurrentUserId()),
-                    rsqlQuery, sortQuery);
+            apartmentAnnouncementTopTimetables = apartmentAnnouncementTopTimetableRepository.
+                    findAllByApartmentAnnouncementIdAndUserIdOfOwnerInPropertyItAnnouncement(
+                            apartmentAnnouncementId, userUtil.getCurrentUserId(),
+                            rsqlQuery, SortUtil.parseSortQuery(sortQuery));
         }
 
         return timetableMapper.toTopTimetableWithoutAnnouncementIdDtoFromApartmentAnnouncementTopTimetable(
@@ -150,7 +151,7 @@ public class ApartmentAnnouncementTopTimetableServiceImpl
     ) {
         ApartmentAnnouncement apartmentAnnouncement = apartmentAnnouncementRepository.findOne(
                 hasId(apartmentAnnouncementId)
-                        .and(hasUserIdOfOwnerInProperty(UserUtil.getCurrentUserId())));
+                        .and(hasUserIdOfOwnerInProperty(userUtil.getCurrentUserId())));
 
         EntityHelper.checkEntityOnNull(apartmentAnnouncement, ApartmentAnnouncement.class, apartmentAnnouncementId);
 
@@ -204,10 +205,12 @@ public class ApartmentAnnouncementTopTimetableServiceImpl
         }
 
         List<ApartmentAnnouncementTopTimetable> existingTimetablesInInterval
-                = new ArrayList<>(apartmentAnnouncementTopTimetableRepository.findAll(
-                hasApartmentAnnouncementId(apartmentAnnouncement.getId())
-                        .and(concernsTheIntervalBetweenSpecificFromAndTo(specificFromDt, specificToDt)),
-                Sort.by(Sort.Direction.ASC, "fromDt")));
+                = new ArrayList<>(apartmentAnnouncementTopTimetableRepository
+                .findAllByApartmentAnnouncementIdAndConcernsTheIntervalBetweenSpecificFromAndTo(
+                        apartmentAnnouncement.getId(),
+                        specificFromDt, specificToDt,
+                        Sort.by(Sort.Direction.ASC, "fromDt"))
+        );
 
 
         List<ApartmentAnnouncementTopTimetable> unoccupiedIntervalsOfTimetables = new LinkedList<>();

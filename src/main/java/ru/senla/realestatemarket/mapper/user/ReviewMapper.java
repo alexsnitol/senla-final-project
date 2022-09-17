@@ -4,6 +4,7 @@ import org.mapstruct.BeanMapping;
 import org.mapstruct.Mapper;
 import org.mapstruct.MappingTarget;
 import org.mapstruct.NullValuePropertyMappingStrategy;
+import org.mapstruct.ReportingPolicy;
 import ru.senla.realestatemarket.dto.user.RequestReviewDto;
 import ru.senla.realestatemarket.dto.user.ReviewDto;
 import ru.senla.realestatemarket.model.user.Review;
@@ -11,7 +12,7 @@ import ru.senla.realestatemarket.model.user.Review;
 import java.util.Collection;
 import java.util.List;
 
-@Mapper(uses = {UserMapper.class})
+@Mapper(uses = {UserMapper.class}, unmappedTargetPolicy = ReportingPolicy.IGNORE, componentModel = "spring")
 public abstract class ReviewMapper {
 
     public abstract Review requestReviewDtoToReview(RequestReviewDto requestReviewDto);

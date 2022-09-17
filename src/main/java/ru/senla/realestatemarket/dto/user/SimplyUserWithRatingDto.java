@@ -1,10 +1,8 @@
 package ru.senla.realestatemarket.dto.user;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
-@Getter
-@Setter
+@Data
 public class SimplyUserWithRatingDto {
 
     private Long id;

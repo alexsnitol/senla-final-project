@@ -5,6 +5,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.stereotype.Component;
 import ru.senla.realestatemarket.model.user.AuthorizedUser;
 import ru.senla.realestatemarket.model.user.Role;
 import ru.senla.realestatemarket.model.user.User;
@@ -14,19 +15,17 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Slf4j
+@Component
 public class UserUtil {
 
-    private UserUtil() {}
-
-
-    public static Long getCurrentUserId() {
+    public Long getCurrentUserId() {
         AuthorizedUser authorizedUser = (AuthorizedUser) SecurityContextHolder
                 .getContext().getAuthentication().getPrincipal();
 
         return authorizedUser.getId();
     }
 
-    public static UserDetails convertUserToUserDetails(User user) {
+    public UserDetails convertUserToUserDetails(User user) {
         return new org.springframework.security.core.userdetails.User(
                 user.getUsername(),
                 user.getPassword(),
@@ -38,7 +37,7 @@ public class UserUtil {
         );
     }
 
-    public static AuthorizedUser convertUserToAuthorizedUser(User user) {
+    public AuthorizedUser convertUserToAuthorizedUser(User user) {
         return new AuthorizedUser(
                 user.getId(),
                 user.getUsername(),
@@ -51,7 +50,7 @@ public class UserUtil {
         );
     }
 
-    public static Collection<GrantedAuthority> getGrantedAuthoritiesByUser(User user) {
+    public Collection<GrantedAuthority> getGrantedAuthoritiesByUser(User user) {
         Collection<Role> roles = user.getRoles();
 
         // Adding all roles of user

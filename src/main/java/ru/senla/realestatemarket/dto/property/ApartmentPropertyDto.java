@@ -1,11 +1,9 @@
 package ru.senla.realestatemarket.dto.property;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 import ru.senla.realestatemarket.dto.house.ApartmentHouseDto;
 
-@Getter
-@Setter
+@Data
 public class ApartmentPropertyDto extends HousingPropertyDto {
 
     private ApartmentHouseDto apartmentHouse;

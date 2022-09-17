@@ -1,7 +1,7 @@
 package ru.senla.realestatemarket.service.announcement.impl;
 
 import lombok.extern.slf4j.Slf4j;
-import org.mapstruct.factory.Mappers;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.senla.realestatemarket.dto.announcement.AnnouncementDto;
 import ru.senla.realestatemarket.mapper.announcement.AnnouncementMapper;
@@ -16,6 +16,7 @@ import ru.senla.realestatemarket.repo.announcement.IFamilyHouseAnnouncementRepos
 import ru.senla.realestatemarket.repo.announcement.ILandAnnouncementRepository;
 import ru.senla.realestatemarket.repo.announcement.specification.GenericAnnouncementSpecification;
 import ru.senla.realestatemarket.service.announcement.IAnnouncementService;
+import ru.senla.realestatemarket.util.UserUtil;
 
 import javax.annotation.PostConstruct;
 import javax.transaction.Transactional;
@@ -36,18 +37,21 @@ public class AnnouncementServiceImpl
     private final IFamilyHouseAnnouncementRepository familyHouseAnnouncementRepository;
     private final ILandAnnouncementRepository landAnnouncementRepository;
 
-    private final AnnouncementMapper announcementMapper = Mappers.getMapper(AnnouncementMapper.class);
+    private final AnnouncementMapper announcementMapper;
 
 
     public AnnouncementServiceImpl(IAnnouncementRepository announcementRepository,
                                    IApartmentAnnouncementRepository apartmentAnnouncementRepository,
                                    IFamilyHouseAnnouncementRepository familyHouseAnnouncementRepository,
-                                   ILandAnnouncementRepository landAnnouncementRepository
-    ) {
+                                   ILandAnnouncementRepository landAnnouncementRepository,
+                                   UserUtil userUtil,
+                                   AnnouncementMapper announcementMapper) {
+        super(userUtil);
         this.announcementRepository = announcementRepository;
         this.apartmentAnnouncementRepository = apartmentAnnouncementRepository;
         this.familyHouseAnnouncementRepository = familyHouseAnnouncementRepository;
         this.landAnnouncementRepository = landAnnouncementRepository;
+        this.announcementMapper = announcementMapper;
     }
 
     @PostConstruct

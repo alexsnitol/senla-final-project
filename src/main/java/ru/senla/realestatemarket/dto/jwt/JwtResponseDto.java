@@ -1,14 +1,12 @@
 package ru.senla.realestatemarket.dto.jwt;
 
 import lombok.AllArgsConstructor;
-import lombok.Getter;
+import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
-@NoArgsConstructor
+@Data
 @AllArgsConstructor
-@Getter
-@Setter
+@NoArgsConstructor
 public class JwtResponseDto {
 
     private String token;

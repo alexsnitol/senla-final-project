@@ -2,7 +2,6 @@ package ru.senla.realestatemarket.service.user.impl;
 
 import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
-import org.mapstruct.factory.Mappers;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -34,17 +33,22 @@ public class UserServiceImpl extends AbstractServiceImpl<User, Long> implements 
     private final IUserRepository userRepository;
     private final IRoleRepository roleRepository;
 
+    private final UserUtil userUtil;
     private final PasswordEncoder passwordEncoder;
 
-    private final UserMapper userMapper = Mappers.getMapper(UserMapper.class);
+    private final UserMapper userMapper;
 
 
     public UserServiceImpl(IUserRepository userRepository,
                            IRoleRepository roleRepository,
-                           PasswordEncoder passwordEncoder) {
+                           UserUtil userUtil,
+                           PasswordEncoder passwordEncoder,
+                           UserMapper userMapper) {
         this.userRepository = userRepository;
         this.roleRepository = roleRepository;
+        this.userUtil = userUtil;
         this.passwordEncoder = passwordEncoder;
+        this.userMapper = userMapper;
     }
 
     @PostConstruct
@@ -61,11 +65,12 @@ public class UserServiceImpl extends AbstractServiceImpl<User, Long> implements 
 
         if (user == null) {
             String message = String.format("User with username %s not found", username);
+
             log.error(message);
             throw new UsernameNotFoundException(message);
         }
 
-        return UserUtil.convertUserToAuthorizedUser(user);
+        return userUtil.convertUserToAuthorizedUser(user);
     }
 
     @Override
@@ -91,14 +96,14 @@ public class UserServiceImpl extends AbstractServiceImpl<User, Long> implements 
     @Override
     @Transactional
     public UserDto getDtoOfCurrentUser() {
-        User user = getById(UserUtil.getCurrentUserId());
+        User user = getById(userUtil.getCurrentUserId());
 
         return userMapper.toUserDto(user);
     }
 
     @Override
     @Transactional
-    public void add(RequestUserDto requestUserDto) {
+    public void addFromDto(RequestUserDto requestUserDto) {
         User user = userMapper.toUser(requestUserDto);
 
         checkUsernameOnExist(user.getUsername());
@@ -119,7 +124,7 @@ public class UserServiceImpl extends AbstractServiceImpl<User, Long> implements 
 
     @Override
     @Transactional
-    public void updateById(UpdateRequestUserDto updateRequestUserDto, Long id) {
+    public void updateByIdFromDto(UpdateRequestUserDto updateRequestUserDto, Long id) {
         User user = getById(id);
 
         checkUsernameOnExistExcludingId(updateRequestUserDto.getUsername(), id);
@@ -136,8 +141,8 @@ public class UserServiceImpl extends AbstractServiceImpl<User, Long> implements 
 
     @Override
     @Transactional
-    public void updateCurrentUser(UpdateRequestUserDto updateRequestUserDto) {
-        updateById(updateRequestUserDto, UserUtil.getCurrentUserId());
+    public void updateCurrentUserFromDto(UpdateRequestUserDto updateRequestUserDto) {
+        updateByIdFromDto(updateRequestUserDto, userUtil.getCurrentUserId());
     }
 
     /**
@@ -176,20 +181,5 @@ public class UserServiceImpl extends AbstractServiceImpl<User, Long> implements 
 
         return user != null;
     }
-
-    @Override
-    public void deleteCurrentUser() {
-        deleteById(UserUtil.getCurrentUserId());
-    }
-
-    @Override
-    public void blockUserById(Long userId) {
-        User user = getById(userId);
-
-        user.setEnabled(false);
-
-        userRepository.update(user);
-    }
-
 
 }

@@ -1,7 +1,6 @@
 package ru.senla.realestatemarket.service.property.impl;
 
 import lombok.extern.slf4j.Slf4j;
-import org.mapstruct.factory.Mappers;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import ru.senla.realestatemarket.dto.property.HousingPropertyDto;
@@ -24,13 +23,17 @@ public class HousingPropertyServiceImpl
         implements IHousingPropertyService {
 
     private final IHousingPropertyRepository housingPropertyRepository;
+    private final UserUtil userUtil;
 
-    private final HousingPropertyMapper housingPropertyMapper
-            = Mappers.getMapper(HousingPropertyMapper.class);
+    private final HousingPropertyMapper housingPropertyMapper;
 
 
-    public HousingPropertyServiceImpl(IHousingPropertyRepository housingPropertyRepository) {
+    public HousingPropertyServiceImpl(IHousingPropertyRepository housingPropertyRepository,
+                                      UserUtil userUtil,
+                                      HousingPropertyMapper housingPropertyMapper) {
         this.housingPropertyRepository = housingPropertyRepository;
+        this.userUtil = userUtil;
+        this.housingPropertyMapper = housingPropertyMapper;
     }
 
     @PostConstruct
@@ -54,7 +57,7 @@ public class HousingPropertyServiceImpl
         Sort sort = SortUtil.parseSortQuery(sortQuery);
 
         List<HousingProperty> housingPropertyList
-                = housingPropertyRepository.findAllByUserIdOfOwner(UserUtil.getCurrentUserId(), rsqlQuery, sort);
+                = housingPropertyRepository.findAllByUserIdOfOwner(userUtil.getCurrentUserId(), rsqlQuery, sort);
 
         return housingPropertyMapper.toHousingPropertyDto(housingPropertyList);
     }

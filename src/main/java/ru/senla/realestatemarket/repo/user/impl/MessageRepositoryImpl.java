@@ -1,7 +1,6 @@
 package ru.senla.realestatemarket.repo.user.impl;
 
 import lombok.extern.slf4j.Slf4j;
-import org.mapstruct.factory.Mappers;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Repository;
@@ -14,7 +13,6 @@ import ru.senla.realestatemarket.repo.user.IMessageRepository;
 
 import javax.annotation.PostConstruct;
 import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.From;
 import javax.persistence.criteria.Join;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
@@ -29,7 +27,12 @@ import static ru.senla.realestatemarket.repo.user.specification.MessageSpecifica
 @Repository
 public class MessageRepositoryImpl extends AbstractRepositoryImpl<Message, Long> implements IMessageRepository {
 
-    private UserMapper userMapper = Mappers.getMapper(UserMapper.class);
+    private final UserMapper userMapper;
+
+
+    public MessageRepositoryImpl(UserMapper userMapper) {
+        this.userMapper = userMapper;
+    }
 
 
     @PostConstruct

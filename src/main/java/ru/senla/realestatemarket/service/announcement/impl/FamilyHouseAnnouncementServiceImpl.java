@@ -1,7 +1,6 @@
 package ru.senla.realestatemarket.service.announcement.impl;
 
 import lombok.extern.slf4j.Slf4j;
-import org.mapstruct.factory.Mappers;
 import org.springframework.stereotype.Service;
 import ru.senla.realestatemarket.dto.announcement.FamilyHouseAnnouncementDto;
 import ru.senla.realestatemarket.dto.announcement.RequestFamilyHouseAnnouncementDto;
@@ -39,14 +38,17 @@ public class FamilyHouseAnnouncementServiceImpl
     private final IFamilyHouseAnnouncementRepository familyHouseAnnouncementRepository;
     private final IFamilyHousePropertyRepository familyHousePropertyRepository;
 
-    private final FamilyHouseAnnouncementMapper familyHouseAnnouncementMapper
-            = Mappers.getMapper(FamilyHouseAnnouncementMapper.class);
+    private final FamilyHouseAnnouncementMapper familyHouseAnnouncementMapper;
 
 
     public FamilyHouseAnnouncementServiceImpl(IFamilyHouseAnnouncementRepository familyHouseAnnouncementRepository,
-                                              IFamilyHousePropertyRepository familyHousePropertyRepository) {
+                                              IFamilyHousePropertyRepository familyHousePropertyRepository,
+                                              UserUtil userUtil,
+                                              FamilyHouseAnnouncementMapper familyHouseAnnouncementMapper) {
+        super(userUtil);
         this.familyHouseAnnouncementRepository = familyHouseAnnouncementRepository;
         this.familyHousePropertyRepository = familyHousePropertyRepository;
+        this.familyHouseAnnouncementMapper = familyHouseAnnouncementMapper;
     }
 
     @PostConstruct
@@ -124,10 +126,10 @@ public class FamilyHouseAnnouncementServiceImpl
 
         if (sortQuery == null) {
             // default sort
-            familyHouseAnnouncementList = getAll(hasUserIdOfOwnerInProperty(UserUtil.getCurrentUserId()),
+            familyHouseAnnouncementList = getAll(hasUserIdOfOwnerInProperty(userUtil.getCurrentUserId()),
                     rsqlQuery, AnnouncementSort.byCreatedDtAsc());
         } else {
-            familyHouseAnnouncementList = getAll(hasUserIdOfOwnerInProperty(UserUtil.getCurrentUserId()),
+            familyHouseAnnouncementList = getAll(hasUserIdOfOwnerInProperty(userUtil.getCurrentUserId()),
                     rsqlQuery, sortQuery);
         }
 
@@ -162,7 +164,7 @@ public class FamilyHouseAnnouncementServiceImpl
     @Transactional
     public FamilyHouseAnnouncementDto getByIdDtoOfCurrentUser(Long id) {
         return familyHouseAnnouncementMapper.toFamilyHouseAnnouncementDto(
-                getOne(hasIdAndUserIdOfOwnerInProperty(id, UserUtil.getCurrentUserId()))
+                getOne(hasIdAndUserIdOfOwnerInProperty(id, userUtil.getCurrentUserId()))
         );
     }
 
@@ -204,7 +206,7 @@ public class FamilyHouseAnnouncementServiceImpl
     @Transactional
     public void updateByIdFromCurrentUser(UpdateRequestFamilyHouseAnnouncementDto updateRequestFamilyHouseAnnouncementDto, Long id) {
         FamilyHouseAnnouncement familyHouseAnnouncement = getOne(
-                hasIdAndUserIdOfOwnerInProperty(id, UserUtil.getCurrentUserId()));
+                hasIdAndUserIdOfOwnerInProperty(id, userUtil.getCurrentUserId()));
 
 
         Long familyHousePropertyId = updateRequestFamilyHouseAnnouncementDto.getFamilyHousePropertyId();

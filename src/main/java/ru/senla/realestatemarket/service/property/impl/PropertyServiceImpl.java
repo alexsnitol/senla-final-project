@@ -1,7 +1,6 @@
 package ru.senla.realestatemarket.service.property.impl;
 
 import lombok.extern.slf4j.Slf4j;
-import org.mapstruct.factory.Mappers;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import ru.senla.realestatemarket.dto.property.PropertyDto;
@@ -24,13 +23,18 @@ public class PropertyServiceImpl
         implements IPropertyService {
 
     private final IPropertyRepository propertyRepository;
+    private final UserUtil userUtil;
 
-    private final PropertyMapper propertyMapper
-            = Mappers.getMapper(PropertyMapper.class);
+    private final PropertyMapper propertyMapper;
 
 
-    public PropertyServiceImpl(IPropertyRepository propertyRepository) {
+    public PropertyServiceImpl(
+            IPropertyRepository propertyRepository,
+            UserUtil userUtil,
+            PropertyMapper propertyMapper) {
         this.propertyRepository = propertyRepository;
+        this.userUtil = userUtil;
+        this.propertyMapper = propertyMapper;
     }
 
     @PostConstruct
@@ -54,7 +58,7 @@ public class PropertyServiceImpl
         Sort sort = SortUtil.parseSortQuery(sortQuery);
 
         List<Property> propertyList
-                = propertyRepository.findAllByUserIdOfOwner(UserUtil.getCurrentUserId(), rsqlQuery, sort);
+                = propertyRepository.findAllByUserIdOfOwner(userUtil.getCurrentUserId(), rsqlQuery, sort);
 
         return propertyMapper.toPropertyDtoWithMappedInheritors(propertyList);
     }

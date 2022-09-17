@@ -5,7 +5,8 @@ import org.mapstruct.IterableMapping;
 import org.mapstruct.Mapper;
 import org.mapstruct.MappingTarget;
 import org.mapstruct.Named;
-import org.mapstruct.factory.Mappers;
+import org.mapstruct.ReportingPolicy;
+import org.springframework.beans.factory.annotation.Autowired;
 import ru.senla.realestatemarket.dto.house.ApartmentHouseDto;
 import ru.senla.realestatemarket.dto.house.FamilyHouseDto;
 import ru.senla.realestatemarket.dto.house.HouseDto;
@@ -18,11 +19,25 @@ import ru.senla.realestatemarket.model.house.HouseTypeEnum;
 import java.util.Collection;
 import java.util.List;
 
-@Mapper(uses = {AddressMapper.class, HouseMaterialMapper.class})
+@Mapper(uses = {AddressMapper.class, HouseMaterialMapper.class},
+        unmappedTargetPolicy = ReportingPolicy.IGNORE,
+        componentModel = "spring")
 public abstract class HouseMapper {
 
-    private final ApartmentHouseMapper apartmentHouseMapper = Mappers.getMapper(ApartmentHouseMapper.class);
-    private final FamilyHouseMapper familyHouseMapper = Mappers.getMapper(FamilyHouseMapper.class);
+    protected ApartmentHouseMapper apartmentHouseMapper;
+    protected FamilyHouseMapper familyHouseMapper;
+
+
+    @Autowired
+    public void setApartmentHouseMapper(ApartmentHouseMapper apartmentHouseMapper) {
+        this.apartmentHouseMapper = apartmentHouseMapper;
+    }
+
+    @Autowired
+    public void setFamilyHouseMapper(FamilyHouseMapper familyHouseMapper) {
+        this.familyHouseMapper = familyHouseMapper;
+    }
+
 
     @AfterMapping
     protected void setHouseType(House house, @MappingTarget HouseDto houseDto) {

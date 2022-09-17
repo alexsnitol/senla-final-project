@@ -19,10 +19,18 @@ public abstract class AbstractAnnouncementServiceImpl<M extends Announcement>
         extends AbstractServiceImpl<M, Long>
         implements IAbstractAnnouncementService<M> {
 
+    protected final UserUtil userUtil;
+
+    
+    protected AbstractAnnouncementServiceImpl(UserUtil userUtil) {
+        this.userUtil = userUtil;
+    }
+    
+
     protected void validateAccessCurrentUserToProperty(Property property) {
         Long userIdOfOwner = property.getOwner().getId();
 
-        if (!Objects.equals(userIdOfOwner, UserUtil.getCurrentUserId())) {
+        if (!Objects.equals(userIdOfOwner, userUtil.getCurrentUserId())) {
             String message = String.format(
                     "Access denied, because property by id %s owns another user.", userIdOfOwner);
 

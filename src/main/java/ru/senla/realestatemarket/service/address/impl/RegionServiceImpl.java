@@ -1,7 +1,7 @@
 package ru.senla.realestatemarket.service.address.impl;
 
 import lombok.extern.slf4j.Slf4j;
-import org.mapstruct.factory.Mappers;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.senla.realestatemarket.dto.address.RegionDto;
 import ru.senla.realestatemarket.dto.address.RequestRegionDto;
@@ -21,11 +21,13 @@ public class RegionServiceImpl extends AbstractServiceImpl<Region, Long> impleme
 
     private final IRegionRepository regionRepository;
 
-    private final RegionMapper regionMapper = Mappers.getMapper(RegionMapper.class);
+    @Autowired
+    private final RegionMapper regionMapper;
 
 
-    public RegionServiceImpl(IRegionRepository regionRepository) {
+    public RegionServiceImpl(IRegionRepository regionRepository, RegionMapper regionMapper) {
         this.regionRepository = regionRepository;
+        this.regionMapper = regionMapper;
     }
 
     @PostConstruct

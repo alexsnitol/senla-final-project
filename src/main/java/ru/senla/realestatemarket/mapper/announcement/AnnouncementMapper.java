@@ -3,7 +3,8 @@ package ru.senla.realestatemarket.mapper.announcement;
 import org.mapstruct.IterableMapping;
 import org.mapstruct.Mapper;
 import org.mapstruct.Named;
-import org.mapstruct.factory.Mappers;
+import org.mapstruct.ReportingPolicy;
+import org.springframework.beans.factory.annotation.Autowired;
 import ru.senla.realestatemarket.dto.announcement.AnnouncementDto;
 import ru.senla.realestatemarket.dto.announcement.ApartmentAnnouncementDto;
 import ru.senla.realestatemarket.dto.announcement.FamilyHouseAnnouncementDto;
@@ -19,20 +20,35 @@ import ru.senla.realestatemarket.model.property.PropertyTypeEnum;
 import java.util.Collection;
 import java.util.List;
 
-@Mapper
+@Mapper(unmappedTargetPolicy = ReportingPolicy.IGNORE,
+        componentModel = "spring")
 public abstract class AnnouncementMapper {
 
-    private final ApartmentAnnouncementMapper apartmentAnnouncementMapper
-            = Mappers.getMapper(ApartmentAnnouncementMapper.class);
+    protected ApartmentAnnouncementMapper apartmentAnnouncementMapper;
+    protected FamilyHouseAnnouncementMapper familyHouseAnnouncementMapper;
+    protected HousingAnnouncementMapper housingAnnouncementMapper;
+    protected LandAnnouncementMapper landAnnouncementMapper;
 
-    private final FamilyHouseAnnouncementMapper familyHouseAnnouncementMapper
-            = Mappers.getMapper(FamilyHouseAnnouncementMapper.class);
 
-    private final HousingAnnouncementMapper housingAnnouncementMapper
-            = Mappers.getMapper(HousingAnnouncementMapper.class);
+    @Autowired
+    public void setApartmentAnnouncementMapper(ApartmentAnnouncementMapper apartmentAnnouncementMapper) {
+        this.apartmentAnnouncementMapper = apartmentAnnouncementMapper;
+    }
 
-    private final LandAnnouncementMapper landAnnouncementMapper
-            = Mappers.getMapper(LandAnnouncementMapper.class);
+    @Autowired
+    public void setFamilyHouseAnnouncementMapper(FamilyHouseAnnouncementMapper familyHouseAnnouncementMapper) {
+        this.familyHouseAnnouncementMapper = familyHouseAnnouncementMapper;
+    }
+
+    @Autowired
+    public void setHousingAnnouncementMapper(HousingAnnouncementMapper housingAnnouncementMapper) {
+        this.housingAnnouncementMapper = housingAnnouncementMapper;
+    }
+
+    @Autowired
+    public void setLandAnnouncementMapper(LandAnnouncementMapper landAnnouncementMapper) {
+        this.landAnnouncementMapper = landAnnouncementMapper;
+    }
 
 
     public abstract AnnouncementDto toAnnouncementDto(Announcement announcement);

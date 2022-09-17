@@ -1,12 +1,10 @@
 package ru.senla.realestatemarket.dto.announcement;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 import ru.senla.realestatemarket.dto.property.LandPropertyDto;
 import ru.senla.realestatemarket.model.announcement.NonHousingAnnouncementTypeEnum;
 
-@Getter
-@Setter
+@Data
 public class LandAnnouncementDto extends AnnouncementDto {
 
     private NonHousingAnnouncementTypeEnum type;

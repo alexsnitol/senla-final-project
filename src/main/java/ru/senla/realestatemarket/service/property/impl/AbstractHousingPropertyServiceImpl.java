@@ -9,6 +9,7 @@ import ru.senla.realestatemarket.repo.property.IRenovationTypeRepository;
 import ru.senla.realestatemarket.repo.user.IUserRepository;
 import ru.senla.realestatemarket.service.helper.EntityHelper;
 import ru.senla.realestatemarket.service.property.IAbstractHousingPropertyService;
+import ru.senla.realestatemarket.util.UserUtil;
 
 @Slf4j
 public abstract class AbstractHousingPropertyServiceImpl
@@ -19,8 +20,10 @@ public abstract class AbstractHousingPropertyServiceImpl
     protected final IRenovationTypeRepository renovationTypeRepository;
 
     protected AbstractHousingPropertyServiceImpl(IRenovationTypeRepository renovationTypeRepository,
-                                                 IUserRepository userRepository) {
-        super(userRepository);
+                                                 IUserRepository userRepository,
+                                                 UserUtil userUtil
+    ) {
+        super(userRepository, userUtil);
         this.renovationTypeRepository = renovationTypeRepository;
     }
 

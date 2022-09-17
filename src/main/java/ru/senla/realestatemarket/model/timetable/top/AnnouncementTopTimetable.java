@@ -5,6 +5,8 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
+import org.hibernate.Hibernate;
 import ru.senla.realestatemarket.model.IModel;
 
 import javax.persistence.Column;
@@ -16,11 +18,13 @@ import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.SequenceGenerator;
 import java.time.LocalDateTime;
+import java.util.Objects;
 
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
+@ToString
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 @Entity
 public class AnnouncementTopTimetable implements IModel<Long> {
@@ -42,6 +46,20 @@ public class AnnouncementTopTimetable implements IModel<Long> {
     public AnnouncementTopTimetable(LocalDateTime fromDt, LocalDateTime toDt) {
         this.fromDt = fromDt;
         this.toDt = toDt;
+    }
+
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
+        AnnouncementTopTimetable that = (AnnouncementTopTimetable) o;
+        return id != null && Objects.equals(id, that.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return getClass().hashCode();
     }
 
 }

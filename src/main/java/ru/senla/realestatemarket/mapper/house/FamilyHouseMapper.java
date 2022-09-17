@@ -14,7 +14,9 @@ import ru.senla.realestatemarket.model.house.FamilyHouse;
 import java.util.Collection;
 import java.util.List;
 
-@Mapper(uses = {AddressMapper.class, HouseMaterialMapper.class}, unmappedTargetPolicy = ReportingPolicy.IGNORE)
+@Mapper(uses = {AddressMapper.class, HouseMaterialMapper.class},
+        unmappedTargetPolicy = ReportingPolicy.IGNORE,
+        componentModel = "spring")
 public abstract class FamilyHouseMapper {
 
     public abstract FamilyHouseDto toFamilyHouseDto(FamilyHouse familyHouse);

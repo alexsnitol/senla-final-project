@@ -1,7 +1,6 @@
 package ru.senla.realestatemarket.service.timetable.top.impl;
 
 import lombok.extern.slf4j.Slf4j;
-import org.mapstruct.factory.Mappers;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import ru.senla.realestatemarket.dto.timetable.RequestTopTimetableDto;
@@ -50,22 +49,23 @@ public class LandAnnouncementTopTimetableServiceImpl
     private final ILandAnnouncementRepository landAnnouncementRepository;
     private final ILandAnnouncementTopPurchaseRepository landAnnouncementTopPurchaseRepository;
 
-    private final LandAnnouncementTopTimetableMapper timetableMapper
-            = Mappers.getMapper(LandAnnouncementTopTimetableMapper.class);
+    private final LandAnnouncementTopTimetableMapper timetableMapper;
 
 
     public LandAnnouncementTopTimetableServiceImpl(
             IUserRepository userRepository,
+            UserUtil userUtil,
             IBalanceOperationService balanceOperationService,
             ILandAnnouncementTopTimetableRepository landAnnouncementTopTimetableRepository,
             ILandAnnouncementRepository landAnnouncementRepository,
             ILandAnnouncementTopPurchaseRepository landAnnouncementTopPurchaseRepository,
-            IAnnouncementTopPriceRepository announcementTopPriceRepository
-    ) {
-        super(userRepository, balanceOperationService, announcementTopPriceRepository);
+            IAnnouncementTopPriceRepository announcementTopPriceRepository,
+            LandAnnouncementTopTimetableMapper timetableMapper) {
+        super(userRepository, userUtil, balanceOperationService, announcementTopPriceRepository);
         this.landAnnouncementTopTimetableRepository = landAnnouncementTopTimetableRepository;
         this.landAnnouncementRepository = landAnnouncementRepository;
         this.landAnnouncementTopPurchaseRepository = landAnnouncementTopPurchaseRepository;
+        this.timetableMapper = timetableMapper;
     }
 
     @PostConstruct
@@ -104,12 +104,12 @@ public class LandAnnouncementTopTimetableServiceImpl
         if (sortQuery == null) {
             landAnnouncementTopTimetables = getAll(
                     hasLandAnnouncementIdAndUserIdOfOwnerInPropertyItAnnouncement(
-                            landAnnouncementId, UserUtil.getCurrentUserId()),
+                            landAnnouncementId, userUtil.getCurrentUserId()),
                     rsqlQuery, Sort.by(Sort.Direction.ASC, "fromDt"));
         } else {
             landAnnouncementTopTimetables = getAll(
                     hasLandAnnouncementIdAndUserIdOfOwnerInPropertyItAnnouncement(
-                            landAnnouncementId, UserUtil.getCurrentUserId()),
+                            landAnnouncementId, userUtil.getCurrentUserId()),
                     rsqlQuery, sortQuery);
         }
 
@@ -147,7 +147,7 @@ public class LandAnnouncementTopTimetableServiceImpl
     ) {
         LandAnnouncement landAnnouncement = landAnnouncementRepository.findOne(
                 hasId(landAnnouncementId)
-                        .and(hasUserIdOfOwnerInProperty(UserUtil.getCurrentUserId())));
+                        .and(hasUserIdOfOwnerInProperty(userUtil.getCurrentUserId())));
 
         EntityHelper.checkEntityOnNull(landAnnouncement, LandAnnouncement.class, landAnnouncementId);
 

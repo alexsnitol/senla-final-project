@@ -11,6 +11,7 @@ import ru.senla.realestatemarket.repo.user.IUserRepository;
 import ru.senla.realestatemarket.service.timetable.AbstractTimetableServiceImpl;
 import ru.senla.realestatemarket.service.timetable.rent.IAbstractRentTimetableService;
 import ru.senla.realestatemarket.service.user.IBalanceOperationService;
+import ru.senla.realestatemarket.util.UserUtil;
 
 import java.time.LocalDateTime;
 
@@ -19,9 +20,10 @@ public abstract class AbstractRentTimetableServiceImpl<M extends IModel<Long>> e
         implements IAbstractRentTimetableService<M> {
     protected AbstractRentTimetableServiceImpl(
             IUserRepository userRepository,
+            UserUtil userUtil,
             IBalanceOperationService balanceOperationService
     ) {
-        super(userRepository, balanceOperationService);
+        super(userRepository, userUtil, balanceOperationService);
     }
 
 

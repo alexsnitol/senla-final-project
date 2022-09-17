@@ -5,7 +5,8 @@ import org.mapstruct.IterableMapping;
 import org.mapstruct.Mapper;
 import org.mapstruct.MappingTarget;
 import org.mapstruct.Named;
-import org.mapstruct.factory.Mappers;
+import org.mapstruct.ReportingPolicy;
+import org.springframework.beans.factory.annotation.Autowired;
 import ru.senla.realestatemarket.dto.property.ApartmentPropertyDto;
 import ru.senla.realestatemarket.dto.property.FamilyHousePropertyDto;
 import ru.senla.realestatemarket.dto.property.HousingPropertyDto;
@@ -22,13 +23,38 @@ import ru.senla.realestatemarket.model.property.PropertyTypeEnum;
 import java.util.Collection;
 import java.util.List;
 
-@Mapper(uses = {UserMapper.class})
+@Mapper(uses = {UserMapper.class},
+        unmappedTargetPolicy = ReportingPolicy.IGNORE,
+        componentModel = "spring",
+        implementationName = "MyPropertyMapperImpl")
 public abstract class PropertyMapper {
 
-    private final ApartmentPropertyMapper apartmentPropertyMapper = Mappers.getMapper(ApartmentPropertyMapper.class);
-    private final FamilyHousePropertyMapper familyHousePropertyMapper = Mappers.getMapper(FamilyHousePropertyMapper.class);
-    private final HousingPropertyMapper housingPropertyMapper = Mappers.getMapper(HousingPropertyMapper.class);
-    private final LandPropertyMapper landPropertyMapper = Mappers.getMapper(LandPropertyMapper.class);
+    protected ApartmentPropertyMapper apartmentPropertyMapper;
+    protected FamilyHousePropertyMapper familyHousePropertyMapper;
+    protected HousingPropertyMapper housingPropertyMapper;
+    protected LandPropertyMapper landPropertyMapper;
+
+
+    @Autowired
+    public void setApartmentPropertyMapper(ApartmentPropertyMapper apartmentPropertyMapper) {
+        this.apartmentPropertyMapper = apartmentPropertyMapper;
+    }
+
+    @Autowired
+    public void setFamilyHousePropertyMapper(FamilyHousePropertyMapper familyHousePropertyMapper) {
+        this.familyHousePropertyMapper = familyHousePropertyMapper;
+    }
+
+    @Autowired
+    public void setHousingPropertyMapper(HousingPropertyMapper housingPropertyMapper) {
+        this.housingPropertyMapper = housingPropertyMapper;
+    }
+
+    @Autowired
+    public void setLandPropertyMapper(LandPropertyMapper landPropertyMapper) {
+        this.landPropertyMapper = landPropertyMapper;
+    }
+
 
     @AfterMapping
     protected void setPropertyType(Property property, @MappingTarget PropertyDto propertyDto) {

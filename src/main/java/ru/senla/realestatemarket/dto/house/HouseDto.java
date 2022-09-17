@@ -1,14 +1,12 @@
 package ru.senla.realestatemarket.dto.house;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 import ru.senla.realestatemarket.dto.address.AddressDto;
 import ru.senla.realestatemarket.model.house.HouseTypeEnum;
 import ru.senla.realestatemarket.model.house.HousingTypeEnum;
 
-@Getter
-@Setter
+@Data
 public class HouseDto {
 
     private Long id;

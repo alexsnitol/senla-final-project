@@ -1,7 +1,6 @@
 package ru.senla.realestatemarket.service.property.impl;
 
 import lombok.extern.slf4j.Slf4j;
-import org.mapstruct.factory.Mappers;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import ru.senla.realestatemarket.dto.property.FamilyHousePropertyDto;
@@ -41,16 +40,19 @@ public class FamilyHousePropertyServiceImpl
     private final IFamilyHousePropertyRepository familyHousePropertyRepository;
     private final IFamilyHouseRepository familyHouseRepository;
 
-    private final FamilyHousePropertyMapper familyHousePropertyMapper = Mappers.getMapper(FamilyHousePropertyMapper.class);
+    private final FamilyHousePropertyMapper familyHousePropertyMapper;
 
 
     public FamilyHousePropertyServiceImpl(IRenovationTypeRepository renovationTypeRepository,
                                           IUserRepository userRepository,
                                           IFamilyHousePropertyRepository familyHousePropertyRepository,
-                                          IFamilyHouseRepository familyHouseRepository) {
-        super(renovationTypeRepository, userRepository);
+                                          IFamilyHouseRepository familyHouseRepository,
+                                          UserUtil userUtil,
+                                          FamilyHousePropertyMapper familyHousePropertyMapper) {
+        super(renovationTypeRepository, userRepository, userUtil);
         this.familyHousePropertyRepository = familyHousePropertyRepository;
         this.familyHouseRepository = familyHouseRepository;
+        this.familyHousePropertyMapper = familyHousePropertyMapper;
     }
 
     @PostConstruct
@@ -73,7 +75,7 @@ public class FamilyHousePropertyServiceImpl
         Sort sort = SortUtil.parseSortQuery(sortQuery);
 
         List<FamilyHouseProperty> landPropertyList
-                = familyHousePropertyRepository.findAllByUserIdOfOwner(UserUtil.getCurrentUserId(), rsqlQuery, sort);
+                = familyHousePropertyRepository.findAllByUserIdOfOwner(userUtil.getCurrentUserId(), rsqlQuery, sort);
 
         return familyHousePropertyMapper.toFamilyHousePropertyDto(landPropertyList);
     }
@@ -88,7 +90,7 @@ public class FamilyHousePropertyServiceImpl
     @Transactional
     public FamilyHousePropertyDto getDtoByIdOfCurrentUser(Long id) {
         return familyHousePropertyMapper.toFamilyHousePropertyDto(
-                getOne(hasIdAndUserIdOfOwner(id, UserUtil.getCurrentUserId()))
+                getOne(hasIdAndUserIdOfOwner(id, userUtil.getCurrentUserId()))
         );
     }
 
@@ -106,7 +108,7 @@ public class FamilyHousePropertyServiceImpl
     @Override
     @Transactional
     public void addFromDtoFromCurrentUser(RequestFamilyHousePropertyDto requestDto) {
-        addFromDtoWithSpecificOwner(requestDto, UserUtil.getCurrentUserId());
+        addFromDtoWithSpecificOwner(requestDto, userUtil.getCurrentUserId());
     }
 
     private void addFromDtoWithSpecificOwner(RequestFamilyHousePropertyDto requestDto, Long userIdOfOwner) {

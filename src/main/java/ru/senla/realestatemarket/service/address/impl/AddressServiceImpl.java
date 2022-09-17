@@ -1,7 +1,6 @@
 package ru.senla.realestatemarket.service.address.impl;
 
 import lombok.extern.slf4j.Slf4j;
-import org.mapstruct.factory.Mappers;
 import org.springframework.stereotype.Service;
 import ru.senla.realestatemarket.dto.address.AddressDto;
 import ru.senla.realestatemarket.dto.address.HouseNumberDto;
@@ -30,13 +29,15 @@ public class AddressServiceImpl extends AbstractServiceImpl<Address, Long> imple
     private final IAddressRepository addressRepository;
     private final IStreetRepository streetRepository;
 
-    private final AddressMapper addressMapper = Mappers.getMapper(AddressMapper.class);
+    private final AddressMapper addressMapper;
 
 
     public AddressServiceImpl(IAddressRepository addressRepository,
-                              IStreetRepository streetRepository) {
+                              IStreetRepository streetRepository,
+                              AddressMapper addressMapper) {
         this.addressRepository = addressRepository;
         this.streetRepository = streetRepository;
+        this.addressMapper = addressMapper;
     }
 
     @PostConstruct

@@ -1,7 +1,6 @@
 package ru.senla.realestatemarket.service.house.impl;
 
 import lombok.extern.slf4j.Slf4j;
-import org.mapstruct.factory.Mappers;
 import org.springframework.stereotype.Service;
 import ru.senla.realestatemarket.dto.house.RequestHouseMaterialDto;
 import ru.senla.realestatemarket.mapper.house.HouseMaterialMapper;
@@ -19,11 +18,13 @@ public class HouseMaterialServiceImpl extends AbstractServiceImpl<HouseMaterial,
 
     private final IHouseMaterialRepository houseMaterialRepository;
 
-    private final HouseMaterialMapper houseMaterialMapper = Mappers.getMapper(HouseMaterialMapper.class);
+    private final HouseMaterialMapper houseMaterialMapper;
 
 
-    public HouseMaterialServiceImpl(IHouseMaterialRepository houseMaterialRepository) {
+    public HouseMaterialServiceImpl(IHouseMaterialRepository houseMaterialRepository,
+                                    HouseMaterialMapper houseMaterialMapper) {
         this.houseMaterialRepository = houseMaterialRepository;
+        this.houseMaterialMapper = houseMaterialMapper;
     }
 
     @PostConstruct

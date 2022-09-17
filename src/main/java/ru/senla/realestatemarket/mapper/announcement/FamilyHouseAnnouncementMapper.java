@@ -4,6 +4,7 @@ import org.mapstruct.BeanMapping;
 import org.mapstruct.Mapper;
 import org.mapstruct.MappingTarget;
 import org.mapstruct.NullValuePropertyMappingStrategy;
+import org.mapstruct.ReportingPolicy;
 import ru.senla.realestatemarket.dto.announcement.FamilyHouseAnnouncementDto;
 import ru.senla.realestatemarket.dto.announcement.RequestFamilyHouseAnnouncementDto;
 import ru.senla.realestatemarket.dto.announcement.UpdateRequestFamilyHouseAnnouncementDto;
@@ -13,7 +14,9 @@ import ru.senla.realestatemarket.model.announcement.FamilyHouseAnnouncement;
 import java.util.Collection;
 import java.util.List;
 
-@Mapper(uses = {FamilyHousePropertyMapper.class, AnnouncementStatusEnumMapper.class, AnnouncementTypeEnumMapper.class})
+@Mapper(uses = {FamilyHousePropertyMapper.class, AnnouncementStatusEnumMapper.class, AnnouncementTypeEnumMapper.class},
+        unmappedTargetPolicy = ReportingPolicy.IGNORE,
+        componentModel = "spring")
 public abstract class FamilyHouseAnnouncementMapper {
 
     public abstract FamilyHouseAnnouncementDto toFamilyHouseAnnouncementDto(

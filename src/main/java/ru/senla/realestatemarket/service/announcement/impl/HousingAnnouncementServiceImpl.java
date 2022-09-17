@@ -1,7 +1,6 @@
 package ru.senla.realestatemarket.service.announcement.impl;
 
 import lombok.extern.slf4j.Slf4j;
-import org.mapstruct.factory.Mappers;
 import org.springframework.stereotype.Service;
 import ru.senla.realestatemarket.dto.announcement.HousingAnnouncementDto;
 import ru.senla.realestatemarket.mapper.announcement.HousingAnnouncementMapper;
@@ -10,6 +9,7 @@ import ru.senla.realestatemarket.model.announcement.HousingAnnouncement;
 import ru.senla.realestatemarket.repo.announcement.IHousingAnnouncementRepository;
 import ru.senla.realestatemarket.repo.announcement.specification.GenericAnnouncementSpecification;
 import ru.senla.realestatemarket.service.announcement.IHousingAnnouncementService;
+import ru.senla.realestatemarket.util.UserUtil;
 
 import javax.annotation.PostConstruct;
 import javax.transaction.Transactional;
@@ -23,12 +23,16 @@ public class HousingAnnouncementServiceImpl
 
     private final IHousingAnnouncementRepository housingAnnouncementRepository;
 
-    private final HousingAnnouncementMapper housingAnnouncementMapper
-            = Mappers.getMapper(HousingAnnouncementMapper.class);
+    private final HousingAnnouncementMapper housingAnnouncementMapper;
 
 
-    public HousingAnnouncementServiceImpl(IHousingAnnouncementRepository housingAnnouncementRepository) {
+    public HousingAnnouncementServiceImpl(
+            IHousingAnnouncementRepository housingAnnouncementRepository,
+            UserUtil userUtil,
+            HousingAnnouncementMapper housingAnnouncementMapper) {
+        super(userUtil);
         this.housingAnnouncementRepository = housingAnnouncementRepository;
+        this.housingAnnouncementMapper = housingAnnouncementMapper;
     }
 
     @PostConstruct

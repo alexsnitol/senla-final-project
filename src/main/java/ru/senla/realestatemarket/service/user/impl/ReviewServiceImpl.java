@@ -1,7 +1,6 @@
 package ru.senla.realestatemarket.service.user.impl;
 
 import lombok.extern.slf4j.Slf4j;
-import org.mapstruct.factory.Mappers;
 import org.springframework.stereotype.Service;
 import ru.senla.realestatemarket.dto.user.RequestReviewDto;
 import ru.senla.realestatemarket.dto.user.ReviewDto;
@@ -25,14 +24,19 @@ public class ReviewServiceImpl extends AbstractServiceImpl<Review, Long> impleme
 
     private final IReviewRepository reviewRepository;
     private final IUserRepository userRepository;
+    private final UserUtil userUtil;
 
-    private final ReviewMapper reviewMapper = Mappers.getMapper(ReviewMapper.class);
+    private final ReviewMapper reviewMapper;
 
 
     public ReviewServiceImpl(IReviewRepository reviewRepository,
-                             IUserRepository userRepository) {
+                             IUserRepository userRepository,
+                             UserUtil userUtil,
+                             ReviewMapper reviewMapper) {
         this.reviewRepository = reviewRepository;
         this.userRepository = userRepository;
+        this.userUtil = userUtil;
+        this.reviewMapper = reviewMapper;
     }
 
     @PostConstruct
@@ -43,21 +47,25 @@ public class ReviewServiceImpl extends AbstractServiceImpl<Review, Long> impleme
 
 
     @Override
+    @Transactional
     public List<Review> getAllBySellerId(Long sellerId) {
         return reviewRepository.findAllBySellerId(sellerId, null);
     }
 
     @Override
+    @Transactional
     public List<ReviewDto> getAllDtoBySellerId(Long sellerId) {
         return reviewMapper.toReviewDto(getAllBySellerId(sellerId));
     }
 
     @Override
+    @Transactional
     public List<Review> getAllByCustomerId(Long customerId) {
         return reviewRepository.findAllByCustomerId(customerId, null);
     }
 
     @Override
+    @Transactional
     public List<ReviewDto> getAllDtoByCustomerId(Long customerId) {
         return reviewMapper.toReviewDto(getAllByCustomerId(customerId));
     }
@@ -80,7 +88,7 @@ public class ReviewServiceImpl extends AbstractServiceImpl<Review, Long> impleme
     @Override
     @Transactional
     public void sendReviewFromCurrentUser(Review review, Long sellerId) {
-        sendReview(review, UserUtil.getCurrentUserId(), sellerId);
+        sendReview(review, userUtil.getCurrentUserId(), sellerId);
     }
 
     @Override

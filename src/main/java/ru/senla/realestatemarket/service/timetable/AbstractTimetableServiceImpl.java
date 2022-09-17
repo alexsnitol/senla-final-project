@@ -24,14 +24,17 @@ public abstract class AbstractTimetableServiceImpl<M extends IModel<Long>> exten
 
 
     protected final IUserRepository userRepository;
+    protected final UserUtil userUtil;
     protected final IBalanceOperationService balanceOperationService;
 
 
     protected AbstractTimetableServiceImpl(
             IUserRepository userRepository,
+            UserUtil userUtil,
             IBalanceOperationService balanceOperationService
     ) {
         this.userRepository = userRepository;
+        this.userUtil = userUtil;
         this.balanceOperationService = balanceOperationService;
     }
 
@@ -45,7 +48,7 @@ public abstract class AbstractTimetableServiceImpl<M extends IModel<Long>> exten
     }
 
     protected void checkBalanceOfCurrentUserToApplyOperationWithSpecificSum(double finalSum) {
-        User currentUser = userRepository.findById(UserUtil.getCurrentUserId());
+        User currentUser = userRepository.findById(userUtil.getCurrentUserId());
         if (currentUser.getBalance() < finalSum) {
             String message = String.format(
                     "User with id %s not enough money for this operation. Not enough %s.",

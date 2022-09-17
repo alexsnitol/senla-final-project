@@ -10,6 +10,7 @@ import ru.senla.realestatemarket.model.announcement.HousingAnnouncementTypeEnum;
 import ru.senla.realestatemarket.model.announcement.RentAnnouncementStatusEnum;
 import ru.senla.realestatemarket.model.announcement.SellAnnouncementStatusEnum;
 import ru.senla.realestatemarket.service.announcement.IAbstractHousingAnnouncementService;
+import ru.senla.realestatemarket.util.UserUtil;
 
 @Slf4j
 @Service
@@ -17,6 +18,11 @@ public abstract class AbstractHousingAnnouncementServiceImpl<M extends HousingAn
         extends AbstractAnnouncementServiceImpl<M>
         implements IAbstractHousingAnnouncementService<M> {
 
+    protected AbstractHousingAnnouncementServiceImpl(UserUtil userUtil) {
+        super(userUtil);
+    }
+
+    
     protected void validateAnnouncementTypeOnAccordanceWithStatus(
             HousingAnnouncementTypeEnum housingAnnouncementType,
             AnnouncementStatusEnum announcementStatus) throws InvalidStatusAnnouncementException

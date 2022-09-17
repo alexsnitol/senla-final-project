@@ -4,6 +4,7 @@ import org.mapstruct.BeanMapping;
 import org.mapstruct.Mapper;
 import org.mapstruct.MappingTarget;
 import org.mapstruct.NullValuePropertyMappingStrategy;
+import org.mapstruct.ReportingPolicy;
 import ru.senla.realestatemarket.dto.announcement.ApartmentAnnouncementDto;
 import ru.senla.realestatemarket.dto.announcement.RequestApartmentAnnouncementDto;
 import ru.senla.realestatemarket.dto.announcement.UpdateRequestApartmentAnnouncementDto;
@@ -13,7 +14,9 @@ import ru.senla.realestatemarket.model.announcement.ApartmentAnnouncement;
 import java.util.Collection;
 import java.util.List;
 
-@Mapper(uses = {ApartmentPropertyMapper.class, AnnouncementStatusEnumMapper.class, AnnouncementTypeEnumMapper.class})
+@Mapper(uses = {ApartmentPropertyMapper.class, AnnouncementStatusEnumMapper.class, AnnouncementTypeEnumMapper.class},
+        unmappedTargetPolicy = ReportingPolicy.IGNORE,
+        componentModel = "spring")
 public abstract class ApartmentAnnouncementMapper {
 
     public abstract ApartmentAnnouncementDto toApartmentAnnouncementDto(ApartmentAnnouncement apartmentAnnouncement);

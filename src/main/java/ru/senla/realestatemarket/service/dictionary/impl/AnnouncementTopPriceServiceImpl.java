@@ -1,7 +1,6 @@
 package ru.senla.realestatemarket.service.dictionary.impl;
 
 import lombok.extern.slf4j.Slf4j;
-import org.mapstruct.factory.Mappers;
 import org.springframework.stereotype.Service;
 import ru.senla.realestatemarket.dto.dictionary.UpdateRequestAnnouncementTopPriceDto;
 import ru.senla.realestatemarket.mapper.dictionaty.AnnouncementTopPriceMapper;
@@ -21,12 +20,13 @@ public class AnnouncementTopPriceServiceImpl
 
     private final IAnnouncementTopPriceRepository announcementTopPriceRepository;
 
-    private final AnnouncementTopPriceMapper announcementTopPriceMapper
-            = Mappers.getMapper(AnnouncementTopPriceMapper.class);
+    private final AnnouncementTopPriceMapper announcementTopPriceMapper;
 
 
-    public AnnouncementTopPriceServiceImpl(IAnnouncementTopPriceRepository announcementTopPriceRepository) {
+    public AnnouncementTopPriceServiceImpl(IAnnouncementTopPriceRepository announcementTopPriceRepository,
+                                           AnnouncementTopPriceMapper announcementTopPriceMapper) {
         this.announcementTopPriceRepository = announcementTopPriceRepository;
+        this.announcementTopPriceMapper = announcementTopPriceMapper;
     }
 
     @PostConstruct

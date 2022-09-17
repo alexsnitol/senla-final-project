@@ -1,14 +1,12 @@
 package ru.senla.realestatemarket.dto.timetable;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 import ru.senla.realestatemarket.dto.user.SimplyUserWithContactsAndRatingDto;
 
 import java.time.LocalDateTime;
 
-@Getter
-@Setter
+@Data
 public class RentTimetableWithoutAnnouncementIdAndWithUserIdOfTenantDto {
 
     private SimplyUserWithContactsAndRatingDto tenant;

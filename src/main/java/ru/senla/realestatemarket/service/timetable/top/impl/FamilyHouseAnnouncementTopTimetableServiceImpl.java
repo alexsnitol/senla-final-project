@@ -1,7 +1,6 @@
 package ru.senla.realestatemarket.service.timetable.top.impl;
 
 import lombok.extern.slf4j.Slf4j;
-import org.mapstruct.factory.Mappers;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import ru.senla.realestatemarket.dto.timetable.RequestTopTimetableDto;
@@ -50,22 +49,23 @@ public class FamilyHouseAnnouncementTopTimetableServiceImpl
     private final IFamilyHouseAnnouncementRepository familyHouseAnnouncementRepository;
     private final IFamilyHouseAnnouncementTopPurchaseRepository familyHouseAnnouncementTopPurchaseRepository;
 
-    private final FamilyHouseAnnouncementTopTimetableMapper timetableMapper
-            = Mappers.getMapper(FamilyHouseAnnouncementTopTimetableMapper.class);
+    private final FamilyHouseAnnouncementTopTimetableMapper timetableMapper;
 
 
     public FamilyHouseAnnouncementTopTimetableServiceImpl(
             IUserRepository userRepository,
+            UserUtil userUtil,
             IBalanceOperationService balanceOperationService,
             IFamilyHouseAnnouncementTopTimetableRepository familyHouseAnnouncementTopTimetableRepository,
             IFamilyHouseAnnouncementRepository familyHouseAnnouncementRepository,
             IFamilyHouseAnnouncementTopPurchaseRepository familyHouseAnnouncementTopPurchaseRepository,
-            IAnnouncementTopPriceRepository announcementTopPriceRepository
-    ) {
-        super(userRepository, balanceOperationService, announcementTopPriceRepository);
+            IAnnouncementTopPriceRepository announcementTopPriceRepository,
+            FamilyHouseAnnouncementTopTimetableMapper timetableMapper) {
+        super(userRepository, userUtil, balanceOperationService, announcementTopPriceRepository);
         this.familyHouseAnnouncementTopTimetableRepository = familyHouseAnnouncementTopTimetableRepository;
         this.familyHouseAnnouncementRepository = familyHouseAnnouncementRepository;
         this.familyHouseAnnouncementTopPurchaseRepository = familyHouseAnnouncementTopPurchaseRepository;
+        this.timetableMapper = timetableMapper;
     }
 
     @PostConstruct
@@ -104,12 +104,12 @@ public class FamilyHouseAnnouncementTopTimetableServiceImpl
         if (sortQuery == null) {
             familyHouseAnnouncementTopTimetables = getAll(
                     hasFamilyHouseAnnouncementIdAndUserIdOfOwnerInPropertyOfAnnouncementById(
-                            familyHouseAnnouncementId, UserUtil.getCurrentUserId()),
+                            familyHouseAnnouncementId, userUtil.getCurrentUserId()),
                     rsqlQuery, Sort.by(Sort.Direction.ASC, "fromDt"));
         } else {
             familyHouseAnnouncementTopTimetables = getAll(
                     hasFamilyHouseAnnouncementIdAndUserIdOfOwnerInPropertyOfAnnouncementById(
-                            familyHouseAnnouncementId, UserUtil.getCurrentUserId()),
+                            familyHouseAnnouncementId, userUtil.getCurrentUserId()),
                     rsqlQuery, sortQuery);
         }
 
@@ -151,7 +151,7 @@ public class FamilyHouseAnnouncementTopTimetableServiceImpl
     ) {
         FamilyHouseAnnouncement familyHouseAnnouncement = familyHouseAnnouncementRepository.findOne(
                 hasId(familyHouseAnnouncementId)
-                        .and(hasUserIdOfOwnerInProperty(UserUtil.getCurrentUserId())));
+                        .and(hasUserIdOfOwnerInProperty(userUtil.getCurrentUserId())));
 
         EntityHelper.checkEntityOnNull(
                 familyHouseAnnouncement, FamilyHouseAnnouncement.class, familyHouseAnnouncementId);

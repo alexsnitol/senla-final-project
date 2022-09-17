@@ -5,6 +5,7 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
 import org.mapstruct.NullValuePropertyMappingStrategy;
+import org.mapstruct.ReportingPolicy;
 import ru.senla.realestatemarket.dto.user.MessageDto;
 import ru.senla.realestatemarket.dto.user.RequestMessageDto;
 import ru.senla.realestatemarket.model.user.Message;
@@ -15,7 +16,7 @@ import java.time.LocalTime;
 import java.util.Collection;
 import java.util.List;
 
-@Mapper
+@Mapper(unmappedTargetPolicy = ReportingPolicy.IGNORE, componentModel = "spring")
 public abstract class MessageMapper {
 
     @Mapping(target = "createdDate", source = "message.createdDt")

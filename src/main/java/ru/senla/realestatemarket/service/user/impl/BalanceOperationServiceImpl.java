@@ -1,7 +1,6 @@
 package ru.senla.realestatemarket.service.user.impl;
 
 import lombok.extern.slf4j.Slf4j;
-import org.mapstruct.factory.Mappers;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import ru.senla.realestatemarket.dto.user.BalanceOperationWithoutUserIdDto;
@@ -16,13 +15,12 @@ import ru.senla.realestatemarket.repo.user.IUserRepository;
 import ru.senla.realestatemarket.service.AbstractServiceImpl;
 import ru.senla.realestatemarket.service.helper.EntityHelper;
 import ru.senla.realestatemarket.service.user.IBalanceOperationService;
+import ru.senla.realestatemarket.util.SortUtil;
 import ru.senla.realestatemarket.util.UserUtil;
 
 import javax.annotation.PostConstruct;
 import javax.transaction.Transactional;
 import java.util.List;
-
-import static ru.senla.realestatemarket.repo.user.specification.BalanceOperationSpecification.hasUserId;
 
 @Slf4j
 @Service
@@ -32,14 +30,19 @@ public class BalanceOperationServiceImpl
 
     private final IBalanceOperationRepository balanceOperationRepository;
     private final IUserRepository userRepository;
+    private final UserUtil userUtil;
 
-    private final BalanceOperationMapper balanceOperationMapper = Mappers.getMapper(BalanceOperationMapper.class);
+    private final BalanceOperationMapper balanceOperationMapper;
 
 
     public BalanceOperationServiceImpl(IBalanceOperationRepository balanceOperationRepository,
-                                       IUserRepository userRepository) {
+                                       IUserRepository userRepository,
+                                       UserUtil userUtil,
+                                       BalanceOperationMapper balanceOperationMapper) {
         this.balanceOperationRepository = balanceOperationRepository;
         this.userRepository = userRepository;
+        this.userUtil = userUtil;
+        this.balanceOperationMapper = balanceOperationMapper;
     }
 
 
@@ -50,22 +53,25 @@ public class BalanceOperationServiceImpl
     }
 
     @Override
+    @Transactional
     public List<BalanceOperationWithoutUserIdDto> getAllDtoByUserId(Long userId, String rsqlQuery, String sortQuery) {
         List<BalanceOperation> balanceOperations;
 
         if (sortQuery == null) {
-             balanceOperations = getAll(hasUserId(userId), rsqlQuery,
-                     Sort.by(Sort.Direction.DESC, "createdDt"));
+             balanceOperations = balanceOperationRepository.findAllByUserId(
+                     userId, rsqlQuery, Sort.by(Sort.Direction.DESC, "createdDt"));
         } else {
-            balanceOperations = getAll(hasUserId(userId), rsqlQuery, sortQuery);
+            balanceOperations = balanceOperationRepository.findAllByUserId(
+                    userId, rsqlQuery, SortUtil.parseSortQuery(sortQuery));
         }
 
         return balanceOperationMapper.toBalanceOperationWithoutUserIdDto(balanceOperations);
     }
 
     @Override
+    @Transactional
     public List<BalanceOperationWithoutUserIdDto> getAllDtoOfCurrentUser(String rsqlQuery, String sortQuery) {
-        return getAllDtoByUserId(UserUtil.getCurrentUserId(), rsqlQuery, sortQuery);
+        return getAllDtoByUserId(userUtil.getCurrentUserId(), rsqlQuery, sortQuery);
     }
 
     @Override
@@ -100,13 +106,13 @@ public class BalanceOperationServiceImpl
     @Override
     @Transactional
     public void addFromCurrentUserAndApplyOperation(BalanceOperation balanceOperation) {
-        addByUserIdAndApplyOperation(balanceOperation, UserUtil.getCurrentUserId());
+        addByUserIdAndApplyOperation(balanceOperation, userUtil.getCurrentUserId());
     }
 
     @Override
     @Transactional
     public void addFromCurrentUserAndApplyOperation(RequestBalanceOperationDto requestBalanceOperationDto) {
-        addByUserIdAndApplyOperation(requestBalanceOperationDto, UserUtil.getCurrentUserId());
+        addByUserIdAndApplyOperation(requestBalanceOperationDto, userUtil.getCurrentUserId());
     }
 
     /**
@@ -116,9 +122,8 @@ public class BalanceOperationServiceImpl
     @Transactional
     public void applyOperationToUserBalance(User user, Double sum) {
         Double currentBalance = user.getBalance();
-        user.setBalance(currentBalance + sum);
 
-        if (user.getBalance() < 0) {
+        if (sum < 0 && user.getBalance() < -sum) {
             String message = String.format(
                     "User with id %s not enough money for this operation. Not enough %s.",
                     user.getId(), user.getBalance() * -1);
@@ -127,13 +132,15 @@ public class BalanceOperationServiceImpl
             throw new OnSpecificUserNotEnoughMoneyException(message);
         }
 
+        user.setBalance(currentBalance + sum);
+
         userRepository.update(user);
     }
 
     @Override
     @Transactional
     public void applyOperationToCurrentUserBalance(Double sum) {
-        User user = userRepository.findById(UserUtil.getCurrentUserId());
+        User user = userRepository.findById(userUtil.getCurrentUserId());
 
         applyOperationToUserBalance(user, sum);
     }

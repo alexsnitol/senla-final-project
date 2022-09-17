@@ -1,6 +1,7 @@
 package ru.senla.realestatemarket.mapper.restresponse;
 
 import org.mapstruct.Mapper;
+import org.mapstruct.ReportingPolicy;
 import org.springframework.http.HttpStatus;
 import ru.senla.realestatemarket.dto.response.RestErrorDto;
 import ru.senla.realestatemarket.dto.response.RestResponseDto;
@@ -8,7 +9,8 @@ import ru.senla.realestatemarket.dto.response.RestValidationErrorDto;
 
 import java.util.Map;
 
-@Mapper
+@Mapper(unmappedTargetPolicy = ReportingPolicy.IGNORE,
+        componentModel = "spring")
 public class RestResponseMapper {
 
     public RestResponseDto toRestResponseDto(String message, HttpStatus httpStatus) {

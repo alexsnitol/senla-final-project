@@ -1,7 +1,6 @@
 package ru.senla.realestatemarket.service.house.impl;
 
 import lombok.extern.slf4j.Slf4j;
-import org.mapstruct.factory.Mappers;
 import org.springframework.stereotype.Service;
 import ru.senla.realestatemarket.dto.address.RequestAddressDto;
 import ru.senla.realestatemarket.dto.house.ApartmentHouseDto;
@@ -28,14 +27,16 @@ public class ApartmentHouseServiceImpl extends AbstractHouseServiceImpl<Apartmen
 
     private final IApartmentHouseRepository apartmentHouseRepository;
 
-    private final ApartmentHouseMapper apartmentHouseMapper = Mappers.getMapper(ApartmentHouseMapper.class);
+    private final ApartmentHouseMapper apartmentHouseMapper;
 
 
     public ApartmentHouseServiceImpl(IApartmentHouseRepository apartmentHouseRepository,
                                      IHouseMaterialRepository houseMaterialRepository,
-                                     IAddressRepository addressRepository) {
+                                     IAddressRepository addressRepository,
+                                     ApartmentHouseMapper apartmentHouseMapper) {
         super(houseMaterialRepository, addressRepository);
         this.apartmentHouseRepository = apartmentHouseRepository;
+        this.apartmentHouseMapper = apartmentHouseMapper;
     }
 
     @PostConstruct

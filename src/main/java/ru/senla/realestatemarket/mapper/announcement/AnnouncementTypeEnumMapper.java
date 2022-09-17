@@ -1,11 +1,13 @@
 package ru.senla.realestatemarket.mapper.announcement;
 
 import org.mapstruct.Mapper;
+import org.mapstruct.ReportingPolicy;
 import ru.senla.realestatemarket.model.announcement.AnnouncementTypeEnum;
 import ru.senla.realestatemarket.model.announcement.HousingAnnouncementTypeEnum;
 import ru.senla.realestatemarket.model.announcement.NonHousingAnnouncementTypeEnum;
 
-@Mapper
+@Mapper(unmappedTargetPolicy = ReportingPolicy.IGNORE,
+        componentModel = "spring")
 public abstract class AnnouncementTypeEnumMapper {
 
     public NonHousingAnnouncementTypeEnum toNonHousingAnnouncementTypeEnum(AnnouncementTypeEnum announcementTypeEnum) {

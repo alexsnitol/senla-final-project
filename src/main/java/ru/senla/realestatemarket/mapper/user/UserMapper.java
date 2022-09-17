@@ -4,6 +4,7 @@ import org.mapstruct.BeanMapping;
 import org.mapstruct.Mapper;
 import org.mapstruct.MappingTarget;
 import org.mapstruct.NullValuePropertyMappingStrategy;
+import org.mapstruct.ReportingPolicy;
 import ru.senla.realestatemarket.dto.user.RequestUserDto;
 import ru.senla.realestatemarket.dto.user.UpdateRequestUserDto;
 import ru.senla.realestatemarket.dto.user.SimplyUserDto;
@@ -15,7 +16,7 @@ import ru.senla.realestatemarket.model.user.User;
 import java.util.Collection;
 import java.util.List;
 
-@Mapper(uses = {RoleMapper.class})
+@Mapper(uses = {RoleMapper.class}, unmappedTargetPolicy = ReportingPolicy.IGNORE, componentModel = "spring")
 public abstract class UserMapper {
 
     public abstract SimplyUserDto toSimplyUserDto(User user);

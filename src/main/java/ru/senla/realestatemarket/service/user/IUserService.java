@@ -17,15 +17,11 @@ public interface IUserService extends UserDetailsService, IAbstractService<User,
     List<UserDto> getAllDto(String rsqlQuery, String sortQuery);
     UserDto getDtoOfCurrentUser();
 
-    void add(RequestUserDto requestUserDto);
+    void addFromDto(RequestUserDto requestUserDto);
 
-    void updateById(UpdateRequestUserDto updateRequestUserDto, Long id);
-    void updateCurrentUser(UpdateRequestUserDto updateRequestUserDto);
+    void updateByIdFromDto(UpdateRequestUserDto updateRequestUserDto, Long id);
+    void updateCurrentUserFromDto(UpdateRequestUserDto updateRequestUserDto);
 
     Boolean userWithItUsernameIsExist(String username);
-
-    void deleteCurrentUser();
-
-    void blockUserById(Long userId);
 
 }

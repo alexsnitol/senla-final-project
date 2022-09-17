@@ -1,8 +1,6 @@
 package ru.senla.realestatemarket.service.user.impl;
 
-import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.mapstruct.factory.Mappers;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import ru.senla.realestatemarket.dto.user.MessageDto;
@@ -21,15 +19,25 @@ import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Set;
 
-@RequiredArgsConstructor
 @Slf4j
 @Service
 public class MessageServiceImpl extends AbstractServiceImpl<Message, Long> implements IMessageService {
 
     private final IMessageRepository messageRepository;
     private final IUserRepository userRepository;
+    private final UserUtil userUtil;
 
-    private MessageMapper messageMapper = Mappers.getMapper(MessageMapper.class);
+    private final MessageMapper messageMapper;
+
+    public MessageServiceImpl(IMessageRepository messageRepository,
+                              IUserRepository userRepository,
+                              UserUtil userUtil,
+                              MessageMapper messageMapper) {
+        this.messageRepository = messageRepository;
+        this.userRepository = userRepository;
+        this.userUtil = userUtil;
+        this.messageMapper = messageMapper;
+    }
 
 
     public void init() {
@@ -41,7 +49,7 @@ public class MessageServiceImpl extends AbstractServiceImpl<Message, Long> imple
     @Override
     public List<MessageDto> getAllMessagesCurrentUserWithUserById(Long userId) {
         List<Message> messageList = messageRepository.findAllMessagesUserWithUserById(
-                UserUtil.getCurrentUserId(), userId, Sort.by(Sort.Direction.ASC, "createdDt")
+                userUtil.getCurrentUserId(), userId, Sort.by(Sort.Direction.ASC, "createdDt")
         );
 
         return messageMapper.toMessageDto(messageList);
@@ -49,7 +57,7 @@ public class MessageServiceImpl extends AbstractServiceImpl<Message, Long> imple
 
     @Override
     public Set<SimplyUserDto> getAllMessageUsersOfCurrentUser() {
-        return messageRepository.findAllMessageUsersByUserIdSortedByMessageCreatedDateTime(UserUtil.getCurrentUserId());
+        return messageRepository.findAllMessageUsersByUserIdSortedByMessageCreatedDateTime(userUtil.getCurrentUserId());
     }
 
     @Override
@@ -70,7 +78,7 @@ public class MessageServiceImpl extends AbstractServiceImpl<Message, Long> imple
     @Override
     @Transactional
     public void sendMessageFromCurrentUser(Message message, Long receiverId) {
-        sendMessage(message, UserUtil.getCurrentUserId(), receiverId);
+        sendMessage(message, userUtil.getCurrentUserId(), receiverId);
     }
 
     @Override

@@ -14,7 +14,9 @@ import ru.senla.realestatemarket.model.house.ApartmentHouse;
 import java.util.Collection;
 import java.util.List;
 
-@Mapper(uses = {AddressMapper.class, HouseMaterialMapper.class}, unmappedTargetPolicy = ReportingPolicy.IGNORE)
+@Mapper(uses = {AddressMapper.class, HouseMaterialMapper.class},
+        unmappedTargetPolicy = ReportingPolicy.IGNORE,
+        componentModel = "spring")
 public abstract class ApartmentHouseMapper {
 
     public abstract ApartmentHouseDto toApartmentHouseDto(ApartmentHouse apartmentHouse);

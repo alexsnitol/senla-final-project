@@ -1,7 +1,6 @@
 package ru.senla.realestatemarket.service.property.impl;
 
 import lombok.extern.slf4j.Slf4j;
-import org.mapstruct.factory.Mappers;
 import org.springframework.stereotype.Service;
 import ru.senla.realestatemarket.dto.property.ApartmentPropertyDto;
 import ru.senla.realestatemarket.dto.property.RequestApartmentPropertyDto;
@@ -40,16 +39,19 @@ public class ApartmentPropertyServiceImpl
     private final IApartmentPropertyRepository apartmentPropertyRepository;
     private final IApartmentHouseRepository apartmentHouseRepository;
 
-    private final ApartmentPropertyMapper apartmentPropertyMapper = Mappers.getMapper(ApartmentPropertyMapper.class);
+    private final ApartmentPropertyMapper apartmentPropertyMapper;
 
 
     public ApartmentPropertyServiceImpl(IRenovationTypeRepository renovationTypeRepository,
                                         IApartmentPropertyRepository apartmentPropertyRepository,
                                         IApartmentHouseRepository apartmentHouseRepository,
-                                        IUserRepository userRepository) {
-        super(renovationTypeRepository, userRepository);
+                                        IUserRepository userRepository,
+                                        UserUtil userUtil,
+                                        ApartmentPropertyMapper apartmentPropertyMapper) {
+        super(renovationTypeRepository, userRepository, userUtil);
         this.apartmentPropertyRepository = apartmentPropertyRepository;
         this.apartmentHouseRepository = apartmentHouseRepository;
+        this.apartmentPropertyMapper = apartmentPropertyMapper;
     }
 
     @PostConstruct
@@ -70,7 +72,7 @@ public class ApartmentPropertyServiceImpl
     @Transactional
     public List<ApartmentPropertyDto> getAllDtoOfCurrentUser(String rsqlQuery, String sortQuery) {
         List<ApartmentProperty> apartmentPropertyList = getAll(
-                GenericPropertySpecification.hasUserIdOfOwner(UserUtil.getCurrentUserId()), rsqlQuery, sortQuery);
+                GenericPropertySpecification.hasUserIdOfOwner(userUtil.getCurrentUserId()), rsqlQuery, sortQuery);
 
         return apartmentPropertyMapper.toApartmentPropertyDto(apartmentPropertyList);
     }
@@ -85,7 +87,7 @@ public class ApartmentPropertyServiceImpl
     @Transactional
     public ApartmentPropertyDto getDtoByIdOfCurrentUser(Long id) {
         return apartmentPropertyMapper.toApartmentPropertyDto(
-                getOne(GenericPropertySpecification.hasIdAndUserIdOfOwner(id, UserUtil.getCurrentUserId())));
+                getOne(GenericPropertySpecification.hasIdAndUserIdOfOwner(id, userUtil.getCurrentUserId())));
     }
 
     @Override
@@ -102,7 +104,7 @@ public class ApartmentPropertyServiceImpl
     @Override
     @Transactional
     public void addFromDtoFromCurrentUser(RequestApartmentPropertyDto requestDto) {
-        addFromDtoWithSpecificUserIdOfOwner(requestDto, UserUtil.getCurrentUserId());
+        addFromDtoWithSpecificUserIdOfOwner(requestDto, userUtil.getCurrentUserId());
     }
 
     private void addFromDtoWithSpecificUserIdOfOwner(RequestApartmentPropertyDto requestDto, Long userIdOfOwner) {

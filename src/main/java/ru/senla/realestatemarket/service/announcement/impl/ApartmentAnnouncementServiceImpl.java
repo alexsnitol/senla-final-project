@@ -1,7 +1,7 @@
 package ru.senla.realestatemarket.service.announcement.impl;
 
 import lombok.extern.slf4j.Slf4j;
-import org.mapstruct.factory.Mappers;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import ru.senla.realestatemarket.dto.announcement.ApartmentAnnouncementDto;
@@ -40,14 +40,17 @@ public class ApartmentAnnouncementServiceImpl
     private final IApartmentAnnouncementRepository apartmentAnnouncementRepository;
     private final IApartmentPropertyRepository apartmentPropertyRepository;
 
-    private final ApartmentAnnouncementMapper apartmentAnnouncementMapper
-            = Mappers.getMapper(ApartmentAnnouncementMapper.class);
+    private final ApartmentAnnouncementMapper apartmentAnnouncementMapper;
 
 
     public ApartmentAnnouncementServiceImpl(IApartmentAnnouncementRepository apartmentAnnouncementRepository,
-                                            IApartmentPropertyRepository apartmentPropertyRepository) {
+                                            IApartmentPropertyRepository apartmentPropertyRepository,
+                                            UserUtil userUtil,
+                                            ApartmentAnnouncementMapper apartmentAnnouncementMapper) {
+        super(userUtil);
         this.apartmentAnnouncementRepository = apartmentAnnouncementRepository;
         this.apartmentPropertyRepository = apartmentPropertyRepository;
+        this.apartmentAnnouncementMapper = apartmentAnnouncementMapper;
     }
 
     @PostConstruct
@@ -128,10 +131,10 @@ public class ApartmentAnnouncementServiceImpl
 
         if (sortQuery == null) {
             // default sort
-            apartmentAnnouncementList = getAll(hasUserIdOfOwnerInProperty(UserUtil.getCurrentUserId()),
+            apartmentAnnouncementList = getAll(hasUserIdOfOwnerInProperty(userUtil.getCurrentUserId()),
                     rsqlQuery, AnnouncementSort.byCreatedDtAsc());
         } else {
-            apartmentAnnouncementList = getAll(hasUserIdOfOwnerInProperty(UserUtil.getCurrentUserId()),
+            apartmentAnnouncementList = getAll(hasUserIdOfOwnerInProperty(userUtil.getCurrentUserId()),
                     rsqlQuery, sortQuery);
         }
 
@@ -158,7 +161,7 @@ public class ApartmentAnnouncementServiceImpl
     @Transactional
     public ApartmentAnnouncementDto getByIdDtoOfCurrentUser(Long id) {
         return apartmentAnnouncementMapper.toApartmentAnnouncementDto(
-                getOne(hasIdAndUserIdOfOwnerInProperty(id, UserUtil.getCurrentUserId()))
+                getOne(hasIdAndUserIdOfOwnerInProperty(id, userUtil.getCurrentUserId()))
         );
     }
 
@@ -201,7 +204,7 @@ public class ApartmentAnnouncementServiceImpl
                                                  Long id
     ) {
         ApartmentAnnouncement apartmentAnnouncement = getOne(
-                hasIdAndUserIdOfOwnerInProperty(id, UserUtil.getCurrentUserId()));
+                hasIdAndUserIdOfOwnerInProperty(id, userUtil.getCurrentUserId()));
 
 
         Long apartmentPropertyId = updateRequestDto.getApartmentPropertyId();

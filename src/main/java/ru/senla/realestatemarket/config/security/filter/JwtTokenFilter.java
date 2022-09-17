@@ -27,16 +27,19 @@ public class JwtTokenFilter extends OncePerRequestFilter {
 
     private final JwtTokenUtil jwtTokenUtil;
     private final IUserService userService;
+    private final UserUtil userUtil;
     private final HandlerExceptionResolver resolver;
 
 
     public JwtTokenFilter(
             JwtTokenUtil jwtTokenUtil,
             IUserService userService,
+            UserUtil userUtil,
             @Qualifier(value = "handlerExceptionResolver") HandlerExceptionResolver resolver
     ) {
         this.jwtTokenUtil = jwtTokenUtil;
         this.userService = userService;
+        this.userUtil = userUtil;
         this.resolver = resolver;
     }
 
@@ -65,7 +68,7 @@ public class JwtTokenFilter extends OncePerRequestFilter {
         if (userId != null && SecurityContextHolder.getContext().getAuthentication() == null) {
 
             User user = userService.getByIdWithFetchingRolesAndAuthorities(userId);
-            AuthorizedUser authorizedUser = UserUtil.convertUserToAuthorizedUser(user);
+            AuthorizedUser authorizedUser = userUtil.convertUserToAuthorizedUser(user);
 
             if (Boolean.TRUE.equals(jwtTokenUtil.validateToken(jwt, authorizedUser))) {
                 UsernamePasswordAuthenticationToken token

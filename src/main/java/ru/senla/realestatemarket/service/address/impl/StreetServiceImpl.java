@@ -1,7 +1,7 @@
 package ru.senla.realestatemarket.service.address.impl;
 
 import lombok.extern.slf4j.Slf4j;
-import org.mapstruct.factory.Mappers;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.senla.realestatemarket.dto.address.RequestStreetDto;
 import ru.senla.realestatemarket.dto.address.RequestStreetWithoutCityIdDto;
@@ -29,12 +29,16 @@ public class StreetServiceImpl extends AbstractServiceImpl<Street, Long> impleme
     private final IStreetRepository streetRepository;
     private final ICityRepository cityRepository;
 
-    private final StreetMapper streetMapper = Mappers.getMapper(StreetMapper.class);
+    private final StreetMapper streetMapper;
 
 
-    public StreetServiceImpl(IStreetRepository streetRepository, ICityRepository cityRepository) {
+    public StreetServiceImpl(IStreetRepository streetRepository,
+                             ICityRepository cityRepository,
+                             StreetMapper streetMapper
+    ) {
         this.streetRepository = streetRepository;
         this.cityRepository = cityRepository;
+        this.streetMapper = streetMapper;
     }
 
     @PostConstruct

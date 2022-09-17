@@ -2,6 +2,7 @@ package ru.senla.realestatemarket.mapper.timetable.rent;
 
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
+import org.mapstruct.ReportingPolicy;
 import ru.senla.realestatemarket.dto.timetable.RentTimetableDto;
 import ru.senla.realestatemarket.dto.timetable.RentTimetableWithoutAnnouncementIdAndWithUserIdOfTenantDto;
 import ru.senla.realestatemarket.dto.timetable.RentTimetableWithoutAnnouncementIdDto;
@@ -14,7 +15,9 @@ import ru.senla.realestatemarket.model.timetable.rent.ApartmentAnnouncementRentT
 import java.util.Collection;
 import java.util.List;
 
-@Mapper(uses = {UserMapper.class, AnnouncementMapper.class})
+@Mapper(uses = {UserMapper.class, AnnouncementMapper.class},
+        unmappedTargetPolicy = ReportingPolicy.IGNORE,
+        componentModel = "spring")
 public abstract class ApartmentAnnouncementRentTimetableMapper {
 
     public abstract ApartmentAnnouncementRentTimetable toApartmentAnnouncementRentTimetable(
