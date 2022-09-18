@@ -84,7 +84,7 @@ public class LandPropertyController {
             value = "",
             authorizations = {@Authorization("Authorized user")}
     )
-    @GetMapping("/current")
+    @GetMapping("/owners/current")
     public List<LandPropertyDto> getAllDtoOfCurrentUser(
             @RequestParam(value = "q",required = false) String rsqlQuery,
             @RequestParam(value = "sort", required = false) String sortQuery
@@ -96,7 +96,7 @@ public class LandPropertyController {
             value = "",
             authorizations = {@Authorization("Authorized user")}
     )
-    @PostMapping("/current")
+    @PostMapping("/owners/current")
     public ResponseEntity<RestResponseDto> addFromCurrentUser(
             @RequestBody @Valid RequestLandPropertyDto requestLandPropertyDto
     ) {
@@ -110,7 +110,7 @@ public class LandPropertyController {
             value = "",
             authorizations = {@Authorization("Authorized user")}
     )
-    @GetMapping("/current/{id}")
+    @GetMapping("/owners/current/{id}")
     public LandPropertyDto getByIdOfCurrentUser(
             @PathVariable Long id
     ) {
@@ -121,7 +121,7 @@ public class LandPropertyController {
             value = "",
             authorizations = {@Authorization("Authorized user")}
     )
-    @PutMapping("/current/{id}")
+    @PutMapping("/owners/current/{id}")
     public ResponseEntity<RestResponseDto> updateByIdOfCurrentUser(
             @PathVariable Long id,
             @RequestBody @Valid UpdateRequestLandPropertyDto updateRequestLandPropertyDto

@@ -107,7 +107,7 @@ public class FamilyHousePropertyController {
             value = "",
             authorizations = {@Authorization("Authorized user")}
     )
-    @GetMapping("/current")
+    @GetMapping("/owners/current")
     public List<FamilyHousePropertyDto> getAllDtoOfCurrentUser(
             @RequestParam(value = "q",required = false) String rsqlQuery,
             @RequestParam(value = "sort", required = false) String sortQuery
@@ -119,7 +119,7 @@ public class FamilyHousePropertyController {
             value = "",
             authorizations = {@Authorization("Authorized user")}
     )
-    @PostMapping("/current")
+    @PostMapping("/owners/current")
     public ResponseEntity<RestResponseDto> addFromCurrentUser(
             @RequestBody @Valid RequestFamilyHousePropertyDto requestFamilyHousePropertyDto
     ) {
@@ -133,7 +133,7 @@ public class FamilyHousePropertyController {
             value = "",
             authorizations = {@Authorization("Authorized user")}
     )
-    @GetMapping("/current/{id}")
+    @GetMapping("/owners/current/{id}")
     public FamilyHousePropertyDto getDtoByIdOfCurrentUser(
             @PathVariable Long id
     ) {
@@ -144,7 +144,7 @@ public class FamilyHousePropertyController {
             value = "",
             authorizations = {@Authorization("Authorized user")}
     )
-    @PutMapping("/current/{id}")
+    @PutMapping("/owners/current/{id}")
     public ResponseEntity<RestResponseDto> updateByIdOfCurrentUser(
             @PathVariable Long id,
             @RequestBody @Valid UpdateRequestFamilyHousePropertyDto updateRequestFamilyHousePropertyDto

@@ -65,7 +65,7 @@ public class LandAnnouncementTopTimetableController {
             value = "",
             authorizations = {@Authorization("Authorized user")}
     )
-    @GetMapping("/owner/current/{landAnnouncementId}/timetables/top")
+    @GetMapping("/owners/current/{landAnnouncementId}/timetables/top")
     public List<TopTimetableWithoutAnnouncementIdDto> getAllOfCurrentUserByLandId(
             @PathVariable Long landAnnouncementId,
             @RequestParam(required = false) String rsqlQuery,
@@ -79,7 +79,7 @@ public class LandAnnouncementTopTimetableController {
             value = "",
             authorizations = {@Authorization("Authorized user")}
     )
-    @PostMapping("/owner/current/{landAnnouncementId}/timetables/top")
+    @PostMapping("/owners/current/{landAnnouncementId}/timetables/top")
     public ResponseEntity<RestResponseDto> addByLandIdWithPayFromCurrentUser(
             @PathVariable Long landAnnouncementId,
             @RequestBody @Valid RequestTopTimetableDto requestTopTimetableDto

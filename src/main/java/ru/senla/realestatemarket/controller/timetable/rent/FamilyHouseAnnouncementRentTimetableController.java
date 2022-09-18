@@ -81,7 +81,7 @@ public class FamilyHouseAnnouncementRentTimetableController {
             value = "",
             authorizations = {@Authorization("Authorized user")}
     )
-    @GetMapping("/owner/current/{familyHouseAnnouncementId}/timetables/rent")
+    @GetMapping("/owners/current/{familyHouseAnnouncementId}/timetables/rent")
     public List<RentTimetableWithoutAnnouncementIdDto> getAllOfCurrentUserByFamilyHouseId(
             @PathVariable Long familyHouseAnnouncementId,
             @RequestParam(required = false) String rsqlQuery,

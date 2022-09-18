@@ -149,7 +149,7 @@ public class LandAnnouncementController {
             value = "",
             authorizations = @Authorization("Authorized user")
     )
-    @GetMapping("/current")
+    @GetMapping("/owner/current")
     public List<LandAnnouncementDto> getAllOfCurrentUser(
             @RequestParam(value = "q", required = false) String rsqlQuery,
             @RequestParam(value = "sort", required = false) String sortQuery
@@ -161,7 +161,7 @@ public class LandAnnouncementController {
             value = "",
             authorizations = @Authorization("Authorized user")
     )
-    @PostMapping("/current")
+    @PostMapping("/owner/current")
     public ResponseEntity<RestResponseDto> addFromCurrentUser(
             @RequestBody @Valid RequestLandAnnouncementDto requestLandAnnouncementDto
     ) {
@@ -176,7 +176,7 @@ public class LandAnnouncementController {
             value = "",
             authorizations = @Authorization("Authorized user")
     )
-    @GetMapping("/current/{id}")
+    @GetMapping("/owner/current/{id}")
     public LandAnnouncementDto getByIdOfCurrentUser(
             @PathVariable Long id
     ) {
@@ -188,7 +188,7 @@ public class LandAnnouncementController {
             notes = "Update land announcement by id with validation on access to update for current user",
             authorizations = @Authorization("Authorized user")
     )
-    @PutMapping("/current/{id}")
+    @PutMapping("/owner/current/{id}")
     public ResponseEntity<RestResponseDto> updateByIdFromCurrentUser(
             @PathVariable Long id,
             @RequestBody @Valid UpdateRequestLandAnnouncementDto updateRequestLandAnnouncementDto

@@ -137,7 +137,7 @@ public class FamilyHouseAnnouncementController {
         return familyHouseAnnouncementService.getByIdWithOpenStatusDto(id);
     }
 
-    @GetMapping("/closed/owner/{userIdOfOwner}")
+    @GetMapping("/closed/owners/{userIdOfOwner}")
     public List<FamilyHouseAnnouncementDto> getAllWithClosedStatusByUserIfOfOwner(
             @PathVariable Long userIdOfOwner,
             @RequestParam(value = "q", required = false) String rsqlQuery,
@@ -151,7 +151,7 @@ public class FamilyHouseAnnouncementController {
             value = "",
             authorizations = @Authorization("Authorized user")
     )
-    @GetMapping("/current")
+    @GetMapping("/owners/current")
     public List<FamilyHouseAnnouncementDto> getAllOfCurrentUser(
             @RequestParam(value = "q", required = false) String rsqlQuery,
             @RequestParam(value = "sort", required = false) String sortQuery
@@ -163,7 +163,7 @@ public class FamilyHouseAnnouncementController {
             value = "",
             authorizations = @Authorization("Authorized user")
     )
-    @PostMapping("/current")
+    @PostMapping("/owners/current")
     public ResponseEntity<RestResponseDto> addFromCurrentUser(
             @RequestBody @Valid RequestFamilyHouseAnnouncementDto requestFamilyHouseAnnouncementDto
     ) {
@@ -178,7 +178,7 @@ public class FamilyHouseAnnouncementController {
             value = "",
             authorizations = @Authorization("Authorized user")
     )
-    @GetMapping("/current/{id}")
+    @GetMapping("/owners/current/{id}")
     public FamilyHouseAnnouncementDto getByIdOfCurrentUser(
             @PathVariable Long id
     ) {
@@ -190,7 +190,7 @@ public class FamilyHouseAnnouncementController {
             notes = "Update family house announcement by id with validation on access to update for current user",
             authorizations = @Authorization("Authorized user")
     )
-    @PutMapping("/current/{id}")
+    @PutMapping("/owners/current/{id}")
     public ResponseEntity<RestResponseDto> updateByIdFromCurrentUser(
             @PathVariable Long id,
             @RequestBody @Valid UpdateRequestFamilyHouseAnnouncementDto updateRequestFamilyHouseAnnouncementDto

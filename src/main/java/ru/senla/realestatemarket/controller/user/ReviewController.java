@@ -20,7 +20,7 @@ import java.util.List;
 
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("/api/")
+@RequestMapping("/api/reviews")
 public class ReviewController {
 
     private final IReviewService reviewService;
@@ -31,7 +31,7 @@ public class ReviewController {
             notes = "Return all customer reviews of sellers by customerId",
             authorizations = @Authorization("ADMIN")
     )
-    @GetMapping("/customers/{customerId}/reviews")
+    @GetMapping("/customers/{customerId}")
     public List<ReviewDto> getReviewsByCustomerId(@PathVariable Long customerId) {
         return reviewService.getAllDtoByCustomerId(customerId);
     }
@@ -40,7 +40,7 @@ public class ReviewController {
             value = "",
             notes = "Returns all reviews of seller by sellerId"
     )
-    @GetMapping("/sellers/{sellerId}/reviews")
+    @GetMapping("/sellers/{sellerId}")
     public List<ReviewDto> getReviewsBySellerId(@PathVariable Long sellerId) {
         return reviewService.getAllDtoBySellerId(sellerId);
     }
@@ -49,7 +49,7 @@ public class ReviewController {
             value = "",
             notes = "Send a review to seller by sellerId from current user"
     )
-    @PostMapping("/sellers/{sellerId}/reviews")
+    @PostMapping("/sellers/{sellerId}")
     public ResponseEntity<RestResponseDto> sendReviewToSellerBySellerId(
             @RequestBody RequestReviewDto requestReviewDto,
             @PathVariable Long sellerId

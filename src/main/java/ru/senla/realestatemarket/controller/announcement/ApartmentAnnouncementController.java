@@ -136,7 +136,7 @@ public class ApartmentAnnouncementController {
         return apartmentAnnouncementService.getByIdWithOpenStatusDto(id);
     }
 
-    @GetMapping("/closed/owner/{userIdOfOwner}")
+    @GetMapping("/closed/owners/{userIdOfOwner}")
     public List<ApartmentAnnouncementDto> getAllWithClosedStatusByUserIfOfOwner(
             @PathVariable Long userIdOfOwner,
             @RequestParam(value = "q", required = false) String rsqlQuery,
@@ -150,7 +150,7 @@ public class ApartmentAnnouncementController {
             value = "",
             authorizations = @Authorization("Authorized user")
     )
-    @GetMapping("/current")
+    @GetMapping("/owners/current")
     public List<ApartmentAnnouncementDto> getAllOfCurrentUser(
             @RequestParam(value = "q", required = false) String rsqlQuery,
             @RequestParam(value = "sort", required = false) String sortQuery
@@ -162,7 +162,7 @@ public class ApartmentAnnouncementController {
             value = "",
             authorizations = @Authorization("Authorized user")
     )
-    @PostMapping("/current")
+    @PostMapping("/owners/current")
     public ResponseEntity<RestResponseDto> addFromCurrentUser(
             @RequestBody @Valid RequestApartmentAnnouncementDto requestApartmentAnnouncementDto
     ) {
@@ -177,7 +177,7 @@ public class ApartmentAnnouncementController {
             value = "",
             authorizations = @Authorization("Authorized user")
     )
-    @GetMapping("/current/{id}")
+    @GetMapping("/owners/current/{id}")
     public ApartmentAnnouncementDto getByIdOfCurrentUser(
             @PathVariable Long id
     ) {
@@ -189,7 +189,7 @@ public class ApartmentAnnouncementController {
             notes = "Update apartment announcement by id with validation on access to update for current user",
             authorizations = @Authorization("Authorized user")
     )
-    @PutMapping("/current/{id}")
+    @PutMapping("/owners/current/{id}")
     public ResponseEntity<RestResponseDto> updateByIdFromCurrentUser(
             @PathVariable Long id,
             @RequestBody @Valid UpdateRequestApartmentAnnouncementDto updateRequestApartmentAnnouncementDto

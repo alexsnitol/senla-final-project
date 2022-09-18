@@ -65,7 +65,7 @@ public class FamilyHouseAnnouncementTopTimetableController {
             value = "",
             authorizations = {@Authorization("Authorized user")}
     )
-    @GetMapping("/owner/current/{familyHouseAnnouncementId}/timetables/top")
+    @GetMapping("/owners/current/{familyHouseAnnouncementId}/timetables/top")
     public List<TopTimetableWithoutAnnouncementIdDto> getAllOfCurrentUserByFamilyHouseId(
             @PathVariable Long familyHouseAnnouncementId,
             @RequestParam(required = false) String rsqlQuery,
@@ -79,7 +79,7 @@ public class FamilyHouseAnnouncementTopTimetableController {
             value = "",
             authorizations = {@Authorization("Authorized user")}
     )
-    @PostMapping("/owner/current/{familyHouseAnnouncementId}/timetables/top")
+    @PostMapping("/owners/current/{familyHouseAnnouncementId}/timetables/top")
     public ResponseEntity<RestResponseDto> addByFamilyHouseIdWithPayFromCurrentUser(
             @PathVariable Long familyHouseAnnouncementId,
             @RequestBody @Valid RequestTopTimetableDto requestTopTimetableDto
