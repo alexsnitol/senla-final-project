@@ -22,6 +22,7 @@ import javax.persistence.PostLoad;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 import java.util.List;
+import java.util.Objects;
 
 @Getter
 @Setter
@@ -59,6 +60,22 @@ public class LandProperty extends Property implements IPropertyWithAnnouncementL
         address.setRegion(region);
         address.setCity(city);
         address.setStreet(street);
+    }
+
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof LandProperty)) return false;
+        if (!super.equals(o)) return false;
+        LandProperty that = (LandProperty) o;
+        return Objects.equals(getStreet(), that.getStreet())
+                && Objects.equals(getAddress(), that.getAddress());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(super.hashCode(), getStreet(), getAddress());
     }
 
 }

@@ -11,6 +11,7 @@ import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import java.util.Objects;
 
 @Getter
 @Setter
@@ -23,5 +24,20 @@ public class FamilyHouseAnnouncementRentPurchase extends AnnouncementRentPurchas
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "family_house_announcement_rent_timetable_id")
     private FamilyHouseAnnouncementRentTimetable timetable;
+
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof FamilyHouseAnnouncementRentPurchase)) return false;
+        if (!super.equals(o)) return false;
+        FamilyHouseAnnouncementRentPurchase that = (FamilyHouseAnnouncementRentPurchase) o;
+        return Objects.equals(getTimetable(), that.getTimetable());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(super.hashCode(), getTimetable());
+    }
 
 }

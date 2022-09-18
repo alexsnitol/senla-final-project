@@ -15,6 +15,7 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import java.util.Objects;
 
 @Getter
 @Setter
@@ -34,5 +35,21 @@ public class Street implements IModel<Long> {
     @ManyToOne(fetch = FetchType.LAZY)
     @JsonBackReference
     private City city;
+
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Street)) return false;
+        Street street = (Street) o;
+        return Objects.equals(getId(), street.getId())
+                && Objects.equals(getName(), street.getName())
+                && Objects.equals(getCity(), street.getCity());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getId(), getName(), getCity());
+    }
 
 }

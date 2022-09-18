@@ -33,8 +33,6 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
-import static ru.senla.realestatemarket.repo.announcement.specification.ApartmentAnnouncementSpecification.hasId;
-import static ru.senla.realestatemarket.repo.announcement.specification.ApartmentAnnouncementSpecification.hasUserIdOfOwnerInProperty;
 import static ru.senla.realestatemarket.repo.timetable.specification.GenericTimetableSpecification.intervalWithSpecificFromAndTo;
 
 @Slf4j
@@ -149,9 +147,8 @@ public class ApartmentAnnouncementTopTimetableServiceImpl
     public void addByApartmentAnnouncementIdWithPayFromCurrentUser(
             RequestTopTimetableDto requestDto, Long apartmentAnnouncementId
     ) {
-        ApartmentAnnouncement apartmentAnnouncement = apartmentAnnouncementRepository.findOne(
-                hasId(apartmentAnnouncementId)
-                        .and(hasUserIdOfOwnerInProperty(userUtil.getCurrentUserId())));
+        ApartmentAnnouncement apartmentAnnouncement = apartmentAnnouncementRepository
+                .findByIdAndUserIdOfOwnerInProperty(apartmentAnnouncementId, userUtil.getCurrentUserId());
 
         EntityHelper.checkEntityOnNull(apartmentAnnouncement, ApartmentAnnouncement.class, apartmentAnnouncementId);
 

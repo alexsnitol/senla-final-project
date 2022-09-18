@@ -19,6 +19,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import java.util.List;
+import java.util.Objects;
 
 @Getter
 @Setter
@@ -45,6 +46,23 @@ public class ApartmentProperty extends HousingProperty implements IPropertyWithA
     @PostConstruct
     public void initConstruct() {
         setPropertyType(PropertyTypeEnum.APARTMENT);
+    }
+
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof ApartmentProperty)) return false;
+        if (!super.equals(o)) return false;
+        ApartmentProperty that = (ApartmentProperty) o;
+        return Objects.equals(getApartmentHouse(), that.getApartmentHouse())
+                && Objects.equals(getApartmentNumber(), that.getApartmentNumber())
+                && Objects.equals(getFloor(), that.getFloor());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(super.hashCode(), getApartmentHouse(), getApartmentNumber(), getFloor());
     }
 
 }

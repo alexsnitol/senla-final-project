@@ -19,6 +19,7 @@ import javax.persistence.PostLoad;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Transient;
+import java.util.Objects;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @Getter
@@ -58,4 +59,21 @@ public class Address implements IModel<Long> {
         this.region = region;
         this.city = city;
     }
+
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Address)) return false;
+        Address address = (Address) o;
+        return Objects.equals(getId(), address.getId())
+                && Objects.equals(getStreet(), address.getStreet())
+                && Objects.equals(getHouseNumber(), address.getHouseNumber());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getId(), getStreet(), getHouseNumber());
+    }
+
 }

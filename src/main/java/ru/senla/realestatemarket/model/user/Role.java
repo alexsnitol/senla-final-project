@@ -3,10 +3,8 @@ package ru.senla.realestatemarket.model.user;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
-import org.hibernate.Hibernate;
 import ru.senla.realestatemarket.model.IModel;
 
 import javax.persistence.Entity;
@@ -50,14 +48,15 @@ public class Role implements IModel<Long> {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
+        if (!(o instanceof Role)) return false;
         Role role = (Role) o;
-        return id != null && Objects.equals(id, role.id);
+        return Objects.equals(getId(), role.getId())
+                && Objects.equals(getName(), role.getName());
     }
 
     @Override
     public int hashCode() {
-        return getClass().hashCode();
+        return Objects.hash(getId(), getName());
     }
 
 }

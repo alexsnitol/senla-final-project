@@ -17,6 +17,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import java.util.List;
+import java.util.Objects;
 
 @Getter
 @Setter
@@ -42,5 +43,21 @@ public class ApartmentAnnouncement extends HousingAnnouncement {
 
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "announcement")
     private List<ApartmentAnnouncementTopTimetable> apartmentAnnouncementTopTimetables;
+
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof ApartmentAnnouncement)) return false;
+        if (!super.equals(o)) return false;
+        ApartmentAnnouncement that = (ApartmentAnnouncement) o;
+        return Objects.equals(getProperty(), that.getProperty())
+                && Objects.equals(getTop(), that.getTop());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(super.hashCode(), getProperty(), getTop());
+    }
 
 }

@@ -16,6 +16,7 @@ import javax.persistence.PostLoad;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 import java.util.List;
+import java.util.Objects;
 
 @Setter
 @Getter
@@ -45,4 +46,20 @@ public class ApartmentHouse extends House {
         numberOfApartmentProperties = propertyList.size();
     }
 
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof ApartmentHouse)) return false;
+        if (!super.equals(o)) return false;
+        ApartmentHouse that = (ApartmentHouse) o;
+        return Objects.equals(getElevator(), that.getElevator())
+                && Objects.equals(getPropertyList(), that.getPropertyList())
+                && Objects.equals(getNumberOfApartmentProperties(), that.getNumberOfApartmentProperties());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(super.hashCode(), getElevator(), getPropertyList(), getNumberOfApartmentProperties());
+    }
 }

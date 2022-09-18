@@ -19,6 +19,9 @@ import javax.persistence.criteria.Root;
 import java.util.LinkedList;
 import java.util.List;
 
+import static ru.senla.realestatemarket.repo.announcement.specification.ApartmentAnnouncementSpecification.hasId;
+import static ru.senla.realestatemarket.repo.announcement.specification.ApartmentAnnouncementSpecification.hasUserIdOfOwnerInProperty;
+
 @Slf4j
 @Repository
 public class ApartmentAnnouncementRepositoryImpl
@@ -79,6 +82,13 @@ public class ApartmentAnnouncementRepositoryImpl
                 );
 
         return entityManager.createQuery(criteriaQuery).getResultList();
+    }
+
+    @Override
+    public ApartmentAnnouncement findByIdAndUserIdOfOwnerInProperty(Long id, Long userIdOfOwner) {
+        return findOne(hasId(id)
+                .and(hasUserIdOfOwnerInProperty(userIdOfOwner))
+        );
     }
 
 }

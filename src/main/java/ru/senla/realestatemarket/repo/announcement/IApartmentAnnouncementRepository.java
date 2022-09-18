@@ -6,4 +6,7 @@ import java.util.List;
 
 public interface IApartmentAnnouncementRepository extends IAbstractHousingAnnouncementRepository<ApartmentAnnouncement> {
     List<ApartmentAnnouncement> findAllInTheTextFieldsOfWhichContainsTheKeys(List<String> searchKeys);
+
+    ApartmentAnnouncement findByIdAndUserIdOfOwnerInProperty(Long id, Long userIdOfOwner);
+
 }

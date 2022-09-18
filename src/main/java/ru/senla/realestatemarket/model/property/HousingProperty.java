@@ -10,7 +10,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import java.util.Objects;
 
 @Getter
 @Setter
@@ -26,5 +26,21 @@ public class HousingProperty extends Property {
     @ManyToOne
     @JoinColumn(name = "renovation_type_id")
     private RenovationType renovationType;
+
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof HousingProperty)) return false;
+        if (!super.equals(o)) return false;
+        HousingProperty that = (HousingProperty) o;
+        return Objects.equals(getNumberOfRooms(), that.getNumberOfRooms())
+                && Objects.equals(getRenovationType(), that.getRenovationType());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(super.hashCode(), getNumberOfRooms(), getRenovationType());
+    }
 
 }

@@ -23,6 +23,7 @@ import ru.senla.realestatemarket.repo.user.IUserRepository;
 import ru.senla.realestatemarket.service.helper.EntityHelper;
 import ru.senla.realestatemarket.service.timetable.top.IFamilyHouseAnnouncementTopTimetableService;
 import ru.senla.realestatemarket.service.user.IBalanceOperationService;
+import ru.senla.realestatemarket.util.SortUtil;
 import ru.senla.realestatemarket.util.UserUtil;
 
 import javax.annotation.PostConstruct;
@@ -32,12 +33,7 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
-import static ru.senla.realestatemarket.repo.announcement.specification.FamilyHouseAnnouncementSpecification.hasId;
-import static ru.senla.realestatemarket.repo.announcement.specification.FamilyHouseAnnouncementSpecification.hasUserIdOfOwnerInProperty;
 import static ru.senla.realestatemarket.repo.timetable.specification.GenericTimetableSpecification.intervalWithSpecificFromAndTo;
-import static ru.senla.realestatemarket.repo.timetable.top.specification.FamilyHouseAnnouncementTopTimetableSpecification.concernsTheIntervalBetweenSpecificFromAndTo;
-import static ru.senla.realestatemarket.repo.timetable.top.specification.FamilyHouseAnnouncementTopTimetableSpecification.hasFamilyHouseAnnouncementId;
-import static ru.senla.realestatemarket.repo.timetable.top.specification.FamilyHouseAnnouncementTopTimetableSpecification.hasFamilyHouseAnnouncementIdAndUserIdOfOwnerInPropertyOfAnnouncementById;
 
 @Slf4j
 @Service
@@ -83,11 +79,13 @@ public class FamilyHouseAnnouncementTopTimetableServiceImpl
         List<FamilyHouseAnnouncementTopTimetable> familyHouseAnnouncementTopTimetables;
 
         if (sortQuery == null) {
-            familyHouseAnnouncementTopTimetables = getAll(hasFamilyHouseAnnouncementId(familyHouseAnnouncementId),
-                    rsqlQuery, Sort.by(Sort.Direction.ASC, "fromDt"));
+            familyHouseAnnouncementTopTimetables = familyHouseAnnouncementTopTimetableRepository
+                    .findAllByFamilyHouseAnnouncementId(
+                            familyHouseAnnouncementId, rsqlQuery, Sort.by(Sort.Direction.ASC, "fromDt"));
         } else {
-            familyHouseAnnouncementTopTimetables = getAll(hasFamilyHouseAnnouncementId(familyHouseAnnouncementId),
-                    rsqlQuery, sortQuery);
+            familyHouseAnnouncementTopTimetables = familyHouseAnnouncementTopTimetableRepository
+                    .findAllByFamilyHouseAnnouncementId(
+                            familyHouseAnnouncementId, rsqlQuery, SortUtil.parseSortQuery(sortQuery));
         }
 
         return timetableMapper.toTopTimetableWithoutAnnouncementIdDtoFromFamilyHouseAnnouncementTopTimetable(
@@ -102,15 +100,15 @@ public class FamilyHouseAnnouncementTopTimetableServiceImpl
         List<FamilyHouseAnnouncementTopTimetable> familyHouseAnnouncementTopTimetables;
 
         if (sortQuery == null) {
-            familyHouseAnnouncementTopTimetables = getAll(
-                    hasFamilyHouseAnnouncementIdAndUserIdOfOwnerInPropertyOfAnnouncementById(
-                            familyHouseAnnouncementId, userUtil.getCurrentUserId()),
-                    rsqlQuery, Sort.by(Sort.Direction.ASC, "fromDt"));
+            familyHouseAnnouncementTopTimetables = familyHouseAnnouncementTopTimetableRepository.
+                    findAllByFamilyHouseAnnouncementIdAndUserIdOfOwnerInPropertyOfAnnouncementById(
+                            familyHouseAnnouncementId, userUtil.getCurrentUserId(),
+                            rsqlQuery, Sort.by(Sort.Direction.ASC, "fromDt"));
         } else {
-            familyHouseAnnouncementTopTimetables = getAll(
-                    hasFamilyHouseAnnouncementIdAndUserIdOfOwnerInPropertyOfAnnouncementById(
-                            familyHouseAnnouncementId, userUtil.getCurrentUserId()),
-                    rsqlQuery, sortQuery);
+            familyHouseAnnouncementTopTimetables = familyHouseAnnouncementTopTimetableRepository.
+                    findAllByFamilyHouseAnnouncementIdAndUserIdOfOwnerInPropertyOfAnnouncementById(
+                            familyHouseAnnouncementId, userUtil.getCurrentUserId(),
+                    rsqlQuery, SortUtil.parseSortQuery(sortQuery));
         }
 
         return timetableMapper.toTopTimetableWithoutAnnouncementIdDtoFromFamilyHouseAnnouncementTopTimetable(
@@ -149,9 +147,8 @@ public class FamilyHouseAnnouncementTopTimetableServiceImpl
     public void addByFamilyHouseAnnouncementIdWithPayFromCurrentUser(
             RequestTopTimetableDto requestDto, Long familyHouseAnnouncementId
     ) {
-        FamilyHouseAnnouncement familyHouseAnnouncement = familyHouseAnnouncementRepository.findOne(
-                hasId(familyHouseAnnouncementId)
-                        .and(hasUserIdOfOwnerInProperty(userUtil.getCurrentUserId())));
+        FamilyHouseAnnouncement familyHouseAnnouncement = familyHouseAnnouncementRepository
+                .findByIdAndUserIdOfOwnerInProperty(familyHouseAnnouncementId, userUtil.getCurrentUserId());
 
         EntityHelper.checkEntityOnNull(
                 familyHouseAnnouncement, FamilyHouseAnnouncement.class, familyHouseAnnouncementId);
@@ -206,10 +203,10 @@ public class FamilyHouseAnnouncementTopTimetableServiceImpl
         }
 
         List<FamilyHouseAnnouncementTopTimetable> existingTimetablesInInterval
-                = new ArrayList<>(familyHouseAnnouncementTopTimetableRepository.findAll(
-                hasFamilyHouseAnnouncementId(familyHouseAnnouncement.getId())
-                        .and(concernsTheIntervalBetweenSpecificFromAndTo(specificFromDt, specificToDt)),
-                Sort.by(Sort.Direction.ASC, "fromDt")));
+                = new ArrayList<>(familyHouseAnnouncementTopTimetableRepository
+                .findAllByFamilyHouseAnnouncementIdAndConcernsTheIntervalBetweenSpecificFromAndTo(
+                        familyHouseAnnouncement.getId(), specificFromDt, specificToDt,
+                        Sort.by(Sort.Direction.ASC, "fromDt")));
 
 
         List<FamilyHouseAnnouncementTopTimetable> unoccupiedIntervalsOfTimetables = new LinkedList<>();

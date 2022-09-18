@@ -6,7 +6,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
-import org.hibernate.Hibernate;
 import org.hibernate.annotations.Formula;
 import ru.senla.realestatemarket.model.IModel;
 
@@ -86,14 +85,24 @@ public class User implements IModel<Long> {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
+        if (!(o instanceof User)) return false;
         User user = (User) o;
-        return id != null && Objects.equals(id, user.id);
+        return Objects.equals(getId(), user.getId())
+                && Objects.equals(getUsername(), user.getUsername())
+                && Objects.equals(getPassword(), user.getPassword())
+                && Objects.equals(getEnabled(), user.getEnabled())
+                && Objects.equals(getLastName(), user.getLastName())
+                && Objects.equals(getFirstName(), user.getFirstName())
+                && Objects.equals(getPatronymic(), user.getPatronymic())
+                && Objects.equals(getEmail(), user.getEmail())
+                && Objects.equals(getPhoneNumber(), user.getPhoneNumber())
+                && Objects.equals(getCreatedDt(), user.getCreatedDt());
     }
 
     @Override
     public int hashCode() {
-        return getClass().hashCode();
+        return Objects.hash(getId(), getUsername(), getPassword(), getEnabled(),
+                getLastName(), getFirstName(), getPatronymic(), getEmail(), getPhoneNumber(),
+                getCreatedDt());
     }
-
 }

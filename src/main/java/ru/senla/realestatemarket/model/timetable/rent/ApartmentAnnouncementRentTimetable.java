@@ -14,6 +14,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import java.util.Objects;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -29,5 +30,20 @@ public class ApartmentAnnouncementRentTimetable extends AnnouncementRentTimetabl
 
     @OneToOne(mappedBy = "timetable", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private ApartmentAnnouncementRentPurchase apartmentAnnouncementRentPurchase;
+
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof ApartmentAnnouncementRentTimetable)) return false;
+        if (!super.equals(o)) return false;
+        ApartmentAnnouncementRentTimetable that = (ApartmentAnnouncementRentTimetable) o;
+        return Objects.equals(getAnnouncement(), that.getAnnouncement());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(super.hashCode(), getAnnouncement());
+    }
 
 }

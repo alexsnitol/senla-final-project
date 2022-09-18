@@ -25,6 +25,7 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Objects;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -66,5 +67,23 @@ public class BalanceOperation implements IModel<Long> {
     @OneToMany(mappedBy = "balanceOperation",
             fetch = FetchType.LAZY, cascade = CascadeType.REMOVE, orphanRemoval = true)
     private List<FamilyHouseAnnouncementTopPurchase> familyHouseAnnouncementTopPurchases;
+
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof BalanceOperation)) return false;
+        BalanceOperation that = (BalanceOperation) o;
+        return Objects.equals(getId(), that.getId())
+                && Objects.equals(getUser(), that.getUser())
+                && Objects.equals(getSum(), that.getSum())
+                && Objects.equals(getCreatedDt(), that.getCreatedDt())
+                && Objects.equals(getComment(), that.getComment());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getId(), getUser(), getSum(), getCreatedDt(), getComment());
+    }
 
 }

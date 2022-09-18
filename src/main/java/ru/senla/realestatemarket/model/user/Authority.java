@@ -5,7 +5,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
-import org.hibernate.Hibernate;
 import ru.senla.realestatemarket.model.IModel;
 
 import javax.persistence.Entity;
@@ -36,14 +35,15 @@ public class Authority  implements IModel<Long> {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
+        if (!(o instanceof Authority)) return false;
         Authority authority = (Authority) o;
-        return id != null && Objects.equals(id, authority.id);
+        return Objects.equals(getId(), authority.getId())
+                && Objects.equals(getName(), authority.getName());
     }
 
     @Override
     public int hashCode() {
-        return getClass().hashCode();
+        return Objects.hash(getId(), getName());
     }
 
 }

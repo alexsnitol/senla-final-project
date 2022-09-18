@@ -23,6 +23,7 @@ import ru.senla.realestatemarket.repo.user.IUserRepository;
 import ru.senla.realestatemarket.service.helper.EntityHelper;
 import ru.senla.realestatemarket.service.timetable.top.ILandAnnouncementTopTimetableService;
 import ru.senla.realestatemarket.service.user.IBalanceOperationService;
+import ru.senla.realestatemarket.util.SortUtil;
 import ru.senla.realestatemarket.util.UserUtil;
 
 import javax.annotation.PostConstruct;
@@ -32,12 +33,7 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
-import static ru.senla.realestatemarket.repo.announcement.specification.LandAnnouncementSpecification.hasId;
-import static ru.senla.realestatemarket.repo.announcement.specification.LandAnnouncementSpecification.hasUserIdOfOwnerInProperty;
 import static ru.senla.realestatemarket.repo.timetable.specification.GenericTimetableSpecification.intervalWithSpecificFromAndTo;
-import static ru.senla.realestatemarket.repo.timetable.top.specification.LandAnnouncementTopTimetableSpecification.concernsTheIntervalBetweenSpecificFromAndTo;
-import static ru.senla.realestatemarket.repo.timetable.top.specification.LandAnnouncementTopTimetableSpecification.hasLandAnnouncementId;
-import static ru.senla.realestatemarket.repo.timetable.top.specification.LandAnnouncementTopTimetableSpecification.hasLandAnnouncementIdAndUserIdOfOwnerInPropertyItAnnouncement;
 
 @Slf4j
 @Service
@@ -83,11 +79,13 @@ public class LandAnnouncementTopTimetableServiceImpl
         List<LandAnnouncementTopTimetable> landAnnouncementTopTimetables;
 
         if (sortQuery == null) {
-            landAnnouncementTopTimetables = getAll(hasLandAnnouncementId(landAnnouncementId),
-                    rsqlQuery, Sort.by(Sort.Direction.ASC, "fromDt"));
+            landAnnouncementTopTimetables = landAnnouncementTopTimetableRepository
+                    .findAllByLandAnnouncementId(
+                            landAnnouncementId, rsqlQuery, Sort.by(Sort.Direction.ASC, "fromDt"));
         } else {
-            landAnnouncementTopTimetables = getAll(hasLandAnnouncementId(landAnnouncementId),
-                    rsqlQuery, sortQuery);
+            landAnnouncementTopTimetables = landAnnouncementTopTimetableRepository
+                    .findAllByLandAnnouncementId(
+                            landAnnouncementId, rsqlQuery, SortUtil.parseSortQuery(sortQuery));
         }
 
         return timetableMapper.toTopTimetableWithoutAnnouncementIdDtoFromLandAnnouncementTopTimetable(
@@ -102,15 +100,15 @@ public class LandAnnouncementTopTimetableServiceImpl
         List<LandAnnouncementTopTimetable> landAnnouncementTopTimetables;
 
         if (sortQuery == null) {
-            landAnnouncementTopTimetables = getAll(
-                    hasLandAnnouncementIdAndUserIdOfOwnerInPropertyItAnnouncement(
-                            landAnnouncementId, userUtil.getCurrentUserId()),
-                    rsqlQuery, Sort.by(Sort.Direction.ASC, "fromDt"));
+            landAnnouncementTopTimetables = landAnnouncementTopTimetableRepository.
+                    finaAllByLandAnnouncementIdAndUserIdOfOwnerInPropertyItAnnouncement(
+                            landAnnouncementId, userUtil.getCurrentUserId(),
+                            rsqlQuery, Sort.by(Sort.Direction.ASC, "fromDt"));
         } else {
-            landAnnouncementTopTimetables = getAll(
-                    hasLandAnnouncementIdAndUserIdOfOwnerInPropertyItAnnouncement(
-                            landAnnouncementId, userUtil.getCurrentUserId()),
-                    rsqlQuery, sortQuery);
+            landAnnouncementTopTimetables = landAnnouncementTopTimetableRepository.
+                    finaAllByLandAnnouncementIdAndUserIdOfOwnerInPropertyItAnnouncement(
+                            landAnnouncementId, userUtil.getCurrentUserId(),
+                            rsqlQuery, SortUtil.parseSortQuery(sortQuery));
         }
 
         return timetableMapper.toTopTimetableWithoutAnnouncementIdDtoFromLandAnnouncementTopTimetable(
@@ -145,9 +143,8 @@ public class LandAnnouncementTopTimetableServiceImpl
     public void addByLandAnnouncementIdWithPayFromCurrentUser(
             RequestTopTimetableDto requestDto, Long landAnnouncementId
     ) {
-        LandAnnouncement landAnnouncement = landAnnouncementRepository.findOne(
-                hasId(landAnnouncementId)
-                        .and(hasUserIdOfOwnerInProperty(userUtil.getCurrentUserId())));
+        LandAnnouncement landAnnouncement = landAnnouncementRepository
+                .findByIdAndUserIdOfOwnerInProperty(landAnnouncementId, userUtil.getCurrentUserId());
 
         EntityHelper.checkEntityOnNull(landAnnouncement, LandAnnouncement.class, landAnnouncementId);
 
@@ -201,10 +198,10 @@ public class LandAnnouncementTopTimetableServiceImpl
         }
 
         List<LandAnnouncementTopTimetable> existingTimetablesInInterval
-                = new ArrayList<>(landAnnouncementTopTimetableRepository.findAll(
-                hasLandAnnouncementId(landAnnouncement.getId())
-                        .and(concernsTheIntervalBetweenSpecificFromAndTo(specificFromDt, specificToDt)),
-                Sort.by(Sort.Direction.ASC, "fromDt")));
+                = new ArrayList<>(landAnnouncementTopTimetableRepository
+                .findByLandAnnouncementIdAndConcernsTheIntervalBetweenSpecificFromAndTo(
+                        landAnnouncement.getId(), specificFromDt, specificToDt,
+                        Sort.by(Sort.Direction.ASC, "fromDt")));
 
 
         List<LandAnnouncementTopTimetable> unoccupiedIntervalsOfTimetables = new LinkedList<>();

@@ -17,6 +17,7 @@ import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
+import java.util.Objects;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -34,5 +35,20 @@ public class Purchase implements IModel<Long> {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "balance_operation_id")
     private BalanceOperation balanceOperation;
+
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Purchase)) return false;
+        Purchase purchase = (Purchase) o;
+        return Objects.equals(getId(), purchase.getId())
+                && Objects.equals(getBalanceOperation(), purchase.getBalanceOperation());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getId(), getBalanceOperation());
+    }
 
 }

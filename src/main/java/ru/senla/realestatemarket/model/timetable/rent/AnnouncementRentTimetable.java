@@ -18,6 +18,7 @@ import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
+import java.util.Objects;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -35,5 +36,20 @@ public class AnnouncementRentTimetable extends Timetable implements IModel<Long>
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id_tenant")
     private User tenant;
+
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof AnnouncementRentTimetable)) return false;
+        if (!super.equals(o)) return false;
+        AnnouncementRentTimetable that = (AnnouncementRentTimetable) o;
+        return Objects.equals(getId(), that.getId()) && Objects.equals(getTenant(), that.getTenant());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(super.hashCode(), getId(), getTenant());
+    }
 
 }

@@ -18,6 +18,7 @@ import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.SequenceGenerator;
 import java.time.LocalDateTime;
+import java.util.Objects;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -46,5 +47,24 @@ public class Announcement implements IModel<Long> {
     @Column(name = "closed_date_time")
     @JsonFormat(pattern = "dd.MM.yyyy HH:mm:ss")
     private LocalDateTime closedDt;
+
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Announcement)) return false;
+        Announcement that = (Announcement) o;
+        return Objects.equals(getId(), that.getId())
+                && Objects.equals(getPrice(), that.getPrice())
+                && Objects.equals(getDescription(), that.getDescription())
+                && Objects.equals(getCreatedDt(), that.getCreatedDt())
+                && getStatus() == that.getStatus()
+                && Objects.equals(getClosedDt(), that.getClosedDt());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getId(), getPrice(), getDescription(), getCreatedDt(), getStatus(), getClosedDt());
+    }
 
 }

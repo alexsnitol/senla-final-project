@@ -17,6 +17,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import java.util.Objects;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -41,5 +42,22 @@ public class AnnouncementTopPrice implements IModel<Long> {
 
     @Column(name = "price_per_hour")
     private Float pricePerHour;
+
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof AnnouncementTopPrice)) return false;
+        AnnouncementTopPrice that = (AnnouncementTopPrice) o;
+        return Objects.equals(getId(), that.getId())
+                && getPropertyType() == that.getPropertyType()
+                && getAnnouncementType() == that.getAnnouncementType()
+                && Objects.equals(getPricePerHour(), that.getPricePerHour());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getId(), getPropertyType(), getAnnouncementType(), getPricePerHour());
+    }
 
 }

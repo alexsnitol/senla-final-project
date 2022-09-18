@@ -14,6 +14,7 @@ import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import java.util.Objects;
 
 @Getter
 @Setter
@@ -36,5 +37,22 @@ public class LandAnnouncement extends Announcement {
             " WHERE t.from_date_time <= now() AND t.to_date_time >= now() AND t.land_announcement_id = id" +
             ")")
     private Boolean top;
+
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof LandAnnouncement)) return false;
+        if (!super.equals(o)) return false;
+        LandAnnouncement that = (LandAnnouncement) o;
+        return getType() == that.getType()
+                && Objects.equals(getProperty(), that.getProperty())
+                && Objects.equals(getTop(), that.getTop());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(super.hashCode(), getType(), getProperty(), getTop());
+    }
 
 }

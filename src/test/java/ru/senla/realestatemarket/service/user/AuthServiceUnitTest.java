@@ -1,0 +1,93 @@
+package ru.senla.realestatemarket.service.user;
+
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.Mockito;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.AuthorizationServiceException;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
+import org.springframework.test.context.support.AnnotationConfigContextLoader;
+import ru.senla.realestatemarket.config.TestConfig;
+import ru.senla.realestatemarket.dto.jwt.JwtRequestDto;
+import ru.senla.realestatemarket.dto.jwt.JwtResponseDto;
+import ru.senla.realestatemarket.model.user.AuthorizedUser;
+import ru.senla.realestatemarket.util.JwtTokenUtil;
+
+import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.Mockito.when;
+
+@ExtendWith(SpringExtension.class)
+@ContextConfiguration(classes = {TestConfig.class}, loader = AnnotationConfigContextLoader.class)
+class AuthServiceUnitTest {
+
+    @Autowired
+    IAuthService authService;
+    @Autowired
+    JwtTokenUtil jwtTokenUtil;
+    @Autowired
+    IUserService mockedUserService;
+    @Autowired
+    AuthenticationManager mockedAuthenticationManager;
+
+    @AfterEach
+    void clearInvocationsInMocked() {
+        Mockito.clearInvocations(
+                mockedUserService,
+                mockedAuthenticationManager
+        );
+    }
+
+    @Test
+    void whenCreateAuthTokenCalled_thenAuthenticateUserAndReturnJwtResponseDto() {
+        // test authRequest
+        JwtRequestDto authRequest = new JwtRequestDto("testUser", "testPassword");
+
+        // test userDetails
+        AuthorizedUser testAuthorizedUser = new AuthorizedUser(
+                1L,
+                "testUser",
+                "testPassword",
+                true,
+                true,
+                true,
+                true,
+                List.of(new SimpleGrantedAuthority("testRole"), new SimpleGrantedAuthority("testAuthority"))
+        );
+
+        // expected jwt response
+        JwtResponseDto expectedJwtResponse = new JwtResponseDto(
+                jwtTokenUtil.generateToken(testAuthorizedUser)
+        );
+
+        // test
+        when(mockedUserService.loadUserByUsername("testUser")).thenReturn(testAuthorizedUser);
+
+        assertEquals(expectedJwtResponse, authService.createAuthToken(authRequest));
+    }
+
+    @Test
+    void whenCreateAuthTokenCalledInCaseOfIfUserNotExist_thenThrowBadCredentialsException() {
+        // test username password token
+        UsernamePasswordAuthenticationToken testUsernamePasswordAuthenticationToken
+                = new UsernamePasswordAuthenticationToken("testUsername", "testPassword");
+
+        // test
+        when(mockedAuthenticationManager.authenticate(testUsernamePasswordAuthenticationToken))
+                .thenThrow(BadCredentialsException.class);
+
+        assertThrows(AuthorizationServiceException.class, () ->
+            authService.createAuthToken(new JwtRequestDto("testUsername", "testPassword"))
+        );
+    }
+
+
+}

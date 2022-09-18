@@ -16,6 +16,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import java.util.List;
+import java.util.Objects;
 
 @Getter
 @Setter
@@ -35,5 +36,20 @@ public class Region implements IModel<Long> {
     @OneToMany(mappedBy = "region", fetch = FetchType.LAZY)
     @JsonBackReference
     private List<City> cities;
+
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Region)) return false;
+        Region region = (Region) o;
+        return Objects.equals(getId(), region.getId())
+                && Objects.equals(getName(), region.getName());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getId(), getName());
+    }
 
 }

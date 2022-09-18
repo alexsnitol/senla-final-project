@@ -7,4 +7,7 @@ import java.util.List;
 
 public interface ILandAnnouncementRepository extends IAbstractRepository<LandAnnouncement, Long> {
     List<LandAnnouncement> findAllInTheTextFieldsOfWhichContainsTheKeys(List<String> searchKeys);
+
+    LandAnnouncement findByIdAndUserIdOfOwnerInProperty(Long id, Long userIdOfOwner);
+
 }

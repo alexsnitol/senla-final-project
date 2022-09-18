@@ -12,6 +12,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import java.util.Objects;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -27,5 +28,19 @@ public class HouseMaterial implements IModel<Long> {
     private Long id;
 
     private String name;
+
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof HouseMaterial)) return false;
+        HouseMaterial that = (HouseMaterial) o;
+        return Objects.equals(getId(), that.getId()) && Objects.equals(getName(), that.getName());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getId(), getName());
+    }
 
 }

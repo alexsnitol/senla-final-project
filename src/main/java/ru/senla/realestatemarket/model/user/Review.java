@@ -17,6 +17,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import java.time.LocalDateTime;
+import java.util.Objects;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -46,5 +47,24 @@ public class Review implements IModel<Long> {
     @Column(name = "created_date_time")
     @JsonFormat(pattern = "dd.MM.yyyy HH:mm:ss")
     private LocalDateTime createdDt = LocalDateTime.now();
+
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Review)) return false;
+        Review review = (Review) o;
+        return Objects.equals(getId(), review.getId())
+                && Objects.equals(getCustomer(), review.getCustomer())
+                && Objects.equals(getSeller(), review.getSeller())
+                && Objects.equals(getComment(), review.getComment())
+                && Objects.equals(getNote(), review.getNote())
+                && Objects.equals(getCreatedDt(), review.getCreatedDt());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getId(), getCustomer(), getSeller(), getComment(), getNote(), getCreatedDt());
+    }
 
 }

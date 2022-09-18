@@ -5,7 +5,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
-import org.hibernate.Hibernate;
 import ru.senla.realestatemarket.model.announcement.FamilyHouseAnnouncement;
 import ru.senla.realestatemarket.model.purchase.top.FamilyHouseAnnouncementTopPurchase;
 
@@ -48,14 +47,15 @@ public class FamilyHouseAnnouncementTopTimetable extends AnnouncementTopTimetabl
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
+        if (!(o instanceof FamilyHouseAnnouncementTopTimetable)) return false;
+        if (!super.equals(o)) return false;
         FamilyHouseAnnouncementTopTimetable that = (FamilyHouseAnnouncementTopTimetable) o;
-        return getId() != null && Objects.equals(getId(), that.getId());
+        return Objects.equals(getAnnouncement(), that.getAnnouncement());
     }
 
     @Override
     public int hashCode() {
-        return getClass().hashCode();
+        return Objects.hash(super.hashCode(), getAnnouncement());
     }
 
 }

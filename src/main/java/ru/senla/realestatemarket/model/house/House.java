@@ -24,6 +24,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Transient;
+import java.util.Objects;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -59,5 +60,26 @@ public class House implements IModel<Long> {
     @Transient
     @Setter(AccessLevel.PROTECTED)
     private HouseTypeEnum houseType;
+
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof House)) return false;
+        House house = (House) o;
+        return Objects.equals(getId(), house.getId())
+                && Objects.equals(getAddress(), house.getAddress())
+                && Objects.equals(getNumberOfFloors(), house.getNumberOfFloors())
+                && Objects.equals(getBuildingYear(), house.getBuildingYear())
+                && Objects.equals(getHouseMaterial(), house.getHouseMaterial())
+                && getHousingType() == house.getHousingType()
+                && getHouseType() == house.getHouseType();
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getId(), getAddress(), getNumberOfFloors(), getBuildingYear(),
+                getHouseMaterial(), getHousingType(), getHouseType());
+    }
 
 }

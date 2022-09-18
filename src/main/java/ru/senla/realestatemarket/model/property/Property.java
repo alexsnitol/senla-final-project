@@ -21,6 +21,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Transient;
+import java.util.Objects;
 
 @Getter
 @Setter
@@ -48,4 +49,21 @@ public class Property implements IModel<Long> {
     @Setter(AccessLevel.PROTECTED)
     private PropertyTypeEnum propertyType;
 
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Property)) return false;
+        Property property = (Property) o;
+        return Objects.equals(getId(), property.getId())
+                && Objects.equals(getArea(), property.getArea())
+                && Objects.equals(getOwner(), property.getOwner())
+                && getStatus() == property.getStatus()
+                && getPropertyType() == property.getPropertyType();
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getId(), getArea(), getOwner(), getStatus(), getPropertyType());
+    }
 }
