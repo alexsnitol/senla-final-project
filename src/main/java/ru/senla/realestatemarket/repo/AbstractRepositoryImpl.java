@@ -1,7 +1,6 @@
 package ru.senla.realestatemarket.repo;
 
 import com.github.tennaito.rsql.jpa.JpaPredicateVisitor;
-import com.sun.istack.NotNull;
 import cz.jirutka.rsql.parser.RSQLParser;
 import cz.jirutka.rsql.parser.ast.Node;
 import cz.jirutka.rsql.parser.ast.RSQLVisitor;
@@ -10,6 +9,7 @@ import org.postgresql.shaded.com.ongres.scram.common.util.Preconditions;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.data.jpa.repository.query.QueryUtils;
+import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
 import ru.senla.realestatemarket.exception.WrongRSQLQueryException;
 
@@ -48,7 +48,7 @@ public abstract class AbstractRepositoryImpl<M, I> implements IAbstractRepositor
     }
 
     @Override
-    public M findOne(@NotNull Specification<M> specification) {
+    public M findOne(@NonNull Specification<M> specification) {
         CriteriaQuery<M> criteriaQuery = criteriaBuilder.createQuery(clazz);
         Root<M> root = criteriaQuery.from(clazz);
 
@@ -67,12 +67,12 @@ public abstract class AbstractRepositoryImpl<M, I> implements IAbstractRepositor
     }
 
     @Override
-    public M findById(@NotNull I id) {
+    public M findById(@NonNull I id) {
         return entityManager.find(clazz, id);
     }
 
-    private <T> List<M> findAll(@NotNull CriteriaQuery<M> criteriaQuery,
-                                @NotNull From<T, M> from,
+    private <T> List<M> findAll(@NonNull CriteriaQuery<M> criteriaQuery,
+                                @NonNull From<T, M> from,
                                 @Nullable List<Predicate> predicateList,
                                 @Nullable List<Order> orderList
     ) {
@@ -92,7 +92,9 @@ public abstract class AbstractRepositoryImpl<M, I> implements IAbstractRepositor
         return entityManager.createQuery(criteriaQuery).getResultList();
     }
 
-    public List<M> findAllByPredicateAndOrderList(@Nullable List<Predicate> predicateList, @Nullable List<Order> orderList) {
+    public List<M> findAllByPredicateAndOrderList(
+            @Nullable List<Predicate> predicateList, @Nullable List<Order> orderList
+    ) {
         CriteriaQuery<M> criteriaQuery = criteriaBuilder.createQuery(clazz);
         Root<M> root = criteriaQuery.from(clazz);
 

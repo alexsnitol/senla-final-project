@@ -7,6 +7,7 @@ import lombok.Setter;
 import lombok.ToString;
 import ru.senla.realestatemarket.model.IModel;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -36,7 +37,7 @@ public class Role implements IModel<Long> {
 
     private String name;
 
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinTable(
             name = "role_authority",
             joinColumns = @JoinColumn(name = "role_id"),
@@ -47,8 +48,12 @@ public class Role implements IModel<Long> {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Role)) return false;
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof Role)) {
+            return false;
+        }
         Role role = (Role) o;
         return Objects.equals(getId(), role.getId())
                 && Objects.equals(getName(), role.getName());

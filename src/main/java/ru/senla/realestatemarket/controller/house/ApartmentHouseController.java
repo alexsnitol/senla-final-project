@@ -1,5 +1,7 @@
 package ru.senla.realestatemarket.controller.house;
 
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.Authorization;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -38,6 +40,10 @@ public class ApartmentHouseController {
         return apartmentHouseService.getDtoById(id);
     }
 
+    @ApiOperation(
+            value = "",
+            authorizations = @Authorization("ADMIN")
+    )
     @DeleteMapping("/{id}")
     public ResponseEntity<RestResponseDto> deleteById(
             @PathVariable Long id
@@ -48,6 +54,10 @@ public class ApartmentHouseController {
                 new RestResponseDto("Apartment house has been deleted", HttpStatus.OK.value()));
     }
 
+    @ApiOperation(
+            value = "",
+            authorizations = @Authorization("ADMIN")
+    )
     @PutMapping("/{id}")
     public ResponseEntity<RestResponseDto> updateById(
             @PathVariable Long id,
@@ -60,18 +70,22 @@ public class ApartmentHouseController {
     }
 
     @GetMapping
-    public List<ApartmentHouseDto> getAllApartmentHouse(
+    public List<ApartmentHouseDto> getAll(
             @RequestParam(value = "q", required = false) String rsqlQuery,
             @RequestParam(value = "sort", required = false) String sortQuery
     ) {
         return apartmentHouseService.getAllDto(rsqlQuery, sortQuery);
     }
 
+    @ApiOperation(
+            value = "",
+            authorizations = @Authorization("ADMIN")
+    )
     @PostMapping
     public ResponseEntity<RestResponseDto> add(
             @RequestBody @Valid RequestApartmentHouseDto requestApartmentHouseDto
     ) {
-        apartmentHouseService.add(requestApartmentHouseDto);
+        apartmentHouseService.addFromDto(requestApartmentHouseDto);
 
         return new ResponseEntity<>(new RestResponseDto("Apartment house has been added",
                 HttpStatus.CREATED.value()), HttpStatus.CREATED);

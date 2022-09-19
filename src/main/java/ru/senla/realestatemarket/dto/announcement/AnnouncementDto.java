@@ -2,13 +2,17 @@ package ru.senla.realestatemarket.dto.announcement;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonInclude;
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 import ru.senla.realestatemarket.model.announcement.AnnouncementStatusEnum;
 import ru.senla.realestatemarket.model.property.PropertyTypeEnum;
 
 import java.time.LocalDateTime;
 
-@Data
+@Getter
+@Setter
+@ToString
 public class AnnouncementDto {
 
     private Long id;

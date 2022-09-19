@@ -32,9 +32,15 @@ public class AuthorizedUser extends User implements IModel<Long> {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof AuthorizedUser)) return false;
-        if (!super.equals(o)) return false;
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof AuthorizedUser)) {
+            return false;
+        }
+        if (!super.equals(o)) {
+            return false;
+        }
         AuthorizedUser that = (AuthorizedUser) o;
         return Objects.equals(getId(), that.getId());
     }

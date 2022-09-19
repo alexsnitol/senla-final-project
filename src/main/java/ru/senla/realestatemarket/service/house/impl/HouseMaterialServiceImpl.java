@@ -14,7 +14,8 @@ import javax.transaction.Transactional;
 
 @Slf4j
 @Service
-public class HouseMaterialServiceImpl extends AbstractServiceImpl<HouseMaterial, Long> implements IHouseMaterialService {
+public class HouseMaterialServiceImpl extends AbstractServiceImpl<HouseMaterial, Long>
+        implements IHouseMaterialService {
 
     private final IHouseMaterialRepository houseMaterialRepository;
 

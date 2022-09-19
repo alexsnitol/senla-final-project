@@ -7,7 +7,9 @@ import org.mapstruct.NullValuePropertyMappingStrategy;
 import org.mapstruct.ReportingPolicy;
 import ru.senla.realestatemarket.dto.house.ApartmentHouseDto;
 import ru.senla.realestatemarket.dto.house.RequestApartmentHouseDto;
+import ru.senla.realestatemarket.dto.house.RequestApartmentHouseWithStreetIdAndHouseNumberDto;
 import ru.senla.realestatemarket.dto.house.UpdateRequestApartmentHouseDto;
+import ru.senla.realestatemarket.dto.house.UpdateRequestApartmentHouseWithStreetIdAndHouseNumberDto;
 import ru.senla.realestatemarket.mapper.address.AddressMapper;
 import ru.senla.realestatemarket.model.house.ApartmentHouse;
 
@@ -23,7 +25,17 @@ public abstract class ApartmentHouseMapper {
 
     public abstract List<ApartmentHouseDto> toApartmentHouseDto(Collection<ApartmentHouse> apartmentHouses);
 
-    public abstract ApartmentHouse toApartmentHouse(RequestApartmentHouseDto requestApartmentHouseDto);
+    public abstract ApartmentHouse toApartmentHouse(
+            RequestApartmentHouseWithStreetIdAndHouseNumberDto requestApartmentHouseDto);
+
+    public abstract ApartmentHouse toApartmentHouse(
+            RequestApartmentHouseDto requestApartmentHouseDto);
+
+    @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
+    public abstract void updateApartmentHouseFromUpdateRequestApartmentHouse(
+            UpdateRequestApartmentHouseWithStreetIdAndHouseNumberDto updateRequestApartmentHouseDto,
+            @MappingTarget ApartmentHouse apartmentHouse
+    );
 
     @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
     public abstract void updateApartmentHouseFromUpdateRequestApartmentHouse(

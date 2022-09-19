@@ -1,7 +1,6 @@
 package ru.senla.realestatemarket.service.address.impl;
 
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.senla.realestatemarket.dto.address.RequestStreetDto;
 import ru.senla.realestatemarket.dto.address.RequestStreetWithoutCityIdDto;
@@ -49,11 +48,13 @@ public class StreetServiceImpl extends AbstractServiceImpl<Street, Long> impleme
 
 
     @Override
+    @Transactional
     public StreetDto getDtoById(Long id) {
         return streetMapper.toStreetDto(getById(id));
     }
 
     @Override
+    @Transactional
     public StreetDto getDtoByRegionIdAndCityIdAndStreetId(Long regionId, Long cityId, Long streetId) {
         Street street = streetRepository.findByRegionIdAndCityIdAndStreetId(
                 regionId, cityId, streetId);
@@ -71,17 +72,20 @@ public class StreetServiceImpl extends AbstractServiceImpl<Street, Long> impleme
     }
 
     @Override
+    @Transactional
     public List<StreetDto> getAllDto(String rsqlQuery, String sortQuery) {
         return streetMapper.toStreetDto(getAll(rsqlQuery, sortQuery));
     }
 
     @Override
+    @Transactional
     public List<StreetDto> getAllDtoByCityId(Long cityId, String sortQuery) {
         return streetMapper.toStreetDto(
                 streetRepository.findAllByCityId(cityId, SortUtil.parseSortQuery(sortQuery)));
     }
 
     @Override
+    @Transactional
     public List<StreetDto> getAllDtoByRegionIdAndCityId(Long regionId, Long cityId, String sortQuery) {
         return streetMapper.toStreetDto(
                 streetRepository.findByRegionIdAndCityId(regionId, cityId, SortUtil.parseSortQuery(sortQuery))
@@ -120,7 +124,9 @@ public class StreetServiceImpl extends AbstractServiceImpl<Street, Long> impleme
 
     @Override
     @Transactional
-    public void addByRegionIdAndCityId(RequestStreetWithoutCityIdDto requestStreetWithoutCityIdDto, Long regionId, Long cityId) {
+    public void addByRegionIdAndCityId(
+            RequestStreetWithoutCityIdDto requestStreetWithoutCityIdDto, Long regionId, Long cityId
+    ) {
         City city = cityRepository.findByRegionIdAndCityId(regionId, cityId);
         if (city == null) {
             String message
@@ -137,21 +143,64 @@ public class StreetServiceImpl extends AbstractServiceImpl<Street, Long> impleme
     }
 
     @Override
-    public void updateById(UpdateRequestStreetDto updateRequestStreetDto, Long id) {
+    @Transactional
+    public void updateById(UpdateRequestStreetDto updateRequestStreetDto, Long id
+    ) {
+        Street street = getById(id);
 
+
+        Long cityId = updateRequestStreetDto.getCityId();
+
+        City city = cityRepository.findById(cityId);
+        EntityHelper.checkEntityOnNull(city, City.class, cityId);
+
+
+        updateFromDto(updateRequestStreetDto, street);
     }
 
     @Override
-    public void updateByCityIdAndByStreetId(UpdateRequestStreetDto updateRequestStreetDto, Long cityId, Long streetId) {
+    @Transactional
+    public void updateFromDtoByCityIdAndByStreetId(
+            UpdateRequestStreetDto updateRequestStreetDto, Long cityId, Long streetId
+    ) {
+        Street street = streetRepository.findCityIdAndStreetId(cityId, streetId);
+        if (street == null) {
+            String message
+                    = String.format("Street with id %s in city with id %s not exist", streetId, cityId);
 
+            log.error(message);
+            throw new EntityNotFoundException(message);
+        }
+
+        updateFromDto(updateRequestStreetDto, street);
     }
 
     @Override
-    public void updateByRegionIdAndCityIdAndByStreetId(UpdateRequestStreetDto updateRequestStreetDto, Long regionId, Long cityId, Long streetId) {
+    @Transactional
+    public void updateFromDtoByRegionIdAndCityIdAndByStreetId(
+            UpdateRequestStreetDto updateRequestStreetDto, Long regionId, Long cityId, Long streetId
+    ) {
+        Street street = streetRepository.findByRegionIdAndCityIdAndStreetId(regionId, cityId, streetId);
+        if (street == null) {
+            String message
+                    = String.format("Street with id %s in city with id %s in region with id %s not exist",
+                    streetId, cityId, regionId);
 
+            log.error(message);
+            throw new EntityNotFoundException(message);
+        }
+
+        updateFromDto(updateRequestStreetDto, street);
+    }
+
+    private void updateFromDto(UpdateRequestStreetDto updateRequestStreetDto, Street street) {
+        streetMapper.updateStreetByUpdateRequestStreetDto(updateRequestStreetDto, street);
+
+        streetRepository.update(street);
     }
 
     @Override
+    @Transactional
     public void deleteByRegionIdAndCityIdAndStreetId(Long regionId, Long cityId, Long streetId) {
         getDtoByRegionIdAndCityIdAndStreetId(regionId, cityId, streetId);
 

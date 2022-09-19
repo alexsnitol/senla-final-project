@@ -45,8 +45,8 @@ public abstract class AbstractRentTimetableServiceImpl<M extends IModel<Long>> e
         if (announcementType.equals(HousingAnnouncementTypeEnum.DAILY_RENT)) {
             if (!(specificFromDt.getHour() == specificToDt.getHour()
                     && specificFromDt.getMinute() == specificToDt.getMinute()
-                    && specificFromDt.getSecond() == specificToDt.getSecond()))
-            {
+                    && specificFromDt.getSecond() == specificToDt.getSecond())
+            ) {
                 String message = "Specific interval is not daily";
 
                 log.error(message);
@@ -57,8 +57,8 @@ public abstract class AbstractRentTimetableServiceImpl<M extends IModel<Long>> e
                     && specificToDt.getDayOfMonth() == 1
                     && specificFromDt.getHour() == specificToDt.getHour()
                     && specificFromDt.getMinute() == specificToDt.getMinute()
-                    && specificFromDt.getSecond() == specificToDt.getSecond()))
-            {
+                    && specificFromDt.getSecond() == specificToDt.getSecond())
+            ) {
                 String message = "Specific interval is not monthly";
 
                 log.error(message);

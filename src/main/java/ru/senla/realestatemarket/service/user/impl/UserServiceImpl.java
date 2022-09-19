@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import ru.senla.realestatemarket.dto.user.RequestUserDto;
 import ru.senla.realestatemarket.dto.user.UpdateRequestUserDto;
 import ru.senla.realestatemarket.dto.user.UserDto;
+import ru.senla.realestatemarket.exception.BusinessRuntimeException;
 import ru.senla.realestatemarket.exception.UsernameAlreadyExistsException;
 import ru.senla.realestatemarket.mapper.user.UserMapper;
 import ru.senla.realestatemarket.model.user.Role;
@@ -109,8 +110,15 @@ public class UserServiceImpl extends AbstractServiceImpl<User, Long> implements 
         checkUsernameOnExist(user.getUsername());
 
         List<Role> roles = new ArrayList<>();
-        roles.add(roleRepository.findByName(StandardRoleEnum.USER.name()));
+        Role userRole = roleRepository.findByName(StandardRoleEnum.ROLE_USER.name());
+        if (userRole == null) {
+            String message = "Role with name USER not found. Adding new users impossible.";
 
+            log.error(message);
+            throw new BusinessRuntimeException(message);
+        }
+
+        roles.add(userRole);
         user.setRoles(roles);
 
 

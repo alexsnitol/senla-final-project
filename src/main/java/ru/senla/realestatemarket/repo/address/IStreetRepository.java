@@ -13,5 +13,8 @@ public interface IStreetRepository extends IAbstractRepository<Street, Long> {
 
     List<Street> findByRegionIdAndCityId(Long regionId, Long cityId, Sort sort);
 
+    Street findCityIdAndStreetId(Long cityId, Long streetId);
+
     Street findByRegionIdAndCityIdAndStreetId(Long regionId, Long cityId, Long streetId);
+
 }

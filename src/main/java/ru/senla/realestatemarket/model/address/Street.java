@@ -39,8 +39,12 @@ public class Street implements IModel<Long> {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Street)) return false;
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof Street)) {
+            return false;
+        }
         Street street = (Street) o;
         return Objects.equals(getId(), street.getId())
                 && Objects.equals(getName(), street.getName())

@@ -32,8 +32,12 @@ public class HouseMaterial implements IModel<Long> {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof HouseMaterial)) return false;
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof HouseMaterial)) {
+            return false;
+        }
         HouseMaterial that = (HouseMaterial) o;
         return Objects.equals(getId(), that.getId()) && Objects.equals(getName(), that.getName());
     }

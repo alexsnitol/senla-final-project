@@ -45,8 +45,12 @@ public class City implements IModel<Long> {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof City)) return false;
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof City)) {
+            return false;
+        }
         City city = (City) o;
         return Objects.equals(getId(), city.getId())
                 && Objects.equals(getName(), city.getName())

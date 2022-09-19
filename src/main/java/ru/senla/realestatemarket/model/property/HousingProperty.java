@@ -30,9 +30,15 @@ public class HousingProperty extends Property {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof HousingProperty)) return false;
-        if (!super.equals(o)) return false;
+        if (this == o) {
+    return true;
+}
+        if (!(o instanceof HousingProperty)) {
+            return false;
+        }
+        if (!super.equals(o)) {
+            return false;
+        }
         HousingProperty that = (HousingProperty) o;
         return Objects.equals(getNumberOfRooms(), that.getNumberOfRooms())
                 && Objects.equals(getRenovationType(), that.getRenovationType());

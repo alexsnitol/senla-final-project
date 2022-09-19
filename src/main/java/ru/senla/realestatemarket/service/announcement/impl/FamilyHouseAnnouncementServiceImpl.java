@@ -96,7 +96,9 @@ public class FamilyHouseAnnouncementServiceImpl
 
     @Override
     @Transactional
-    public List<FamilyHouseAnnouncementDto> getAllWithClosedStatusByUserIdOfOwnerDto(Long useIdOfOwner, String rsqlQuery, String sortQuery) {
+    public List<FamilyHouseAnnouncementDto> getAllWithClosedStatusByUserIdOfOwnerDto(
+            Long useIdOfOwner, String rsqlQuery, String sortQuery
+    ) {
         List<FamilyHouseAnnouncement> familyHouseAnnouncementList;
 
         if (sortQuery == null) {
@@ -204,7 +206,9 @@ public class FamilyHouseAnnouncementServiceImpl
 
     @Override
     @Transactional
-    public void updateByIdFromCurrentUser(UpdateRequestFamilyHouseAnnouncementDto updateRequestFamilyHouseAnnouncementDto, Long id) {
+    public void updateByIdFromCurrentUser(
+            UpdateRequestFamilyHouseAnnouncementDto updateRequestFamilyHouseAnnouncementDto, Long id
+    ) {
         FamilyHouseAnnouncement familyHouseAnnouncement = getOne(
                 hasIdAndUserIdOfOwnerInProperty(id, userUtil.getCurrentUserId()));
 

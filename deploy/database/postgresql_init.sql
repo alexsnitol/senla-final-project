@@ -543,7 +543,12 @@ INSERT INTO reviews(user_id_customer, user_id_seller, comment, note)
 VALUES
     (101, 100, 'sample comment from user', 5),
     (102, 100, 'sample comment from user1', 3),
-    (103, 100, 'sample comment from user2', 3);
+    (103, 100, 'sample comment from user2', 3),
+    (100, 105, 'comment', 5),
+    (101, 105, 'comment', 5),
+    (102, 105, 'comment', 5),
+    (103, 105, 'comment', 4),
+    (104, 105, 'comment', 5);
 
 INSERT INTO messages(user_id_sender, user_id_receiver, text, created_date_time)
 VALUES

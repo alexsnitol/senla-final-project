@@ -6,7 +6,6 @@ import ru.senla.realestatemarket.model.house.House;
 import ru.senla.realestatemarket.repo.house.IHouseRepository;
 
 import javax.annotation.PostConstruct;
-import javax.persistence.criteria.From;
 
 @Slf4j
 @Repository

@@ -41,9 +41,15 @@ public class LandAnnouncement extends Announcement {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof LandAnnouncement)) return false;
-        if (!super.equals(o)) return false;
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof LandAnnouncement)) {
+            return false;
+        }
+        if (!super.equals(o)) {
+            return false;
+        }
         LandAnnouncement that = (LandAnnouncement) o;
         return getType() == that.getType()
                 && Objects.equals(getProperty(), that.getProperty())

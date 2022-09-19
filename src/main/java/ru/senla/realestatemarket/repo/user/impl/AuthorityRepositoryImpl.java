@@ -7,7 +7,6 @@ import ru.senla.realestatemarket.repo.AbstractRepositoryImpl;
 import ru.senla.realestatemarket.repo.user.IAuthorityRepository;
 
 import javax.annotation.PostConstruct;
-import javax.persistence.criteria.From;
 
 @Slf4j
 @Repository

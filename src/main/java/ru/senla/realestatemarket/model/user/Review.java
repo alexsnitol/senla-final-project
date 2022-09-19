@@ -51,8 +51,12 @@ public class Review implements IModel<Long> {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Review)) return false;
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof Review)) {
+            return false;
+        }
         Review review = (Review) o;
         return Objects.equals(getId(), review.getId())
                 && Objects.equals(getCustomer(), review.getCustomer())

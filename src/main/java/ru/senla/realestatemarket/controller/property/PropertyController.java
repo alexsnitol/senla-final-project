@@ -41,7 +41,7 @@ public class PropertyController {
 
     @GetMapping("/owners/current")
     public List<PropertyDto> getAllDtoOfCurrentUser(
-            @RequestParam(value = "q",required = false) String rsqlQuery,
+            @RequestParam(value = "q", required = false) String rsqlQuery,
             @RequestParam(value = "sort", required = false) String sortQuery
     ) {
         return propertyService.getAllDtoOfCurrentUser(rsqlQuery, sortQuery);
@@ -49,7 +49,7 @@ public class PropertyController {
 
     @GetMapping("/housing/owners/current")
     public List<HousingPropertyDto> getAllHousingPropertiesDtoOfCurrentUser(
-            @RequestParam(value = "q",required = false) String rsqlQuery,
+            @RequestParam(value = "q", required = false) String rsqlQuery,
             @RequestParam(value = "sort", required = false) String sortQuery
     ) {
         return housingPropertyService.getAllDtoOfCurrentUser(rsqlQuery, sortQuery);

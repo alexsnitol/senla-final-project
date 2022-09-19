@@ -65,7 +65,7 @@ public class User implements IModel<Long> {
     @JsonFormat(pattern = "dd.MM.yyyy HH:mm:ss")
     private LocalDateTime createdDt = LocalDateTime.now();
 
-    @ManyToMany(fetch = FetchType.LAZY)
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinTable(
             name = "user_role",
             joinColumns = @JoinColumn(name = "user_id"),
@@ -84,8 +84,12 @@ public class User implements IModel<Long> {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof User)) return false;
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof User)) {
+            return false;
+        }
         User user = (User) o;
         return Objects.equals(getId(), user.getId())
                 && Objects.equals(getUsername(), user.getUsername())

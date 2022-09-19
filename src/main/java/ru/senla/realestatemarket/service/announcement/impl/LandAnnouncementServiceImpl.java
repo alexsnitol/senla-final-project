@@ -97,7 +97,9 @@ public class LandAnnouncementServiceImpl
 
     @Override
     @Transactional
-    public List<LandAnnouncementDto> getAllWithClosedStatusByUserIdOfOwnerDto(Long useIdOfOwner, String rsqlQuery, String sortQuery) {
+    public List<LandAnnouncementDto> getAllWithClosedStatusByUserIdOfOwnerDto(
+            Long useIdOfOwner, String rsqlQuery, String sortQuery
+    ) {
         List<LandAnnouncement> landAnnouncementList;
 
         if (sortQuery == null) {

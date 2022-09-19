@@ -36,7 +36,8 @@ public class FamilyHouseAnnouncementRepositoryImpl
     
     @Override
     public List<FamilyHouseAnnouncement> findAllInTheTextFieldsOfWhichContainsTheKeys(List<String> searchKeys) {
-        CriteriaQuery<FamilyHouseAnnouncement> criteriaQuery = criteriaBuilder.createQuery(FamilyHouseAnnouncement.class);
+        CriteriaQuery<FamilyHouseAnnouncement> criteriaQuery
+                = criteriaBuilder.createQuery(FamilyHouseAnnouncement.class);
 
         Root<FamilyHouseAnnouncement> announcementRoot = criteriaQuery.from(FamilyHouseAnnouncement.class);
 

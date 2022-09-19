@@ -28,9 +28,15 @@ public class ApartmentAnnouncementTopPurchase extends AnnouncementTopPurchase {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof ApartmentAnnouncementTopPurchase)) return false;
-        if (!super.equals(o)) return false;
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof ApartmentAnnouncementTopPurchase)) {
+            return false;
+        }
+        if (!super.equals(o)) {
+            return false;
+        }
         ApartmentAnnouncementTopPurchase that = (ApartmentAnnouncementTopPurchase) o;
         return Objects.equals(getTimetable(), that.getTimetable());
     }

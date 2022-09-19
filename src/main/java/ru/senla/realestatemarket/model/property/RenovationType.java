@@ -28,8 +28,12 @@ public class RenovationType implements IModel<Long> {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof RenovationType)) return false;
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof RenovationType)) {
+            return false;
+        }
         RenovationType that = (RenovationType) o;
         return Objects.equals(getId(), that.getId())
                 && Objects.equals(getName(), that.getName());

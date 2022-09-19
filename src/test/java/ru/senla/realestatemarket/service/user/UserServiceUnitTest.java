@@ -22,7 +22,6 @@ import ru.senla.realestatemarket.model.user.StandardRoleEnum;
 import ru.senla.realestatemarket.model.user.User;
 import ru.senla.realestatemarket.repo.user.IRoleRepository;
 import ru.senla.realestatemarket.repo.user.IUserRepository;
-import ru.senla.realestatemarket.service.user.IUserService;
 import ru.senla.realestatemarket.util.UserUtil;
 
 import java.util.List;
@@ -165,7 +164,7 @@ class UserServiceUnitTest {
 
         // test
         when(mockedUserMapper.toUser(testRequestUserDto)).thenReturn(testUser);
-        when(mockedRoleRepository.findByName(StandardRoleEnum.USER.name())).thenReturn(testRole);
+        when(mockedRoleRepository.findByName(StandardRoleEnum.ROLE_USER.name())).thenReturn(testRole);
         when(testUser.getUsername()).thenReturn("username");
         when(testRequestUserDto.getPassword()).thenReturn("password");
         when(mockedPasswordEncoder.encode("password")).thenReturn(testEncodedPassword);

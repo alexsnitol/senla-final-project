@@ -2,16 +2,14 @@ package ru.senla.realestatemarket.dto.house;
 
 import lombok.Getter;
 import lombok.Setter;
-import ru.senla.realestatemarket.dto.address.RequestAddressDto;
 import ru.senla.realestatemarket.model.house.HousingTypeEnum;
 
-import javax.validation.constraints.NotNull;
 
 @Getter
 @Setter
 public class UpdateRequestFamilyHouseDto {
 
-    private RequestAddressDto address;
+    private Long addressId;
 
     private Short numberOfFloors;
 

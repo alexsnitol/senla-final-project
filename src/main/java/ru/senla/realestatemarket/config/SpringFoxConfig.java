@@ -46,10 +46,10 @@ public class SpringFoxConfig {
 
     private ApiInfo apiInfo() {
         return new ApiInfo(
-                "Real Estate Online Market API",
+                "Real Estate Market API",
                 "This project was developed as a final work" +
                         " after the Java courses for web developers from SENLA.",
-                "1.0.0",
+                "0.1.0",
                 "urn:tos",
                 new Contact(
                         "Alexander Slotin", "https://github.com/alexsnitol", "sslotin74@gmail.com"),

@@ -1,5 +1,7 @@
 package ru.senla.realestatemarket.controller.address;
 
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.Authorization;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -39,6 +41,10 @@ public class CityController {
         return cityService.getDtoById(id);
     }
 
+    @ApiOperation(
+            value = "",
+            authorizations = @Authorization("ADMIN")
+    )
     @DeleteMapping("/cities/{id}")
     public ResponseEntity<RestResponseDto> deletedById(
             @PathVariable Long id
@@ -48,6 +54,10 @@ public class CityController {
         return ResponseEntity.ok(new RestResponseDto("City has been deleted", HttpStatus.OK.value()));
     }
 
+    @ApiOperation(
+            value = "",
+            authorizations = @Authorization("ADMIN")
+    )
     @PutMapping("/cities/{id}")
     public ResponseEntity<RestResponseDto> updateById(
             @PathVariable Long id,
@@ -66,6 +76,10 @@ public class CityController {
         return cityService.getAllDto(rsqlQuery, sortQuery);
     }
 
+    @ApiOperation(
+            value = "",
+            authorizations = @Authorization("ADMIN")
+    )
     @PostMapping("/cities")
     public ResponseEntity<RestResponseDto> add(
             @RequestBody @Valid RequestCityDto requestCityDto
@@ -84,6 +98,10 @@ public class CityController {
         return cityService.getDtoRegionIdAndByCityId(regionId, cityId);
     }
 
+    @ApiOperation(
+            value = "",
+            authorizations = @Authorization("ADMIN")
+    )
     @DeleteMapping("/regions/{regionId}/cities/{cityId}")
     public ResponseEntity<RestResponseDto> deleteByRegionIdAndCityId(
             @PathVariable Long regionId,
@@ -94,6 +112,10 @@ public class CityController {
         return ResponseEntity.ok(new RestResponseDto("City has been deleted", HttpStatus.OK.value()));
     }
 
+    @ApiOperation(
+            value = "",
+            authorizations = @Authorization("ADMIN")
+    )
     @PutMapping("/regions/{regionId}/cities/{cityId}")
     public ResponseEntity<RestResponseDto> updatedByRegionIdAndCityId(
             @PathVariable Long regionId,
@@ -113,6 +135,10 @@ public class CityController {
         return cityService.getAllDtoByRegionId(regionId, sortQuery);
     }
 
+    @ApiOperation(
+            value = "",
+            authorizations = @Authorization("ADMIN")
+    )
     @PostMapping("/regions/{regionId}/cities")
     public ResponseEntity<RestResponseDto> addByRegionId(
             @PathVariable Long regionId,

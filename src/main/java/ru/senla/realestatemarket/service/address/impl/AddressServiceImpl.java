@@ -48,6 +48,7 @@ public class AddressServiceImpl extends AbstractServiceImpl<Address, Long> imple
 
 
     @Override
+    @Transactional
     public AddressDto getDtoById(Long id) {
         return addressMapper.toAddressDto(getById(id));
     }
@@ -59,6 +60,7 @@ public class AddressServiceImpl extends AbstractServiceImpl<Address, Long> imple
     }
 
     @Override
+    @Transactional
     public List<HouseNumberDto> getAllHouseNumbersDto(Long streetId, String sortQuery) {
         List<Address> addressList
                 = addressRepository.findByStreetId(streetId, SortUtil.parseSortQuery(sortQuery));
@@ -67,6 +69,7 @@ public class AddressServiceImpl extends AbstractServiceImpl<Address, Long> imple
     }
 
     @Override
+    @Transactional
     public List<HouseNumberDto> getAllHouseNumbersDtoByRegionIdAndCityIdAndStreetId(
             Long regionId, Long cityId, Long streetId, String sortQuery) {
         return addressMapper.toHouseNumberDto(
@@ -117,6 +120,7 @@ public class AddressServiceImpl extends AbstractServiceImpl<Address, Long> imple
     }
 
     @Override
+    @Transactional
     public void updateById(UpdateRequestAddressDto updateRequestAddressDto, Long id) {
         Address address = getById(id);
 
@@ -134,6 +138,7 @@ public class AddressServiceImpl extends AbstractServiceImpl<Address, Long> imple
     }
 
     @Override
+    @Transactional
     public void updateByStreetIdAndByHouseNumber(
             UpdateRequestAddressDto updateRequestAddressDto, Long streetId, String houseNumber
     ) {
@@ -160,8 +165,10 @@ public class AddressServiceImpl extends AbstractServiceImpl<Address, Long> imple
     }
 
     @Override
+    @Transactional
     public void updateByRegionIdAndCityIdAndStreetIdAndByHouseNumber(
-            UpdateRequestAddressDto updateRequestAddressDto, Long regionId, Long cityId, Long streetId, String houseNumber
+            UpdateRequestAddressDto updateRequestAddressDto,
+            Long regionId, Long cityId, Long streetId, String houseNumber
     ) {
         Address address = getAddressByRegionIdAndCityIdAndStreetIdAndHouseNumber(
                 regionId, cityId, streetId, houseNumber);

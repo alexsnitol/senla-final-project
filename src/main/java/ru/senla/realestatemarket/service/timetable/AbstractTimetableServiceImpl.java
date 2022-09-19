@@ -63,9 +63,11 @@ public abstract class AbstractTimetableServiceImpl<M extends IModel<Long>> exten
             LocalDateTime specificFromDt, LocalDateTime specificToDt
     ) {
         if (defaultRepository
-                .isExist(concernsTheIntervalBetweenSpecificFromAndToExcludingIntervalItself(specificFromDt, specificToDt))
+                .isExist(concernsTheIntervalBetweenSpecificFromAndToExcludingIntervalItself(
+                        specificFromDt, specificToDt))
             || defaultRepository
-                .isExist(intervalWithSpecificFromAndTo(specificFromDt, specificToDt))
+                .isExist(intervalWithSpecificFromAndTo(
+                        specificFromDt, specificToDt))
         ) {
             String message = "In specific interval exist records. Adding new record impossible.";
 

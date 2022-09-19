@@ -5,19 +5,17 @@ import org.springframework.stereotype.Service;
 import ru.senla.realestatemarket.dto.address.RequestAddressDto;
 import ru.senla.realestatemarket.dto.house.FamilyHouseDto;
 import ru.senla.realestatemarket.dto.house.RequestFamilyHouseDto;
+import ru.senla.realestatemarket.dto.house.RequestFamilyHouseWithStreetIdAndHouseNumberDto;
 import ru.senla.realestatemarket.dto.house.UpdateRequestFamilyHouseDto;
+import ru.senla.realestatemarket.dto.house.UpdateRequestFamilyHouseWithStreetIdAndHouseNumberDto;
 import ru.senla.realestatemarket.mapper.house.FamilyHouseMapper;
-import ru.senla.realestatemarket.model.address.Address;
 import ru.senla.realestatemarket.model.house.FamilyHouse;
-import ru.senla.realestatemarket.model.house.HouseMaterial;
 import ru.senla.realestatemarket.repo.address.IAddressRepository;
 import ru.senla.realestatemarket.repo.house.IFamilyHouseRepository;
 import ru.senla.realestatemarket.repo.house.IHouseMaterialRepository;
-import ru.senla.realestatemarket.service.helper.EntityHelper;
 import ru.senla.realestatemarket.service.house.IFamilyHouseService;
 
 import javax.annotation.PostConstruct;
-import javax.persistence.EntityNotFoundException;
 import javax.transaction.Transactional;
 import java.util.List;
 
@@ -57,44 +55,42 @@ public class FamilyHouseServiceImpl
     }
 
     @Override
+    @Transactional
     public FamilyHouseDto getDtoById(Long id) {
         return familyHouseMapper.toFamilyHouseDto(getById(id));
     }
 
+    @Override
     @Transactional
-    public void add(RequestFamilyHouseDto requestFamilyHouseDto) {
+    public void addFromDto(RequestFamilyHouseDto requestFamilyHouseDto) {
         FamilyHouse familyHouse = familyHouseMapper.toFamilyHouse(requestFamilyHouseDto);
+
+
+        Long addressId = requestFamilyHouseDto.getAddressId();
+        setAddressById(familyHouse, addressId);
 
         Long houseMaterialId = requestFamilyHouseDto.getHouseMaterialId();
         setHouseMaterialById(familyHouse, houseMaterialId);
-
-        Long streetId = requestFamilyHouseDto.getAddress().getStreetId();
-        String houseNumber = requestFamilyHouseDto.getAddress().getHouseNumber();
-        setAddressByStreetIdAndHouseNumber(familyHouse, streetId, houseNumber);
 
 
         familyHouseRepository.create(familyHouse);
     }
 
-    private void setHouseMaterialById(FamilyHouse familyHouse, Long houseMaterialId) {
-        HouseMaterial houseMaterial = houseMaterialRepository.findById(houseMaterialId);
-        EntityHelper.checkEntityOnNull(houseMaterial, HouseMaterial.class, houseMaterialId);
+    @Override
+    @Transactional
+    public void addFromDto(RequestFamilyHouseWithStreetIdAndHouseNumberDto requestFamilyHouseDto) {
+        FamilyHouse familyHouse = familyHouseMapper.toFamilyHouse(requestFamilyHouseDto);
 
-        familyHouse.setHouseMaterial(houseMaterial);
-    }
 
-    private void setAddressByStreetIdAndHouseNumber(FamilyHouse familyHouse, Long streetId, String houseNumber) {
-        Address address = addressRepository.findByStreetIdAndHouseNumber(streetId, houseNumber);
+        Long streetId = requestFamilyHouseDto.getAddress().getStreetId();
+        String houseNumber = requestFamilyHouseDto.getAddress().getHouseNumber();
+        setAddressByStreetIdAndHouseNumber(familyHouse, streetId, houseNumber);
 
-        if (address == null) {
-            String message = String.format(
-                    "Address with street with id %s and house number %s not exist", streetId, houseNumber);
+        Long houseMaterialId = requestFamilyHouseDto.getHouseMaterialId();
+        setHouseMaterialById(familyHouse, houseMaterialId);
 
-            log.error(message);
-            throw new EntityNotFoundException(message);
-        }
 
-        familyHouse.setAddress(address);
+        familyHouseRepository.create(familyHouse);
     }
 
     @Override
@@ -102,8 +98,28 @@ public class FamilyHouseServiceImpl
     public void updateById(UpdateRequestFamilyHouseDto updateRequestFamilyHouseDto, Long id) {
         FamilyHouse familyHouse = getById(id);
 
+
+        Long addressId = updateRequestFamilyHouseDto.getAddressId();
+        if (addressId != null) {
+            setAddressById(familyHouse, addressId);
+        }
+
         Long houseMaterialId = updateRequestFamilyHouseDto.getHouseMaterialId();
         setHouseMaterialById(familyHouse, houseMaterialId);
+
+        familyHouseMapper.updateFamilyHouseFromUpdateRequestFamilyHouseDto(
+                updateRequestFamilyHouseDto, familyHouse
+        );
+
+
+        familyHouseRepository.update(familyHouse);
+    }
+
+    @Override
+    @Transactional
+    public void updateById(UpdateRequestFamilyHouseWithStreetIdAndHouseNumberDto updateRequestFamilyHouseDto, Long id) {
+        FamilyHouse familyHouse = getById(id);
+
 
         RequestAddressDto requestAddressDto = updateRequestFamilyHouseDto.getAddress();
         if (requestAddressDto != null) {
@@ -113,6 +129,9 @@ public class FamilyHouseServiceImpl
                 setAddressByStreetIdAndHouseNumber(familyHouse, streetId, houseNumber);
             }
         }
+
+        Long houseMaterialId = updateRequestFamilyHouseDto.getHouseMaterialId();
+        setHouseMaterialById(familyHouse, houseMaterialId);
 
         familyHouseMapper.updateFamilyHouseFromUpdateRequestFamilyHouseDto(
                 updateRequestFamilyHouseDto, familyHouse

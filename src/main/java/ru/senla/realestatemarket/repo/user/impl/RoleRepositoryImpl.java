@@ -7,7 +7,6 @@ import ru.senla.realestatemarket.repo.AbstractRepositoryImpl;
 import ru.senla.realestatemarket.repo.user.IRoleRepository;
 
 import javax.annotation.PostConstruct;
-import javax.persistence.criteria.From;
 
 import static ru.senla.realestatemarket.repo.user.specification.RoleSpecification.hasName;
 

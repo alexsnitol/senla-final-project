@@ -49,8 +49,12 @@ public class Message implements IModel<Long> {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Message)) return false;
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof Message)) {
+            return false;
+        }
         Message message = (Message) o;
         return Objects.equals(getId(), message.getId())
                 && Objects.equals(getSender(), message.getSender())

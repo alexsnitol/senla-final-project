@@ -1,5 +1,7 @@
 package ru.senla.realestatemarket.controller.address;
 
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.Authorization;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -39,6 +41,10 @@ public class StreetController {
         return streetService.getDtoById(id);
     }
 
+    @ApiOperation(
+            value = "",
+            authorizations = @Authorization("ADMIN")
+    )
     @DeleteMapping("/streets/{id}")
     public ResponseEntity<RestResponseDto> deleteById(
             @PathVariable Long id
@@ -48,6 +54,10 @@ public class StreetController {
         return ResponseEntity.ok(new RestResponseDto("Street has been deleted", HttpStatus.OK.value()));
     }
 
+    @ApiOperation(
+            value = "",
+            authorizations = @Authorization("ADMIN")
+    )
     @PutMapping("/streets/{id}")
     public ResponseEntity<RestResponseDto> updatedById(
             @PathVariable Long id,
@@ -66,6 +76,10 @@ public class StreetController {
         return streetService.getAllDto(rsqlQuery, sortQuery);
     }
 
+    @ApiOperation(
+            value = "",
+            authorizations = @Authorization("ADMIN")
+    )
     @PostMapping("/streets")
     public ResponseEntity<RestResponseDto> add(
             @RequestBody @Valid RequestStreetDto requestStreetDto
@@ -85,6 +99,10 @@ public class StreetController {
         return streetService.getDtoByRegionIdAndCityIdAndStreetId(regionId, cityId, streetId);
     }
 
+    @ApiOperation(
+            value = "",
+            authorizations = @Authorization("ADMIN")
+    )
     @DeleteMapping("/regions/{regionId}/cities/{cityId}/streets/{streetId}")
     public ResponseEntity<RestResponseDto> deleteByRegionIdAndCityIdAndStreetId(
             @PathVariable Long regionId,
@@ -96,6 +114,10 @@ public class StreetController {
         return ResponseEntity.ok(new RestResponseDto("Street has been deleted", HttpStatus.OK.value()));
     }
 
+    @ApiOperation(
+            value = "",
+            authorizations = @Authorization("ADMIN")
+    )
     @PutMapping("/regions/{regionId}/cities/{cityId}/streets/{streetId}")
     public ResponseEntity<RestResponseDto> updateByRegionIdAndCityIdAndStreetId(
             @PathVariable Long regionId,
@@ -103,7 +125,7 @@ public class StreetController {
             @PathVariable Long streetId,
             @RequestBody @Valid UpdateRequestStreetDto updateRequestStreetDto
     ) {
-        streetService.updateByRegionIdAndCityIdAndByStreetId(updateRequestStreetDto, regionId, cityId, streetId);
+        streetService.updateFromDtoByRegionIdAndCityIdAndByStreetId(updateRequestStreetDto, regionId, cityId, streetId);
 
         return ResponseEntity.ok(new RestResponseDto("Street has been updated", HttpStatus.OK.value()));
     }
@@ -117,6 +139,10 @@ public class StreetController {
         return streetService.getAllDtoByRegionIdAndCityId(regionId, cityId, sortQuery);
     }
 
+    @ApiOperation(
+            value = "",
+            authorizations = @Authorization("ADMIN")
+    )
     @PostMapping("/regions/{regionId}/cities/{cityId}/streets")
     public ResponseEntity<RestResponseDto> addByRegionIdAndCityId(
             @PathVariable Long regionId,

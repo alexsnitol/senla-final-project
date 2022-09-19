@@ -5,25 +5,24 @@ import org.springframework.stereotype.Service;
 import ru.senla.realestatemarket.dto.address.RequestAddressDto;
 import ru.senla.realestatemarket.dto.house.ApartmentHouseDto;
 import ru.senla.realestatemarket.dto.house.RequestApartmentHouseDto;
+import ru.senla.realestatemarket.dto.house.RequestApartmentHouseWithStreetIdAndHouseNumberDto;
 import ru.senla.realestatemarket.dto.house.UpdateRequestApartmentHouseDto;
+import ru.senla.realestatemarket.dto.house.UpdateRequestApartmentHouseWithStreetIdAndHouseNumberDto;
 import ru.senla.realestatemarket.mapper.house.ApartmentHouseMapper;
-import ru.senla.realestatemarket.model.address.Address;
 import ru.senla.realestatemarket.model.house.ApartmentHouse;
-import ru.senla.realestatemarket.model.house.HouseMaterial;
 import ru.senla.realestatemarket.repo.address.IAddressRepository;
 import ru.senla.realestatemarket.repo.house.IApartmentHouseRepository;
 import ru.senla.realestatemarket.repo.house.IHouseMaterialRepository;
-import ru.senla.realestatemarket.service.helper.EntityHelper;
 import ru.senla.realestatemarket.service.house.IApartmentHouseService;
 
 import javax.annotation.PostConstruct;
-import javax.persistence.EntityNotFoundException;
 import javax.transaction.Transactional;
 import java.util.List;
 
 @Slf4j
 @Service
-public class ApartmentHouseServiceImpl extends AbstractHouseServiceImpl<ApartmentHouse, ApartmentHouseDto> implements IApartmentHouseService {
+public class ApartmentHouseServiceImpl extends AbstractHouseServiceImpl<ApartmentHouse, ApartmentHouseDto>
+        implements IApartmentHouseService {
 
     private final IApartmentHouseRepository apartmentHouseRepository;
 
@@ -54,49 +53,72 @@ public class ApartmentHouseServiceImpl extends AbstractHouseServiceImpl<Apartmen
     }
 
     @Override
+    @Transactional
     public ApartmentHouseDto getDtoById(Long id) {
         return apartmentHouseMapper.toApartmentHouseDto(getById(id));
     }
 
+    @Override
     @Transactional
-    public void add(RequestApartmentHouseDto requestApartmentHouseDto) {
+    public void addFromDto(RequestApartmentHouseDto requestApartmentHouseDto) {
         ApartmentHouse apartmentHouse = apartmentHouseMapper.toApartmentHouse(requestApartmentHouseDto);
+
+
+        Long addressId = requestApartmentHouseDto.getAddressId();
+        setAddressById(apartmentHouse, addressId);
 
         Long houseMaterialId = requestApartmentHouseDto.getHouseMaterialId();
         setHouseMaterialById(apartmentHouse, houseMaterialId);
-
-        Long streetId = requestApartmentHouseDto.getAddress().getStreetId();
-        String houseNumber = requestApartmentHouseDto.getAddress().getHouseNumber();
-        setAddressByStreetIdAndHouseNumber(apartmentHouse, streetId, houseNumber);
 
 
         apartmentHouseRepository.create(apartmentHouse);
     }
 
-    private void setAddressByStreetIdAndHouseNumber(ApartmentHouse apartmentHouse, Long streetId, String houseNumber) {
-        Address address = addressRepository.findByStreetIdAndHouseNumber(streetId, houseNumber);
+    @Override
+    @Transactional
+    public void addFromDto(RequestApartmentHouseWithStreetIdAndHouseNumberDto requestApartmentHouseDto) {
+        ApartmentHouse apartmentHouse = apartmentHouseMapper.toApartmentHouse(requestApartmentHouseDto);
 
-        if (address == null) {
-            String message = String.format(
-                    "Address with street with id %s and house number %s not exist", streetId, houseNumber);
 
-            log.error(message);
-            throw new EntityNotFoundException(message);
-        }
+        Long streetId = requestApartmentHouseDto.getAddress().getStreetId();
+        String houseNumber = requestApartmentHouseDto.getAddress().getHouseNumber();
+        setAddressByStreetIdAndHouseNumber(apartmentHouse, streetId, houseNumber);
 
-        apartmentHouse.setAddress(address);
-    }
+        Long houseMaterialId = requestApartmentHouseDto.getHouseMaterialId();
+        setHouseMaterialById(apartmentHouse, houseMaterialId);
 
-    private void setHouseMaterialById(ApartmentHouse apartmentHouse, Long houseMaterialId) {
-        HouseMaterial houseMaterial = houseMaterialRepository.findById(houseMaterialId);
-        EntityHelper.checkEntityOnNull(houseMaterial, HouseMaterial.class, houseMaterialId);
 
-        apartmentHouse.setHouseMaterial(houseMaterial);
+        apartmentHouseRepository.create(apartmentHouse);
     }
 
     @Override
     @Transactional
     public void updateById(UpdateRequestApartmentHouseDto updateRequestApartmentHouseDto, Long id) {
+        ApartmentHouse apartmentHouse = getById(id);
+
+        Long houseMaterialId = updateRequestApartmentHouseDto.getHouseMaterialId();
+        if (houseMaterialId != null) {
+            setHouseMaterialById(apartmentHouse, houseMaterialId);
+        }
+
+        Long addressId = updateRequestApartmentHouseDto.getAddressId();
+        if (addressId != null) {
+            setAddressById(apartmentHouse, addressId);
+        }
+
+        apartmentHouseMapper.updateApartmentHouseFromUpdateRequestApartmentHouse(
+                updateRequestApartmentHouseDto, apartmentHouse
+        );
+
+
+        apartmentHouseRepository.update(apartmentHouse);
+    }
+
+    @Override
+    @Transactional
+    public void updateById(
+            UpdateRequestApartmentHouseWithStreetIdAndHouseNumberDto updateRequestApartmentHouseDto, Long id
+    ) {
         ApartmentHouse apartmentHouse = getById(id);
 
         Long houseMaterialId = updateRequestApartmentHouseDto.getHouseMaterialId();

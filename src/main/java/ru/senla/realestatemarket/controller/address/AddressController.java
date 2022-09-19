@@ -1,5 +1,7 @@
 package ru.senla.realestatemarket.controller.address;
 
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.Authorization;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -40,6 +42,10 @@ public class AddressController {
         return addressService.getDtoById(id);
     }
 
+    @ApiOperation(
+            value = "",
+            authorizations = @Authorization("ADMIN")
+    )
     @DeleteMapping("/addresses/{id}")
     public ResponseEntity<RestResponseDto> deleteById(
             @PathVariable Long id
@@ -49,6 +55,10 @@ public class AddressController {
         return ResponseEntity.ok(new RestResponseDto("Address has been deleted", HttpStatus.OK.value()));
     }
 
+    @ApiOperation(
+            value = "",
+            authorizations = @Authorization("ADMIN")
+    )
     @PutMapping("/addresses/{id}")
     public ResponseEntity<RestResponseDto> updateById(
             @PathVariable Long id,
@@ -67,6 +77,10 @@ public class AddressController {
         return addressService.getAllDto(rsqlQuery, sortQuery);
     }
 
+    @ApiOperation(
+            value = "",
+            authorizations = @Authorization("ADMIN")
+    )
     @PostMapping("/addresses")
     public ResponseEntity<RestResponseDto> add(
             @RequestBody @Valid RequestAddressDto requestAddressDto
@@ -88,6 +102,10 @@ public class AddressController {
                 .getAllHouseNumbersDtoByRegionIdAndCityIdAndStreetId(regionId, cityId, streetId, sortQuery);
     }
 
+    @ApiOperation(
+            value = "",
+            authorizations = @Authorization("ADMIN")
+    )
     @PostMapping("/regions/{regionId}/cities/{cityId}/streets/{streetId}/house-numbers")
     public ResponseEntity<RestResponseDto> getAllHouseNumbers(
             @PathVariable Long regionId,

@@ -23,9 +23,15 @@ public class HousingAnnouncement extends Announcement {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof HousingAnnouncement)) return false;
-        if (!super.equals(o)) return false;
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof HousingAnnouncement)) {
+            return false;
+        }
+        if (!super.equals(o)) {
+            return false;
+        }
         HousingAnnouncement that = (HousingAnnouncement) o;
         return getType() == that.getType();
     }

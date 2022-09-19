@@ -6,7 +6,6 @@ import ru.senla.realestatemarket.model.property.ApartmentProperty;
 import ru.senla.realestatemarket.repo.property.IApartmentPropertyRepository;
 
 import javax.annotation.PostConstruct;
-import java.util.List;
 
 @Slf4j
 @Repository

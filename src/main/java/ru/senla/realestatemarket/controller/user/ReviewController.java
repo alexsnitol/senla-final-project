@@ -29,11 +29,21 @@ public class ReviewController {
     @ApiOperation(
             value = "",
             notes = "Return all customer reviews of sellers by customerId",
-            authorizations = @Authorization("ADMIN")
+            authorizations = @Authorization("Authorized user")
     )
     @GetMapping("/customers/{customerId}")
     public List<ReviewDto> getReviewsByCustomerId(@PathVariable Long customerId) {
         return reviewService.getAllDtoByCustomerId(customerId);
+    }
+
+    @ApiOperation(
+            value = "",
+            notes = "Return all customer reviews of sellers of current user",
+            authorizations = @Authorization("Authorized user")
+    )
+    @GetMapping("/customers/current")
+    public List<ReviewDto> getReviewsOfCurrentCustomerUser() {
+        return reviewService.getAllDtoOfCurrentCustomerUser();
     }
 
     @ApiOperation(
@@ -47,7 +57,18 @@ public class ReviewController {
 
     @ApiOperation(
             value = "",
-            notes = "Send a review to seller by sellerId from current user"
+            notes = "Returns all reviews of seller of current user",
+            authorizations = @Authorization("Authorized user")
+    )
+    @GetMapping("/sellers/current")
+    public List<ReviewDto> getReviewsOfCurrentSellerUser() {
+        return reviewService.getAllDtoOfCurrentSellerUser();
+    }
+
+    @ApiOperation(
+            value = "",
+            notes = "Send a review to seller by sellerId from current user",
+            authorizations = @Authorization("Authorized user")
     )
     @PostMapping("/sellers/{sellerId}")
     public ResponseEntity<RestResponseDto> sendReviewToSellerBySellerId(

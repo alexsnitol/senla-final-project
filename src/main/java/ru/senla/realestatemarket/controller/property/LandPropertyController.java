@@ -35,6 +35,10 @@ public class LandPropertyController {
     private final ILandPropertyService landPropertyService;
 
 
+    @ApiOperation(
+            value = "",
+            authorizations = @Authorization("ADMIN")
+    )
     @GetMapping
     public List<LandPropertyDto> getAllLandProperties(
             @RequestParam(value = "q", required = false) String rsqlQuery,
@@ -43,6 +47,10 @@ public class LandPropertyController {
         return landPropertyService.getAllDto(rsqlQuery, sortQuery);
     }
 
+    @ApiOperation(
+            value = "",
+            authorizations = @Authorization("ADMIN")
+    )
     @PostMapping
     public ResponseEntity<RestResponseDto> add(
             @RequestBody @Valid RequestLandPropertyWithUserIdOfOwnerDto requestLandPropertyWithUserIdOfOwnerDto
@@ -53,6 +61,10 @@ public class LandPropertyController {
                 HttpStatus.CREATED.value()), HttpStatus.CREATED);
     }
 
+    @ApiOperation(
+            value = "",
+            authorizations = @Authorization("ADMIN")
+    )
     @GetMapping("/{id}")
     public LandPropertyDto getById(
             @PathVariable Long id
@@ -60,6 +72,10 @@ public class LandPropertyController {
         return landPropertyService.getDtoById(id);
     }
 
+    @ApiOperation(
+            value = "",
+            authorizations = @Authorization("ADMIN")
+    )
     @DeleteMapping("/{id}")
     public ResponseEntity<RestResponseDto> deleteById(
             @PathVariable Long id
@@ -69,6 +85,10 @@ public class LandPropertyController {
         return ResponseEntity.ok(new RestResponseDto("Land property has been deleted", HttpStatus.OK.value()));
     }
 
+    @ApiOperation(
+            value = "",
+            authorizations = @Authorization("ADMIN")
+    )
     @PutMapping("/{id}")
     public ResponseEntity<RestResponseDto> updateById(
             @PathVariable Long id,
@@ -86,7 +106,7 @@ public class LandPropertyController {
     )
     @GetMapping("/owners/current")
     public List<LandPropertyDto> getAllDtoOfCurrentUser(
-            @RequestParam(value = "q",required = false) String rsqlQuery,
+            @RequestParam(value = "q", required = false) String rsqlQuery,
             @RequestParam(value = "sort", required = false) String sortQuery
     ) {
         return landPropertyService.getAllDtoOfCurrentUser(rsqlQuery, sortQuery);

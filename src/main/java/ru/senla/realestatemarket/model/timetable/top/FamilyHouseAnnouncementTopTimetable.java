@@ -46,9 +46,15 @@ public class FamilyHouseAnnouncementTopTimetable extends AnnouncementTopTimetabl
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof FamilyHouseAnnouncementTopTimetable)) return false;
-        if (!super.equals(o)) return false;
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof FamilyHouseAnnouncementTopTimetable)) {
+            return false;
+        }
+        if (!super.equals(o)) {
+            return false;
+        }
         FamilyHouseAnnouncementTopTimetable that = (FamilyHouseAnnouncementTopTimetable) o;
         return Objects.equals(getAnnouncement(), that.getAnnouncement());
     }

@@ -9,7 +9,9 @@ public class GenericTimetableSpecification {
     private GenericTimetableSpecification() {}
 
 
-    public static  <T> Specification<T> concernsTheIntervalBetweenSpecificFromAndTo(LocalDateTime from, LocalDateTime to) {
+    public static  <T> Specification<T> concernsTheIntervalBetweenSpecificFromAndTo(
+            LocalDateTime from, LocalDateTime to
+    ) {
         return (root, query, criteriaBuilder) ->
                 criteriaBuilder.or(
                         criteriaBuilder.between(root.get("fromDt"), from, to),

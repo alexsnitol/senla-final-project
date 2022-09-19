@@ -45,9 +45,15 @@ public class FamilyHouseProperty extends HousingProperty
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof FamilyHouseProperty)) return false;
-        if (!super.equals(o)) return false;
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof FamilyHouseProperty)) {
+            return false;
+        }
+        if (!super.equals(o)) {
+            return false;
+        }
         FamilyHouseProperty that = (FamilyHouseProperty) o;
         return Objects.equals(getFamilyHouse(), that.getFamilyHouse());
     }

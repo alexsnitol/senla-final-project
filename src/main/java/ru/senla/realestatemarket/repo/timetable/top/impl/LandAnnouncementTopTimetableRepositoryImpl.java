@@ -26,7 +26,8 @@ public class LandAnnouncementTopTimetableRepositoryImpl
     }
 
     @Override
-    public List<LandAnnouncementTopTimetable> findAllByLandAnnouncementId(Long landAnnouncementId, String rsqlQuery, Sort sort) {
+    public List<LandAnnouncementTopTimetable> findAllByLandAnnouncementId(
+            Long landAnnouncementId, String rsqlQuery, Sort sort) {
         return findAllByQuery(hasLandAnnouncementId(landAnnouncementId),
                 rsqlQuery, sort);
     }

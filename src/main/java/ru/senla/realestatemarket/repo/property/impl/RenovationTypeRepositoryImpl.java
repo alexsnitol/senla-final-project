@@ -7,11 +7,11 @@ import ru.senla.realestatemarket.repo.AbstractRepositoryImpl;
 import ru.senla.realestatemarket.repo.property.IRenovationTypeRepository;
 
 import javax.annotation.PostConstruct;
-import javax.persistence.criteria.From;
 
 @Slf4j
 @Repository
-public class RenovationTypeRepositoryImpl extends AbstractRepositoryImpl<RenovationType, Long> implements IRenovationTypeRepository {
+public class RenovationTypeRepositoryImpl extends AbstractRepositoryImpl<RenovationType, Long>
+        implements IRenovationTypeRepository {
 
 
     @PostConstruct

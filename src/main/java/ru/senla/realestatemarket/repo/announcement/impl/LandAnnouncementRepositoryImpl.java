@@ -1,7 +1,6 @@
 package ru.senla.realestatemarket.repo.announcement.impl;
 
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Repository;
 import ru.senla.realestatemarket.model.address.Address;
 import ru.senla.realestatemarket.model.address.City;
@@ -9,10 +8,7 @@ import ru.senla.realestatemarket.model.address.Region;
 import ru.senla.realestatemarket.model.address.Street;
 import ru.senla.realestatemarket.model.announcement.LandAnnouncement;
 import ru.senla.realestatemarket.model.property.LandProperty;
-import ru.senla.realestatemarket.model.timetable.top.LandAnnouncementTopTimetable;
 import ru.senla.realestatemarket.repo.announcement.ILandAnnouncementRepository;
-import ru.senla.realestatemarket.repo.announcement.specification.LandAnnouncementSpecification;
-import ru.senla.realestatemarket.repo.timetable.top.specification.LandAnnouncementTopTimetableSpecification;
 
 import javax.annotation.PostConstruct;
 import javax.persistence.criteria.CriteriaQuery;
@@ -24,7 +20,6 @@ import java.util.List;
 
 import static ru.senla.realestatemarket.repo.announcement.specification.LandAnnouncementSpecification.hasId;
 import static ru.senla.realestatemarket.repo.announcement.specification.LandAnnouncementSpecification.hasUserIdOfOwnerInProperty;
-import static ru.senla.realestatemarket.repo.timetable.top.specification.LandAnnouncementTopTimetableSpecification.hasLandAnnouncementId;
 
 @Slf4j
 @Repository

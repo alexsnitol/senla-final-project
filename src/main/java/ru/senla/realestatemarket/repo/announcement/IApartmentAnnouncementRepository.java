@@ -4,7 +4,8 @@ import ru.senla.realestatemarket.model.announcement.ApartmentAnnouncement;
 
 import java.util.List;
 
-public interface IApartmentAnnouncementRepository extends IAbstractHousingAnnouncementRepository<ApartmentAnnouncement> {
+public interface IApartmentAnnouncementRepository
+        extends IAbstractHousingAnnouncementRepository<ApartmentAnnouncement> {
     List<ApartmentAnnouncement> findAllInTheTextFieldsOfWhichContainsTheKeys(List<String> searchKeys);
 
     ApartmentAnnouncement findByIdAndUserIdOfOwnerInProperty(Long id, Long userIdOfOwner);

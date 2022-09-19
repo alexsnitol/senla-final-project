@@ -92,7 +92,9 @@ public class MessageRepositoryImpl extends AbstractRepositoryImpl<Message, Long>
         return convertObjectsToMessageUsersWithoutUserWithUserId(userId, objectList);
     }
 
-    private Set<SimplyUserDto> convertObjectsToMessageUsersWithoutUserWithUserId(Long userId, List<Object[]> objectList) {
+    private Set<SimplyUserDto> convertObjectsToMessageUsersWithoutUserWithUserId(
+            Long userId, List<Object[]> objectList
+    ) {
         Set<SimplyUserDto> messageUserDtoSet = new LinkedHashSet<>();
 
         for (Object[] obj : objectList) {

@@ -14,7 +14,8 @@ import static ru.senla.realestatemarket.repo.user.specification.BalanceOperation
 
 @Slf4j
 @Repository
-public class BalanceOperationRepositoryImpl extends AbstractRepositoryImpl<BalanceOperation, Long> implements IBalanceOperationRepository {
+public class BalanceOperationRepositoryImpl extends AbstractRepositoryImpl<BalanceOperation, Long>
+        implements IBalanceOperationRepository {
 
     @PostConstruct
     public void init() {

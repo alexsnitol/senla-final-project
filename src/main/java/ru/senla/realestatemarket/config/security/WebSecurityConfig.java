@@ -94,49 +94,53 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
                 // SWAGGER
 
-                .antMatchers("/v2/api-docs*").permitAll()
-                .antMatchers( "/swagger-ui*").permitAll()
-                .antMatchers( "/webjars/springfox-swagger-ui*").permitAll()
-                .antMatchers("/swagger-resources*").permitAll()
-                .antMatchers("/favicon*").permitAll()
-                .antMatchers("/swagger*").permitAll()
-                .antMatchers("/springfox*").permitAll()
+                .antMatchers("/v2/api-docs/**").permitAll()
+                .antMatchers("/swagger-ui/**").permitAll()
+                .antMatchers("/webjars/springfox-swagger-ui/**").permitAll()
+                .antMatchers("/swagger-resources/**").permitAll()
+                .antMatchers("/favicon**").permitAll()
+                .antMatchers("/swagger**").permitAll()
+                .antMatchers("/springfox**").permitAll()
 
 
                 // USERS
 
-                .antMatchers("/api/users/current*").authenticated()
+                .antMatchers("/api/users/current/**").authenticated()
+                .antMatchers(POST, "/api/users").hasAnyRole("ANONYMOUS", "ADMIN")
 
 
                 // REVIEWS
 
-                .antMatchers("/api/reviews*").authenticated()
+                .antMatchers(GET, "/api/reviews/customers/**").authenticated()
+                .antMatchers(GET, "/api/reviews/sellers/current/**").authenticated()
+                .antMatchers(GET, "/api/reviews/sellers/{sellerId}").permitAll()
+                .antMatchers(POST, "/api/reviews/sellers/**").authenticated()
 
                 
                 // MESSAGES
 
-                .antMatchers("/api/messages*").authenticated()
+                .antMatchers("/api/messages/**").authenticated()
                 
                 
                 // BALANCE OPERATIONS
 
-                .antMatchers(GET, "/api/users/current/balance-operations*").authenticated()
+                .antMatchers(GET, "/api/users/current/balance-operations/**").authenticated()
 
 
                 // ADDRESS
 
-                .antMatchers(GET, "/api/addresses*").permitAll()
+                .antMatchers(GET, "/api/addresses/**").permitAll()
                 .antMatchers(GET, "/api/regions/{regionId}/" +
                         "cities/{cityId}/streets/{streetId}/house-numbers").permitAll()
                 
-                .antMatchers(GET, "/api/cities*").permitAll()
-                .antMatchers(GET, "/api/regions*").permitAll()
+                .antMatchers(GET, "/api/cities/**").permitAll()
+                .antMatchers(GET, "/api/regions/**").permitAll()
                 .antMatchers(GET, "/api/streets").permitAll()
 
 
                 // HOUSES
 
-                .antMatchers(GET, "/api/houses*").permitAll()
+                .antMatchers(GET, "/api/houses/**").permitAll()
 
 
                 // PROPERTIES
@@ -145,87 +149,90 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
                 // APARTMENT PROPERTIES
 
-                .antMatchers("/api/properties/housing/apartments/owners/current*").authenticated()
+                .antMatchers("/api/properties/housing/apartments/owners/current/**").authenticated()
 
 
                 // FAMILY HOUSE PROPERTIES
 
-                .antMatchers("/api/properties/housing/family-houses/owners/current*").authenticated()
+                .antMatchers("/api/properties/housing/family-houses/owners/current/**").authenticated()
 
 
                 // LAND PROPERTIES
 
-                .antMatchers("/api/properties/housing/lands/owners/current*").authenticated()
+                .antMatchers("/api/properties/lands/owners/current/**").authenticated()
 
 
 
                 // ANNOUNCEMENTS
 
                 .antMatchers(GET, "/api/announcements/housing/apartments/search").permitAll()
-                .antMatchers(GET, "/api/announcements/housing/apartments/open*").permitAll()
+                .antMatchers(GET, "/api/announcements/housing/apartments/open/**").permitAll()
 
 
                 // HOUSING ANNOUNCEMENTS
 
                 .antMatchers(GET, "/api/announcements/housing/apartments/housing/search").permitAll()
-                .antMatchers(GET, "/api/announcements/housing/apartments/housing/open*").permitAll()
+                .antMatchers(GET, "/api/announcements/housing/apartments/housing/open/**").permitAll()
 
 
                 // APARTMENT ANNOUNCEMENTS
 
                 .antMatchers(GET, "/api/announcements/housing/apartments/search").permitAll()
 
-                .antMatchers(GET, "/api/announcements/housing/apartments/open*").permitAll()
+                .antMatchers(GET, "/api/announcements/housing/apartments/open/**").permitAll()
 
-                .antMatchers("/api/announcements/housing/apartments/owners/current*").authenticated()
+                .antMatchers("/api/announcements/housing/apartments/owners/current/**").authenticated()
                 
                 .antMatchers(GET, "/api/announcements/housing/apartments/closed/owners/{userIdOfOwner}")
                     .permitAll()
 
                 .antMatchers(GET, "/api/announcements/housing/apartments" +
-                        "/timetables/rent/tenants/current*").authenticated()
+                        "/timetables/rent/tenants/current/**").authenticated()
                 .antMatchers("/api/announcements/housing/apartments/{familyHouseAnnouncementId}" +
-                        "/timetables/rent/tenants/current*").authenticated()
+                        "/timetables/rent/tenants/current/**").authenticated()
                 
 
                 // FAMILY HOUSE ANNOUNCEMENTS
 
                 .antMatchers(GET, "/api/announcements/housing/family-houses/search").permitAll()
 
-                .antMatchers(GET, "/api/announcements/housing/family-houses/open*").permitAll()
+                .antMatchers(GET, "/api/announcements/housing/family-houses/open/**").permitAll()
 
-                .antMatchers("/api/announcements/housing/family-houses/owners/current*").authenticated()
+                .antMatchers("/api/announcements/housing/family-houses/owners/current/**").authenticated()
 
                 .antMatchers(GET, "/api/announcements/housing/family-houses/closed/owners/{userIdOfOwner}")
                     .permitAll()
 
-                .antMatchers(GET, "/api/announcements/housing/family-houses/{familyHouseAnnouncementId}" +
-                        "/timetables/rent/only-date-times*").permitAll()
-
                 .antMatchers(GET, "/api/announcements/housing/family-houses" +
-                        "/timetables/rent/tenants/current*").authenticated()
+                        "/timetables/rent/tenants/current/**").authenticated()
                 .antMatchers("/api/announcements/housing/family-houses/{familyHouseAnnouncementId}" +
-                        "/timetables/rent/tenants/current*").authenticated()
+                        "/timetables/rent/tenants/current/**").authenticated()
 
 
                 // LAND ANNOUNCEMENTS
 
-                .antMatchers(GET, "/api/announcements/housing/lands/search").permitAll()
+                .antMatchers(GET, "/api/announcements/lands/search").permitAll()
 
-                .antMatchers(GET, "/api/announcements/housing/lands/open*").permitAll()
+                .antMatchers(GET, "/api/announcements/lands/open/**").permitAll()
 
-                .antMatchers("/api/announcements/housing/lands/owners/current*").authenticated()
+                .antMatchers("/api/announcements/lands/owners/current/**").authenticated()
 
-                .antMatchers(GET, "/api/announcements/housing/lands/closed/owners/{userIdOfOwner}")
+                .antMatchers(GET, "/api/announcements/lands/closed/owners/{userIdOfOwner}")
                     .permitAll()
 
 
                 // DICTIONARY
                 
-                .antMatchers(GET, "/api/announcement-top-prices*").permitAll()
-                .antMatchers(GET, "/api/renovation-types*").permitAll()
-                .antMatchers(GET, "/api/house-materials*").permitAll()
-                
+                .antMatchers(GET, "/api/announcement-top-prices/**").permitAll()
+                .antMatchers(GET, "/api/renovation-types/**").permitAll()
+                .antMatchers(GET, "/api/house-materials/**").permitAll()
+
+                // ENUMS
+
+                .antMatchers(GET, "/api/enums/**").permitAll()
+
+
+
                 
                 .anyRequest().hasAnyRole("ADMIN").and()
 

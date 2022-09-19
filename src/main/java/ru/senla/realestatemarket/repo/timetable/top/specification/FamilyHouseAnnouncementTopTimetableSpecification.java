@@ -26,9 +26,8 @@ public class FamilyHouseAnnouncementTopTimetableSpecification {
         };
     }
     
-    public static Specification<FamilyHouseAnnouncementTopTimetable> hasUserIdOfOwnerInPropertyInFamilyHouseAnnouncement(
-            Long userIdOfOwner
-    ) {
+    public static Specification<FamilyHouseAnnouncementTopTimetable>
+    hasUserIdOfOwnerInPropertyInFamilyHouseAnnouncement(Long userIdOfOwner) {
         return (root, query, criteriaBuilder) -> {
             Join<FamilyHouseAnnouncementTopTimetable, FamilyHouseAnnouncement> announcementJoin
                     = root.join("announcement");

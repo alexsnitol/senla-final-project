@@ -1,5 +1,7 @@
 package ru.senla.realestatemarket.controller.house;
 
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.Authorization;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -38,6 +40,10 @@ public class FamilyHouseController {
         return familyHouseService.getDtoById(id);
     }
 
+    @ApiOperation(
+            value = "",
+            authorizations = @Authorization("ADMIN")
+    )
     @DeleteMapping("/{id}")
     public ResponseEntity<RestResponseDto> deleteById(
             @PathVariable Long id
@@ -48,6 +54,10 @@ public class FamilyHouseController {
                 new RestResponseDto("Family house has been deleted", HttpStatus.OK.value()));
     }
 
+    @ApiOperation(
+            value = "",
+            authorizations = @Authorization("ADMIN")
+    )
     @PutMapping("/{id}")
     public ResponseEntity<RestResponseDto> updateById(
             @PathVariable Long id,
@@ -60,18 +70,22 @@ public class FamilyHouseController {
     }
 
     @GetMapping
-    public List<FamilyHouseDto> getAllFamilyHouse(
+    public List<FamilyHouseDto> getAll(
             @RequestParam(value = "q", required = false) String rsqlQuery,
             @RequestParam(value = "sort", required = false) String sortQuery
     ) {
         return familyHouseService.getAllDto(rsqlQuery, sortQuery);
     }
 
+    @ApiOperation(
+            value = "",
+            authorizations = @Authorization("ADMIN")
+    )
     @PostMapping
     public ResponseEntity<RestResponseDto> add(
             @RequestBody @Valid RequestFamilyHouseDto requestFamilyHouseDto
     ) {
-        familyHouseService.add(requestFamilyHouseDto);
+        familyHouseService.addFromDto(requestFamilyHouseDto);
 
         return new ResponseEntity<>(new RestResponseDto("Family house has been added",
                 HttpStatus.CREATED.value()), HttpStatus.CREATED);

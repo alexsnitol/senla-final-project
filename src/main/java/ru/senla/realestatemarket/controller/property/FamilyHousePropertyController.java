@@ -109,7 +109,7 @@ public class FamilyHousePropertyController {
     )
     @GetMapping("/owners/current")
     public List<FamilyHousePropertyDto> getAllDtoOfCurrentUser(
-            @RequestParam(value = "q",required = false) String rsqlQuery,
+            @RequestParam(value = "q", required = false) String rsqlQuery,
             @RequestParam(value = "sort", required = false) String sortQuery
     ) {
         return familyHousePropertyService.getAllDtoOfCurrentUser(rsqlQuery, sortQuery);

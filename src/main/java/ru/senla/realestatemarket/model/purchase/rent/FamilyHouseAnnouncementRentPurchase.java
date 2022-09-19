@@ -28,9 +28,15 @@ public class FamilyHouseAnnouncementRentPurchase extends AnnouncementRentPurchas
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof FamilyHouseAnnouncementRentPurchase)) return false;
-        if (!super.equals(o)) return false;
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof FamilyHouseAnnouncementRentPurchase)) {
+            return false;
+        }
+        if (!super.equals(o)) {
+            return false;
+        }
         FamilyHouseAnnouncementRentPurchase that = (FamilyHouseAnnouncementRentPurchase) o;
         return Objects.equals(getTimetable(), that.getTimetable());
     }

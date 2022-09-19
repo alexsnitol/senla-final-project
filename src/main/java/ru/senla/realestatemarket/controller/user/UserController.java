@@ -46,8 +46,7 @@ public class UserController {
     }
 
     @ApiOperation(
-            value = "",
-            authorizations = {@Authorization("ADMIN")}
+            value = "Adding, and also registration new users"
     )
     @PostMapping
     public ResponseEntity<RestResponseDto> add(
@@ -97,11 +96,19 @@ public class UserController {
         return ResponseEntity.ok(new RestResponseDto("User has been updated", HttpStatus.OK.value()));
     }
 
+    @ApiOperation(
+            value = "",
+            authorizations = {@Authorization("Authorized user")}
+    )
     @GetMapping("/current")
     public UserDto getCurrentUser() {
         return userService.getDtoOfCurrentUser();
     }
 
+    @ApiOperation(
+            value = "",
+            authorizations = {@Authorization("Authorized user")}
+    )
     @PutMapping("/current")
     public ResponseEntity<RestResponseDto> updateCurrentUser(
             @RequestBody @Valid UpdateRequestUserDto updateRequestUserDto

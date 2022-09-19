@@ -34,9 +34,15 @@ public class ApartmentAnnouncementRentTimetable extends AnnouncementRentTimetabl
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof ApartmentAnnouncementRentTimetable)) return false;
-        if (!super.equals(o)) return false;
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof ApartmentAnnouncementRentTimetable)) {
+            return false;
+        }
+        if (!super.equals(o)) {
+            return false;
+        }
         ApartmentAnnouncementRentTimetable that = (ApartmentAnnouncementRentTimetable) o;
         return Objects.equals(getAnnouncement(), that.getAnnouncement());
     }

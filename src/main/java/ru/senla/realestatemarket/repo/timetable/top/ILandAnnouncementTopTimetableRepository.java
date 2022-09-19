@@ -8,7 +8,8 @@ import java.util.List;
 
 public interface ILandAnnouncementTopTimetableRepository
         extends IAbstractTopTimetableRepository<LandAnnouncementTopTimetable> {
-    List<LandAnnouncementTopTimetable> findAllByLandAnnouncementId(Long landAnnouncementId, String rsqlQuery, Sort sort);
+    List<LandAnnouncementTopTimetable> findAllByLandAnnouncementId(
+            Long landAnnouncementId, String rsqlQuery, Sort sort);
 
     List<LandAnnouncementTopTimetable> finaAllByLandAnnouncementIdAndUserIdOfOwnerInPropertyItAnnouncement(
             Long landAnnouncementId, Long userIdOfOwner, String rsqlQuery, Sort sort);

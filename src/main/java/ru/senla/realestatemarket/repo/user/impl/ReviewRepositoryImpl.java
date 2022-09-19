@@ -8,7 +8,6 @@ import ru.senla.realestatemarket.repo.AbstractRepositoryImpl;
 import ru.senla.realestatemarket.repo.user.IReviewRepository;
 
 import javax.annotation.PostConstruct;
-import javax.persistence.criteria.From;
 import java.util.List;
 
 import static ru.senla.realestatemarket.repo.user.specification.ReviewSpecification.hasCustomerId;

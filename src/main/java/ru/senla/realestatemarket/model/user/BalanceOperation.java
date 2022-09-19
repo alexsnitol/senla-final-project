@@ -71,8 +71,12 @@ public class BalanceOperation implements IModel<Long> {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof BalanceOperation)) return false;
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof BalanceOperation)) {
+            return false;
+        }
         BalanceOperation that = (BalanceOperation) o;
         return Objects.equals(getId(), that.getId())
                 && Objects.equals(getUser(), that.getUser())

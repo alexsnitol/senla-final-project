@@ -51,9 +51,15 @@ public class ApartmentProperty extends HousingProperty implements IPropertyWithA
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof ApartmentProperty)) return false;
-        if (!super.equals(o)) return false;
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof ApartmentProperty)) {
+            return false;
+        }
+        if (!super.equals(o)) {
+            return false;
+        }
         ApartmentProperty that = (ApartmentProperty) o;
         return Objects.equals(getApartmentHouse(), that.getApartmentHouse())
                 && Objects.equals(getApartmentNumber(), that.getApartmentNumber())

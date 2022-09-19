@@ -15,7 +15,7 @@ import javax.transaction.Transactional;
 import java.util.List;
 
 @Slf4j
-public abstract class AbstractServiceImpl <M extends IModel<I>, I> implements IAbstractService<M, I> {
+public abstract class AbstractServiceImpl<M extends IModel<I>, I> implements IAbstractService<M, I> {
 
     @Setter
     protected IAbstractRepository<M, I> defaultRepository;

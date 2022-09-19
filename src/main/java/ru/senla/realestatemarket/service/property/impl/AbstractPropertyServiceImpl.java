@@ -55,7 +55,7 @@ public abstract class AbstractPropertyServiceImpl
         property.setStatus(PropertyStatusEnum.DELETED);
 
         List<A> apartmentAnnouncementList = property.getAnnouncementList();
-        for(A a : apartmentAnnouncementList) {
+        for (A a : apartmentAnnouncementList) {
             a.setStatus(AnnouncementStatusEnum.DELETED);
         }
     }

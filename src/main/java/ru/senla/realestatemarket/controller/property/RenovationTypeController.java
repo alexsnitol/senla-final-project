@@ -1,5 +1,7 @@
 package ru.senla.realestatemarket.controller.property;
 
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.Authorization;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -37,6 +39,10 @@ public class RenovationTypeController {
         return renovationTypeService.getById(id);
     }
 
+    @ApiOperation(
+            value = "",
+            authorizations = @Authorization("ADMIN")
+    )
     @DeleteMapping("/{id}")
     public ResponseEntity<RestResponseDto> deleteById(
             @PathVariable Long id
@@ -46,6 +52,10 @@ public class RenovationTypeController {
         return ResponseEntity.ok(new RestResponseDto("Renovation type has been deleted", HttpStatus.OK.value()));
     }
 
+    @ApiOperation(
+            value = "",
+            authorizations = @Authorization("ADMIN")
+    )
     @PutMapping("/{id}")
     public ResponseEntity<RestResponseDto> updateById(
             @PathVariable Long id,
@@ -64,6 +74,10 @@ public class RenovationTypeController {
         return renovationTypeService.getAll(rsqlQuery, sortQuery);
     }
 
+    @ApiOperation(
+            value = "",
+            authorizations = @Authorization("ADMIN")
+    )
     @PostMapping
     public ResponseEntity<RestResponseDto> add(
             @RequestBody @Valid RequestRenovationTypeDto requestRenovationTypeDto

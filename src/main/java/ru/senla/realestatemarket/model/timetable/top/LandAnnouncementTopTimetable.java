@@ -45,9 +45,15 @@ public class LandAnnouncementTopTimetable extends AnnouncementTopTimetable {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof LandAnnouncementTopTimetable)) return false;
-        if (!super.equals(o)) return false;
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof LandAnnouncementTopTimetable)) {
+            return false;
+        }
+        if (!super.equals(o)) {
+            return false;
+        }
         LandAnnouncementTopTimetable that = (LandAnnouncementTopTimetable) o;
         return Objects.equals(getAnnouncement(), that.getAnnouncement());
     }

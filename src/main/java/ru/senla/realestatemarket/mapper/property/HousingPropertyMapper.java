@@ -66,6 +66,7 @@ public abstract class HousingPropertyMapper {
     }
 
     @IterableMapping(qualifiedByName = "MappedInheritors")
-    public abstract List<HousingPropertyDto> toHousingPropertyDtoWithMappedInheritors(List<HousingProperty> housingPropertyList);
+    public abstract List<HousingPropertyDto> toHousingPropertyDtoWithMappedInheritors(
+            List<HousingProperty> housingPropertyList);
 
 }

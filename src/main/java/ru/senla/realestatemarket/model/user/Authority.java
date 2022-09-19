@@ -34,8 +34,12 @@ public class Authority  implements IModel<Long> {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Authority)) return false;
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof Authority)) {
+            return false;
+        }
         Authority authority = (Authority) o;
         return Objects.equals(getId(), authority.getId())
                 && Objects.equals(getName(), authority.getName());

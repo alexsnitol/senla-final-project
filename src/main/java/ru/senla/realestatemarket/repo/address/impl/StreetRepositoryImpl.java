@@ -8,7 +8,6 @@ import ru.senla.realestatemarket.repo.AbstractRepositoryImpl;
 import ru.senla.realestatemarket.repo.address.IStreetRepository;
 
 import javax.annotation.PostConstruct;
-import javax.persistence.criteria.From;
 import java.util.List;
 
 import static ru.senla.realestatemarket.repo.address.specification.StreetSpecification.hasCityId;
@@ -38,6 +37,13 @@ public class StreetRepositoryImpl extends AbstractRepositoryImpl<Street, Long> i
         return findAll(
                 hasRegionId(regionId)
                 .and(hasCityId(cityId))
+        );
+    }
+
+    @Override
+    public Street findCityIdAndStreetId(Long cityId, Long streetId) {
+        return findOne(hasCityId(cityId)
+                .and(hasId(streetId))
         );
     }
 

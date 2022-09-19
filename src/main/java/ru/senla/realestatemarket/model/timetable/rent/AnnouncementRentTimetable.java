@@ -40,9 +40,15 @@ public class AnnouncementRentTimetable extends Timetable implements IModel<Long>
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof AnnouncementRentTimetable)) return false;
-        if (!super.equals(o)) return false;
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof AnnouncementRentTimetable)) {
+            return false;
+        }
+        if (!super.equals(o)) {
+            return false;
+        }
         AnnouncementRentTimetable that = (AnnouncementRentTimetable) o;
         return Objects.equals(getId(), that.getId()) && Objects.equals(getTenant(), that.getTenant());
     }

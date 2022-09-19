@@ -38,11 +38,13 @@ public class RegionServiceImpl extends AbstractServiceImpl<Region, Long> impleme
 
 
     @Override
+    @Transactional
     public RegionDto getDtoById(Long id) {
         return regionMapper.toRegionDto(getById(id));
     }
 
     @Override
+    @Transactional
     public List<RegionDto> getAllDto(String rsqlQuery, String sortQuery) {
         return regionMapper.toRegionDto(getAll(rsqlQuery, sortQuery));
     }

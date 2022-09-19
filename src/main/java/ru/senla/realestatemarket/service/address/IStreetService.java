@@ -24,9 +24,9 @@ public interface IStreetService extends IAbstractService<Street, Long> {
             RequestStreetWithoutCityIdDto requestStreetWithoutCityIdDto, Long regionId, Long cityId);
 
     void updateById(UpdateRequestStreetDto updateRequestStreetDto, Long id);
-    void updateByCityIdAndByStreetId(
+    void updateFromDtoByCityIdAndByStreetId(
             UpdateRequestStreetDto updateRequestStreetDto, Long cityId, Long streetId);
-    void updateByRegionIdAndCityIdAndByStreetId(
+    void updateFromDtoByRegionIdAndCityIdAndByStreetId(
             UpdateRequestStreetDto updateRequestStreetDto, Long regionId, Long cityId, Long streetId);
 
     void deleteByRegionIdAndCityIdAndStreetId(Long regionId, Long cityId, Long streetId);

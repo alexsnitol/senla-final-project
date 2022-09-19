@@ -6,7 +6,6 @@ import ru.senla.realestatemarket.model.announcement.HousingAnnouncement;
 import ru.senla.realestatemarket.repo.announcement.IHousingAnnouncementRepository;
 
 import javax.annotation.PostConstruct;
-import javax.persistence.criteria.From;
 
 @Slf4j
 @Repository

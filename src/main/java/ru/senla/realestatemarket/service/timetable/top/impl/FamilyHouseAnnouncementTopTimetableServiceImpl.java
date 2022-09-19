@@ -251,7 +251,8 @@ public class FamilyHouseAnnouncementTopTimetableServiceImpl
                     // current timetable is the last interval?
                     if (existingTimetablesInInterval.get(existingTimetablesInInterval.size() - 1).equals(timetable)) {
                         unoccupiedIntervalsOfTimetables.add(
-                                new FamilyHouseAnnouncementTopTimetable(familyHouseAnnouncement, tmpFromDt, specificToDt)
+                                new FamilyHouseAnnouncementTopTimetable(
+                                        familyHouseAnnouncement, tmpFromDt, specificToDt)
                         );
                     }
                 } else {

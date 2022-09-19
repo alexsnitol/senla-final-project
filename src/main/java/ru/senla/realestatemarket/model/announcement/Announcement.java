@@ -51,8 +51,12 @@ public class Announcement implements IModel<Long> {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Announcement)) return false;
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof Announcement)) {
+            return false;
+        }
         Announcement that = (Announcement) o;
         return Objects.equals(getId(), that.getId())
                 && Objects.equals(getPrice(), that.getPrice())

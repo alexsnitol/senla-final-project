@@ -46,8 +46,12 @@ public class AnnouncementTopPrice implements IModel<Long> {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof AnnouncementTopPrice)) return false;
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof AnnouncementTopPrice)) {
+            return false;
+        }
         AnnouncementTopPrice that = (AnnouncementTopPrice) o;
         return Objects.equals(getId(), that.getId())
                 && getPropertyType() == that.getPropertyType()

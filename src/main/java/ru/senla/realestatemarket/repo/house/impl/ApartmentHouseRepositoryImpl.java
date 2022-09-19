@@ -6,11 +6,11 @@ import ru.senla.realestatemarket.model.house.ApartmentHouse;
 import ru.senla.realestatemarket.repo.house.IApartmentHouseRepository;
 
 import javax.annotation.PostConstruct;
-import javax.persistence.criteria.From;
 
 @Slf4j
 @Repository
-public class ApartmentHouseRepositoryImpl extends AbstractHouseRepositoryImpl<ApartmentHouse> implements IApartmentHouseRepository {
+public class ApartmentHouseRepositoryImpl extends AbstractHouseRepositoryImpl<ApartmentHouse>
+        implements IApartmentHouseRepository {
 
     @PostConstruct
     public void init() {

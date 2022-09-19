@@ -39,8 +39,12 @@ public class Purchase implements IModel<Long> {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Purchase)) return false;
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof Purchase)) {
+            return false;
+        }
         Purchase purchase = (Purchase) o;
         return Objects.equals(getId(), purchase.getId())
                 && Objects.equals(getBalanceOperation(), purchase.getBalanceOperation());

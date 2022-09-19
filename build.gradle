@@ -5,7 +5,7 @@ plugins {
 }
 
 group 'ru.senla'
-version '1.0-SNAPSHOT'
+version '0.1.0-SNAPSHOT'
 
 repositories {
     mavenCentral()
@@ -13,6 +13,7 @@ repositories {
 
 dependencies {
     implementation 'javax.annotation:javax.annotation-api:1.3.2'
+    implementation 'com.google.code.findbugs:jsr305:3.0.2'
 
     implementation 'com.fasterxml.jackson.core:jackson-core:2.12.6'
     implementation 'com.fasterxml.jackson.core:jackson-databind:2.12.6'
@@ -118,4 +119,8 @@ checkstyleMain {
 
 checkstyleTest {
     source ='src/test/java'
+}
+
+tasks.war {
+    archiveFileName.set("real-estate-market.war")
 }

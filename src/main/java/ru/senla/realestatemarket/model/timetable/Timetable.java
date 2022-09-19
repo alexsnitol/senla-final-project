@@ -31,8 +31,12 @@ public class Timetable {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Timetable)) return false;
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof Timetable)) {
+            return false;
+        }
         Timetable timetable = (Timetable) o;
         return Objects.equals(getFromDt(), timetable.getFromDt())
                 && Objects.equals(getToDt(), timetable.getToDt());

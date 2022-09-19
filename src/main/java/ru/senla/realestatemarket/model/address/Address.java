@@ -63,8 +63,12 @@ public class Address implements IModel<Long> {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Address)) return false;
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof Address)) {
+            return false;
+        }
         Address address = (Address) o;
         return Objects.equals(getId(), address.getId())
                 && Objects.equals(getStreet(), address.getStreet())

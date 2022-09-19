@@ -42,17 +42,21 @@ public abstract class HousingAnnouncementMapper {
             Collection<HousingAnnouncement> housingAnnouncements);
 
     @Named("MappedInheritors")
-    public HousingAnnouncementDto toHousingAnnouncementDtoWithMappedInheritors(HousingAnnouncement housingAnnouncement) {
+    public HousingAnnouncementDto toHousingAnnouncementDtoWithMappedInheritors(
+            HousingAnnouncement housingAnnouncement
+    ) {
         if (housingAnnouncement instanceof ApartmentAnnouncement) {
             ApartmentAnnouncementDto apartmentAnnouncementDto
-                    = apartmentAnnouncementMapper.toApartmentAnnouncementDto((ApartmentAnnouncement) housingAnnouncement);
+                    = apartmentAnnouncementMapper.toApartmentAnnouncementDto(
+                            (ApartmentAnnouncement) housingAnnouncement);
 
             apartmentAnnouncementDto.setPropertyType(PropertyTypeEnum.APARTMENT);
 
             return apartmentAnnouncementDto;
         } else if (housingAnnouncement instanceof FamilyHouseAnnouncement) {
             FamilyHouseAnnouncementDto familyHouseAnnouncementDto
-                    = familyHouseAnnouncementMapper.toFamilyHouseAnnouncementDto((FamilyHouseAnnouncement) housingAnnouncement);
+                    = familyHouseAnnouncementMapper.toFamilyHouseAnnouncementDto(
+                            (FamilyHouseAnnouncement) housingAnnouncement);
 
             familyHouseAnnouncementDto.setPropertyType(PropertyTypeEnum.FAMILY_HOUSE);
 
@@ -63,7 +67,8 @@ public abstract class HousingAnnouncementMapper {
     }
 
     @IterableMapping(qualifiedByName = "MappedInheritors")
-    public abstract List<HousingAnnouncementDto> toHousingAnnouncementDtoWithMappedInheritors(Collection<HousingAnnouncement> housingAnnouncements);
+    public abstract List<HousingAnnouncementDto> toHousingAnnouncementDtoWithMappedInheritors(
+            Collection<HousingAnnouncement> housingAnnouncements);
 
 
 }

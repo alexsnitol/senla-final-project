@@ -1,6 +1,5 @@
 package ru.senla.realestatemarket.util;
 
-import lombok.experimental.UtilityClass;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Sort;
 import org.springframework.lang.Nullable;
@@ -31,7 +30,7 @@ public class SortUtil {
         String[] sortParams = sortQuery.split(";");
 
         List<Sort.Order> orderList = new ArrayList<>(sortParams.length);
-        for(String params : sortParams) {
+        for (String params : sortParams) {
             String[] paramsSplit = params.split(",");
 
             if (paramsSplit.length != 2) {

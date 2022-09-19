@@ -15,7 +15,6 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.context.support.AnnotationConfigContextLoader;
 import ru.senla.realestatemarket.config.TestConfig;
 import ru.senla.realestatemarket.dto.jwt.JwtRequestDto;
-import ru.senla.realestatemarket.dto.jwt.JwtResponseDto;
 import ru.senla.realestatemarket.model.user.AuthorizedUser;
 import ru.senla.realestatemarket.util.JwtTokenUtil;
 
@@ -64,14 +63,15 @@ class AuthServiceUnitTest {
         );
 
         // expected jwt response
-        JwtResponseDto expectedJwtResponse = new JwtResponseDto(
-                jwtTokenUtil.generateToken(testAuthorizedUser)
-        );
+        String expectedJwtResponseToken = jwtTokenUtil.generateToken(testAuthorizedUser);
 
         // test
         when(mockedUserService.loadUserByUsername("testUser")).thenReturn(testAuthorizedUser);
 
-        assertEquals(expectedJwtResponse, authService.createAuthToken(authRequest));
+        String result = authService.createAuthToken(authRequest).getToken();
+
+        assertEquals(jwtTokenUtil.getUserIdFromToken(expectedJwtResponseToken), jwtTokenUtil.getUserIdFromToken(result));
+        assertEquals(jwtTokenUtil.getUsernameFromToken(expectedJwtResponseToken), jwtTokenUtil.getUsernameFromToken(result));
     }
 
     @Test

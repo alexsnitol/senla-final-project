@@ -25,8 +25,8 @@ public abstract class AbstractHousingAnnouncementServiceImpl<M extends HousingAn
     
     protected void validateAnnouncementTypeOnAccordanceWithStatus(
             HousingAnnouncementTypeEnum housingAnnouncementType,
-            AnnouncementStatusEnum announcementStatus) throws InvalidStatusAnnouncementException
-    {
+            AnnouncementStatusEnum announcementStatus
+    ) throws InvalidStatusAnnouncementException {
         if (housingAnnouncementType.equals(HousingAnnouncementTypeEnum.SELL)) {
             try {
                 SellAnnouncementStatusEnum.valueOf(announcementStatus.name());

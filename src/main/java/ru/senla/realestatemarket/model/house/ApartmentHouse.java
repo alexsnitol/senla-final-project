@@ -49,9 +49,15 @@ public class ApartmentHouse extends House {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof ApartmentHouse)) return false;
-        if (!super.equals(o)) return false;
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof ApartmentHouse)) {
+            return false;
+        }
+        if (!super.equals(o)) {
+            return false;
+        }
         ApartmentHouse that = (ApartmentHouse) o;
         return Objects.equals(getElevator(), that.getElevator())
                 && Objects.equals(getPropertyList(), that.getPropertyList())

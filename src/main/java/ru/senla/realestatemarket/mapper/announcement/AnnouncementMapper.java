@@ -66,7 +66,8 @@ public abstract class AnnouncementMapper {
             return apartmentAnnouncementDto;
         } else if (announcement instanceof FamilyHouseAnnouncement) {
             FamilyHouseAnnouncementDto familyHouseAnnouncementDto
-                    = familyHouseAnnouncementMapper.toFamilyHouseAnnouncementDto((FamilyHouseAnnouncement) announcement);
+                    = familyHouseAnnouncementMapper.toFamilyHouseAnnouncementDto(
+                            (FamilyHouseAnnouncement) announcement);
 
             familyHouseAnnouncementDto.setPropertyType(PropertyTypeEnum.FAMILY_HOUSE);
 

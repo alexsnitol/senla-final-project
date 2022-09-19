@@ -72,6 +72,18 @@ public class ReviewServiceImpl extends AbstractServiceImpl<Review, Long> impleme
 
     @Override
     @Transactional
+    public List<ReviewDto> getAllDtoOfCurrentCustomerUser() {
+        return getAllDtoByCustomerId(userUtil.getCurrentUserId());
+    }
+
+    @Override
+    @Transactional
+    public List<ReviewDto> getAllDtoOfCurrentSellerUser() {
+        return getAllDtoBySellerId(userUtil.getCurrentUserId());
+    }
+
+    @Override
+    @Transactional
     public void sendReview(Review review, Long customerId, Long sellerId) {
         User seller = userRepository.findById(sellerId);
         EntityHelper.checkEntityOnNull(seller, User.class, sellerId);

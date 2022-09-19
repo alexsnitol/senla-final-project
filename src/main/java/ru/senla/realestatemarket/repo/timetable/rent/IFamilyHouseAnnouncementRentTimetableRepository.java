@@ -20,7 +20,8 @@ public interface IFamilyHouseAnnouncementRentTimetableRepository
     List<FamilyHouseAnnouncementRentTimetable> findAllByUserIdOfTenantAndFamilyHouseAnnouncementId(
             Long userIdOfTenant, Long familyHouseAnnouncementId, String rsqlQuery, Sort sort);
 
-    List<FamilyHouseAnnouncementRentTimetable> findAllByFamilyHouseAnnouncementIdAndUserIdOfOwnerInPropertyItAnnouncement(
+    List<FamilyHouseAnnouncementRentTimetable>
+    findAllByFamilyHouseAnnouncementIdAndUserIdOfOwnerInPropertyItAnnouncement(
             Long familyHouseAnnouncementId, Long userIdOfOwner, String rsqlQuery, Sort sort);
     
 }

@@ -52,8 +52,12 @@ public class Property implements IModel<Long> {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Property)) return false;
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof Property)) {
+            return false;
+        }
         Property property = (Property) o;
         return Objects.equals(getId(), property.getId())
                 && Objects.equals(getArea(), property.getArea())

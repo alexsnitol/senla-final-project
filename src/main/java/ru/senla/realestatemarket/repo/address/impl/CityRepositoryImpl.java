@@ -7,7 +7,6 @@ import ru.senla.realestatemarket.repo.AbstractRepositoryImpl;
 import ru.senla.realestatemarket.repo.address.ICityRepository;
 
 import javax.annotation.PostConstruct;
-import javax.persistence.criteria.From;
 
 import static ru.senla.realestatemarket.repo.address.specification.CitySpecification.hasId;
 import static ru.senla.realestatemarket.repo.address.specification.CitySpecification.hasRegionId;

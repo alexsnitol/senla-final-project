@@ -1,7 +1,6 @@
 package ru.senla.realestatemarket.service.address.impl;
 
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.senla.realestatemarket.dto.address.CityDto;
 import ru.senla.realestatemarket.dto.address.RequestCityDto;
@@ -49,11 +48,13 @@ public class CityServiceImpl extends AbstractServiceImpl<City, Long> implements 
 
 
     @Override
+    @Transactional
     public CityDto getDtoById(Long id) {
         return cityMapper.toCityDto(getById(id));
     }
 
     @Override
+    @Transactional
     public CityDto getDtoRegionIdAndByCityId(Long regionId, Long cityId) {
         City city = getByRegionIdAndByCityId(regionId, cityId);
         return cityMapper.toCityDto(city);
@@ -72,11 +73,13 @@ public class CityServiceImpl extends AbstractServiceImpl<City, Long> implements 
     }
 
     @Override
+    @Transactional
     public List<CityDto> getAllDto(String rsqlQuery, String sortQuery) {
         return cityMapper.toCityDto(getAll(rsqlQuery, sortQuery));
     }
 
     @Override
+    @Transactional
     public List<CityDto> getAllDtoByRegionId(Long regionId, String sortQuery) {
         return cityMapper.toCityDto(getAll(hasRegionId(regionId), sortQuery));
     }
@@ -148,6 +151,7 @@ public class CityServiceImpl extends AbstractServiceImpl<City, Long> implements 
     }
 
     @Override
+    @Transactional
     public void deleteRegionIdAndCityById(Long regionId, Long cityId) {
         getDtoRegionIdAndByCityId(regionId, cityId);
 

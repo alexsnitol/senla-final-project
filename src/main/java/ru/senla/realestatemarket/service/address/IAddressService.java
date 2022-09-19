@@ -29,6 +29,7 @@ public interface IAddressService extends IAbstractService<Address, Long> {
     void updateByStreetIdAndByHouseNumber(
             UpdateRequestAddressDto updateRequestAddressDto, Long streetId, String houseNumber);
     void updateByRegionIdAndCityIdAndStreetIdAndByHouseNumber(
-            UpdateRequestAddressDto updateRequestAddressDto, Long regionId, Long cityId, Long streetId, String houseNumber);
+            UpdateRequestAddressDto updateRequestAddressDto,
+            Long regionId, Long cityId, Long streetId, String houseNumber);
 
 }

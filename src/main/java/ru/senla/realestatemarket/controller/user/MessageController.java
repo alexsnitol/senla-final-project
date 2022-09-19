@@ -1,6 +1,7 @@
 package ru.senla.realestatemarket.controller.user;
 
 import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.Authorization;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -33,7 +34,8 @@ public class MessageController {
     @ApiOperation(
             value = "",
             notes = "Return all users with which current user have been messages" +
-                    "in order date of sending last message both incoming and outgoing"
+                    "in order date of sending last message both incoming and outgoing",
+            authorizations = @Authorization("Authorized user")
     )
     @GetMapping("/users")
     public Set<SimplyUserDto> getMessageUsers() {
@@ -42,7 +44,8 @@ public class MessageController {
 
     @ApiOperation(
             value = "",
-            notes = "Return all messages of current user with user by id in asc order sending date time"
+            notes = "Return all messages of current user with user by id in asc order sending date time",
+            authorizations = @Authorization("Authorized user")
     )
     @GetMapping("/users/{id}")
     public List<MessageDto> getMessagesOfCurrentUser(@PathVariable Long id) {
@@ -51,7 +54,8 @@ public class MessageController {
 
     @ApiOperation(
             value = "",
-            notes = "Send a message to user by id from current user"
+            notes = "Send a message to user by id from current user",
+            authorizations = @Authorization("Authorized user")
     )
     @PostMapping("/users/{id}")
     public ResponseEntity<RestResponseDto> sendMessage(

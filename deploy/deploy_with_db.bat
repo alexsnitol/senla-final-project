@@ -14,7 +14,7 @@ call gradle war
 echo .
 
 echo Copy WAR to Tomcat web application folder
-copy "%cd%\build\libs\senla-final-project-1.0-SNAPSHOT.war" "%CATALINA_HOME%\webapps\real-estate-market.war"
+copy "%cd%\build\libs\real-estate-market.war" "%CATALINA_HOME%\webapps\real-estate-market.war"
 echo .
 
 echo Start up Tomcat server

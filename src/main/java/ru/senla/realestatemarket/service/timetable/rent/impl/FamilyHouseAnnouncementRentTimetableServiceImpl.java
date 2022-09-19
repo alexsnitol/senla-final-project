@@ -205,8 +205,10 @@ public class FamilyHouseAnnouncementRentTimetableServiceImpl
     public void addByFamilyHouseAnnouncementIdWithoutPay(
             RequestRentTimetableWithUserIdOfTenantDto requestDto, Long familyHouseAnnouncementId
     ) {
-        FamilyHouseAnnouncement familyHouseAnnouncement = familyHouseAnnouncementRepository.findById(familyHouseAnnouncementId);
-        EntityHelper.checkEntityOnNull(familyHouseAnnouncement, FamilyHouseAnnouncement.class, familyHouseAnnouncementId);
+        FamilyHouseAnnouncement familyHouseAnnouncement
+                = familyHouseAnnouncementRepository.findById(familyHouseAnnouncementId);
+        EntityHelper.checkEntityOnNull(
+                familyHouseAnnouncement, FamilyHouseAnnouncement.class, familyHouseAnnouncementId);
 
 
         FamilyHouseAnnouncementRentTimetable timetable
@@ -237,8 +239,10 @@ public class FamilyHouseAnnouncementRentTimetableServiceImpl
     public void addByFamilyHouseAnnouncementIdWithPayFromCurrentTenantUser(
             RequestRentTimetableDto requestDto, Long familyHouseAnnouncementId
     ) {
-        FamilyHouseAnnouncement familyHouseAnnouncement = familyHouseAnnouncementRepository.findById(familyHouseAnnouncementId);
-        EntityHelper.checkEntityOnNull(familyHouseAnnouncement, FamilyHouseAnnouncement.class, familyHouseAnnouncementId);
+        FamilyHouseAnnouncement familyHouseAnnouncement
+                = familyHouseAnnouncementRepository.findById(familyHouseAnnouncementId);
+        EntityHelper.checkEntityOnNull(
+                familyHouseAnnouncement, FamilyHouseAnnouncement.class, familyHouseAnnouncementId);
 
         FamilyHouseAnnouncementRentTimetable timetable
                 = timetableMapper.toFamilyHouseAnnouncementRentTimetable(requestDto);
