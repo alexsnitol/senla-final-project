@@ -1,44 +1,11 @@
 _type: export
 __export_format: 4
-__export_date: 2022-09-12T21:38:58.829Z
+__export_date: 2022-09-19T19:49:30.512Z
 __export_source: insomnia.desktop.app:v2022.6.0-beta.4
 resources:
-  - _id: req_5502e68461fd4c6caebeaf5e2932f397
-    parentId: wrk_b9c5b3d18bbe460fb180ea678719b6c4
-    modified: 1662977341466
-    created: 1662327412801
-    url: "{{ _.base_url }}/logout"
-    name: New Request
-    description: ""
-    method: GET
-    body: {}
-    parameters: []
-    headers:
-      - id: pair_08b0352cc9f2447d9a141b521beae042
-        name: Authorization
-        value: "{{ _.token }}"
-        description: ""
-    authentication: {}
-    metaSortKey: -1662327412801
-    isPrivate: false
-    settingStoreCookies: true
-    settingSendCookies: true
-    settingDisableRenderRequestBody: false
-    settingEncodeUrl: true
-    settingRebuildPath: true
-    settingFollowRedirects: global
-    _type: request
-  - _id: wrk_b9c5b3d18bbe460fb180ea678719b6c4
-    parentId: null
-    modified: 1662384368563
-    created: 1662319129528
-    name: SENLA - Real Estate Market (final project) Collection
-    description: ""
-    scope: collection
-    _type: workspace
   - _id: req_f18e6a1c44e64dd7b33d245a8c05cc65
     parentId: fld_8ed44d8a33624e9ea53b6307aad33fe7
-    modified: 1663017067167
+    modified: 1663615878023
     created: 1662319317271
     url: "{{ base_url }}/auth"
     name: Admin login
@@ -76,9 +43,17 @@ resources:
     environmentPropertyOrder: null
     metaSortKey: -100
     _type: request_group
+  - _id: wrk_b9c5b3d18bbe460fb180ea678719b6c4
+    parentId: null
+    modified: 1662384368563
+    created: 1662319129528
+    name: SENLA - Real Estate Market (final project) Collection
+    description: ""
+    scope: collection
+    _type: workspace
   - _id: req_d6c6e006e45f422887b24bcae108c318
     parentId: fld_8ed44d8a33624e9ea53b6307aad33fe7
-    modified: 1662898514516
+    modified: 1663508759090
     created: 1662319317274
     url: "{{ base_url }}/auth"
     name: User login
@@ -138,7 +113,7 @@ resources:
     _type: request
   - _id: req_99440e9c1f0847ff8425ccf89bc06304
     parentId: fld_6584936e712943bf9d98065c8303f542
-    modified: 1662977443747
+    modified: 1663609938578
     created: 1662319317277
     url: "{{ base_url }}/users"
     name: All users
@@ -173,7 +148,7 @@ resources:
     _type: request_group
   - _id: req_9898dc261a7e45a7881a565f4aada577
     parentId: fld_6584936e712943bf9d98065c8303f542
-    modified: 1662977813769
+    modified: 1663609806015
     created: 1662319317280
     url: "{{ base_url }}/users"
     name: User
@@ -197,6 +172,7 @@ resources:
         name: Authorization
         value: "{{ token }}"
         description: ""
+        disabled: false
       - name: Content-Type
         value: application/json
         id: pair_111ae8deac6a4e32a6eb806b8753e5eb
@@ -212,7 +188,7 @@ resources:
     _type: request
   - _id: req_442c5be5f1d346e4957cb819b39e4094
     parentId: fld_6584936e712943bf9d98065c8303f542
-    modified: 1662977808287
+    modified: 1663609828423
     created: 1662319317288
     url: "{{ base_url }}/users/105"
     name: User by id
@@ -237,7 +213,7 @@ resources:
     _type: request
   - _id: req_3f6f060a0aa44cabbacadc1c638d8c8b
     parentId: fld_6584936e712943bf9d98065c8303f542
-    modified: 1662457375145
+    modified: 1663609858641
     created: 1662319317292
     url: "{{ base_url }}/users/106"
     name: User by id
@@ -248,7 +224,7 @@ resources:
       text: |-
         {
         	"lastName": "test222",
-        	"phoneNumber": "testtesttesttesttesttest"
+        	"phoneNumber": "89599999999"
         }
     parameters: []
     headers:
@@ -271,7 +247,7 @@ resources:
     _type: request
   - _id: req_a508a97dbfc5406c9cd3eb76c9a876be
     parentId: fld_6584936e712943bf9d98065c8303f542
-    modified: 1662977809729
+    modified: 1663610008722
     created: 1662319317298
     url: "{{ base_url }}/users/current"
     name: Current user
@@ -296,7 +272,7 @@ resources:
     _type: request
   - _id: req_0aca3d11fe534e9a95c479533242f843
     parentId: fld_6584936e712943bf9d98065c8303f542
-    modified: 1662977788357
+    modified: 1663609958013
     created: 1662319317301
     url: "{{ base_url }}/users/current"
     name: Current user
@@ -307,7 +283,7 @@ resources:
       text: |-
         {
         	"username": "admin",
-        	//"password": "admin",
+        	"password": "admin",
         	"lastName": "Слотин",
         	"firstName": "Александр",
         	"patronymic": "Сергеевич",
@@ -335,7 +311,7 @@ resources:
     _type: request
   - _id: req_4718fe8a95d7498d96bcc2f5ac9ee3fd
     parentId: fld_6584936e712943bf9d98065c8303f542
-    modified: 1662925075585
+    modified: 1663609962643
     created: 1662319317304
     url: "{{ base_url }}/users/current"
     name: Specific fields of current user
@@ -372,7 +348,7 @@ resources:
     _type: request
   - _id: req_34bd0b544ff744c58942f931aba466c5
     parentId: fld_6584936e712943bf9d98065c8303f542
-    modified: 1662925076296
+    modified: 1663609986208
     created: 1662459381096
     url: "{{ _.base_url }}/users/105/balance-operations"
     name: Balance operation by user id
@@ -397,7 +373,7 @@ resources:
     _type: request
   - _id: req_1c07947fc88242ab9146620293c90a8a
     parentId: fld_6584936e712943bf9d98065c8303f542
-    modified: 1663013555139
+    modified: 1663610037247
     created: 1662457459101
     url: "{{ _.base_url }}/users/100/balance-operations"
     name: Balance operation by user id
@@ -407,7 +383,7 @@ resources:
       mimeType: application/json
       text: |-
         {
-        	"sum": "96800"
+        	"sum": "1"
         }
     parameters: []
     headers:
@@ -430,7 +406,7 @@ resources:
     _type: request
   - _id: req_217e8915c3784503b60481a060727912
     parentId: fld_6584936e712943bf9d98065c8303f542
-    modified: 1662459454957
+    modified: 1663610043194
     created: 1662459448755
     url: "{{ _.base_url }}/users/current/balance-operations"
     name: Balance operation of current user
@@ -455,7 +431,7 @@ resources:
     _type: request
   - _id: req_b79929f3f1264b96984a6c54f6d33b8a
     parentId: fld_d81059a1234b428f92d02a039c629ddb
-    modified: 1662319311435
+    modified: 1663611138086
     created: 1662319311435
     url: "{{ base_url }}/regions"
     name: All regions
@@ -468,6 +444,7 @@ resources:
         name: Authorization
         value: "{{ token }}"
         description: ""
+        disabled: false
     authentication: {}
     metaSortKey: -1661850516653.25
     isPrivate: false
@@ -500,7 +477,7 @@ resources:
     _type: request_group
   - _id: req_e51900a8c49c4f1d97df73a73ee9b36b
     parentId: fld_d81059a1234b428f92d02a039c629ddb
-    modified: 1662319311441
+    modified: 1663611013208
     created: 1662319311441
     url: "{{ base_url }}/regions/100"
     name: Region by id
@@ -525,9 +502,9 @@ resources:
     _type: request
   - _id: req_33920710f5e646548bb65f41a44c7a90
     parentId: fld_d81059a1234b428f92d02a039c629ddb
-    modified: 1662319311447
+    modified: 1663610990491
     created: 1662319311447
-    url: "{{ base_url }}/regions/100"
+    url: "{{ base_url }}/regions/103"
     name: Region by id
     description: ""
     method: DELETE
@@ -550,7 +527,7 @@ resources:
     _type: request
   - _id: req_27961f40582e46e3ac0028f1822ff304
     parentId: fld_d81059a1234b428f92d02a039c629ddb
-    modified: 1662319311449
+    modified: 1663611033089
     created: 1662319311449
     url: "{{ base_url }}/regions/100"
     name: Region by id
@@ -560,7 +537,7 @@ resources:
       mimeType: application/json
       text: |-
         {
-        	"name": "Архангельская область"
+        	"name": "test"
         }
     parameters: []
     headers:
@@ -583,7 +560,7 @@ resources:
     _type: request
   - _id: req_b03394a570fc4762ae022a29055aff0d
     parentId: fld_d81059a1234b428f92d02a039c629ddb
-    modified: 1662319311438
+    modified: 1663611000381
     created: 1662319311438
     url: "{{ base_url }}/regions"
     name: Region
@@ -601,6 +578,7 @@ resources:
         name: Authorization
         value: "{{ token }}"
         description: ""
+        disabled: false
       - name: Content-Type
         value: application/json
         id: pair_2e23f27e3b5b4570be2e85a9807f17b6
@@ -616,7 +594,7 @@ resources:
     _type: request
   - _id: req_9552918af5cf401a8272cba2b7f77662
     parentId: fld_2be0e3a5c45342a68ade49c232af8701
-    modified: 1662319311455
+    modified: 1663611112454
     created: 1662319311455
     url: "{{ base_url }}/cities"
     name: All cities
@@ -629,6 +607,7 @@ resources:
         name: Authorization
         value: "{{ token }}"
         description: ""
+        disabled: false
     authentication: {}
     metaSortKey: -1662064942733
     isPrivate: false
@@ -651,9 +630,9 @@ resources:
     _type: request_group
   - _id: req_e538c82d59804670b0e7598efc166779
     parentId: fld_2be0e3a5c45342a68ade49c232af8701
-    modified: 1662319311460
+    modified: 1663611230212
     created: 1662319311460
-    url: "{{ base_url }}/regions/102/cities"
+    url: "{{ base_url }}/regions/104/cities"
     name: All cities by region id
     description: ""
     method: GET
@@ -676,9 +655,9 @@ resources:
     _type: request
   - _id: req_183bf24ad9fc44bb8d40d1a22bd064a1
     parentId: fld_2be0e3a5c45342a68ade49c232af8701
-    modified: 1662319311467
+    modified: 1663611308181
     created: 1662319311467
-    url: "{{ base_url }}/regions/102/cities/102"
+    url: "{{ base_url }}/regions/104/cities/104"
     name: City by region id and by city id
     description: ""
     method: GET
@@ -701,9 +680,9 @@ resources:
     _type: request
   - _id: req_a36433929ed5455dbb39725e4160b0bb
     parentId: fld_2be0e3a5c45342a68ade49c232af8701
-    modified: 1662319311471
+    modified: 1663611242019
     created: 1662319311471
-    url: "{{ base_url }}/regions/102/cities/102"
+    url: "{{ base_url }}/regions/104/cities/104"
     name: City by region id and by city id
     description: ""
     method: DELETE
@@ -726,9 +705,9 @@ resources:
     _type: request
   - _id: req_994446099c204112bafef610bc0e5c29
     parentId: fld_2be0e3a5c45342a68ade49c232af8701
-    modified: 1662319311473
+    modified: 1663611303732
     created: 1662319311473
-    url: "{{ base_url }}/regions/102/cities/102"
+    url: "{{ base_url }}/regions/104/cities/104"
     name: City by region id and by city id
     description: ""
     method: PUT
@@ -737,7 +716,7 @@ resources:
       text: |-
         {
         	"regionId": 100,
-        	"name": "Северодвинск"
+        	"name": "Архангельск"
         }
     parameters: []
     headers:
@@ -760,9 +739,9 @@ resources:
     _type: request
   - _id: req_60c378f18672451292d363a6a3b8b2e0
     parentId: fld_2be0e3a5c45342a68ade49c232af8701
-    modified: 1662319311463
+    modified: 1663611221696
     created: 1662319311463
-    url: "{{ base_url }}/regions/102/cities"
+    url: "{{ base_url }}/regions/104/cities"
     name: City
     description: ""
     method: POST
@@ -793,7 +772,7 @@ resources:
     _type: request
   - _id: req_8566f229e8474790a7f6fc6cc919f024
     parentId: fld_1f4705a163d44f30bf2712d661aee935
-    modified: 1662319311480
+    modified: 1663611330920
     created: 1662319311480
     url: "{{ base_url }}/streets"
     name: All streets
@@ -806,6 +785,7 @@ resources:
         name: Authorization
         value: "{{ token }}"
         description: ""
+        disabled: false
     authentication: {}
     metaSortKey: -1661850507387.75
     isPrivate: false
@@ -828,9 +808,9 @@ resources:
     _type: request_group
   - _id: req_e45d61c129cb4d8b858d09d9341e804b
     parentId: fld_1f4705a163d44f30bf2712d661aee935
-    modified: 1662319311485
+    modified: 1663611353847
     created: 1662319311485
-    url: "{{ base_url }}/regions/102/cities/102/streets"
+    url: "{{ base_url }}/regions/104/cities/104/streets"
     name: All streets by region id and city id
     description: ""
     method: GET
@@ -853,9 +833,9 @@ resources:
     _type: request
   - _id: req_56bb00dc25644746be1004141b25ad04
     parentId: fld_1f4705a163d44f30bf2712d661aee935
-    modified: 1662319311493
+    modified: 1663611398449
     created: 1662319311493
-    url: "{{ base_url }}/regions/102/cities/102/streets/102"
+    url: "{{ base_url }}/regions/104/cities/104/streets/106"
     name: Street by region id and city id and street id
     description: ""
     method: GET
@@ -903,9 +883,9 @@ resources:
     _type: request
   - _id: req_8f24ac3d49114473ab79f40bdb05cafe
     parentId: fld_1f4705a163d44f30bf2712d661aee935
-    modified: 1662319311499
+    modified: 1663611387618
     created: 1662319311499
-    url: "{{ base_url }}/regions/102/cities/102/streets/102"
+    url: "{{ base_url }}/regions/104/cities/104/streets/106"
     name: Street by region id and city id and street id
     description: ""
     method: PUT
@@ -914,7 +894,7 @@ resources:
       text: |-
         {
         	"cityId": 100,
-        	"name": "Советская"
+        	"name": "Пушкинская"
         }
     parameters: []
     headers:
@@ -937,9 +917,9 @@ resources:
     _type: request
   - _id: req_9e3ac47b619246d3a4c47470b3ccc555
     parentId: fld_1f4705a163d44f30bf2712d661aee935
-    modified: 1662319311488
+    modified: 1663611322214
     created: 1662319311488
-    url: "{{ base_url }}/regions/102/cities/102/streets"
+    url: "{{ base_url }}/regions/104/cities/104/streets"
     name: Street
     description: ""
     method: POST
@@ -970,7 +950,7 @@ resources:
     _type: request
   - _id: req_04072522cdd24bf7a22ae6b8aecb42a4
     parentId: fld_b90998dbfd9d4a71b1b94595ed03f0e2
-    modified: 1662319311503
+    modified: 1663614095948
     created: 1662319311503
     url: "{{ base_url }}/addresses"
     name: All addresses
@@ -983,6 +963,7 @@ resources:
         name: Authorization
         value: "{{ token }}"
         description: ""
+        disabled: true
     authentication: {}
     metaSortKey: -1661850507312.75
     isPrivate: false
@@ -995,7 +976,7 @@ resources:
     _type: request
   - _id: req_ea4e580beb794613aa495171c76e492d
     parentId: fld_b90998dbfd9d4a71b1b94595ed03f0e2
-    modified: 1662327410666
+    modified: 1663611471048
     created: 1662319311515
     url: "{{ base_url }}/addresses/100"
     name: Addresses by id
@@ -1008,6 +989,7 @@ resources:
         name: Authorization
         value: "{{ token }}"
         description: ""
+        disabled: true
     authentication: {}
     metaSortKey: -1661850507300.25
     isPrivate: false
@@ -1079,9 +1061,9 @@ resources:
     _type: request
   - _id: req_a87b0c6095ba47b5bd5cc6b1d9803200
     parentId: fld_b90998dbfd9d4a71b1b94595ed03f0e2
-    modified: 1662319311508
+    modified: 1663612344098
     created: 1662319311508
-    url: "{{ base_url }}/regions/101/cities/101/streets/101/house-numbers"
+    url: "{{ base_url }}/regions/104/cities/104/streets/106/house-numbers"
     name: All house numbers by region id and city id and by street id
     description: ""
     method: GET
@@ -1104,9 +1086,9 @@ resources:
     _type: request
   - _id: req_019f0fd06d0c4621bd6e2dc7024a9832
     parentId: fld_b90998dbfd9d4a71b1b94595ed03f0e2
-    modified: 1662319311512
+    modified: 1663611453570
     created: 1662319311512
-    url: "{{ base_url }}/regions/102/cities/102/streets/102/house-numbers"
+    url: "{{ base_url }}/regions/104/cities/104/streets/106/house-numbers"
     name: House number
     description: ""
     method: POST
@@ -1114,7 +1096,7 @@ resources:
       mimeType: application/json
       text: |-
         {
-        	"houseNumber": "9A"
+        	"houseNumber": "test"
         }
     parameters: []
     headers:
@@ -1137,7 +1119,7 @@ resources:
     _type: request
   - _id: req_bcb3536aa7324ddca59344870b23b96a
     parentId: fld_0d3f4d7625f548e3b279f035247e54c1
-    modified: 1662319273812
+    modified: 1663611632046
     created: 1662319273812
     url: "{{ base_url }}/messages/users"
     name: Message users of current user
@@ -1150,6 +1132,7 @@ resources:
         name: Authorization
         value: "{{ token }}"
         description: ""
+        disabled: false
     authentication: {}
     metaSortKey: -1661088360438
     isPrivate: false
@@ -1172,9 +1155,9 @@ resources:
     _type: request_group
   - _id: req_3b5e1d5050134ddbb7ca1899dcb50014
     parentId: fld_0d3f4d7625f548e3b279f035247e54c1
-    modified: 1662319273816
+    modified: 1663611636927
     created: 1662319273816
-    url: "{{ base_url }}/messages/users/107"
+    url: "{{ base_url }}/messages/users/101"
     name: Messages for current user by user id
     description: ""
     method: GET
@@ -1197,9 +1180,9 @@ resources:
     _type: request
   - _id: req_9954551572894285be4da202278434ea
     parentId: fld_0d3f4d7625f548e3b279f035247e54c1
-    modified: 1662319273820
+    modified: 1663611622700
     created: 1662319273820
-    url: "{{ base_url }}/messages/users/107"
+    url: "{{ base_url }}/messages/users/101"
     name: Sent message to user by id
     description: ""
     method: POST
@@ -1230,9 +1213,9 @@ resources:
     _type: request
   - _id: req_3f22c01bf8d94a3697b6eb862f581f5c
     parentId: fld_b24e8175cd644c72b834d982181f4bbd
-    modified: 1662319281476
+    modified: 1663612203868
     created: 1662319281476
-    url: "{{ base_url }}/sellers/101/reviews"
+    url: "{{ base_url }}/reviews/sellers/101"
     name: Reviews of seller
     description: ""
     method: GET
@@ -1243,6 +1226,7 @@ resources:
         name: Authorization
         value: "{{ token }}"
         description: ""
+        disabled: true
     authentication: {}
     metaSortKey: -1661108346602
     isPrivate: false
@@ -1263,11 +1247,37 @@ resources:
     environmentPropertyOrder: null
     metaSortKey: 100
     _type: request_group
+  - _id: req_4bd2b76c1e524c2c859c1a68343d6adc
+    parentId: fld_b24e8175cd644c72b834d982181f4bbd
+    modified: 1663612117005
+    created: 1663611656869
+    url: "{{ base_url }}/reviews/sellers/current"
+    name: Reviews of current seller
+    description: ""
+    method: GET
+    body: {}
+    parameters: []
+    headers:
+      - id: pair_94b2427e71d84ca590ed001f55196ca8
+        name: Authorization
+        value: "{{ token }}"
+        description: ""
+        disabled: false
+    authentication: {}
+    metaSortKey: -1661108346577
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
   - _id: req_b6777a2d3bbc4f4db0d3f7c7a572bec0
     parentId: fld_b24e8175cd644c72b834d982181f4bbd
-    modified: 1662319281480
+    modified: 1663612156518
     created: 1662319281480
-    url: "{{ base_url }}/customers/101/reviews"
+    url: "{{ base_url }}/reviews/customers/101"
     name: Seller reviews of customer
     description: ""
     method: GET
@@ -1288,11 +1298,36 @@ resources:
     settingRebuildPath: true
     settingFollowRedirects: global
     _type: request
+  - _id: req_751603682e58472198cb2256b54c2a48
+    parentId: fld_b24e8175cd644c72b834d982181f4bbd
+    modified: 1663612154862
+    created: 1663611662436
+    url: "{{ base_url }}/reviews/customers/current"
+    name: Seller reviews of current customer
+    description: ""
+    method: GET
+    body: {}
+    parameters: []
+    headers:
+      - id: pair_ab24da51cfcd42cbb75a52eec3595c17
+        name: Authorization
+        value: "{{ token }}"
+        description: ""
+    authentication: {}
+    metaSortKey: -1661108346527
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
   - _id: req_25371e380b1240619644260d9903396d
     parentId: fld_b24e8175cd644c72b834d982181f4bbd
-    modified: 1662319281483
+    modified: 1663612198652
     created: 1662319281483
-    url: "{{ base_url }}/sellers/101/reviews"
+    url: "{{ base_url }}/reviews/sellers/101"
     name: Sent review to seller
     description: ""
     method: POST
@@ -1312,6 +1347,7 @@ resources:
         name: Authorization
         value: "{{ token }}"
         description: ""
+        disabled: false
     authentication: {}
     metaSortKey: -1661108346502
     isPrivate: false
@@ -1322,9 +1358,166 @@ resources:
     settingRebuildPath: true
     settingFollowRedirects: global
     _type: request
+  - _id: req_1548c0c7442e4610a17529c96d277443
+    parentId: fld_00e480bca6974781aa0327ac30932600
+    modified: 1663615015620
+    created: 1663614939381
+    url: "{{base_url}}/enums/housing-announcement-types"
+    name: Housing announcement types
+    description: ""
+    method: GET
+    body: {}
+    parameters: []
+    headers: []
+    authentication: {}
+    metaSortKey: -1663614939381
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: fld_00e480bca6974781aa0327ac30932600
+    parentId: wrk_b9c5b3d18bbe460fb180ea678719b6c4
+    modified: 1663614933436
+    created: 1663614924531
+    name: Enums
+    description: ""
+    environment: {}
+    environmentPropertyOrder: null
+    metaSortKey: 250
+    _type: request_group
+  - _id: req_c1088f42e0c84bc28dfb7e1185427a57
+    parentId: fld_00e480bca6974781aa0327ac30932600
+    modified: 1663615059919
+    created: 1663615045150
+    url: "{{base_url}}/enums/non-housing-announcement-types"
+    name: Non housing announcement types
+    description: ""
+    method: GET
+    body: {}
+    parameters: []
+    headers: []
+    authentication: {}
+    metaSortKey: -1663465901776.5
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_344e1e2f08304f0d915f49c135c20d1b
+    parentId: fld_00e480bca6974781aa0327ac30932600
+    modified: 1663615021338
+    created: 1663615000821
+    url: "{{base_url}}/enums/housing-types"
+    name: Housing types
+    description: ""
+    method: GET
+    body: {}
+    parameters: []
+    headers: []
+    authentication: {}
+    metaSortKey: -1663316864172
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_0a3459d4a4cd4c0fa8ea728d9cef6d6e
+    parentId: fld_00e480bca6974781aa0327ac30932600
+    modified: 1663615078619
+    created: 1663615069412
+    url: "{{base_url}}/enums/property-statuses"
+    name: Property statuses
+    description: ""
+    method: GET
+    body: {}
+    parameters: []
+    headers: []
+    authentication: {}
+    metaSortKey: -1663167826567.5
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_04ef70496be241f6a3727de9bde7deee
+    parentId: fld_00e480bca6974781aa0327ac30932600
+    modified: 1663615091040
+    created: 1663615087059
+    url: "{{base_url}}/enums/property-types"
+    name: Property types
+    description: ""
+    method: GET
+    body: {}
+    parameters: []
+    headers: []
+    authentication: {}
+    metaSortKey: -1663093307765.25
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_b3cdfd2c3e974c0880d21c7794cfe134
+    parentId: fld_00e480bca6974781aa0327ac30932600
+    modified: 1663615110688
+    created: 1663615104270
+    url: "{{base_url}}/enums/rent-announcement-statuses"
+    name: Rent announcement statuses
+    description: ""
+    method: GET
+    body: {}
+    parameters: []
+    headers: []
+    authentication: {}
+    metaSortKey: -1663056048364.125
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_296c27c2e23b4a58af1b7cac3f068ec8
+    parentId: fld_00e480bca6974781aa0327ac30932600
+    modified: 1663615124888
+    created: 1663615120129
+    url: "{{base_url}}/enums/sell-announcement-statuses"
+    name: Sell announcement statuses
+    description: ""
+    method: GET
+    body: {}
+    parameters: []
+    headers: []
+    authentication: {}
+    metaSortKey: -1663037418663.5625
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
   - _id: req_bac5d74de0884db8b2db63e06db7f83f
     parentId: fld_e5fa2b52ae3747298ffbcd3441cf0c4d
-    modified: 1662924993624
+    modified: 1663615150038
     created: 1662319305742
     url: "{{ base_url }}/house-materials"
     name: All house materials
@@ -1337,6 +1530,7 @@ resources:
         name: Authorization
         value: "{{ token }}"
         description: ""
+        disabled: false
     authentication: {}
     metaSortKey: -1661156286038.75
     isPrivate: false
@@ -1369,7 +1563,7 @@ resources:
     _type: request_group
   - _id: req_212594597d8846cf9d1cb4114925bc22
     parentId: fld_e5fa2b52ae3747298ffbcd3441cf0c4d
-    modified: 1662924999872
+    modified: 1663612270178
     created: 1662319305745
     url: "{{ base_url }}/house-materials"
     name: House material
@@ -1402,9 +1596,9 @@ resources:
     _type: request
   - _id: req_a6b59bbc99bf407f935ba0ea0ee71cf5
     parentId: fld_e5fa2b52ae3747298ffbcd3441cf0c4d
-    modified: 1662924998245
+    modified: 1663612252078
     created: 1662319305750
-    url: "{{ base_url }}/house-materials/100"
+    url: "{{ base_url }}/house-materials/107"
     name: House materials by id
     description: ""
     method: GET
@@ -1427,9 +1621,9 @@ resources:
     _type: request
   - _id: req_b1c7f56c39314f4f8310051796cb23ea
     parentId: fld_e5fa2b52ae3747298ffbcd3441cf0c4d
-    modified: 1662924997030
+    modified: 1663612258624
     created: 1662319305753
-    url: "{{ base_url }}/house-materials/100"
+    url: "{{ base_url }}/house-materials/107"
     name: House materials by id
     description: ""
     method: DELETE
@@ -1452,9 +1646,9 @@ resources:
     _type: request
   - _id: req_a77c908ba6264e92a1f975eb45fdadc2
     parentId: fld_e5fa2b52ae3747298ffbcd3441cf0c4d
-    modified: 1662925016156
+    modified: 1663612281212
     created: 1662925007941
-    url: "{{ base_url }}/house-materials/100"
+    url: "{{ base_url }}/house-materials/108"
     name: House material by id
     description: ""
     method: PUT
@@ -1462,7 +1656,7 @@ resources:
       mimeType: application/json
       text: |-
         {
-        	"name": "new house material"
+        	"name": "test"
         }
     parameters: []
     headers:
@@ -1485,7 +1679,7 @@ resources:
     _type: request
   - _id: req_34a26c1090c44a3f9c9c6a9c1bb3b3fc
     parentId: fld_8a750b5e114b40cbbc72925caed38281
-    modified: 1662925045159
+    modified: 1663616190829
     created: 1662319305701
     url: "{{ base_url }}/houses/apartment-houses"
     name: All apartment houses
@@ -1520,7 +1714,7 @@ resources:
     _type: request_group
   - _id: req_7fc01481f0f44051b033771f1434ef59
     parentId: fld_8a750b5e114b40cbbc72925caed38281
-    modified: 1662924931857
+    modified: 1663616224280
     created: 1662319305705
     url: "{{ base_url }}/houses/apartment-houses"
     name: Apartment house
@@ -1530,13 +1724,10 @@ resources:
       mimeType: application/json
       text: |-
         {
-        	"address": {
-        		"streetId": 102,
-        		"houseNumber": "51"
-        	},
+        	"addressId": 105,
         	"numberOfFloors": 9,
         	"buildingYear": "1998",
-        	"houseMaterialId": 107,
+        	"houseMaterialId": 108,
         	"housingType": "SECONDARY",
         	"elevator": true
         }
@@ -1561,9 +1752,9 @@ resources:
     _type: request
   - _id: req_d447d9a09a9543a69cb2fdfd30b90307
     parentId: fld_8a750b5e114b40cbbc72925caed38281
-    modified: 1662319305708
+    modified: 1663615199365
     created: 1662319305708
-    url: "{{ base_url }}/houses/apartment-houses/100"
+    url: "{{ base_url }}/houses/apartment-houses/105"
     name: Apartment houses by id
     description: ""
     method: GET
@@ -1586,9 +1777,9 @@ resources:
     _type: request
   - _id: req_a5551c8486c64e0dbc07a768914c037b
     parentId: fld_8a750b5e114b40cbbc72925caed38281
-    modified: 1662459972887
+    modified: 1663616172120
     created: 1662319305712
-    url: "{{ base_url }}/houses/apartment-houses/100"
+    url: "{{ base_url }}/houses/apartment-houses/105"
     name: Apartment houses by id
     description: ""
     method: DELETE
@@ -1611,7 +1802,7 @@ resources:
     _type: request
   - _id: req_38953acdbc9e4b619c0c97ecf44c29c1
     parentId: fld_8a750b5e114b40cbbc72925caed38281
-    modified: 1662924970199
+    modified: 1663615847261
     created: 1662924959429
     url: "{{ base_url }}/houses/apartment-houses/100"
     name: Apartment house by id
@@ -1652,7 +1843,7 @@ resources:
     _type: request
   - _id: req_89dcc2f4cab245b496e5447f7176a06a
     parentId: fld_1c3b25931bb84aa192f8b54c70b16ffd
-    modified: 1662925037874
+    modified: 1663616285245
     created: 1662319305723
     url: "{{ base_url }}/houses/family-houses"
     name: All family houses
@@ -1687,7 +1878,7 @@ resources:
     _type: request_group
   - _id: req_12213ad753f040a1a696f7c2ceff7c7a
     parentId: fld_1c3b25931bb84aa192f8b54c70b16ffd
-    modified: 1662924930308
+    modified: 1663616278828
     created: 1662319305728
     url: "{{ base_url }}/houses/family-houses"
     name: Family house
@@ -1697,13 +1888,10 @@ resources:
       mimeType: application/json
       text: |-
         {
-        	"address": {
-        		"streetId": 102,
-        		"houseNumber": "9A"
-        	},
+        	"addressId": 105,
         	"numberOfFloors": 9,
         	"buildingYear": "1998",
-        	"houseMaterialId": 107,
+        	"houseMaterialId": 106,
         	"housingType": "SECONDARY",
         	"swimmingPool": true
         }
@@ -1753,9 +1941,9 @@ resources:
     _type: request
   - _id: req_5c58458bcb2f409ba5ac5f89c75b6539
     parentId: fld_1c3b25931bb84aa192f8b54c70b16ffd
-    modified: 1662319305735
+    modified: 1663616257524
     created: 1662319305735
-    url: "{{ base_url }}/houses/family-houses/101"
+    url: "{{ base_url }}/houses/family-houses/107"
     name: Family houses by id
     description: ""
     method: DELETE
@@ -1819,7 +2007,7 @@ resources:
     _type: request
   - _id: req_134b628cf16e4aadb69d588ef113e220
     parentId: fld_07342a904c364a24ac9b7072ec005b4a
-    modified: 1662925024412
+    modified: 1663616925455
     created: 1662319305739
     url: "{{ base_url }}/houses"
     name: All houses
@@ -1832,6 +2020,7 @@ resources:
         name: Authorization
         value: "{{ token }}"
         description: ""
+        disabled: false
     authentication: {}
     metaSortKey: -1661548442159.875
     isPrivate: false
@@ -2845,7 +3034,7 @@ resources:
     _type: request
   - _id: req_af0e0417a0f14a77826f7e5ea12601f1
     parentId: fld_abfc5b7e34104be09ad28e0183df1d23
-    modified: 1662924895829
+    modified: 1663599085902
     created: 1662319298433
     url: "{{ base_url }}/properties/"
     name: All properties
@@ -2858,6 +3047,7 @@ resources:
         name: Authorization
         value: "{{ token }}"
         description: ""
+        disabled: false
     authentication: {}
     metaSortKey: -1661788190321
     isPrivate: false
@@ -2870,7 +3060,7 @@ resources:
     _type: request
   - _id: req_885055e302e4430eb31fddd99966ed8a
     parentId: fld_abfc5b7e34104be09ad28e0183df1d23
-    modified: 1662924903597
+    modified: 1663508671939
     created: 1662319298449
     url: "{{ base_url }}/properties/housing"
     name: All housing properties
@@ -2895,7 +3085,7 @@ resources:
     _type: request
   - _id: req_51f6132407c047aa980b3c6d48bf8010
     parentId: fld_cc9f840cbdc54007b3754fc0a2801bf2
-    modified: 1662909583827
+    modified: 1663508819323
     created: 1662457757465
     url: "{{ _.base_url }}/announcement-top-prices"
     name: Announcement top prices
@@ -2973,7 +3163,7 @@ resources:
     _type: request
   - _id: req_05bb73926ac34907a47d6bff38cf5139
     parentId: fld_9d82da5d82da4cd480378dd0b9d7346e
-    modified: 1663017609868
+    modified: 1663509298810
     created: 1662500700903
     url: "{{ base_url }}/announcements/housing/apartments/101/timetables/top"
     name: Top timetable of apartment announcements by id
@@ -3018,7 +3208,7 @@ resources:
     _type: request_group
   - _id: req_2d562108a8a347f89f9ed76fe24dacce
     parentId: fld_9d82da5d82da4cd480378dd0b9d7346e
-    modified: 1663017614292
+    modified: 1663509303337
     created: 1662500924466
     url: "{{ base_url }}/announcements/housing/apartments/101/timetables/top"
     name: Top timetable of apartment announcements by id
@@ -3052,10 +3242,10 @@ resources:
     _type: request
   - _id: req_93878200c55a4125985b151338418096
     parentId: fld_9d82da5d82da4cd480378dd0b9d7346e
-    modified: 1663014801707
+    modified: 1663509306192
     created: 1662977893416
     url: "{{ base_url
-      }}/announcements/housing/apartments/owner/current/100/timetables/top"
+      }}/announcements/housing/apartments/owners/current/100/timetables/top"
     name: Top timetable of apartment announcements of current user by id
     description: ""
     method: GET
@@ -3078,10 +3268,10 @@ resources:
     _type: request
   - _id: req_71a92992070e464d9f9fb50aa05e251e
     parentId: fld_9d82da5d82da4cd480378dd0b9d7346e
-    modified: 1663014796807
+    modified: 1663509308790
     created: 1662977876691
     url: "{{ base_url
-      }}/announcements/housing/apartments/owner/current/100/timetables/top"
+      }}/announcements/housing/apartments/owners/current/100/timetables/top"
     name: Top timetable of apartment announcements by id from current user
     description: ""
     method: POST
@@ -3148,7 +3338,7 @@ resources:
     _type: request_group
   - _id: req_35106c0cb6c54fdebae9502ed4afcce0
     parentId: fld_2107ab4cbdaf4e518a107ec66c34c67d
-    modified: 1662999271104
+    modified: 1663355561137
     created: 1662990546129
     url: "{{ base_url }}/announcements/housing/apartments/101/timetables/rent"
     name: Rent timetable of apartment announcements by id
@@ -3199,6 +3389,34 @@ resources:
         description: ""
     authentication: {}
     metaSortKey: -1661529953972.7188
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_78eaf241b1f34d75b298372c163ada77
+    parentId: fld_2107ab4cbdaf4e518a107ec66c34c67d
+    modified: 1663599444305
+    created: 1663599434599
+    url: "{{ base_url
+      }}/announcements/housing/apartments/open/101/timetables/rent/only-date-ti\
+      mes"
+    name: Rent timetable of open apartment announcements by id only date times
+    description: ""
+    method: GET
+    body: {}
+    parameters: []
+    headers:
+      - id: pair_9c241edd84bf4d8ebd17487b46c74029
+        name: Authorization
+        value: "{{ token }}"
+        description: ""
+        disabled: true
+    authentication: {}
+    metaSortKey: -1661529953972.5234
     isPrivate: false
     settingStoreCookies: true
     settingSendCookies: true
@@ -3287,7 +3505,7 @@ resources:
     _type: request
   - _id: req_18c6c826daf44299967dcfe67e5df040
     parentId: fld_2107ab4cbdaf4e518a107ec66c34c67d
-    modified: 1663014399788
+    modified: 1663355563416
     created: 1662990546133
     url: "{{ base_url
       }}/announcements/housing/apartments/101/timetables/rent/tenants/current"
@@ -3322,7 +3540,7 @@ resources:
     _type: request
   - _id: req_4b4172e1831a4fd7902bc0157c31a1da
     parentId: fld_f8e3fc8894364201a0a0fe6d8e8faa02
-    modified: 1662993852780
+    modified: 1663508783826
     created: 1662319291379
     url: "{{ base_url }}/announcements/housing/apartments"
     name: All apartment announcements
@@ -3408,7 +3626,7 @@ resources:
     _type: request
   - _id: req_de23c5edccee468794a9df755a1797cf
     parentId: fld_f8e3fc8894364201a0a0fe6d8e8faa02
-    modified: 1662319291393
+    modified: 1663356050220
     created: 1662319291393
     url: "{{ base_url }}/announcements/housing/apartments/101"
     name: Apartment announcements by id
@@ -3433,7 +3651,7 @@ resources:
     _type: request
   - _id: req_21ed4dccb3f2423d915ef021dd298eed
     parentId: fld_f8e3fc8894364201a0a0fe6d8e8faa02
-    modified: 1662898650586
+    modified: 1663356327786
     created: 1662319291396
     url: "{{ base_url }}/announcements/housing/apartments/101"
     name: Apartment announcements by id
@@ -3469,7 +3687,7 @@ resources:
     _type: request
   - _id: req_3e6bcd13615e4f8ba8fa6f9ecff6327e
     parentId: fld_f8e3fc8894364201a0a0fe6d8e8faa02
-    modified: 1662990610865
+    modified: 1663599117141
     created: 1662392489105
     url: "{{ base_url }}/announcements/housing/apartments/open"
     name: All open apartment announcements
@@ -3482,6 +3700,7 @@ resources:
         name: Authorization
         value: "{{ token }}"
         description: ""
+        disabled: true
     authentication: {}
     metaSortKey: -1661529953886
     isPrivate: false
@@ -3494,7 +3713,7 @@ resources:
     _type: request
   - _id: req_3691eb321ee24614ac63bed85e0f8607
     parentId: fld_f8e3fc8894364201a0a0fe6d8e8faa02
-    modified: 1662990606100
+    modified: 1663508722621
     created: 1662395296819
     url: "{{ base_url }}/announcements/housing/apartments/open/101"
     name: Open apartment announcements by id
@@ -3605,7 +3824,7 @@ resources:
     _type: request
   - _id: req_1c4d96575c4947e8a4f40ebb8e5b7626
     parentId: fld_f8e3fc8894364201a0a0fe6d8e8faa02
-    modified: 1662898831172
+    modified: 1663356333536
     created: 1662898662924
     url: "{{ base_url }}/announcements/housing/apartments/current/101"
     name: Apartment announcements by id of current user
@@ -3641,9 +3860,9 @@ resources:
     _type: request
   - _id: req_b3c1334e221c467180ecd54bb59eae52
     parentId: fld_f8e3fc8894364201a0a0fe6d8e8faa02
-    modified: 1662990618440
+    modified: 1663599486483
     created: 1662648408277
-    url: "{{ base_url }}/announcements/housing/apartments/closed/owner/100"
+    url: "{{ base_url }}/announcements/housing/apartments/closed/owners/100"
     name: All closed apartment announcements by user id of owner
     description: ""
     method: GET
@@ -3654,6 +3873,7 @@ resources:
         name: Authorization
         value: "{{ token }}"
         description: ""
+        disabled: true
     authentication: {}
     metaSortKey: -1661529953540
     isPrivate: false
@@ -3711,7 +3931,7 @@ resources:
     _type: request_group
   - _id: req_fd415e33becf46c79657c83a711979bf
     parentId: fld_519027e5bb364eee9fb5600d1d2c65a3
-    modified: 1662978661920
+    modified: 1663355830453
     created: 1662978393887
     url: "{{ base_url }}/announcements/housing/family-houses/105/timetables/top"
     name: Top timetable of family house announcements by id
@@ -3745,10 +3965,10 @@ resources:
     _type: request
   - _id: req_01eba2bd13334653a8342739cf800908
     parentId: fld_519027e5bb364eee9fb5600d1d2c65a3
-    modified: 1662978573195
+    modified: 1663599213007
     created: 1662978402820
     url: "{{ base_url
-      }}/announcements/housing/family-houses/owner/current/105/timetables/top"
+      }}/announcements/housing/family-houses/owners/current/105/timetables/top"
     name: Top timetable of family house announcements of current user by id
     description: ""
     method: GET
@@ -3771,10 +3991,10 @@ resources:
     _type: request
   - _id: req_e94dac5c8413475bb657140a721effec
     parentId: fld_519027e5bb364eee9fb5600d1d2c65a3
-    modified: 1662978584524
+    modified: 1663509323778
     created: 1662578053116
     url: "{{ base_url
-      }}/announcements/housing/family-houses/owner/current/105/timetables/top"
+      }}/announcements/housing/family-houses/owners/current/105/timetables/top"
     name: Top timetable of family house announcements by id from current user
     description: ""
     method: POST
@@ -3806,7 +4026,7 @@ resources:
     _type: request
   - _id: req_9de5a81b4c854a6fa75c7953433f7cc3
     parentId: fld_c1ba25fc7d1c41d2a8658ac726ffa2dc
-    modified: 1663018561526
+    modified: 1663065818344
     created: 1662999283874
     url: "{{ base_url }}/announcements/housing/family-houses/106/timetables/rent"
     name: Rent timetable of family house announcements by id
@@ -3841,7 +4061,7 @@ resources:
     _type: request_group
   - _id: req_f5f97a08afd941e9b8bc5589c9599f60
     parentId: fld_c1ba25fc7d1c41d2a8658ac726ffa2dc
-    modified: 1663018558400
+    modified: 1663355288596
     created: 1662999283882
     url: "{{ base_url }}/announcements/housing/family-houses/106/timetables/rent"
     name: Rent timetable of family house announcements by id
@@ -3876,7 +4096,7 @@ resources:
     _type: request
   - _id: req_f613084b42c845d990ed25754abe4b5f
     parentId: fld_c1ba25fc7d1c41d2a8658ac726ffa2dc
-    modified: 1663018457919
+    modified: 1663599226719
     created: 1662999283896
     url: "{{ base_url
       }}/announcements/housing/family-houses/106/timetables/rent/only-date-time\
@@ -3891,6 +4111,7 @@ resources:
         name: Authorization
         value: "{{ token }}"
         description: ""
+        disabled: true
     authentication: {}
     metaSortKey: -1661529953972.7188
     isPrivate: false
@@ -3901,9 +4122,37 @@ resources:
     settingRebuildPath: true
     settingFollowRedirects: global
     _type: request
+  - _id: req_2288b94ed67d4a499ba6176ade3d8f22
+    parentId: fld_c1ba25fc7d1c41d2a8658ac726ffa2dc
+    modified: 1663599407847
+    created: 1663599391632
+    url: "{{ base_url
+      }}/announcements/housing/family-houses/open/106/timetables/rent/only-date\
+      -times"
+    name: Rent timetable of open family house announcements by id only date times
+    description: ""
+    method: GET
+    body: {}
+    parameters: []
+    headers:
+      - id: pair_9c241edd84bf4d8ebd17487b46c74029
+        name: Authorization
+        value: "{{ token }}"
+        description: ""
+        disabled: true
+    authentication: {}
+    metaSortKey: -1661529953972.3281
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
   - _id: req_a4c70378bcb747159149cc3caddaebc3
     parentId: fld_c1ba25fc7d1c41d2a8658ac726ffa2dc
-    modified: 1663018468307
+    modified: 1663599215602
     created: 1662999283889
     url: "{{ base_url
       }}/announcements/housing/family-houses/owner/current/106/timetables/rent"
@@ -3984,7 +4233,7 @@ resources:
     _type: request
   - _id: req_bfc5c07b67d949a6b353f40466c3dbee
     parentId: fld_c1ba25fc7d1c41d2a8658ac726ffa2dc
-    modified: 1663018484213
+    modified: 1663355286913
     created: 1662999283885
     url: "{{ base_url
       }}/announcements/housing/family-houses/106/timetables/rent/tenants/curren\
@@ -4106,7 +4355,7 @@ resources:
     _type: request
   - _id: req_df28c3cde00749f790a81743fc38cd42
     parentId: fld_290b02e755db474d94d13a1eb5793015
-    modified: 1662319291412
+    modified: 1663356033105
     created: 1662319291412
     url: "{{ base_url }}/announcements/housing/family-houses/102"
     name: Family house announcements by id
@@ -4253,7 +4502,7 @@ resources:
     _type: request
   - _id: req_c6becbb80bca4af59e5c714060706892
     parentId: fld_290b02e755db474d94d13a1eb5793015
-    modified: 1662900235937
+    modified: 1663356039097
     created: 1662900225334
     url: "{{ base_url }}/announcements/housing/family-houses/current/102"
     name: Family house announcements by id of current user
@@ -4289,7 +4538,7 @@ resources:
     _type: request
   - _id: req_191519730118414b897a203ed4ad8ea9
     parentId: fld_290b02e755db474d94d13a1eb5793015
-    modified: 1663018428153
+    modified: 1663599144202
     created: 1662582969027
     url: "{{ base_url }}/announcements/housing/family-houses/open"
     name: All open family house announcements
@@ -4302,6 +4551,7 @@ resources:
         name: Authorization
         value: "{{ token }}"
         description: ""
+        disabled: true
     authentication: {}
     metaSortKey: -1661529952798
     isPrivate: false
@@ -4339,9 +4589,9 @@ resources:
     _type: request
   - _id: req_45c60d63cf1c4cda895fa2dfd17cd22d
     parentId: fld_290b02e755db474d94d13a1eb5793015
-    modified: 1662900387138
+    modified: 1663600668435
     created: 1662648448667
-    url: "{{ base_url }}/announcements/housing/family-houses/closed/owner/100"
+    url: "{{ base_url }}/announcements/housing/family-houses/closed/owners/100"
     name: All closed family house announcements by user id of owner
     description: ""
     method: GET
@@ -4352,6 +4602,7 @@ resources:
         name: Authorization
         value: "{{ token }}"
         description: ""
+        disabled: true
     authentication: {}
     metaSortKey: -1661529952723
     isPrivate: false
@@ -4409,7 +4660,7 @@ resources:
     _type: request_group
   - _id: req_7ed6eee7e6ac420888bfd24e449a669a
     parentId: fld_7668693e92c146c5b339d58977d10ded
-    modified: 1662978723070
+    modified: 1663355836944
     created: 1662578072787
     url: "{{ base_url }}/announcements/lands/106/timetables/top"
     name: Top timetable of land announcements by id
@@ -4443,9 +4694,9 @@ resources:
     _type: request
   - _id: req_39dd2458039a4aae975824be72870de6
     parentId: fld_7668693e92c146c5b339d58977d10ded
-    modified: 1662985695520
+    modified: 1663509334893
     created: 1662978715660
-    url: "{{ base_url }}/announcements/lands/owner/current/106/timetables/top"
+    url: "{{ base_url }}/announcements/lands/owners/current/106/timetables/top"
     name: Top timetable of land announcements of current user by id
     description: ""
     method: GET
@@ -4468,9 +4719,9 @@ resources:
     _type: request
   - _id: req_bd37c9a447d34d289bb4eaae08556f7d
     parentId: fld_7668693e92c146c5b339d58977d10ded
-    modified: 1662978739277
+    modified: 1663509340757
     created: 1662978707494
-    url: "{{ base_url }}/announcements/lands/owner/current/106/timetables/top"
+    url: "{{ base_url }}/announcements/lands/owners/current/106/timetables/top"
     name: Top timetable of land announcements by id from current user
     description: ""
     method: POST
@@ -4710,7 +4961,7 @@ resources:
     _type: request
   - _id: req_6365fdbe023641adbee38c034a6e0840
     parentId: fld_cf7da02fa3114657a25f14fc361ac1f1
-    modified: 1662583481106
+    modified: 1663601059920
     created: 1662583400429
     url: "{{ base_url }}/announcements/lands/current/100"
     name: Land announcements by id of current user
@@ -4723,6 +4974,7 @@ resources:
         name: Authorization
         value: "{{ token }}"
         description: ""
+        disabled: false
     authentication: {}
     metaSortKey: -1661529953025.25
     isPrivate: false
@@ -4771,7 +5023,7 @@ resources:
     _type: request
   - _id: req_8bfc4c283e9443f582bbb6219b2fb482
     parentId: fld_cf7da02fa3114657a25f14fc361ac1f1
-    modified: 1662927803423
+    modified: 1663600836316
     created: 1662583371156
     url: "{{ base_url }}/announcements/lands/open"
     name: All open land announcements
@@ -4796,7 +5048,7 @@ resources:
     _type: request
   - _id: req_862d67b710d542a1a1d5a1337cdbefd6
     parentId: fld_cf7da02fa3114657a25f14fc361ac1f1
-    modified: 1662900306411
+    modified: 1663600834364
     created: 1662583378345
     url: "{{ base_url }}/announcements/lands/open/101"
     name: Open land announcements by id
@@ -4821,9 +5073,9 @@ resources:
     _type: request
   - _id: req_e09aee78a5b147fcbc7d80f5b3956e44
     parentId: fld_cf7da02fa3114657a25f14fc361ac1f1
-    modified: 1662976180916
+    modified: 1663600678900
     created: 1662648509503
-    url: "{{ base_url }}/announcements/lands/closed/owner/100"
+    url: "{{ base_url }}/announcements/lands/closed/owners/100"
     name: All closed land announcements by user id of owner
     description: ""
     method: GET
@@ -4834,6 +5086,7 @@ resources:
         name: Authorization
         value: "{{ token }}"
         description: ""
+        disabled: true
     authentication: {}
     metaSortKey: -1661529952975.25
     isPrivate: false
@@ -4844,9 +5097,34 @@ resources:
     settingRebuildPath: true
     settingFollowRedirects: global
     _type: request
+  - _id: req_771eb8f62aec462eb5c2e7c0a5936d4f
+    parentId: fld_c694fb2941054412ad21392e1c949748
+    modified: 1663184061158
+    created: 1663065858726
+    url: "{{ base_url }}/announcements/search?keywords=Петер"
+    name: Search announcements
+    description: ""
+    method: GET
+    body: {}
+    parameters: []
+    headers:
+      - id: pair_9c241edd84bf4d8ebd17487b46c74029
+        name: Authorization
+        value: "{{ token }}"
+        description: ""
+    authentication: {}
+    metaSortKey: -1661735379800
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
   - _id: req_7e0b1a1186ed4060b174c958bc6ba6a5
     parentId: fld_c694fb2941054412ad21392e1c949748
-    modified: 1662909456013
+    modified: 1663414886476
     created: 1662319291443
     url: "{{ base_url }}/announcements"
     name: All announcements
@@ -4921,7 +5199,7 @@ resources:
     _type: request
   - _id: req_e3cae813db3e40c08523a51aa5c5601d
     parentId: fld_c694fb2941054412ad21392e1c949748
-    modified: 1662927767195
+    modified: 1663599106135
     created: 1662583578828
     url: "{{ base_url }}/announcements/open"
     name: All open announcements
@@ -4934,6 +5212,7 @@ resources:
         name: Authorization
         value: "{{ token }}"
         description: ""
+        disabled: false
     authentication: {}
     metaSortKey: -1661529955520
     isPrivate: false
@@ -4946,7 +5225,7 @@ resources:
     _type: request
   - _id: env_a34eeeca15978c8917903129a4fefaa00c578135
     parentId: wrk_b9c5b3d18bbe460fb180ea678719b6c4
-    modified: 1663017066536
+    modified: 1663615877197
     created: 1662319129537
     name: Base Environment
     data:
@@ -4955,7 +5234,7 @@ resources:
       host: localhost
       port: 8080
       base_url: "{{ scheme }}://{{ host }}:{{ port }}{{ base_path }}"
-      token: eyJhbGciOiJIUzI1NiJ9.eyJyb2xlIjpbIlJPTEVfQURNSU4iXSwidXNlcklkIjoxMDAsInN1YiI6ImFkbWluIiwiaWF0IjoxNjYzMDIwNjM1LCJleHAiOjE2NjMwMjA2MzV9.H-XGP4igwVmWzWwfIdU_SkFjAInUGtSP3mdh2l2nx1Q
+      token: eyJhbGciOiJIUzI1NiJ9.eyJyb2xlIjpbIlJPTEVfQURNSU4iXSwidXNlcklkIjoxMDAsInN1YiI6ImFkbWluIiwiaWF0IjoxNjYzNjE5NDY2LCJleHAiOjE2NjM2MTk0NjZ9.fefOaHQ8ptjTQCXP47_u_BtxQL0STXpx1W6_EuLBMcI
     dataPropertyOrder:
       "&":
         - scheme
