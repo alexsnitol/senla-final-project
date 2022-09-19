@@ -22,16 +22,13 @@ import ru.senla.realestatemarket.repo.user.IUserRepository;
 import ru.senla.realestatemarket.service.helper.EntityHelper;
 import ru.senla.realestatemarket.service.timetable.rent.IApartmentAnnouncementRentTimetableService;
 import ru.senla.realestatemarket.service.user.IBalanceOperationService;
+import ru.senla.realestatemarket.util.SortUtil;
 import ru.senla.realestatemarket.util.UserUtil;
 
 import javax.annotation.PostConstruct;
 import javax.transaction.Transactional;
 import java.time.LocalDateTime;
 import java.util.List;
-
-import static ru.senla.realestatemarket.repo.timetable.rent.specification.ApartmentAnnouncementRentTimetableSpecification.hasApartmentAnnouncementId;
-import static ru.senla.realestatemarket.repo.timetable.rent.specification.ApartmentAnnouncementRentTimetableSpecification.hasApartmentAnnouncementIdAndUserIdOfOwnerInPropertyItAnnouncement;
-import static ru.senla.realestatemarket.repo.timetable.rent.specification.ApartmentAnnouncementRentTimetableSpecification.hasUserIdOfTenant;
 
 @Slf4j
 @Service
@@ -77,11 +74,13 @@ public class ApartmentAnnouncementRentTimetableServiceImpl
         List<ApartmentAnnouncementRentTimetable> apartmentAnnouncementRentTimetables;
 
         if (sortQuery == null) {
-            apartmentAnnouncementRentTimetables = getAll(hasApartmentAnnouncementId(apartmentAnnouncementId),
-                    rsqlQuery, Sort.by(Sort.Direction.ASC, "fromDt"));
+            apartmentAnnouncementRentTimetables = apartmentAnnouncementRentTimetableRepository
+                    .findAllByApartmentAnnouncementId(
+                            apartmentAnnouncementId, rsqlQuery, Sort.by(Sort.Direction.ASC, "fromDt"));
         } else {
-            apartmentAnnouncementRentTimetables = getAll(hasApartmentAnnouncementId(apartmentAnnouncementId),
-                    rsqlQuery, sortQuery);
+            apartmentAnnouncementRentTimetables = apartmentAnnouncementRentTimetableRepository
+                    .findAllByApartmentAnnouncementId(
+                            apartmentAnnouncementId, rsqlQuery, SortUtil.parseSortQuery(sortQuery));
         }
 
         return timetableMapper
@@ -91,17 +90,41 @@ public class ApartmentAnnouncementRentTimetableServiceImpl
 
     @Override
     @Transactional
-    public List<RentTimetableWithoutAnnouncementIdDto> getAllByApartmentIdForUsersDto(
+    public List<RentTimetableWithoutAnnouncementIdDto> getAllByApartmentIdOnlyDateTimesDto(
             Long apartmentAnnouncementId, String rsqlQuery, String sortQuery
     ) {
         List<ApartmentAnnouncementRentTimetable> apartmentAnnouncementRentTimetables;
 
         if (sortQuery == null) {
-            apartmentAnnouncementRentTimetables = getAll(hasApartmentAnnouncementId(apartmentAnnouncementId),
-                    rsqlQuery, Sort.by(Sort.Direction.ASC, "fromDt"));
+            apartmentAnnouncementRentTimetables = apartmentAnnouncementRentTimetableRepository
+                    .findAllByApartmentAnnouncementId(
+                            apartmentAnnouncementId, rsqlQuery, Sort.by(Sort.Direction.ASC, "fromDt"));
         } else {
-            apartmentAnnouncementRentTimetables = getAll(hasApartmentAnnouncementId(apartmentAnnouncementId),
-                    rsqlQuery, sortQuery);
+            apartmentAnnouncementRentTimetables = apartmentAnnouncementRentTimetableRepository
+                    .findAllByApartmentAnnouncementId(
+                            apartmentAnnouncementId, rsqlQuery, SortUtil.parseSortQuery(sortQuery));
+        }
+
+        return timetableMapper
+                .toRentTimetableWithoutAnnouncementIdDtoFromApartmentAnnouncementRentTimetable(
+                        apartmentAnnouncementRentTimetables);
+    }
+
+    @Override
+    @Transactional
+    public List<RentTimetableWithoutAnnouncementIdDto> getAllWithOpenStatusByApartmentIdOnlyDateTimesDto(
+            Long apartmentAnnouncementId, String rsqlQuery, String sortQuery
+    ) {
+        List<ApartmentAnnouncementRentTimetable> apartmentAnnouncementRentTimetables;
+
+        if (sortQuery == null) {
+            apartmentAnnouncementRentTimetables = apartmentAnnouncementRentTimetableRepository
+                    .findAllWithOpenStatusByApartmentAnnouncementId(
+                            apartmentAnnouncementId, rsqlQuery, Sort.by(Sort.Direction.ASC, "fromDt"));
+        } else {
+            apartmentAnnouncementRentTimetables = apartmentAnnouncementRentTimetableRepository
+                    .findAllWithOpenStatusByApartmentAnnouncementId(
+                            apartmentAnnouncementId, rsqlQuery, SortUtil.parseSortQuery(sortQuery));
         }
 
         return timetableMapper
@@ -116,13 +139,13 @@ public class ApartmentAnnouncementRentTimetableServiceImpl
 
         if (sortQuery == null) {
             // default sort
-            apartmentAnnouncementRentTimetables = getAll(
-                    hasUserIdOfTenant(userUtil.getCurrentUserId()),
-                    rsqlQuery, Sort.by(Sort.Direction.ASC, "fromDt"));
+            apartmentAnnouncementRentTimetables = apartmentAnnouncementRentTimetableRepository
+                    .findAllByUserIdOfTenant(
+                            userUtil.getCurrentUserId(), rsqlQuery, Sort.by(Sort.Direction.ASC, "fromDt"));
         } else {
-            apartmentAnnouncementRentTimetables = getAll(
-                    hasUserIdOfTenant(userUtil.getCurrentUserId()),
-                    rsqlQuery, sortQuery);
+            apartmentAnnouncementRentTimetables = apartmentAnnouncementRentTimetableRepository
+                    .findAllByUserIdOfTenant(
+                            userUtil.getCurrentUserId(), rsqlQuery, SortUtil.parseSortQuery(sortQuery));
         }
 
         return timetableMapper.toRentTimetableDtoFromApartmentAnnouncementTimetable(
@@ -138,15 +161,15 @@ public class ApartmentAnnouncementRentTimetableServiceImpl
 
         if (sortQuery == null) {
             // default sort
-            apartmentAnnouncementRentTimetables = getAll(
-                    hasUserIdOfTenant(userUtil.getCurrentUserId())
-                            .and(hasApartmentAnnouncementId(apartmentAnnouncementId)),
-                    rsqlQuery, Sort.by(Sort.Direction.ASC, "fromDt"));
+            apartmentAnnouncementRentTimetables = apartmentAnnouncementRentTimetableRepository
+                    .findAllByUserIdOfTenantAndApartmentAnnouncementId(
+                            userUtil.getCurrentUserId(), apartmentAnnouncementId,
+                            rsqlQuery, Sort.by(Sort.Direction.ASC, "fromDt"));
         } else {
-            apartmentAnnouncementRentTimetables = getAll(
-                    hasUserIdOfTenant(userUtil.getCurrentUserId())
-                            .and(hasApartmentAnnouncementId(apartmentAnnouncementId)),
-                    rsqlQuery, sortQuery);
+            apartmentAnnouncementRentTimetables = apartmentAnnouncementRentTimetableRepository
+                    .findAllByUserIdOfTenantAndApartmentAnnouncementId(
+                            userUtil.getCurrentUserId(), apartmentAnnouncementId,
+                            rsqlQuery, SortUtil.parseSortQuery(sortQuery));
         }
 
         return timetableMapper.toRentTimetableWithoutAnnouncementIdDtoFromApartmentAnnouncementRentTimetable(
@@ -162,15 +185,15 @@ public class ApartmentAnnouncementRentTimetableServiceImpl
 
         if (sortQuery == null) {
             // default sort
-            apartmentAnnouncementRentTimetables = getAll(
-                    hasApartmentAnnouncementIdAndUserIdOfOwnerInPropertyItAnnouncement(
-                            apartmentAnnouncementId, userUtil.getCurrentUserId()),
-                    rsqlQuery, Sort.by(Sort.Direction.ASC, "fromDt"));
+            apartmentAnnouncementRentTimetables = apartmentAnnouncementRentTimetableRepository
+                    .findAllByApartmentAnnouncementIdAndUserIdOfOwnerInPropertyItAnnouncement(
+                            apartmentAnnouncementId, userUtil.getCurrentUserId(),
+                            rsqlQuery, Sort.by(Sort.Direction.ASC, "fromDt"));
         } else {
-            apartmentAnnouncementRentTimetables = getAll(
-                    hasApartmentAnnouncementIdAndUserIdOfOwnerInPropertyItAnnouncement(
-                            apartmentAnnouncementId, userUtil.getCurrentUserId()),
-                    rsqlQuery, sortQuery);
+            apartmentAnnouncementRentTimetables = apartmentAnnouncementRentTimetableRepository
+                    .findAllByApartmentAnnouncementIdAndUserIdOfOwnerInPropertyItAnnouncement(
+                            apartmentAnnouncementId, userUtil.getCurrentUserId(),
+                            rsqlQuery, SortUtil.parseSortQuery(sortQuery));
         }
 
         return timetableMapper.toRentTimetableWithoutAnnouncementIdDtoFromApartmentAnnouncementRentTimetable(

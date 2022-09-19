@@ -48,7 +48,8 @@ public class FamilyHouseAnnouncementRentTimetableController {
     }
 
     @ApiOperation(
-            value = ""
+            value = "",
+            authorizations = {@Authorization("ADMIN")}
     )
     @GetMapping("/{familyHouseAnnouncementId}/timetables/rent/only-date-times")
     public List<RentTimetableWithoutAnnouncementIdDto> getAllByFamilyHouseIdOnlyDateTimes(
@@ -56,7 +57,20 @@ public class FamilyHouseAnnouncementRentTimetableController {
             @RequestParam(required = false) String rsqlQuery,
             @RequestParam(required = false) String sortQuery
     ) {
-        return familyHouseAnnouncementRentTimetableService.getAllByFamilyHouseIdForUsersDto(
+        return familyHouseAnnouncementRentTimetableService.getAllByFamilyHouseIdOnlyDateTimesDto(
+                familyHouseAnnouncementId, rsqlQuery, sortQuery);
+    }
+
+    @ApiOperation(
+            value = ""
+    )
+    @GetMapping("/open/{familyHouseAnnouncementId}/timetables/rent/only-date-times")
+    public List<RentTimetableWithoutAnnouncementIdDto> getAllWithOpenStatusByFamilyHouseIdOnlyDateTimes(
+            @PathVariable Long familyHouseAnnouncementId,
+            @RequestParam(required = false) String rsqlQuery,
+            @RequestParam(required = false) String sortQuery
+    ) {
+        return familyHouseAnnouncementRentTimetableService.getAllWithOpenStatusByFamilyHouseIdOnlyDateTimesDto(
                 familyHouseAnnouncementId, rsqlQuery, sortQuery);
     }
 

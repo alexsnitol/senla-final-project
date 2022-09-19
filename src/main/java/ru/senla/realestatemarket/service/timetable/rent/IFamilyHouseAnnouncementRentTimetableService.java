@@ -15,9 +15,11 @@ public interface IFamilyHouseAnnouncementRentTimetableService
     List<RentTimetableWithoutAnnouncementIdAndWithUserIdOfTenantDto> getAllByFamilyHouseIdDto(
             Long familyHouseAnnouncementId, String rsqlQuery, String sortQuery
     );
-    List<RentTimetableWithoutAnnouncementIdDto> getAllByFamilyHouseIdForUsersDto(
+    List<RentTimetableWithoutAnnouncementIdDto> getAllByFamilyHouseIdOnlyDateTimesDto(
             Long familyHouseAnnouncementId, String rsqlQuery, String sortQuery
     );
+    List<RentTimetableWithoutAnnouncementIdDto> getAllWithOpenStatusByFamilyHouseIdOnlyDateTimesDto(
+            Long familyHouseAnnouncementId, String rsqlQuery, String sortQuery);
     List<RentTimetableDto> getAllOfCurrentTenantUserDto(
             String rsqlQuery, String sortQuery);
     List<RentTimetableWithoutAnnouncementIdDto> getAllOfCurrentTenantUserByFamilyHouseAnnouncementIdDto(
@@ -30,5 +32,5 @@ public interface IFamilyHouseAnnouncementRentTimetableService
     void addByFamilyHouseAnnouncementIdWithPayFromCurrentTenantUser(
             RequestRentTimetableDto requestDto, Long familyHouseAnnouncementId
     );
-    
+
 }

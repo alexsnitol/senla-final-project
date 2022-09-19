@@ -104,7 +104,7 @@ class ApartmentAnnouncementTopTimetableUnitTest {
 
 
     @Test
-    void whenGetAllByApartmentIdDto_ThenFindItAllAndReturnUnmappedTimetables() {
+    void whenGetAllByApartmentIdDtoCalled_ThenFindItAllAndReturnUnmappedTimetables() {
         // test timetable list
         List<ApartmentAnnouncementTopTimetable> testTimetableList
                 = List.of(mockedApartmentAnnouncementTopTimetable);
@@ -130,7 +130,7 @@ class ApartmentAnnouncementTopTimetableUnitTest {
     }
 
     @Test
-    void whenGetAllOfCurrentUserByApartmentIdDto_ThenFindItAllAndReturnUnmappedTimetables() {
+    void whenGetAllOfCurrentUserByApartmentIdDtoCalled_ThenFindItAllAndReturnUnmappedTimetables() {
         // test timetable list
         List<ApartmentAnnouncementTopTimetable> testTimetableList
                 = List.of(mockedApartmentAnnouncementTopTimetable);

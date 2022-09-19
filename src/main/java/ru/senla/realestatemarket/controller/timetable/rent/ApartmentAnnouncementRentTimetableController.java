@@ -48,7 +48,8 @@ public class ApartmentAnnouncementRentTimetableController {
     }
 
     @ApiOperation(
-            value = ""
+            value = "",
+            authorizations = {@Authorization("ADMIN")}
     )
     @GetMapping("/{apartmentAnnouncementId}/timetables/rent/only-date-times")
     public List<RentTimetableWithoutAnnouncementIdDto> getAllByApartmentIdOnlyDateTimes(
@@ -56,7 +57,20 @@ public class ApartmentAnnouncementRentTimetableController {
             @RequestParam(required = false) String rsqlQuery,
             @RequestParam(required = false) String sortQuery
     ) {
-        return apartmentAnnouncementRentTimetableService.getAllByApartmentIdForUsersDto(
+        return apartmentAnnouncementRentTimetableService.getAllByApartmentIdOnlyDateTimesDto(
+                apartmentAnnouncementId, rsqlQuery, sortQuery);
+    }
+
+    @ApiOperation(
+            value = ""
+    )
+    @GetMapping("/open/{apartmentAnnouncementId}/timetables/rent/only-date-times")
+    public List<RentTimetableWithoutAnnouncementIdDto> getAllWithOpenStatusByApartmentIdOnlyDateTimes(
+            @PathVariable Long apartmentAnnouncementId,
+            @RequestParam(required = false) String rsqlQuery,
+            @RequestParam(required = false) String sortQuery
+    ) {
+        return apartmentAnnouncementRentTimetableService.getAllWithOpenStatusByApartmentIdOnlyDateTimesDto(
                 apartmentAnnouncementId, rsqlQuery, sortQuery);
     }
 

@@ -1,6 +1,7 @@
 package ru.senla.realestatemarket.repo.timetable.rent.specification;
 
 import org.springframework.data.jpa.domain.Specification;
+import ru.senla.realestatemarket.model.announcement.AnnouncementStatusEnum;
 import ru.senla.realestatemarket.model.announcement.ApartmentAnnouncement;
 import ru.senla.realestatemarket.model.property.ApartmentProperty;
 import ru.senla.realestatemarket.model.timetable.rent.ApartmentAnnouncementRentTimetable;
@@ -9,6 +10,7 @@ import ru.senla.realestatemarket.repo.timetable.specification.GenericTimetableSp
 
 import javax.persistence.criteria.Join;
 import java.time.LocalDateTime;
+import java.util.List;
 
 public class ApartmentAnnouncementRentTimetableSpecification {
 
@@ -65,6 +67,28 @@ public class ApartmentAnnouncementRentTimetableSpecification {
             LocalDateTime from, LocalDateTime to
     ) {
         return GenericTimetableSpecification.concernsTheIntervalBetweenSpecificFromAndTo(from, to);
+    }
+
+    public static Specification<ApartmentAnnouncementRentTimetable> hasStatusInAnnouncement(
+            AnnouncementStatusEnum status
+    ) {
+        return (root, query, criteriaBuilder) -> {
+            Join<ApartmentAnnouncementRentTimetable, ApartmentAnnouncement> announcementJoin
+                    = root.join("announcement");
+
+            return criteriaBuilder.equal(announcementJoin.get("status"), status);
+        };
+    }
+
+    public static Specification<ApartmentAnnouncementRentTimetable> hasStatusesInAnnouncement(
+            List<AnnouncementStatusEnum> statuses
+    ) {
+        return (root, query, criteriaBuilder) -> {
+            Join<ApartmentAnnouncementRentTimetable, ApartmentAnnouncement> announcementJoin
+                    = root.join("announcement");
+
+            return announcementJoin.get("status").in(statuses);
+        };
     }
 
 }

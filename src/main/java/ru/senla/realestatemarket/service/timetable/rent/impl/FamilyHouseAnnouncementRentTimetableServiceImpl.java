@@ -22,16 +22,13 @@ import ru.senla.realestatemarket.repo.user.IUserRepository;
 import ru.senla.realestatemarket.service.helper.EntityHelper;
 import ru.senla.realestatemarket.service.timetable.rent.IFamilyHouseAnnouncementRentTimetableService;
 import ru.senla.realestatemarket.service.user.IBalanceOperationService;
+import ru.senla.realestatemarket.util.SortUtil;
 import ru.senla.realestatemarket.util.UserUtil;
 
 import javax.annotation.PostConstruct;
 import javax.transaction.Transactional;
 import java.time.LocalDateTime;
 import java.util.List;
-
-import static ru.senla.realestatemarket.repo.timetable.rent.specification.FamilyHouseAnnouncementRentTimetableSpecification.hasFamilyHouseAnnouncementId;
-import static ru.senla.realestatemarket.repo.timetable.rent.specification.FamilyHouseAnnouncementRentTimetableSpecification.hasFamilyHouseAnnouncementIdAndUserIdOfOwnerInPropertyItAnnouncement;
-import static ru.senla.realestatemarket.repo.timetable.rent.specification.FamilyHouseAnnouncementRentTimetableSpecification.hasUserIdOfTenant;
 
 @Slf4j
 @Service
@@ -77,11 +74,13 @@ public class FamilyHouseAnnouncementRentTimetableServiceImpl
         List<FamilyHouseAnnouncementRentTimetable> familyHouseAnnouncementRentTimetables;
 
         if (sortQuery == null) {
-            familyHouseAnnouncementRentTimetables = getAll(hasFamilyHouseAnnouncementId(familyHouseAnnouncementId),
-                    rsqlQuery, Sort.by(Sort.Direction.ASC, "fromDt"));
+            familyHouseAnnouncementRentTimetables = familyHouseAnnouncementRentTimetableRepository
+                    .findAllByFamilyHouseAnnouncementId(
+                            familyHouseAnnouncementId, rsqlQuery, Sort.by(Sort.Direction.ASC, "fromDt"));
         } else {
-            familyHouseAnnouncementRentTimetables = getAll(hasFamilyHouseAnnouncementId(familyHouseAnnouncementId),
-                    rsqlQuery, sortQuery);
+            familyHouseAnnouncementRentTimetables = familyHouseAnnouncementRentTimetableRepository
+                    .findAllByFamilyHouseAnnouncementId(
+                            familyHouseAnnouncementId, rsqlQuery, SortUtil.parseSortQuery(sortQuery));
         }
 
         return timetableMapper
@@ -91,17 +90,41 @@ public class FamilyHouseAnnouncementRentTimetableServiceImpl
 
     @Override
     @Transactional
-    public List<RentTimetableWithoutAnnouncementIdDto> getAllByFamilyHouseIdForUsersDto(
+    public List<RentTimetableWithoutAnnouncementIdDto> getAllByFamilyHouseIdOnlyDateTimesDto(
             Long familyHouseAnnouncementId, String rsqlQuery, String sortQuery
     ) {
         List<FamilyHouseAnnouncementRentTimetable> familyHouseAnnouncementRentTimetables;
 
         if (sortQuery == null) {
-            familyHouseAnnouncementRentTimetables = getAll(hasFamilyHouseAnnouncementId(familyHouseAnnouncementId),
-                    rsqlQuery, Sort.by(Sort.Direction.ASC, "fromDt"));
+            familyHouseAnnouncementRentTimetables = familyHouseAnnouncementRentTimetableRepository
+                    .findAllByFamilyHouseAnnouncementId(
+                            familyHouseAnnouncementId, rsqlQuery, Sort.by(Sort.Direction.ASC, "fromDt"));
         } else {
-            familyHouseAnnouncementRentTimetables = getAll(hasFamilyHouseAnnouncementId(familyHouseAnnouncementId),
-                    rsqlQuery, sortQuery);
+            familyHouseAnnouncementRentTimetables = familyHouseAnnouncementRentTimetableRepository
+                    .findAllByFamilyHouseAnnouncementId(
+                            familyHouseAnnouncementId, rsqlQuery, SortUtil.parseSortQuery(sortQuery));
+        }
+
+        return timetableMapper
+                .toRentTimetableWithoutAnnouncementIdDtoFromFamilyHouseAnnouncementRentTimetable(
+                        familyHouseAnnouncementRentTimetables);
+    }
+
+    @Override
+    @Transactional
+    public List<RentTimetableWithoutAnnouncementIdDto> getAllWithOpenStatusByFamilyHouseIdOnlyDateTimesDto(
+            Long familyHouseAnnouncementId, String rsqlQuery, String sortQuery
+    ) {
+        List<FamilyHouseAnnouncementRentTimetable> familyHouseAnnouncementRentTimetables;
+
+        if (sortQuery == null) {
+            familyHouseAnnouncementRentTimetables = familyHouseAnnouncementRentTimetableRepository
+                    .findAllWithOpenStatusByFamilyHouseAnnouncementId(
+                            familyHouseAnnouncementId, rsqlQuery, Sort.by(Sort.Direction.ASC, "fromDt"));
+        } else {
+            familyHouseAnnouncementRentTimetables = familyHouseAnnouncementRentTimetableRepository
+                    .findAllWithOpenStatusByFamilyHouseAnnouncementId(
+                            familyHouseAnnouncementId, rsqlQuery, SortUtil.parseSortQuery(sortQuery));
         }
 
         return timetableMapper
@@ -116,13 +139,13 @@ public class FamilyHouseAnnouncementRentTimetableServiceImpl
 
         if (sortQuery == null) {
             // default sort
-            familyHouseAnnouncementRentTimetables = getAll(
-                    hasUserIdOfTenant(userUtil.getCurrentUserId()),
-                    rsqlQuery, Sort.by(Sort.Direction.ASC, "fromDt"));
+            familyHouseAnnouncementRentTimetables = familyHouseAnnouncementRentTimetableRepository
+                    .findAllByUserIdOfTenant(
+                            userUtil.getCurrentUserId(), rsqlQuery, Sort.by(Sort.Direction.ASC, "fromDt"));
         } else {
-            familyHouseAnnouncementRentTimetables = getAll(
-                    hasUserIdOfTenant(userUtil.getCurrentUserId()),
-                    rsqlQuery, sortQuery);
+            familyHouseAnnouncementRentTimetables = familyHouseAnnouncementRentTimetableRepository
+                    .findAllByUserIdOfTenant(
+                            userUtil.getCurrentUserId(), rsqlQuery, SortUtil.parseSortQuery(sortQuery));
         }
 
         return timetableMapper.toRentTimetableDtoFromFamilyHouseAnnouncementRentTimetable(
@@ -138,15 +161,15 @@ public class FamilyHouseAnnouncementRentTimetableServiceImpl
 
         if (sortQuery == null) {
             // default sort
-            familyHouseAnnouncementRentTimetables = getAll(
-                    hasUserIdOfTenant(userUtil.getCurrentUserId())
-                            .and(hasFamilyHouseAnnouncementId(familyHouseAnnouncementId)),
-                    rsqlQuery, Sort.by(Sort.Direction.ASC, "fromDt"));
+            familyHouseAnnouncementRentTimetables = familyHouseAnnouncementRentTimetableRepository
+                    .findAllByUserIdOfTenantAndFamilyHouseAnnouncementId(
+                            userUtil.getCurrentUserId(), familyHouseAnnouncementId,
+                            rsqlQuery, Sort.by(Sort.Direction.ASC, "fromDt"));
         } else {
-            familyHouseAnnouncementRentTimetables = getAll(
-                    hasUserIdOfTenant(userUtil.getCurrentUserId())
-                            .and(hasFamilyHouseAnnouncementId(familyHouseAnnouncementId)),
-                    rsqlQuery, sortQuery);
+            familyHouseAnnouncementRentTimetables = familyHouseAnnouncementRentTimetableRepository
+                    .findAllByUserIdOfTenantAndFamilyHouseAnnouncementId(
+                            userUtil.getCurrentUserId(), familyHouseAnnouncementId,
+                            rsqlQuery, SortUtil.parseSortQuery(sortQuery));
         }
 
         return timetableMapper.toRentTimetableWithoutAnnouncementIdDtoFromFamilyHouseAnnouncementRentTimetable(
@@ -162,15 +185,15 @@ public class FamilyHouseAnnouncementRentTimetableServiceImpl
 
         if (sortQuery == null) {
             // default sort
-            familyHouseAnnouncementRentTimetables = getAll(
-                    hasFamilyHouseAnnouncementIdAndUserIdOfOwnerInPropertyItAnnouncement(
-                            familyHouseAnnouncementId, userUtil.getCurrentUserId()),
-                    rsqlQuery, Sort.by(Sort.Direction.ASC, "fromDt"));
+            familyHouseAnnouncementRentTimetables = familyHouseAnnouncementRentTimetableRepository
+                    .findAllByFamilyHouseAnnouncementIdAndUserIdOfOwnerInPropertyItAnnouncement(
+                            familyHouseAnnouncementId, userUtil.getCurrentUserId(),
+                            rsqlQuery, Sort.by(Sort.Direction.ASC, "fromDt"));
         } else {
-            familyHouseAnnouncementRentTimetables = getAll(
-                    hasFamilyHouseAnnouncementIdAndUserIdOfOwnerInPropertyItAnnouncement(
-                            familyHouseAnnouncementId, userUtil.getCurrentUserId()),
-                    rsqlQuery, sortQuery);
+            familyHouseAnnouncementRentTimetables = familyHouseAnnouncementRentTimetableRepository
+                    .findAllByFamilyHouseAnnouncementIdAndUserIdOfOwnerInPropertyItAnnouncement(
+                            familyHouseAnnouncementId, userUtil.getCurrentUserId(),
+                            rsqlQuery, SortUtil.parseSortQuery(sortQuery));
         }
 
         return timetableMapper.toRentTimetableWithoutAnnouncementIdDtoFromFamilyHouseAnnouncementRentTimetable(

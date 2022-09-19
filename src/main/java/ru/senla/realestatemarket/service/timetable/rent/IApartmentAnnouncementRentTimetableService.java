@@ -16,9 +16,11 @@ public interface IApartmentAnnouncementRentTimetableService
     List<RentTimetableWithoutAnnouncementIdAndWithUserIdOfTenantDto> getAllByApartmentIdDto(
             Long apartmentAnnouncementId, String rsqlQuery, String sortQuery
     );
-    List<RentTimetableWithoutAnnouncementIdDto> getAllByApartmentIdForUsersDto(
+    List<RentTimetableWithoutAnnouncementIdDto> getAllByApartmentIdOnlyDateTimesDto(
             Long apartmentAnnouncementId, String rsqlQuery, String sortQuery
     );
+    List<RentTimetableWithoutAnnouncementIdDto> getAllWithOpenStatusByApartmentIdOnlyDateTimesDto(
+            Long apartmentAnnouncementId, String rsqlQuery, String sortQuery);
     List<RentTimetableDto> getAllOfCurrentTenantUserDto(
             String rsqlQuery, String sortQuery);
     List<RentTimetableWithoutAnnouncementIdDto> getAllOfCurrentTenantUserByApartmentAnnouncementIdDto(
