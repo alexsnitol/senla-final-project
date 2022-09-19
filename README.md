@@ -12,8 +12,8 @@ First version published: 19.09.2022
 Main tasks which resolve this project:
 * User registration in the system
 * Profile editing
-* View list of announcements with search and filter
-* Ability to adding / editing / deleting announcements
+* View a list of announcements with searched, multi filters and sorting
+* Ability to add / editing / deleting announcements
 * Possibility to leave reviews under the owner's profile
 * Owner rating system that affects the position of the owner's listings in search results. The lower the rating, the lower the ad in the search results
 * Chat for clients with owners of announcements
@@ -31,7 +31,7 @@ This application supports the following types of real estate:
 This system was developed using:
 * Java 11
 * Gradle
-* Spring Framework 5 (webmvc, data, security, aop validator, and other, see project dependencies),
+* Spring Framework 5 (webmvc, data, security, aop validator, and others)
 * Hibernate 5.6
 * Servlet 4
 * JWT
@@ -40,7 +40,8 @@ This system was developed using:
 * MapStruct 1.5
 * SpringFox 3 Swagger
 * LogBack 1.2
-* and other
+* SonarLint
+* and others, see project dependencies
 
 As storage data using PostgreSQL 10.
 
@@ -60,7 +61,9 @@ All completed resources for deploy this project located in the *deploy* folder:
 > ️**ATTENTION**\
 > Before building the project, configure `persistence.xml` for your database. Particularly for docker-compose you need to replace `localhost` on name of container default is `database`. 
 
-### Testing
+### Usage
 For manually testing this system and getting more information of all endpoints and details of request bodies and responses, you can use Swagger UI. You may open it from the link `http://your-host/swagger-ui/index.html`. For example `http://localhost:8080/real-estate-market/swagger-ui/index.html`.
 
 And also, I uploaded Insomnia config files to _insomnia_ folder.
+
+The vast majority of GET queries have the ability to filter and sort, for **filtering**, using RSQL: `?q=rsql-expression` ([template of queries look here](https://github.com/jirutka/rsql-parser)), but for **sorting** using following template: `?sort=field1,direction;field2,direction` or `?sort=field,direction`.
