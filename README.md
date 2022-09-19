@@ -1,13 +1,13 @@
-# Documentation for application Real estate market
+## Description of application Real Estate Market
 
 This project was developed as a final work after the Java courses for web developers from SENLA.
 
-All diagrams this project located in the *diagram* folder.
+Start of development: 09.08.2022 \
+First version published: 19.09.2022
 
-All completed resources for deploy this project located in the *deploy* folder:
-* `deploy.bat` and `deploy_with_dab.bat` build project and deployed it into tomcat: coping `war` on webapps and start server
-* In *database* folder located sql init scripts for PostgreSQL, there is also a `bat` script for an init database on Windows
-* In *docker* folder located `docker-compose.yml` which contains all settings, there is also contains docker folder wherein separate `Dockerfile`
+**Real Estate Market** is **REST API** application which allows us to sell real estate and rent out.
+
+### Features
 
 Main tasks which resolve this project:
 * User registration in the system
@@ -21,5 +21,43 @@ Main tasks which resolve this project:
 * History of closed owner announcements
 * Possibility of buying or renting real estate
 
-For more information on all endpoints and details of request bodies and responses the project supports Swagger UI,
-you can open it from the link `*/swagger-ui/index.html`.
+This application supports the following types of real estate:
+* Apartment
+* Family house
+* Land
+
+### Dependencies
+
+This system was developed using:
+* Java 11
+* Gradle
+* Spring Framework 5 (webmvc, data, security, aop validator, and other, see project dependencies),
+* Hibernate 5.6
+* Servlet 4
+* JWT
+* RSQL 2
+* Lombok
+* MapStruct 1.5
+* SpringFox 3 Swagger
+* LogBack 1.2
+* and other
+
+As storage data using PostgreSQL 10.
+
+The following used to unit testing of the system:
+* Junit Jupiter 5.9
+* Mockito
+
+### Deploying
+
+All diagrams this project located in the *diagram* folder.
+
+All completed resources for deploy this project located in the *deploy* folder:
+* `deploy.bat` and `deploy_with_dab.bat` build project and deployed it into tomcat: coping `war` on webapps and start server
+* In *database* folder located sql init scripts for PostgreSQL, there is also a `bat` script for an init database on Windows
+* In *docker* folder located `docker-compose.yml` which contains all settings, there is also contains docker folder wherein separate `Dockerfile`
+
+### Testing
+For manually testing this system and getting more information of all endpoints and details of request bodies and responses, you can use Swagger UI. You may open it from the link `http://your-host/swagger-ui/index.html`. For example `http://localhost:8080/real-estate-market/swagger-ui/index.html`.
+
+And also, I uploaded Insomnia config files to _insomnia_ folder.
