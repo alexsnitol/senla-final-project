@@ -22,9 +22,9 @@ Main tasks which resolve this project:
 * Possibility of buying or renting real estate
 
 This application supports the following types of real estate:
-* Apartment
-* Family house
-* Land
+* 🏙️ Apartment
+* 🏠 Family house
+* 🌳 Land 
 
 ### Dependencies
 
@@ -56,6 +56,9 @@ All completed resources for deploy this project located in the *deploy* folder:
 * `deploy.bat` and `deploy_with_dab.bat` build project and deployed it into tomcat: coping `war` on webapps and start server
 * In *database* folder located sql init scripts for PostgreSQL, there is also a `bat` script for an init database on Windows
 * In *docker* folder located `docker-compose.yml` which contains all settings, there is also contains docker folder wherein separate `Dockerfile`
+
+> ️**ATTENTION**\
+> Before building the project, configure `persistence.xml` for your database. Particularly for docker-compose you need to replace `localhost` on name of container default is `database`. 
 
 ### Testing
 For manually testing this system and getting more information of all endpoints and details of request bodies and responses, you can use Swagger UI. You may open it from the link `http://your-host/swagger-ui/index.html`. For example `http://localhost:8080/real-estate-market/swagger-ui/index.html`.
