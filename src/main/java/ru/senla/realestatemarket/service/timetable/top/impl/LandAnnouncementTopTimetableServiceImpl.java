@@ -129,7 +129,7 @@ public class LandAnnouncementTopTimetableServiceImpl
         LocalDateTime specificFromDt = landAnnouncementTopTimetable.getFromDt();
         LocalDateTime specificToDt = landAnnouncementTopTimetable.getToDt();
 
-        checkForSpecificFromAndToHaveZerosMinutesAndSecondsAndNanoSeconds(specificFromDt, specificToDt);
+        validateInterval(specificFromDt, specificToDt);
 
         List<LandAnnouncementTopTimetable> finalIntervalsOfLandAnnouncementTopTimetables
                 = getIntervalsOfTimetablesByLandAnnouncement(
@@ -156,7 +156,7 @@ public class LandAnnouncementTopTimetableServiceImpl
         LocalDateTime specificFromDt = landAnnouncementTopTimetable.getFromDt();
         LocalDateTime specificToDt = landAnnouncementTopTimetable.getToDt();
 
-        checkForSpecificFromAndToHaveZerosMinutesAndSecondsAndNanoSeconds(specificFromDt, specificToDt);
+        validateInterval(specificFromDt, specificToDt);
 
         List<LandAnnouncementTopTimetable> finalIntervalsOfLandAnnouncementTopTimetables
                 = getIntervalsOfTimetablesByLandAnnouncement(

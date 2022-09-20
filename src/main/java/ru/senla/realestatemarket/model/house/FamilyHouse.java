@@ -50,12 +50,11 @@ public class FamilyHouse extends House {
             return false;
         }
         FamilyHouse that = (FamilyHouse) o;
-        return Objects.equals(getSwimmingPool(), that.getSwimmingPool())
-                && Objects.equals(getProperty(), that.getProperty());
+        return Objects.equals(getSwimmingPool(), that.getSwimmingPool());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(super.hashCode(), getSwimmingPool(), getProperty());
+        return Objects.hash(super.hashCode(), getSwimmingPool());
     }
 }

@@ -18,13 +18,12 @@ import ru.senla.realestatemarket.repo.announcement.specification.GenericAnnounce
 import ru.senla.realestatemarket.repo.property.IApartmentPropertyRepository;
 import ru.senla.realestatemarket.service.announcement.IApartmentAnnouncementService;
 import ru.senla.realestatemarket.service.helper.EntityHelper;
+import ru.senla.realestatemarket.util.SearchQueryUtil;
 import ru.senla.realestatemarket.util.UserUtil;
 
 import javax.annotation.PostConstruct;
 import javax.transaction.Transactional;
-import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import static ru.senla.realestatemarket.repo.announcement.specification.ApartmentAnnouncementSpecification.hasStatuses;
 import static ru.senla.realestatemarket.repo.announcement.specification.GenericAnnouncementSpecification.hasIdAndUserIdOfOwnerInProperty;
@@ -191,6 +190,25 @@ public class ApartmentAnnouncementServiceImpl
 
     @Override
     @Transactional
+    public List<ApartmentAnnouncementDto> getAllByKeyWords(String keyWords) {
+        List<String> keyWordsSplit = SearchQueryUtil.getKeyWordsSpit(keyWords);
+
+        return apartmentAnnouncementMapper.toApartmentAnnouncementDto(
+                apartmentAnnouncementRepository.findAllInTheTextFieldsOfWhichContainsTheKeys(keyWordsSplit));
+    }
+
+    @Override
+    @Transactional
+    public List<ApartmentAnnouncementDto> getAllWithOpenStatusByKeyWords(String keyWords) {
+        List<String> keyWordsSplit = SearchQueryUtil.getKeyWordsSpit(keyWords);
+
+        return apartmentAnnouncementMapper.toApartmentAnnouncementDto(
+                apartmentAnnouncementRepository.findAllWithOpenStatusInTheTextFieldsOfWhichContainsTheKeys(
+                        keyWordsSplit));
+    }
+
+    @Override
+    @Transactional
     public void updateFromDtoById(UpdateRequestApartmentAnnouncementDto updateRequestDto, Long id) {
         ApartmentAnnouncement apartmentAnnouncement = getById(id);
 
@@ -207,22 +225,15 @@ public class ApartmentAnnouncementServiceImpl
 
 
         Long apartmentPropertyId = updateRequestDto.getApartmentPropertyId();
-        ApartmentProperty apartmentProperty = apartmentPropertyRepository.findById(apartmentPropertyId);
-        EntityHelper.checkEntityOnNull(apartmentProperty, ApartmentProperty.class, apartmentPropertyId);
+        if (apartmentPropertyId != null) {
+            ApartmentProperty apartmentProperty = apartmentPropertyRepository.findById(apartmentPropertyId);
+            EntityHelper.checkEntityOnNull(apartmentProperty, ApartmentProperty.class, apartmentPropertyId);
 
-        validateAccessCurrentUserToProperty(apartmentProperty);
+            validateAccessCurrentUserToProperty(apartmentProperty);
+        }
 
 
         updateFromDto(updateRequestDto, apartmentAnnouncement);
-    }
-
-    @Override
-    @Transactional
-    public List<ApartmentAnnouncementDto> getAllByKeyWords(String keyWords) {
-        List<String> keyWordsSplit = Arrays.stream(keyWords.split(",")).collect(Collectors.toList());
-
-        return apartmentAnnouncementMapper.toApartmentAnnouncementDto(
-                apartmentAnnouncementRepository.findAllInTheTextFieldsOfWhichContainsTheKeys(keyWordsSplit));
     }
 
     private void updateFromDto(

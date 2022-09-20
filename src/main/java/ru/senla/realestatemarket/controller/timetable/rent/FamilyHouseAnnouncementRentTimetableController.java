@@ -134,15 +134,33 @@ public class FamilyHouseAnnouncementRentTimetableController {
 
     @ApiOperation(
             value = "",
-            authorizations = {@Authorization("Authorized user")}
+            authorizations = {@Authorization("ADMIN")}
     )
     @PostMapping("/{familyHouseAnnouncementId}/timetables/rent/tenants/current")
     public ResponseEntity<RestResponseDto> addByFamilyHouseIdWithPayFromCurrentTenantUser(
             @PathVariable Long familyHouseAnnouncementId,
             @RequestBody @Valid RequestRentTimetableDto requestRentTimetableDto
     ) {
-        familyHouseAnnouncementRentTimetableService.addByFamilyHouseAnnouncementIdWithPayFromCurrentTenantUser(
+        familyHouseAnnouncementRentTimetableService.addByFamilyHouseAnnouncementIdAndPayFromCurrentTenantUser(
                 requestRentTimetableDto, familyHouseAnnouncementId);
+
+        return new ResponseEntity<>(new RestResponseDto(
+                "FamilyHouse announcement rent timetable has been added",
+                HttpStatus.CREATED.value()), HttpStatus.CREATED);
+    }
+
+    @ApiOperation(
+            value = "",
+            authorizations = {@Authorization("Authorized user")}
+    )
+    @PostMapping("/open/{familyHouseAnnouncementId}/timetables/rent/tenants/current")
+    public ResponseEntity<RestResponseDto> addByFamilyHouseAnnouncementIdWithOpenStatusAndPayFromCurrentTenantUser(
+            @PathVariable Long familyHouseAnnouncementId,
+            @RequestBody @Valid RequestRentTimetableDto requestRentTimetableDto
+    ) {
+        familyHouseAnnouncementRentTimetableService
+                .addByFamilyHouseAnnouncementIdWithOpenStatusAndPayFromCurrentTenantUser(
+                        requestRentTimetableDto, familyHouseAnnouncementId);
 
         return new ResponseEntity<>(new RestResponseDto(
                 "FamilyHouse announcement rent timetable has been added",

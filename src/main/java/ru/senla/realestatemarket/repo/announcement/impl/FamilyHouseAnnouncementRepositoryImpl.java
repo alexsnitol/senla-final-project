@@ -1,11 +1,13 @@
 package ru.senla.realestatemarket.repo.announcement.impl;
 
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Repository;
 import ru.senla.realestatemarket.model.address.Address;
 import ru.senla.realestatemarket.model.address.City;
 import ru.senla.realestatemarket.model.address.Region;
 import ru.senla.realestatemarket.model.address.Street;
+import ru.senla.realestatemarket.model.announcement.AnnouncementStatusEnum;
 import ru.senla.realestatemarket.model.announcement.FamilyHouseAnnouncement;
 import ru.senla.realestatemarket.model.house.FamilyHouse;
 import ru.senla.realestatemarket.model.property.FamilyHouseProperty;
@@ -20,6 +22,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import static ru.senla.realestatemarket.repo.announcement.specification.FamilyHouseAnnouncementSpecification.hasId;
+import static ru.senla.realestatemarket.repo.announcement.specification.FamilyHouseAnnouncementSpecification.hasStatus;
 import static ru.senla.realestatemarket.repo.announcement.specification.FamilyHouseAnnouncementSpecification.hasUserIdOfOwnerInProperty;
 
 @Slf4j
@@ -33,9 +36,23 @@ public class FamilyHouseAnnouncementRepositoryImpl
         setClazz(FamilyHouseAnnouncement.class);
     }
 
-    
+
+    @Override
+    public List<FamilyHouseAnnouncement> findAllWithOpenStatusInTheTextFieldsOfWhichContainsTheKeys(
+            List<String> searchKeys
+    ) {
+        return findAllInTheTextFieldsOfWhichContainsTheKeys(
+                hasStatus(AnnouncementStatusEnum.OPEN), searchKeys);
+    }
+
     @Override
     public List<FamilyHouseAnnouncement> findAllInTheTextFieldsOfWhichContainsTheKeys(List<String> searchKeys) {
+        return findAllInTheTextFieldsOfWhichContainsTheKeys(null, searchKeys);
+    }
+
+    private List<FamilyHouseAnnouncement> findAllInTheTextFieldsOfWhichContainsTheKeys(
+            Specification<FamilyHouseAnnouncement> specification, List<String> searchKeys
+    ) {
         CriteriaQuery<FamilyHouseAnnouncement> criteriaQuery
                 = criteriaBuilder.createQuery(FamilyHouseAnnouncement.class);
 
@@ -71,20 +88,20 @@ public class FamilyHouseAnnouncementRepositoryImpl
             );
         }
 
-        criteriaQuery
-                .select(announcementRoot)
-                .distinct(true)
-                .where(
-                        criteriaBuilder.or(likePredicates.toArray(new Predicate[0]))
-                );
-
-        return entityManager.createQuery(criteriaQuery).getResultList();
+        return findAllBySpecificationAndLikePredicates(specification, likePredicates, criteriaQuery, announcementRoot);
     }
 
     @Override
     public FamilyHouseAnnouncement findByIdAndUserIdOfOwnerInProperty(Long id, Long userIdOfOwner) {
         return findOne(hasId(id)
                 .and(hasUserIdOfOwnerInProperty(userIdOfOwner)));
+    }
+
+    @Override
+    public FamilyHouseAnnouncement findByIdWithStatus(Long id, AnnouncementStatusEnum status) {
+        return findOne(hasId(id)
+                .and(hasStatus(status))
+        );
     }
 
 }

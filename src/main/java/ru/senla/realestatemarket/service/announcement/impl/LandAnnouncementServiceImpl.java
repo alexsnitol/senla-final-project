@@ -18,13 +18,12 @@ import ru.senla.realestatemarket.repo.announcement.specification.LandAnnouncemen
 import ru.senla.realestatemarket.repo.property.ILandPropertyRepository;
 import ru.senla.realestatemarket.service.announcement.ILandAnnouncementService;
 import ru.senla.realestatemarket.service.helper.EntityHelper;
+import ru.senla.realestatemarket.util.SearchQueryUtil;
 import ru.senla.realestatemarket.util.UserUtil;
 
 import javax.annotation.PostConstruct;
 import javax.transaction.Transactional;
-import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import static ru.senla.realestatemarket.repo.announcement.specification.GenericAnnouncementSpecification.hasIdAndUserIdOfOwnerInProperty;
 import static ru.senla.realestatemarket.repo.announcement.specification.LandAnnouncementSpecification.hasUserIdOfOwnerInProperty;
@@ -142,10 +141,20 @@ public class LandAnnouncementServiceImpl
     @Override
     @Transactional
     public List<LandAnnouncementDto> getAllByKeyWords(String keyWords) {
-        List<String> keyWordsSplit = Arrays.stream(keyWords.split(",")).collect(Collectors.toList());
+        List<String> keyWordsSplit = SearchQueryUtil.getKeyWordsSpit(keyWords);
 
         return landAnnouncementMapper.toLandAnnouncementDto(
                 landAnnouncementRepository.findAllInTheTextFieldsOfWhichContainsTheKeys(keyWordsSplit));
+    }
+
+    @Override
+    @Transactional
+    public List<LandAnnouncementDto> getAllWithOpenStatusByKeyWords(String keyWords) {
+        List<String> keyWordsSplit = SearchQueryUtil.getKeyWordsSpit(keyWords);
+
+        return landAnnouncementMapper.toLandAnnouncementDto(
+                landAnnouncementRepository.findAllWithOpenStatusInTheTextFieldsOfWhichContainsTheKeys(
+                        keyWordsSplit));
     }
 
     @Override
@@ -212,10 +221,12 @@ public class LandAnnouncementServiceImpl
 
 
         Long landPropertyId = updateRequestDto.getLandPropertyId();
-        LandProperty landProperty = landPropertyRepository.findById(landPropertyId);
-        EntityHelper.checkEntityOnNull(landProperty, LandProperty.class, landPropertyId);
+        if (landPropertyId != null) {
+            LandProperty landProperty = landPropertyRepository.findById(landPropertyId);
+            EntityHelper.checkEntityOnNull(landProperty, LandProperty.class, landPropertyId);
 
-        validateAccessCurrentUserToProperty(landProperty);
+            validateAccessCurrentUserToProperty(landProperty);
+        }
 
 
         updateFromDto(updateRequestDto, landAnnouncement);

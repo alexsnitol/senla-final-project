@@ -133,7 +133,7 @@ public class FamilyHouseAnnouncementTopTimetableServiceImpl
         LocalDateTime specificFromDt = familyHouseAnnouncementTopTimetable.getFromDt();
         LocalDateTime specificToDt = familyHouseAnnouncementTopTimetable.getToDt();
 
-        checkForSpecificFromAndToHaveZerosMinutesAndSecondsAndNanoSeconds(specificFromDt, specificToDt);
+        validateInterval(specificFromDt, specificToDt);
 
         List<FamilyHouseAnnouncementTopTimetable> finalIntervalsOfFamilyHouseAnnouncementTopTimetables
                 = getIntervalsOfTimetablesByFamilyHouseAnnouncement(
@@ -161,7 +161,7 @@ public class FamilyHouseAnnouncementTopTimetableServiceImpl
         LocalDateTime specificFromDt = familyHouseAnnouncementTopTimetable.getFromDt();
         LocalDateTime specificToDt = familyHouseAnnouncementTopTimetable.getToDt();
 
-        checkForSpecificFromAndToHaveZerosMinutesAndSecondsAndNanoSeconds(specificFromDt, specificToDt);
+        validateInterval(specificFromDt, specificToDt);
 
         List<FamilyHouseAnnouncementTopTimetable> finalIntervalsOfFamilyHouseAnnouncementTopTimetables
                 = getIntervalsOfTimetablesByFamilyHouseAnnouncement(

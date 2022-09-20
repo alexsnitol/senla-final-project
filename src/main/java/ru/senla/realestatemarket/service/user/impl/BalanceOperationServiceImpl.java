@@ -126,7 +126,7 @@ public class BalanceOperationServiceImpl
         if (sum < 0 && user.getBalance() < -sum) {
             String message = String.format(
                     "User with id %s not enough money for this operation. Not enough %s.",
-                    user.getId(), user.getBalance() * -1);
+                    user.getId(), (user.getBalance() + sum) * -1);
 
             log.error(message);
             throw new OnSpecificUserNotEnoughMoneyException(message);

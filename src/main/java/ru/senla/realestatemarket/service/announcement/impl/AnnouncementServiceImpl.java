@@ -15,6 +15,7 @@ import ru.senla.realestatemarket.repo.announcement.IFamilyHouseAnnouncementRepos
 import ru.senla.realestatemarket.repo.announcement.ILandAnnouncementRepository;
 import ru.senla.realestatemarket.repo.announcement.specification.GenericAnnouncementSpecification;
 import ru.senla.realestatemarket.service.announcement.IAnnouncementService;
+import ru.senla.realestatemarket.util.SearchQueryUtil;
 import ru.senla.realestatemarket.util.UserUtil;
 
 import javax.annotation.PostConstruct;
@@ -89,6 +90,30 @@ public class AnnouncementServiceImpl
 
         List<LandAnnouncement> landAnnouncements = landAnnouncementRepository
                 .findAllInTheTextFieldsOfWhichContainsTheKeys(keyWordsSplit);
+
+        List<Announcement> finalAnnouncements = new LinkedList<>();
+        finalAnnouncements.addAll(apartmentAnnouncements);
+        finalAnnouncements.addAll(familyHouseAnnouncements);
+        finalAnnouncements.addAll(landAnnouncements);
+
+        Collections.shuffle(finalAnnouncements);
+
+        return announcementMapper.toAnnouncementDtoWithMappedInheritors(finalAnnouncements);
+    }
+
+    @Override
+    @Transactional
+    public List<AnnouncementDto> getAllWithOpenStatusByKeyWords(String keyWords) {
+        List<String> keyWordsSplit = SearchQueryUtil.getKeyWordsSpit(keyWords);
+
+        List<ApartmentAnnouncement> apartmentAnnouncements = apartmentAnnouncementRepository
+                .findAllWithOpenStatusInTheTextFieldsOfWhichContainsTheKeys(keyWordsSplit);
+
+        List<FamilyHouseAnnouncement> familyHouseAnnouncements = familyHouseAnnouncementRepository
+                .findAllWithOpenStatusInTheTextFieldsOfWhichContainsTheKeys(keyWordsSplit);
+
+        List<LandAnnouncement> landAnnouncements = landAnnouncementRepository
+                .findAllWithOpenStatusInTheTextFieldsOfWhichContainsTheKeys(keyWordsSplit);
 
         List<Announcement> finalAnnouncements = new LinkedList<>();
         finalAnnouncements.addAll(apartmentAnnouncements);

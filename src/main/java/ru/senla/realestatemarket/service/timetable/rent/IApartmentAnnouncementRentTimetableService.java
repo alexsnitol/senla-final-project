@@ -30,8 +30,10 @@ public interface IApartmentAnnouncementRentTimetableService
 
     void addByApartmentAnnouncementIdWithoutPay(
             RequestRentTimetableWithUserIdOfTenantDto requestDto, Long apartmentAnnouncementId);
-    void addByApartmentAnnouncementIdWithPayFromCurrentTenantUser(
-            RequestRentTimetableDto requestDto, Long apartmentAnnouncementId
-    );
+
+    void addByApartmentAnnouncementIdWithOpenStatusAndPayFromCurrentTenantUser(
+            RequestRentTimetableDto requestDto, Long apartmentAnnouncementId);
+    void addByApartmentAnnouncementIdAndPayFromCurrentTenantUser(
+            RequestRentTimetableDto requestDto, Long apartmentAnnouncementId);
 
 }

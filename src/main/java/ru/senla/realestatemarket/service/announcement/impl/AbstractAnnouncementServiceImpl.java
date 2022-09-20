@@ -46,10 +46,13 @@ public abstract class AbstractAnnouncementServiceImpl<M extends Announcement>
             AnnouncementStatusEnum oldAnnouncementStatus = announcement.getStatus();
 
             if (oldAnnouncementStatus != AnnouncementStatusEnum.CLOSED
-                    && newAnnouncementStatus == AnnouncementStatusEnum.CLOSED) {
+                    && newAnnouncementStatus == AnnouncementStatusEnum.CLOSED
+            ) {
                 announcement.setClosedDt(LocalDateTime.now());
+
             } else if (oldAnnouncementStatus == AnnouncementStatusEnum.CLOSED
-                    && newAnnouncementStatus != AnnouncementStatusEnum.CLOSED) {
+                    && newAnnouncementStatus != AnnouncementStatusEnum.CLOSED
+            ) {
                 announcement.setClosedDt(null);
             }
         }

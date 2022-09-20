@@ -57,13 +57,12 @@ public class ApartmentAnnouncement extends HousingAnnouncement {
             return false;
         }
         ApartmentAnnouncement that = (ApartmentAnnouncement) o;
-        return Objects.equals(getProperty(), that.getProperty())
-                && Objects.equals(getTop(), that.getTop());
+        return Objects.equals(getProperty(), that.getProperty());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(super.hashCode(), getProperty(), getTop());
+        return Objects.hash(super.hashCode(), getProperty());
     }
 
 }

@@ -9,6 +9,7 @@ import ru.senla.realestatemarket.dto.timetable.RentTimetableWithoutAnnouncementI
 import ru.senla.realestatemarket.dto.timetable.RequestRentTimetableDto;
 import ru.senla.realestatemarket.dto.timetable.RequestRentTimetableWithUserIdOfTenantDto;
 import ru.senla.realestatemarket.mapper.timetable.rent.ApartmentAnnouncementRentTimetableMapper;
+import ru.senla.realestatemarket.model.announcement.AnnouncementStatusEnum;
 import ru.senla.realestatemarket.model.announcement.ApartmentAnnouncement;
 import ru.senla.realestatemarket.model.purchase.rent.ApartmentAnnouncementRentPurchase;
 import ru.senla.realestatemarket.model.timetable.rent.ApartmentAnnouncementRentTimetable;
@@ -225,7 +226,7 @@ public class ApartmentAnnouncementRentTimetableServiceImpl
         LocalDateTime specificFromDt = timetable.getFromDt();
         LocalDateTime specificToDt = timetable.getToDt();
 
-        validateIntervalToAnnouncementType(apartmentAnnouncement, specificFromDt, specificToDt);
+        validateInterval(apartmentAnnouncement, specificFromDt, specificToDt);
 
         checkForRecordsInSpecificIntervalExcludingIntervalItself(specificFromDt, specificToDt);
 
@@ -234,12 +235,31 @@ public class ApartmentAnnouncementRentTimetableServiceImpl
 
     @Override
     @Transactional
-    public void addByApartmentAnnouncementIdWithPayFromCurrentTenantUser(
+    public void addByApartmentAnnouncementIdWithOpenStatusAndPayFromCurrentTenantUser(
+            RequestRentTimetableDto requestDto, Long apartmentAnnouncementId
+    ) {
+        ApartmentAnnouncement apartmentAnnouncement = apartmentAnnouncementRepository.findByIdWithStatus(
+                apartmentAnnouncementId, AnnouncementStatusEnum.OPEN
+        );
+        EntityHelper.checkEntityOnNull(apartmentAnnouncement, ApartmentAnnouncement.class, apartmentAnnouncementId);
+
+        addByApartmentAnnouncementWithPayFromCurrentTenantUser(requestDto, apartmentAnnouncement);
+    }
+
+    @Override
+    @Transactional
+    public void addByApartmentAnnouncementIdAndPayFromCurrentTenantUser(
             RequestRentTimetableDto requestDto, Long apartmentAnnouncementId
     ) {
         ApartmentAnnouncement apartmentAnnouncement = apartmentAnnouncementRepository.findById(apartmentAnnouncementId);
         EntityHelper.checkEntityOnNull(apartmentAnnouncement, ApartmentAnnouncement.class, apartmentAnnouncementId);
 
+        addByApartmentAnnouncementWithPayFromCurrentTenantUser(requestDto, apartmentAnnouncement);
+    }
+
+    private void addByApartmentAnnouncementWithPayFromCurrentTenantUser(
+            RequestRentTimetableDto requestDto, ApartmentAnnouncement apartmentAnnouncement
+    ) {
         ApartmentAnnouncementRentTimetable timetable
                 = timetableMapper.toApartmentAnnouncementRentTimetable(requestDto);
 
@@ -253,7 +273,8 @@ public class ApartmentAnnouncementRentTimetableServiceImpl
         LocalDateTime specificFromDt = timetable.getFromDt();
         LocalDateTime specificToDt = timetable.getToDt();
 
-        validateIntervalToAnnouncementType(apartmentAnnouncement, specificFromDt, specificToDt);
+
+        validateInterval(apartmentAnnouncement, specificFromDt, specificToDt);
 
         checkForRecordsInSpecificIntervalExcludingIntervalItself(specificFromDt, specificToDt);
 

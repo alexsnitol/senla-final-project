@@ -16,6 +16,7 @@ public interface IFamilyHouseAnnouncementService
             Long useIdOfOwner, String rsqlQuery, String sortQuery);
     List<FamilyHouseAnnouncementDto> getAllDtoOfCurrentUser(String rsqlQuery, String sortQuery);
     List<FamilyHouseAnnouncementDto> getAllByKeyWords(String keyWords);
+    List<FamilyHouseAnnouncementDto> getAllWithOpenStatusByKeyWords(String keyWords);
 
     FamilyHouseAnnouncementDto getDtoById(Long id);
     FamilyHouseAnnouncementDto getByIdWithOpenStatusDto(Long id);
@@ -27,5 +28,4 @@ public interface IFamilyHouseAnnouncementService
     void updateById(UpdateRequestFamilyHouseAnnouncementDto updateRequestFamilyHouseAnnouncementDto, Long id);
     void updateByIdFromCurrentUser(UpdateRequestFamilyHouseAnnouncementDto updateRequestFamilyHouseAnnouncementDto,
                                    Long id);
-
 }

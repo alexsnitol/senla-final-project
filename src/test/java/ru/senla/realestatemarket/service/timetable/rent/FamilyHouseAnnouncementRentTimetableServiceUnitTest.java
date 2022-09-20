@@ -578,7 +578,7 @@ class FamilyHouseAnnouncementRentTimetableServiceUnitTest {
 
 
 
-        familyHouseAnnouncementRentTimetableService.addByFamilyHouseAnnouncementIdWithPayFromCurrentTenantUser(
+        familyHouseAnnouncementRentTimetableService.addByFamilyHouseAnnouncementIdAndPayFromCurrentTenantUser(
                 mockedRequestRentTimetableDto, 1L);
 
 
@@ -676,7 +676,7 @@ class FamilyHouseAnnouncementRentTimetableServiceUnitTest {
 
 
         assertThrows(SpecificIntervalIsNotDailyException.class, () -> familyHouseAnnouncementRentTimetableService
-                .addByFamilyHouseAnnouncementIdWithPayFromCurrentTenantUser(
+                .addByFamilyHouseAnnouncementIdAndPayFromCurrentTenantUser(
                         mockedRequestRentTimetableDto, 1L));
 
 
@@ -756,7 +756,7 @@ class FamilyHouseAnnouncementRentTimetableServiceUnitTest {
 
 
         assertThrows(SpecificIntervalIsNotMonthlyException.class, () -> familyHouseAnnouncementRentTimetableService
-                .addByFamilyHouseAnnouncementIdWithPayFromCurrentTenantUser(
+                .addByFamilyHouseAnnouncementIdAndPayFromCurrentTenantUser(
                         mockedRequestRentTimetableDto, 1L));
 
 
@@ -835,7 +835,7 @@ class FamilyHouseAnnouncementRentTimetableServiceUnitTest {
 
 
 
-        assertThrows(InSpecificIntervalExistRecordsException.class, () -> familyHouseAnnouncementRentTimetableService.addByFamilyHouseAnnouncementIdWithPayFromCurrentTenantUser(
+        assertThrows(InSpecificIntervalExistRecordsException.class, () -> familyHouseAnnouncementRentTimetableService.addByFamilyHouseAnnouncementIdAndPayFromCurrentTenantUser(
                 mockedRequestRentTimetableDto, 1L));
 
 

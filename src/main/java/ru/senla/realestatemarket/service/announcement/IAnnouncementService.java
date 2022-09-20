@@ -11,5 +11,6 @@ public interface IAnnouncementService extends IAbstractAnnouncementService<Annou
     List<AnnouncementDto> getAllWithOpenStatusDto(String rsqlQuery, String sortQuery);
 
     List<AnnouncementDto> getAllByKeyWords(String keyWords);
+    List<AnnouncementDto> getAllWithOpenStatusByKeyWords(String keyWords);
 
 }

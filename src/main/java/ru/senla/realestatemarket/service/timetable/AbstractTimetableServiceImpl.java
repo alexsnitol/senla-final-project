@@ -76,4 +76,15 @@ public abstract class AbstractTimetableServiceImpl<M extends IModel<Long>> exten
         }
     }
 
+    protected static void validateIntervalOnNotEqualsAndFromBeforeToDt(
+            LocalDateTime specificFromDt, LocalDateTime specificToDt
+    ) {
+        if (specificFromDt.isAfter(specificToDt) || specificFromDt.equals(specificToDt)) {
+            String message = "Specific date time is not valid";
+
+            log.error(message);
+            throw new IllegalArgumentException(message);
+        }
+    }
+
 }

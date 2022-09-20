@@ -14,8 +14,8 @@ public class AnnouncementSort {
     public static Sort byTopDescAndPropertyOwnerRatingAscAndCreatedDtAsc() {
         return Sort.by(List.of(
                 new Sort.Order(Sort.Direction.DESC, "top"),
-                new Sort.Order(Sort.Direction.ASC, "property.owner.rating"),
-                new Sort.Order(Sort.Direction.ASC, "createdDt")
+                new Sort.Order(Sort.Direction.DESC, "property.owner.rating"),
+                new Sort.Order(Sort.Direction.DESC, "createdDt")
         ));
     }
 

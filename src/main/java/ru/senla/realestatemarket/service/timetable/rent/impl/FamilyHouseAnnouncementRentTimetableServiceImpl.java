@@ -9,6 +9,7 @@ import ru.senla.realestatemarket.dto.timetable.RentTimetableWithoutAnnouncementI
 import ru.senla.realestatemarket.dto.timetable.RequestRentTimetableDto;
 import ru.senla.realestatemarket.dto.timetable.RequestRentTimetableWithUserIdOfTenantDto;
 import ru.senla.realestatemarket.mapper.timetable.rent.FamilyHouseAnnouncementRentTimetableMapper;
+import ru.senla.realestatemarket.model.announcement.AnnouncementStatusEnum;
 import ru.senla.realestatemarket.model.announcement.FamilyHouseAnnouncement;
 import ru.senla.realestatemarket.model.purchase.rent.FamilyHouseAnnouncementRentPurchase;
 import ru.senla.realestatemarket.model.timetable.rent.FamilyHouseAnnouncementRentTimetable;
@@ -227,7 +228,7 @@ public class FamilyHouseAnnouncementRentTimetableServiceImpl
         LocalDateTime specificFromDt = timetable.getFromDt();
         LocalDateTime specificToDt = timetable.getToDt();
 
-        validateIntervalToAnnouncementType(familyHouseAnnouncement, specificFromDt, specificToDt);
+        validateInterval(familyHouseAnnouncement, specificFromDt, specificToDt);
 
         checkForRecordsInSpecificIntervalExcludingIntervalItself(specificFromDt, specificToDt);
 
@@ -236,7 +237,22 @@ public class FamilyHouseAnnouncementRentTimetableServiceImpl
 
     @Override
     @Transactional
-    public void addByFamilyHouseAnnouncementIdWithPayFromCurrentTenantUser(
+    public void addByFamilyHouseAnnouncementIdWithOpenStatusAndPayFromCurrentTenantUser(
+            RequestRentTimetableDto requestDto, Long familyHouseAnnouncementId
+    ) {
+        FamilyHouseAnnouncement familyHouseAnnouncement
+                = familyHouseAnnouncementRepository.findByIdWithStatus(
+                        familyHouseAnnouncementId, AnnouncementStatusEnum.OPEN
+        );
+        EntityHelper.checkEntityOnNull(
+                familyHouseAnnouncement, FamilyHouseAnnouncement.class, familyHouseAnnouncementId);
+
+        addByFamilyHouseAnnouncementWithPayFromCurrentTenantUser(requestDto, familyHouseAnnouncement);
+    }
+
+    @Override
+    @Transactional
+    public void addByFamilyHouseAnnouncementIdAndPayFromCurrentTenantUser(
             RequestRentTimetableDto requestDto, Long familyHouseAnnouncementId
     ) {
         FamilyHouseAnnouncement familyHouseAnnouncement
@@ -244,6 +260,12 @@ public class FamilyHouseAnnouncementRentTimetableServiceImpl
         EntityHelper.checkEntityOnNull(
                 familyHouseAnnouncement, FamilyHouseAnnouncement.class, familyHouseAnnouncementId);
 
+        addByFamilyHouseAnnouncementWithPayFromCurrentTenantUser(requestDto, familyHouseAnnouncement);
+    }
+
+    private void addByFamilyHouseAnnouncementWithPayFromCurrentTenantUser(
+            RequestRentTimetableDto requestDto, FamilyHouseAnnouncement familyHouseAnnouncement
+    ) {
         FamilyHouseAnnouncementRentTimetable timetable
                 = timetableMapper.toFamilyHouseAnnouncementRentTimetable(requestDto);
 
@@ -257,7 +279,7 @@ public class FamilyHouseAnnouncementRentTimetableServiceImpl
         LocalDateTime specificFromDt = timetable.getFromDt();
         LocalDateTime specificToDt = timetable.getToDt();
 
-        validateIntervalToAnnouncementType(familyHouseAnnouncement, specificFromDt, specificToDt);
+        validateInterval(familyHouseAnnouncement, specificFromDt, specificToDt);
 
         checkForRecordsInSpecificIntervalExcludingIntervalItself(specificFromDt, specificToDt);
 

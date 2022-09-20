@@ -36,13 +36,25 @@ public class FamilyHouseAnnouncementController {
 
     @ApiOperation(
             value = "",
-            notes = "Search by key words in all string fields"
+            notes = "Search by key words in all string fields",
+            authorizations = @Authorization("ADMIN")
     )
     @GetMapping("/search")
     public List<FamilyHouseAnnouncementDto> getAllByKeyWords(
             @RequestParam(value = "keywords", required = false) String keyWords
     ) {
         return familyHouseAnnouncementService.getAllByKeyWords(keyWords);
+    }
+
+    @ApiOperation(
+            value = "",
+            notes = "Search by key words in all string fields in open announcements"
+    )
+    @GetMapping("/open/search")
+    public List<FamilyHouseAnnouncementDto> getAllWithOpenStatusByKeyWords(
+            @RequestParam(value = "keywords", required = false) String keyWords
+    ) {
+        return familyHouseAnnouncementService.getAllWithOpenStatusByKeyWords(keyWords);
     }
 
     @ApiOperation(

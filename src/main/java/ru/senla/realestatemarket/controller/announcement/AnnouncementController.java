@@ -1,6 +1,7 @@
 package ru.senla.realestatemarket.controller.announcement;
 
 import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.Authorization;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -26,7 +27,8 @@ public class AnnouncementController {
 
     @ApiOperation(
             value = "",
-            notes = "Search by key words in all string fields"
+            notes = "Search by key words in all string fields",
+            authorizations = @Authorization("ADMIN")
     )
     @GetMapping("/search")
     public List<AnnouncementDto> getAllByKeyWords(
@@ -35,6 +37,21 @@ public class AnnouncementController {
         return announcementService.getAllByKeyWords(keyWords);
     }
 
+    @ApiOperation(
+            value = "",
+            notes = "Search by key words in all string fields in open announcements"
+    )
+    @GetMapping("/open/search")
+    public List<AnnouncementDto> getAllWithOpenStatusByKeyWords(
+            @RequestParam(value = "keywords", required = false) String keyWords
+    ) {
+        return announcementService.getAllWithOpenStatusByKeyWords(keyWords);
+    }
+
+    @ApiOperation(
+            value = "",
+            authorizations = @Authorization("ADMIN")
+    )
     @GetMapping
     public List<AnnouncementDto> getAllAnnouncements(
             @RequestParam(value = "q", required = false) String rsqlQuery,
@@ -55,6 +72,10 @@ public class AnnouncementController {
         return announcementService.getAllWithOpenStatusDto(rsqlQuery, sortQuery);
     }
 
+    @ApiOperation(
+            value = "",
+            authorizations = @Authorization("ADMIN")
+    )
     @GetMapping("/housing")
     public List<HousingAnnouncementDto> getAllHousingAnnouncements(
             @RequestParam(value = "q", required = false) String rsqlQuery,

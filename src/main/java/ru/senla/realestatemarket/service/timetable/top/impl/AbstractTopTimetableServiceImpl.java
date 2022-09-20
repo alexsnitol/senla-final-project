@@ -26,6 +26,19 @@ public abstract class AbstractTopTimetableServiceImpl<M extends IModel<Long>>
         this.announcementTopPriceRepository = announcementTopPriceRepository;
     }
 
+
+
+    /**
+     * @exception IllegalArgumentException if one of params have not zeros in minutes, seconds and nanoseconds
+     */
+    protected static void validateInterval(
+            LocalDateTime specificFromDt, LocalDateTime specificToDt
+    ) {
+        validateIntervalOnNotEqualsAndFromBeforeToDt(specificFromDt, specificToDt);
+
+        checkForSpecificFromAndToHaveZerosMinutesAndSecondsAndNanoSeconds(specificFromDt, specificToDt);
+    }
+
     /**
      * @exception IllegalArgumentException if one of params have not zeros in minutes, seconds and nanoseconds
      */

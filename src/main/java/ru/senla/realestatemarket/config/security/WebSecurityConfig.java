@@ -165,19 +165,15 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
                 // ANNOUNCEMENTS
 
-                .antMatchers(GET, "/api/announcements/housing/apartments/search").permitAll()
                 .antMatchers(GET, "/api/announcements/housing/apartments/open/**").permitAll()
 
 
                 // HOUSING ANNOUNCEMENTS
 
-                .antMatchers(GET, "/api/announcements/housing/apartments/housing/search").permitAll()
                 .antMatchers(GET, "/api/announcements/housing/apartments/housing/open/**").permitAll()
 
 
                 // APARTMENT ANNOUNCEMENTS
-
-                .antMatchers(GET, "/api/announcements/housing/apartments/search").permitAll()
 
                 .antMatchers(GET, "/api/announcements/housing/apartments/open/**").permitAll()
 
@@ -188,13 +184,14 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
                 .antMatchers(GET, "/api/announcements/housing/apartments" +
                         "/timetables/rent/tenants/current/**").authenticated()
-                .antMatchers("/api/announcements/housing/apartments/{familyHouseAnnouncementId}" +
+                .antMatchers(GET, "/api/announcements/housing/apartments/{apartmentAnnouncementId}" +
+                        "/timetables/rent/tenants/current/**").authenticated()
+                .antMatchers(POST, "/api/announcements/housing/apartments" +
+                        "/open/{apartmentAnnouncementId}" +
                         "/timetables/rent/tenants/current/**").authenticated()
                 
 
                 // FAMILY HOUSE ANNOUNCEMENTS
-
-                .antMatchers(GET, "/api/announcements/housing/family-houses/search").permitAll()
 
                 .antMatchers(GET, "/api/announcements/housing/family-houses/open/**").permitAll()
 
@@ -205,13 +202,14 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
                 .antMatchers(GET, "/api/announcements/housing/family-houses" +
                         "/timetables/rent/tenants/current/**").authenticated()
-                .antMatchers("/api/announcements/housing/family-houses/{familyHouseAnnouncementId}" +
+                .antMatchers(GET, "/api/announcements/housing/family-houses/{familyHouseAnnouncementId}" +
+                        "/timetables/rent/tenants/current/**").authenticated()
+                .antMatchers(POST, "/api/announcements/housing/family-houses" +
+                        "/open/{familyHouseAnnouncementId}" +
                         "/timetables/rent/tenants/current/**").authenticated()
 
 
                 // LAND ANNOUNCEMENTS
-
-                .antMatchers(GET, "/api/announcements/lands/search").permitAll()
 
                 .antMatchers(GET, "/api/announcements/lands/open/**").permitAll()
 

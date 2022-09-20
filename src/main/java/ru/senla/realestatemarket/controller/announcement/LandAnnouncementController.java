@@ -46,6 +46,17 @@ public class LandAnnouncementController {
 
     @ApiOperation(
             value = "",
+            notes = "Search by key words in all string fields in open announcements"
+    )
+    @GetMapping("/open/search")
+    public List<LandAnnouncementDto> getAllWithOpenStatusByKeyWords(
+            @RequestParam(value = "keywords", required = false) String keyWords
+    ) {
+        return landAnnouncementService.getAllWithOpenStatusByKeyWords(keyWords);
+    }
+
+    @ApiOperation(
+            value = "",
             authorizations = @Authorization("ADMIN")
     )
     @GetMapping

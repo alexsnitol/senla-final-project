@@ -29,8 +29,10 @@ public interface IFamilyHouseAnnouncementRentTimetableService
 
     void addByFamilyHouseAnnouncementIdWithoutPay(
             RequestRentTimetableWithUserIdOfTenantDto requestDto, Long familyHouseAnnouncementId);
-    void addByFamilyHouseAnnouncementIdWithPayFromCurrentTenantUser(
-            RequestRentTimetableDto requestDto, Long familyHouseAnnouncementId
-    );
+
+    void addByFamilyHouseAnnouncementIdWithOpenStatusAndPayFromCurrentTenantUser(
+            RequestRentTimetableDto requestDto, Long familyHouseAnnouncementId);
+    void addByFamilyHouseAnnouncementIdAndPayFromCurrentTenantUser(
+            RequestRentTimetableDto requestDto, Long familyHouseAnnouncementId);
 
 }

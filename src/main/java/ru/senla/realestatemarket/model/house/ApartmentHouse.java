@@ -59,13 +59,11 @@ public class ApartmentHouse extends House {
             return false;
         }
         ApartmentHouse that = (ApartmentHouse) o;
-        return Objects.equals(getElevator(), that.getElevator())
-                && Objects.equals(getPropertyList(), that.getPropertyList())
-                && Objects.equals(getNumberOfApartmentProperties(), that.getNumberOfApartmentProperties());
+        return Objects.equals(getElevator(), that.getElevator());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(super.hashCode(), getElevator(), getPropertyList(), getNumberOfApartmentProperties());
+        return Objects.hash(super.hashCode(), getElevator());
     }
 }

@@ -35,6 +35,25 @@ public abstract class AbstractRentTimetableServiceImpl<M extends IModel<Long>> e
      * @exception SpecificIntervalIsNotMonthlyException if hours, minutes and seconds
      * of specificFromDt and specificToDt not equal and it days not equal 1
      *
+     * @exception BusinessRuntimeException if the announcement type is not rent
+     *
+     */
+    protected static void validateInterval(
+            HousingAnnouncement announcement, LocalDateTime specificFromDt, LocalDateTime specificToDt
+    ) {
+        validateIntervalOnNotEqualsAndFromBeforeToDt(specificFromDt, specificToDt);
+
+        validateIntervalToAnnouncementType(announcement, specificFromDt, specificToDt);
+    }
+
+    /**
+     *
+     * @exception SpecificIntervalIsNotDailyException if hours, minutes and seconds
+     * of specificFromDt and specificToDt not equals
+     *
+     * @exception SpecificIntervalIsNotMonthlyException if hours, minutes and seconds
+     * of specificFromDt and specificToDt not equal and it days not equal 1
+     *
      * @exception BusinessRuntimeException if announcement type is not rent
      *
      */

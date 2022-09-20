@@ -133,7 +133,7 @@ public class ApartmentAnnouncementTopTimetableServiceImpl
         LocalDateTime specificFromDt = apartmentAnnouncementTopTimetable.getFromDt();
         LocalDateTime specificToDt = apartmentAnnouncementTopTimetable.getToDt();
 
-        checkForSpecificFromAndToHaveZerosMinutesAndSecondsAndNanoSeconds(specificFromDt, specificToDt);
+        validateInterval(specificFromDt, specificToDt);
 
         List<ApartmentAnnouncementTopTimetable> finalIntervalsOfApartmentAnnouncementTopTimetables
                 = getIntervalsOfTimetablesByApartmentAnnouncement(
@@ -160,7 +160,7 @@ public class ApartmentAnnouncementTopTimetableServiceImpl
         LocalDateTime specificFromDt = apartmentAnnouncementTopTimetable.getFromDt();
         LocalDateTime specificToDt = apartmentAnnouncementTopTimetable.getToDt();
 
-        checkForSpecificFromAndToHaveZerosMinutesAndSecondsAndNanoSeconds(specificFromDt, specificToDt);
+        validateInterval(specificFromDt, specificToDt);
 
         List<ApartmentAnnouncementTopTimetable> finalIntervalsOfApartmentAnnouncementTopTimetables
                 = getIntervalsOfTimetablesByApartmentAnnouncement(

@@ -17,13 +17,12 @@ import ru.senla.realestatemarket.repo.announcement.specification.GenericAnnounce
 import ru.senla.realestatemarket.repo.property.IFamilyHousePropertyRepository;
 import ru.senla.realestatemarket.service.announcement.IFamilyHouseAnnouncementService;
 import ru.senla.realestatemarket.service.helper.EntityHelper;
+import ru.senla.realestatemarket.util.SearchQueryUtil;
 import ru.senla.realestatemarket.util.UserUtil;
 
 import javax.annotation.PostConstruct;
 import javax.transaction.Transactional;
-import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import static ru.senla.realestatemarket.repo.announcement.sort.AnnouncementSort.byTopDescAndPropertyOwnerRatingAscAndCreatedDtAsc;
 import static ru.senla.realestatemarket.repo.announcement.specification.FamilyHouseAnnouncementSpecification.hasUserIdOfOwnerInProperty;
@@ -141,10 +140,20 @@ public class FamilyHouseAnnouncementServiceImpl
     @Override
     @Transactional
     public List<FamilyHouseAnnouncementDto> getAllByKeyWords(String keyWords) {
-        List<String> keyWordsSplit = Arrays.stream(keyWords.split(",")).collect(Collectors.toList());
+        List<String> keyWordsSplit = SearchQueryUtil.getKeyWordsSpit(keyWords);
 
         return familyHouseAnnouncementMapper.toFamilyHouseAnnouncementDto(
                 familyHouseAnnouncementRepository.findAllInTheTextFieldsOfWhichContainsTheKeys(keyWordsSplit));
+    }
+
+    @Override
+    @Transactional
+    public List<FamilyHouseAnnouncementDto> getAllWithOpenStatusByKeyWords(String keyWords) {
+        List<String> keyWordsSplit = SearchQueryUtil.getKeyWordsSpit(keyWords);
+
+        return familyHouseAnnouncementMapper.toFamilyHouseAnnouncementDto(
+                familyHouseAnnouncementRepository.findAllWithOpenStatusInTheTextFieldsOfWhichContainsTheKeys(
+                        keyWordsSplit));
     }
 
     @Override
@@ -214,10 +223,12 @@ public class FamilyHouseAnnouncementServiceImpl
 
 
         Long familyHousePropertyId = updateRequestFamilyHouseAnnouncementDto.getFamilyHousePropertyId();
-        FamilyHouseProperty familyHouseProperty = familyHousePropertyRepository.findById(familyHousePropertyId);
-        EntityHelper.checkEntityOnNull(familyHouseProperty, FamilyHouseProperty.class, familyHousePropertyId);
+        if (familyHousePropertyId != null) {
+            FamilyHouseProperty familyHouseProperty = familyHousePropertyRepository.findById(familyHousePropertyId);
+            EntityHelper.checkEntityOnNull(familyHouseProperty, FamilyHouseProperty.class, familyHousePropertyId);
 
-        validateAccessCurrentUserToProperty(familyHouseProperty);
+            validateAccessCurrentUserToProperty(familyHouseProperty);
+        }
 
 
         updateFromDto(updateRequestFamilyHouseAnnouncementDto, familyHouseAnnouncement);
@@ -234,8 +245,8 @@ public class FamilyHouseAnnouncementServiceImpl
         HousingAnnouncementTypeEnum announcementType = updateRequestFamilyHouseAnnouncementDto.getType();
         AnnouncementStatusEnum announcementStatus = updateRequestFamilyHouseAnnouncementDto.getStatus();
 
-        validateAnnouncementTypeOnAccordanceWithStatusIfItNotNull(familyHouseAnnouncement,
-                announcementType, announcementStatus);
+        validateAnnouncementTypeOnAccordanceWithStatusIfItNotNull(
+                familyHouseAnnouncement, announcementType, announcementStatus);
 
         setStatusIfNotNull(familyHouseAnnouncement, announcementStatus);
 
