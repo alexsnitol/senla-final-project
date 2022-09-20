@@ -54,7 +54,7 @@ The following used to unit testing of the system:
 All diagrams this project located in the *diagram* folder.
 
 All completed resources for deploy this project located in the *deploy* folder:
-* `deploy.bat` and `deploy_with_dab.bat` build the project and deployed it into tomcat: coping `war` on webapps and start server
+* `deploy.bat` and `deploy_with_db.bat` build the project and deployed it into tomcat: coping `war` on webapps and start server
 * In *database* folder located sql init scripts for PostgreSQL, there is also a `bat` script for an init database on Windows
 * In *docker* folder located `docker-compose.yml` which contains all settings, there is also contains docker folder wherein separate `Dockerfile`
 
