@@ -1,8 +1,272 @@
 _type: export
 __export_format: 4
-__export_date: 2022-09-19T19:52:23.363Z
+__export_date: 2022-09-20T13:43:50.578Z
 __export_source: insomnia.desktop.app:v2022.6.0-beta.4
 resources:
+  - _id: getAllHousingAnnouncementTypesUsingGET
+    parentId: fld_wrk_55e708dec8734d4cbe639dec705f673202da8978
+    modified: 1663681393596
+    created: 1663681393596
+    url: "{{ base_url }}/real-estate-market/api/enums/housing-announcement-types"
+    name: getAllHousingAnnouncementTypes
+    description: ""
+    method: GET
+    body: {}
+    parameters: []
+    headers:
+      - name: Authorization
+        disabled: true
+        value: string
+    authentication: {}
+    metaSortKey: -1663681393596
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: fld_wrk_55e708dec8734d4cbe639dec705f673202da8978
+    parentId: wrk_55e708dec8734d4cbe639dec705f6732
+    modified: 1663681398511
+    created: 1663681398511
+    name: enum-controller
+    description: Enum Controller
+    environment: {}
+    environmentPropertyOrder: null
+    metaSortKey: -1663681398511
+    _type: request_group
+  - _id: wrk_55e708dec8734d4cbe639dec705f6732
+    parentId: null
+    modified: 1662378273411
+    created: 1662378273411
+    name: SENLA
+    description: ""
+    scope: design
+    _type: workspace
+  - _id: getAllHousingTypeUsingGET
+    parentId: fld_wrk_55e708dec8734d4cbe639dec705f673202da8978
+    modified: 1663681393540
+    created: 1663681393540
+    url: "{{ base_url }}/real-estate-market/api/enums/housing-types"
+    name: getAllHousingType
+    description: ""
+    method: GET
+    body: {}
+    parameters: []
+    headers:
+      - name: Authorization
+        disabled: true
+        value: string
+    authentication: {}
+    metaSortKey: -1663681393540
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: getAllNonHousingAnnouncementTypesUsingGET
+    parentId: fld_wrk_55e708dec8734d4cbe639dec705f673202da8978
+    modified: 1663681393486
+    created: 1663681393486
+    url: "{{ base_url
+      }}/real-estate-market/api/enums/non-housing-announcement-types"
+    name: getAllNonHousingAnnouncementTypes
+    description: ""
+    method: GET
+    body: {}
+    parameters: []
+    headers:
+      - name: Authorization
+        disabled: true
+        value: string
+    authentication: {}
+    metaSortKey: -1663681393486
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: getAllPropertyStatusesUsingGET
+    parentId: fld_wrk_55e708dec8734d4cbe639dec705f673202da8978
+    modified: 1663681393433
+    created: 1663681393433
+    url: "{{ base_url }}/real-estate-market/api/enums/property-statuses"
+    name: getAllPropertyStatuses
+    description: ""
+    method: GET
+    body: {}
+    parameters: []
+    headers:
+      - name: Authorization
+        disabled: true
+        value: string
+    authentication: {}
+    metaSortKey: -1663681393433
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: getAllPropertyTypeUsingGET
+    parentId: fld_wrk_55e708dec8734d4cbe639dec705f673202da8978
+    modified: 1663681393379
+    created: 1663681393379
+    url: "{{ base_url }}/real-estate-market/api/enums/property-types"
+    name: getAllPropertyType
+    description: ""
+    method: GET
+    body: {}
+    parameters: []
+    headers:
+      - name: Authorization
+        disabled: true
+        value: string
+    authentication: {}
+    metaSortKey: -1663681393379
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: getAllRentAnnouncementStatusesUsingGET
+    parentId: fld_wrk_55e708dec8734d4cbe639dec705f673202da8978
+    modified: 1663681393326
+    created: 1663681393326
+    url: "{{ base_url }}/real-estate-market/api/enums/rent-announcement-statuses"
+    name: getAllRentAnnouncementStatuses
+    description: ""
+    method: GET
+    body: {}
+    parameters: []
+    headers:
+      - name: Authorization
+        disabled: true
+        value: string
+    authentication: {}
+    metaSortKey: -1663681393326
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: getAllSellAnnouncementStatusesUsingGET
+    parentId: fld_wrk_55e708dec8734d4cbe639dec705f673202da8978
+    modified: 1663681393259
+    created: 1663681393259
+    url: "{{ base_url }}/real-estate-market/api/enums/sell-announcement-statuses"
+    name: getAllSellAnnouncementStatuses
+    description: ""
+    method: GET
+    body: {}
+    parameters: []
+    headers:
+      - name: Authorization
+        disabled: true
+        value: string
+    authentication: {}
+    metaSortKey: -1663681393259
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: getAllWithOpenStatusByApartmentIdOnlyDateTimesUsingGET
+    parentId: fld_wrk_55e708dec8734d4cbe639dec705f67320155fe16
+    modified: 1663681397049
+    created: 1663681397049
+    url: "{{ base_url
+      }}/real-estate-market/api/announcements/housing/apartments/open/{{
+      apartmentAnnouncementId }}/timetables/rent/only-date-times"
+    name: getAllWithOpenStatusByApartmentIdOnlyDateTimes
+    description: ""
+    method: GET
+    body: {}
+    parameters:
+      - name: rsqlQuery
+        disabled: true
+        value: string
+      - name: sortQuery
+        disabled: true
+        value: string
+    headers:
+      - name: Authorization
+        disabled: true
+        value: string
+    authentication: {}
+    metaSortKey: -1663681397049
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: fld_wrk_55e708dec8734d4cbe639dec705f67320155fe16
+    parentId: wrk_55e708dec8734d4cbe639dec705f6732
+    modified: 1663018790965
+    created: 1663018790965
+    name: apartment-announcement-rent-timetable-controller
+    description: Apartment Announcement Rent Timetable Controller
+    environment: {}
+    environmentPropertyOrder: null
+    metaSortKey: -1663018790965
+    _type: request_group
+  - _id: addByApartmentAnnouncementIdWithOpenStatusAndPayFromCurrentTenantUserUsingPOST
+    parentId: fld_wrk_55e708dec8734d4cbe639dec705f67320155fe16
+    modified: 1663681397003
+    created: 1663681397003
+    url: "{{ base_url
+      }}/real-estate-market/api/announcements/housing/apartments/open/{{
+      apartmentAnnouncementId }}/timetables/rent/tenants/current"
+    name: addByApartmentAnnouncementIdWithOpenStatusAndPayFromCurrentTenantUser
+    description: ""
+    method: POST
+    body:
+      mimeType: application/json
+      text: |-
+        {
+          "fromDt": "2022-09-20T13:43:10.529Z",
+          "toDt": "2022-09-20T13:43:10.529Z"
+        }
+    parameters: []
+    headers:
+      - name: Content-Type
+        disabled: false
+        value: application/json
+      - name: Authorization
+        disabled: true
+        value: string
+    authentication: {}
+    metaSortKey: -1663681397003
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
   - _id: getAllOfCurrentTenantUserUsingGET
     parentId: fld_wrk_55e708dec8734d4cbe639dec705f67320155fe16
     modified: 1663018788875
@@ -35,24 +299,6 @@ resources:
     settingRebuildPath: true
     settingFollowRedirects: global
     _type: request
-  - _id: fld_wrk_55e708dec8734d4cbe639dec705f67320155fe16
-    parentId: wrk_55e708dec8734d4cbe639dec705f6732
-    modified: 1663018790965
-    created: 1663018790965
-    name: apartment-announcement-rent-timetable-controller
-    description: Apartment Announcement Rent Timetable Controller
-    environment: {}
-    environmentPropertyOrder: null
-    metaSortKey: -1663018790965
-    _type: request_group
-  - _id: wrk_55e708dec8734d4cbe639dec705f6732
-    parentId: null
-    modified: 1662378273411
-    created: 1662378273411
-    name: SENLA
-    description: ""
-    scope: design
-    _type: workspace
   - _id: getAllByApartmentIdOnlyDateTimesUsingGET
     parentId: fld_wrk_55e708dec8734d4cbe639dec705f67320155fe16
     modified: 1663018788739
@@ -149,6 +395,83 @@ resources:
     settingRebuildPath: true
     settingFollowRedirects: global
     _type: request
+  - _id: getAllWithOpenStatusByFamilyHouseIdOnlyDateTimesUsingGET
+    parentId: fld_wrk_55e708dec8734d4cbe639dec705f673254510046
+    modified: 1663681396046
+    created: 1663681396046
+    url: "{{ base_url
+      }}/real-estate-market/api/announcements/housing/family-houses/open/{{
+      familyHouseAnnouncementId }}/timetables/rent/only-date-times"
+    name: getAllWithOpenStatusByFamilyHouseIdOnlyDateTimes
+    description: ""
+    method: GET
+    body: {}
+    parameters:
+      - name: rsqlQuery
+        disabled: true
+        value: string
+      - name: sortQuery
+        disabled: true
+        value: string
+    headers:
+      - name: Authorization
+        disabled: true
+        value: string
+    authentication: {}
+    metaSortKey: -1663681396046
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: fld_wrk_55e708dec8734d4cbe639dec705f673254510046
+    parentId: wrk_55e708dec8734d4cbe639dec705f6732
+    modified: 1663018790589
+    created: 1663018790589
+    name: family-house-announcement-rent-timetable-controller
+    description: Family House Announcement Rent Timetable Controller
+    environment: {}
+    environmentPropertyOrder: null
+    metaSortKey: -1663018790589
+    _type: request_group
+  - _id: addByFamilyHouseAnnouncementIdWithOpenStatusAndPayFromCurrentTenantUserUsingPOST
+    parentId: fld_wrk_55e708dec8734d4cbe639dec705f673254510046
+    modified: 1663681396000
+    created: 1663681396000
+    url: "{{ base_url
+      }}/real-estate-market/api/announcements/housing/family-houses/open/{{
+      familyHouseAnnouncementId }}/timetables/rent/tenants/current"
+    name: addByFamilyHouseAnnouncementIdWithOpenStatusAndPayFromCurrentTenantUser
+    description: ""
+    method: POST
+    body:
+      mimeType: application/json
+      text: |-
+        {
+          "fromDt": "2022-09-20T13:43:10.530Z",
+          "toDt": "2022-09-20T13:43:10.530Z"
+        }
+    parameters: []
+    headers:
+      - name: Content-Type
+        disabled: false
+        value: application/json
+      - name: Authorization
+        disabled: true
+        value: string
+    authentication: {}
+    metaSortKey: -1663681396000
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
   - _id: getAllOfCurrentTenantUserUsingGET_1
     parentId: fld_wrk_55e708dec8734d4cbe639dec705f673254510046
     modified: 1663018788042
@@ -181,16 +504,6 @@ resources:
     settingRebuildPath: true
     settingFollowRedirects: global
     _type: request
-  - _id: fld_wrk_55e708dec8734d4cbe639dec705f673254510046
-    parentId: wrk_55e708dec8734d4cbe639dec705f6732
-    modified: 1663018790589
-    created: 1663018790589
-    name: family-house-announcement-rent-timetable-controller
-    description: Family House Announcement Rent Timetable Controller
-    environment: {}
-    environmentPropertyOrder: null
-    metaSortKey: -1663018790589
-    _type: request_group
   - _id: getAllByFamilyHouseIdOnlyDateTimesUsingGET
     parentId: fld_wrk_55e708dec8734d4cbe639dec705f673254510046
     modified: 1663018787902
@@ -391,8 +704,8 @@ resources:
     modified: 1663018788963
     created: 1663018788963
     url: "{{ base_url
-      }}/real-estate-market/api/announcements/housing/apartments/owner/current/\
-      {{ apartmentAnnouncementId }}/timetables/top"
+      }}/real-estate-market/api/announcements/housing/apartments/owners/current\
+      /{{ apartmentAnnouncementId }}/timetables/top"
     name: getAllOfCurrentUserByApartmentId
     description: ""
     method: GET
@@ -498,8 +811,8 @@ resources:
     modified: 1662985643834
     created: 1662985643834
     url: "{{ base_url
-      }}/real-estate-market/api/announcements/housing/apartments/owner/current/\
-      {{ apartmentAnnouncementId }}/timetables/rent"
+      }}/real-estate-market/api/announcements/housing/apartments/owners/current\
+      /{{ apartmentAnnouncementId }}/timetables/rent"
     name: getAllOfCurrentUserByApartmentId
     description: ""
     method: GET
@@ -530,8 +843,8 @@ resources:
     modified: 1662985643794
     created: 1662985643794
     url: "{{ base_url
-      }}/real-estate-market/api/announcements/housing/apartments/owner/current/\
-      {{ apartmentAnnouncementId }}/timetables/top"
+      }}/real-estate-market/api/announcements/housing/apartments/owners/current\
+      /{{ apartmentAnnouncementId }}/timetables/top"
     name: addByApartmentIdWithPayFromCurrentUser
     description: ""
     method: POST
@@ -735,8 +1048,8 @@ resources:
     modified: 1663018788134
     created: 1663018788134
     url: "{{ base_url
-      }}/real-estate-market/api/announcements/housing/family-houses/owner/curre\
-      nt/{{ familyHouseAnnouncementId }}/timetables/top"
+      }}/real-estate-market/api/announcements/housing/family-houses/owners/curr\
+      ent/{{ familyHouseAnnouncementId }}/timetables/top"
     name: getAllOfCurrentUserByFamilyHouseId
     description: ""
     method: GET
@@ -844,8 +1157,8 @@ resources:
     modified: 1662985643221
     created: 1662985643221
     url: "{{ base_url
-      }}/real-estate-market/api/announcements/housing/family-houses/owner/curre\
-      nt/{{ familyHouseAnnouncementId }}/timetables/rent"
+      }}/real-estate-market/api/announcements/housing/family-houses/owners/curr\
+      ent/{{ familyHouseAnnouncementId }}/timetables/rent"
     name: getAllOfCurrentUserByFamilyHouseId
     description: ""
     method: GET
@@ -876,8 +1189,8 @@ resources:
     modified: 1662985643187
     created: 1662985643187
     url: "{{ base_url
-      }}/real-estate-market/api/announcements/housing/family-houses/owner/curre\
-      nt/{{ familyHouseAnnouncementId }}/timetables/top"
+      }}/real-estate-market/api/announcements/housing/family-houses/owners/curr\
+      ent/{{ familyHouseAnnouncementId }}/timetables/top"
     name: addByFamilyHouseIdWithPayFromCurrentUser
     description: ""
     method: POST
@@ -977,7 +1290,8 @@ resources:
     parentId: fld_wrk_55e708dec8734d4cbe639dec705f6732dc4dbd0a
     modified: 1662985642580
     created: 1662985642580
-    url: "{{ base_url }}/real-estate-market/api/announcements/lands/owner/current/{{
+    url: "{{ base_url
+      }}/real-estate-market/api/announcements/lands/owners/current/{{
       landAnnouncementId }}/timetables/top"
     name: getAllOfCurrentUserByLandId
     description: ""
@@ -1018,7 +1332,8 @@ resources:
     parentId: fld_wrk_55e708dec8734d4cbe639dec705f6732dc4dbd0a
     modified: 1662985642542
     created: 1662985642542
-    url: "{{ base_url }}/real-estate-market/api/announcements/lands/owner/current/{{
+    url: "{{ base_url
+      }}/real-estate-market/api/announcements/lands/owners/current/{{
       landAnnouncementId }}/timetables/top"
     name: addByLandIdWithPayFromCurrentUser
     description: ""
@@ -1328,6 +1643,70 @@ resources:
     settingRebuildPath: true
     settingFollowRedirects: global
     _type: request
+  - _id: getAllWithOpenStatusByKeyWordsUsingGET
+    parentId: fld_wrk_55e708dec8734d4cbe639dec705f6732200fef34
+    modified: 1663681394080
+    created: 1663681394080
+    url: "{{ base_url }}/real-estate-market/api/announcements/open/search"
+    name: getAllWithOpenStatusByKeyWords
+    description: Search by key words in all string fields in open announcements
+    method: GET
+    body: {}
+    parameters:
+      - name: keywords
+        disabled: true
+        value: string
+    headers:
+      - name: Authorization
+        disabled: true
+        value: string
+    authentication: {}
+    metaSortKey: -1663681394080
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: fld_wrk_55e708dec8734d4cbe639dec705f6732200fef34
+    parentId: wrk_55e708dec8734d4cbe639dec705f6732
+    modified: 1662378677873
+    created: 1662378677873
+    name: announcement-controller
+    description: Announcement Controller
+    environment: {}
+    environmentPropertyOrder: null
+    metaSortKey: -1662378677873
+    _type: request_group
+  - _id: getAllByKeyWordsUsingGET
+    parentId: fld_wrk_55e708dec8734d4cbe639dec705f6732200fef34
+    modified: 1663681394024
+    created: 1663681394024
+    url: "{{ base_url }}/real-estate-market/api/announcements/search"
+    name: getAllByKeyWords
+    description: Search by key words in all string fields
+    method: GET
+    body: {}
+    parameters:
+      - name: keywords
+        disabled: true
+        value: string
+    headers:
+      - name: Authorization
+        disabled: true
+        value: string
+    authentication: {}
+    metaSortKey: -1663681394024
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
   - _id: getAllOpenHousingAnnouncementsUsingGET
     parentId: fld_wrk_55e708dec8734d4cbe639dec705f6732200fef34
     modified: 1662985642963
@@ -1358,16 +1737,6 @@ resources:
     settingRebuildPath: true
     settingFollowRedirects: global
     _type: request
-  - _id: fld_wrk_55e708dec8734d4cbe639dec705f6732200fef34
-    parentId: wrk_55e708dec8734d4cbe639dec705f6732
-    modified: 1662378677873
-    created: 1662378677873
-    name: announcement-controller
-    description: Announcement Controller
-    environment: {}
-    environmentPropertyOrder: null
-    metaSortKey: -1662378677873
-    _type: request_group
   - _id: getAllOpenAnnouncementsUsingGET
     parentId: fld_wrk_55e708dec8734d4cbe639dec705f6732200fef34
     modified: 1662985642319
@@ -1458,13 +1827,79 @@ resources:
     settingRebuildPath: true
     settingFollowRedirects: global
     _type: request
+  - _id: getAllWithOpenStatusByKeyWordsUsingGET_1
+    parentId: fld_wrk_55e708dec8734d4cbe639dec705f673296e97865
+    modified: 1663681397095
+    created: 1663681397095
+    url: "{{ base_url
+      }}/real-estate-market/api/announcements/housing/apartments/open/search"
+    name: getAllWithOpenStatusByKeyWords
+    description: Search by key words in all string fields in open announcements
+    method: GET
+    body: {}
+    parameters:
+      - name: keywords
+        disabled: true
+        value: string
+    headers:
+      - name: Authorization
+        disabled: true
+        value: string
+    authentication: {}
+    metaSortKey: -1663681397095
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: fld_wrk_55e708dec8734d4cbe639dec705f673296e97865
+    parentId: wrk_55e708dec8734d4cbe639dec705f6732
+    modified: 1662378677871
+    created: 1662378677871
+    name: apartment-announcement-controller
+    description: Apartment Announcement Controller
+    environment: {}
+    environmentPropertyOrder: null
+    metaSortKey: -1662378677871
+    _type: request_group
+  - _id: getAllByKeyWordsUsingGET_1
+    parentId: fld_wrk_55e708dec8734d4cbe639dec705f673296e97865
+    modified: 1663681396635
+    created: 1663681396635
+    url: "{{ base_url
+      }}/real-estate-market/api/announcements/housing/apartments/search"
+    name: getAllByKeyWords
+    description: Search by key words in all string fields
+    method: GET
+    body: {}
+    parameters:
+      - name: keywords
+        disabled: true
+        value: string
+    headers:
+      - name: Authorization
+        disabled: true
+        value: string
+    authentication: {}
+    metaSortKey: -1663681396635
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
   - _id: getAllWithClosedStatusByUserIfOfOwnerUsingGET
     parentId: fld_wrk_55e708dec8734d4cbe639dec705f673296e97865
     modified: 1662985644114
     created: 1662985644114
     url: "{{ base_url
-      }}/real-estate-market/api/announcements/housing/apartments/closed/owner/{{
-      userIdOfOwner }}"
+      }}/real-estate-market/api/announcements/housing/apartments/closed/owners/\
+      {{ userIdOfOwner }}"
     name: getAllWithClosedStatusByUserIfOfOwner
     description: ""
     method: GET
@@ -1490,22 +1925,12 @@ resources:
     settingRebuildPath: true
     settingFollowRedirects: global
     _type: request
-  - _id: fld_wrk_55e708dec8734d4cbe639dec705f673296e97865
-    parentId: wrk_55e708dec8734d4cbe639dec705f6732
-    modified: 1662378677871
-    created: 1662378677871
-    name: apartment-announcement-controller
-    description: Apartment Announcement Controller
-    environment: {}
-    environmentPropertyOrder: null
-    metaSortKey: -1662378677871
-    _type: request_group
   - _id: getAllOfCurrentUserUsingGET
     parentId: fld_wrk_55e708dec8734d4cbe639dec705f673296e97865
     modified: 1662985644068
     created: 1662985644068
     url: "{{ base_url
-      }}/real-estate-market/api/announcements/housing/apartments/current"
+      }}/real-estate-market/api/announcements/housing/apartments/owners/current"
     name: getAllOfCurrentUser
     description: ""
     method: GET
@@ -1536,8 +1961,8 @@ resources:
     modified: 1662985643993
     created: 1662985643993
     url: "{{ base_url
-      }}/real-estate-market/api/announcements/housing/apartments/current/{{ id
-      }}"
+      }}/real-estate-market/api/announcements/housing/apartments/owners/current\
+      /{{ id }}"
     name: getByIdOfCurrentUser
     description: ""
     method: GET
@@ -1562,8 +1987,8 @@ resources:
     modified: 1662985643944
     created: 1662985643944
     url: "{{ base_url
-      }}/real-estate-market/api/announcements/housing/apartments/current/{{ id
-      }}"
+      }}/real-estate-market/api/announcements/housing/apartments/owners/current\
+      /{{ id }}"
     name: updateByIdFromCurrentUser
     description: Update apartment announcement by id with validation on access to
       update for current user
@@ -1998,7 +2423,7 @@ resources:
     modified: 1662985640985
     created: 1662985640985
     url: "{{ base_url
-      }}/real-estate-market/api/properties/housing/apartments/current"
+      }}/real-estate-market/api/properties/housing/apartments/owners/current"
     name: addFromCurrentUser
     description: ""
     method: POST
@@ -2046,7 +2471,8 @@ resources:
     modified: 1662985640983
     created: 1662985640983
     url: "{{ base_url
-      }}/real-estate-market/api/properties/housing/apartments/current/{{ id }}"
+      }}/real-estate-market/api/properties/housing/apartments/owners/current/{{
+      id }}"
     name: getByIdOfCurrentUser
     description: ""
     method: GET
@@ -2139,7 +2565,7 @@ resources:
     modified: 1662378677333
     created: 1662378677333
     url: "{{ base_url
-      }}/real-estate-market/api/properties/housing/apartments/current"
+      }}/real-estate-market/api/properties/housing/apartments/owners/current"
     name: getAllDtoOfCurrentUser
     description: ""
     method: GET
@@ -2170,7 +2596,7 @@ resources:
     modified: 1662378677331
     created: 1662378677331
     url: "{{ base_url
-      }}/real-estate-market/api/announcements/housing/apartments/current"
+      }}/real-estate-market/api/announcements/housing/apartments/owners/current"
     name: addFromCurrentUser
     description: ""
     method: POST
@@ -2208,8 +2634,8 @@ resources:
     modified: 1662378677330
     created: 1662378677330
     url: "{{ base_url
-      }}/real-estate-market/api/properties/housing/family-houses/current/{{ id
-      }}"
+      }}/real-estate-market/api/properties/housing/family-houses/owners/current\
+      /{{ id }}"
     name: getDtoByIdOfCurrentUser
     description: ""
     method: GET
@@ -2234,7 +2660,8 @@ resources:
     modified: 1662378677328
     created: 1662378677328
     url: "{{ base_url
-      }}/real-estate-market/api/properties/housing/apartments/current/{{ id }}"
+      }}/real-estate-market/api/properties/housing/apartments/owners/current/{{
+      id }}"
     name: updateByIdOfCurrentUser
     description: ""
     method: PUT
@@ -2381,7 +2808,7 @@ resources:
     _type: request
   - _id: createAuthTokenUsingPOST
     parentId: fld_wrk_55e708dec8734d4cbe639dec705f6732b2bbbcd0
-    modified: 1663617041378
+    modified: 1663681399657
     created: 1662378677428
     url: "{{ base_url }}/real-estate-market/api/auth"
     name: Create auth token
@@ -2428,7 +2855,7 @@ resources:
     parentId: fld_wrk_55e708dec8734d4cbe639dec705f673296f67c55
     modified: 1662378677424
     created: 1662378677424
-    url: "{{ base_url }}/real-estate-market/api/properties/housing/apartments"
+    url: "{{ base_url }}/real-estate-market/api/houses/apartment-houses"
     name: getAll
     description: ""
     method: GET
@@ -2721,13 +3148,79 @@ resources:
     settingRebuildPath: true
     settingFollowRedirects: global
     _type: request
+  - _id: getAllWithOpenStatusByKeyWordsUsingGET_2
+    parentId: fld_wrk_55e708dec8734d4cbe639dec705f6732aaab091f
+    modified: 1663681396093
+    created: 1663681396093
+    url: "{{ base_url
+      }}/real-estate-market/api/announcements/housing/family-houses/open/search"
+    name: getAllWithOpenStatusByKeyWords
+    description: Search by key words in all string fields in open announcements
+    method: GET
+    body: {}
+    parameters:
+      - name: keywords
+        disabled: true
+        value: string
+    headers:
+      - name: Authorization
+        disabled: true
+        value: string
+    authentication: {}
+    metaSortKey: -1663681396093
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: fld_wrk_55e708dec8734d4cbe639dec705f6732aaab091f
+    parentId: wrk_55e708dec8734d4cbe639dec705f6732
+    modified: 1662378677800
+    created: 1662378677800
+    name: family-house-announcement-controller
+    description: Family House Announcement Controller
+    environment: {}
+    environmentPropertyOrder: null
+    metaSortKey: -1662378677800
+    _type: request_group
+  - _id: getAllByKeyWordsUsingGET_2
+    parentId: fld_wrk_55e708dec8734d4cbe639dec705f6732aaab091f
+    modified: 1663681395755
+    created: 1663681395755
+    url: "{{ base_url
+      }}/real-estate-market/api/announcements/housing/family-houses/search"
+    name: getAllByKeyWords
+    description: Search by key words in all string fields
+    method: GET
+    body: {}
+    parameters:
+      - name: keywords
+        disabled: true
+        value: string
+    headers:
+      - name: Authorization
+        disabled: true
+        value: string
+    authentication: {}
+    metaSortKey: -1663681395755
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
   - _id: getAllWithClosedStatusByUserIfOfOwnerUsingGET_1
     parentId: fld_wrk_55e708dec8734d4cbe639dec705f6732aaab091f
     modified: 1662985643485
     created: 1662985643485
     url: "{{ base_url
       }}/real-estate-market/api/announcements/housing/family-houses/closed/owne\
-      r/{{ userIdOfOwner }}"
+      rs/{{ userIdOfOwner }}"
     name: getAllWithClosedStatusByUserIfOfOwner
     description: ""
     method: GET
@@ -2753,22 +3246,13 @@ resources:
     settingRebuildPath: true
     settingFollowRedirects: global
     _type: request
-  - _id: fld_wrk_55e708dec8734d4cbe639dec705f6732aaab091f
-    parentId: wrk_55e708dec8734d4cbe639dec705f6732
-    modified: 1662378677800
-    created: 1662378677800
-    name: family-house-announcement-controller
-    description: Family House Announcement Controller
-    environment: {}
-    environmentPropertyOrder: null
-    metaSortKey: -1662378677800
-    _type: request_group
   - _id: getAllOfCurrentUserUsingGET_1
     parentId: fld_wrk_55e708dec8734d4cbe639dec705f6732aaab091f
     modified: 1662985643449
     created: 1662985643449
     url: "{{ base_url
-      }}/real-estate-market/api/announcements/housing/family-houses/current"
+      }}/real-estate-market/api/announcements/housing/family-houses/owners/curr\
+      ent"
     name: getAllOfCurrentUser
     description: ""
     method: GET
@@ -2799,7 +3283,8 @@ resources:
     modified: 1662985643404
     created: 1662985643404
     url: "{{ base_url
-      }}/real-estate-market/api/announcements/housing/family-houses/current"
+      }}/real-estate-market/api/announcements/housing/family-houses/owners/curr\
+      ent"
     name: addFromCurrentUser
     description: ""
     method: POST
@@ -2835,8 +3320,8 @@ resources:
     modified: 1662985643371
     created: 1662985643371
     url: "{{ base_url
-      }}/real-estate-market/api/announcements/housing/family-houses/current/{{
-      id }}"
+      }}/real-estate-market/api/announcements/housing/family-houses/owners/curr\
+      ent/{{ id }}"
     name: getByIdOfCurrentUser
     description: ""
     method: GET
@@ -2861,8 +3346,8 @@ resources:
     modified: 1662985643331
     created: 1662985643331
     url: "{{ base_url
-      }}/real-estate-market/api/announcements/housing/family-houses/current/{{
-      id }}"
+      }}/real-estate-market/api/announcements/housing/family-houses/owners/curr\
+      ent/{{ id }}"
     name: updateByIdFromCurrentUser
     description: Update family house announcement by id with validation on access to
       update for current user
@@ -3274,7 +3759,7 @@ resources:
     modified: 1662985640584
     created: 1662985640584
     url: "{{ base_url
-      }}/real-estate-market/api/properties/housing/family-houses/current"
+      }}/real-estate-market/api/properties/housing/family-houses/owners/current"
     name: addFromCurrentUser
     description: ""
     method: POST
@@ -3320,8 +3805,8 @@ resources:
     modified: 1662985640581
     created: 1662985640581
     url: "{{ base_url
-      }}/real-estate-market/api/properties/housing/family-houses/current/{{ id
-      }}"
+      }}/real-estate-market/api/properties/housing/family-houses/owners/current\
+      /{{ id }}"
     name: updateByIdOfCurrentUser
     description: ""
     method: PUT
@@ -3417,7 +3902,7 @@ resources:
     modified: 1662378677316
     created: 1662378677316
     url: "{{ base_url
-      }}/real-estate-market/api/properties/housing/family-houses/current"
+      }}/real-estate-market/api/properties/housing/family-houses/owners/current"
     name: getAllDtoOfCurrentUser
     description: ""
     method: GET
@@ -3533,7 +4018,7 @@ resources:
     parentId: fld_wrk_55e708dec8734d4cbe639dec705f6732c79ca256
     modified: 1662378677387
     created: 1662378677387
-    url: "{{ base_url }}/real-estate-market/api/cities"
+    url: "{{ base_url }}/real-estate-market/api/properties/housing/apartments"
     name: getAll
     description: ""
     method: GET
@@ -3573,7 +4058,7 @@ resources:
     parentId: fld_wrk_55e708dec8734d4cbe639dec705f6732935e6044
     modified: 1662378677404
     created: 1662378677404
-    url: "{{ base_url }}/real-estate-market/api/announcements/housing/family-houses"
+    url: "{{ base_url }}/real-estate-market/api/cities"
     name: getAll
     description: ""
     method: GET
@@ -3721,11 +4206,75 @@ resources:
     settingRebuildPath: true
     settingFollowRedirects: global
     _type: request
+  - _id: getAllWithOpenStatusByKeyWordsUsingGET_3
+    parentId: fld_wrk_55e708dec8734d4cbe639dec705f6732f72dc354
+    modified: 1663681394927
+    created: 1663681394927
+    url: "{{ base_url }}/real-estate-market/api/announcements/lands/open/search"
+    name: getAllWithOpenStatusByKeyWords
+    description: Search by key words in all string fields in open announcements
+    method: GET
+    body: {}
+    parameters:
+      - name: keywords
+        disabled: true
+        value: string
+    headers:
+      - name: Authorization
+        disabled: true
+        value: string
+    authentication: {}
+    metaSortKey: -1663681394927
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: fld_wrk_55e708dec8734d4cbe639dec705f6732f72dc354
+    parentId: wrk_55e708dec8734d4cbe639dec705f6732
+    modified: 1662378677623
+    created: 1662378677623
+    name: land-announcement-controller
+    description: Land Announcement Controller
+    environment: {}
+    environmentPropertyOrder: null
+    metaSortKey: -1662378677623
+    _type: request_group
+  - _id: getAllByKeyWordsUsingGET_3
+    parentId: fld_wrk_55e708dec8734d4cbe639dec705f6732f72dc354
+    modified: 1663681394479
+    created: 1663681394479
+    url: "{{ base_url }}/real-estate-market/api/announcements/lands/search"
+    name: getAllByKeyWords
+    description: Search by key words in all string fields
+    method: GET
+    body: {}
+    parameters:
+      - name: keywords
+        disabled: true
+        value: string
+    headers:
+      - name: Authorization
+        disabled: true
+        value: string
+    authentication: {}
+    metaSortKey: -1663681394479
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
   - _id: getAllWithClosedStatusByUserIfOfOwnerUsingGET_2
     parentId: fld_wrk_55e708dec8734d4cbe639dec705f6732f72dc354
     modified: 1662985642847
     created: 1662985642847
-    url: "{{ base_url }}/real-estate-market/api/announcements/lands/closed/owner/{{
+    url: "{{ base_url }}/real-estate-market/api/announcements/lands/closed/owners/{{
       userIdOfOwner }}"
     name: getAllWithClosedStatusByUserIfOfOwner
     description: ""
@@ -3752,21 +4301,11 @@ resources:
     settingRebuildPath: true
     settingFollowRedirects: global
     _type: request
-  - _id: fld_wrk_55e708dec8734d4cbe639dec705f6732f72dc354
-    parentId: wrk_55e708dec8734d4cbe639dec705f6732
-    modified: 1662378677623
-    created: 1662378677623
-    name: land-announcement-controller
-    description: Land Announcement Controller
-    environment: {}
-    environmentPropertyOrder: null
-    metaSortKey: -1662378677623
-    _type: request_group
   - _id: getAllOfCurrentUserUsingGET_2
     parentId: fld_wrk_55e708dec8734d4cbe639dec705f6732f72dc354
     modified: 1662985642807
     created: 1662985642807
-    url: "{{ base_url }}/real-estate-market/api/announcements/lands/current"
+    url: "{{ base_url }}/real-estate-market/api/announcements/lands/owners/current"
     name: getAllOfCurrentUser
     description: ""
     method: GET
@@ -3796,7 +4335,7 @@ resources:
     parentId: fld_wrk_55e708dec8734d4cbe639dec705f6732f72dc354
     modified: 1662985642773
     created: 1662985642773
-    url: "{{ base_url }}/real-estate-market/api/announcements/lands/current"
+    url: "{{ base_url }}/real-estate-market/api/announcements/lands/owners/current"
     name: addFromCurrentUser
     description: ""
     method: POST
@@ -3831,8 +4370,8 @@ resources:
     parentId: fld_wrk_55e708dec8734d4cbe639dec705f6732f72dc354
     modified: 1662985642735
     created: 1662985642735
-    url: "{{ base_url }}/real-estate-market/api/announcements/lands/current/{{ id
-      }}"
+    url: "{{ base_url
+      }}/real-estate-market/api/announcements/lands/owners/current/{{ id }}"
     name: getByIdOfCurrentUser
     description: ""
     method: GET
@@ -3856,8 +4395,8 @@ resources:
     parentId: fld_wrk_55e708dec8734d4cbe639dec705f6732f72dc354
     modified: 1662985642696
     created: 1662985642696
-    url: "{{ base_url }}/real-estate-market/api/announcements/lands/current/{{ id
-      }}"
+    url: "{{ base_url
+      }}/real-estate-market/api/announcements/lands/owners/current/{{ id }}"
     name: updateByIdFromCurrentUser
     description: Update land announcement by id with validation on access to update
       for current user
@@ -4094,7 +4633,7 @@ resources:
     parentId: fld_wrk_55e708dec8734d4cbe639dec705f67328c1f1875
     modified: 1662985640569
     created: 1662985640569
-    url: "{{ base_url }}/real-estate-market/api/properties/lands/current"
+    url: "{{ base_url }}/real-estate-market/api/properties/lands/owners/current"
     name: addFromCurrentUser
     description: ""
     method: POST
@@ -4137,7 +4676,8 @@ resources:
     parentId: fld_wrk_55e708dec8734d4cbe639dec705f67328c1f1875
     modified: 1662985640568
     created: 1662985640568
-    url: "{{ base_url }}/real-estate-market/api/properties/lands/current/{{ id }}"
+    url: "{{ base_url }}/real-estate-market/api/properties/lands/owners/current/{{
+      id }}"
     name: getByIdOfCurrentUser
     description: ""
     method: GET
@@ -4161,7 +4701,8 @@ resources:
     parentId: fld_wrk_55e708dec8734d4cbe639dec705f67328c1f1875
     modified: 1662985640566
     created: 1662985640566
-    url: "{{ base_url }}/real-estate-market/api/properties/lands/current/{{ id }}"
+    url: "{{ base_url }}/real-estate-market/api/properties/lands/owners/current/{{
+      id }}"
     name: updateByIdOfCurrentUser
     description: ""
     method: PUT
@@ -4255,7 +4796,7 @@ resources:
     parentId: fld_wrk_55e708dec8734d4cbe639dec705f67328c1f1875
     modified: 1662378677308
     created: 1662378677308
-    url: "{{ base_url }}/real-estate-market/api/properties/lands/current"
+    url: "{{ base_url }}/real-estate-market/api/properties/lands/owners/current"
     name: getAllDtoOfCurrentUser
     description: ""
     method: GET
@@ -4458,7 +4999,7 @@ resources:
     parentId: fld_wrk_55e708dec8734d4cbe639dec705f6732ed350859
     modified: 1662378677341
     created: 1662378677341
-    url: "{{ base_url }}/real-estate-market/api/messages/{{ id }}"
+    url: "{{ base_url }}/real-estate-market/api/regions/{{ id }}"
     name: updateById
     description: ""
     method: PUT
@@ -4490,7 +5031,7 @@ resources:
     parentId: fld_wrk_55e708dec8734d4cbe639dec705f67325a66cfbc
     modified: 1662985641197
     created: 1662985641197
-    url: "{{ base_url }}/real-estate-market/api/properties"
+    url: "{{ base_url }}/real-estate-market/api/house-materials"
     name: getAll
     description: ""
     method: GET
@@ -4530,7 +5071,7 @@ resources:
     parentId: fld_wrk_55e708dec8734d4cbe639dec705f67325a66cfbc
     modified: 1662378677340
     created: 1662378677340
-    url: "{{ base_url }}/real-estate-market/api/properties/housing/family-houses"
+    url: "{{ base_url }}/real-estate-market/api/announcements/housing/family-houses"
     name: getAll
     description: ""
     method: GET
@@ -4560,7 +5101,7 @@ resources:
     parentId: fld_wrk_55e708dec8734d4cbe639dec705f67325a66cfbc
     modified: 1662378677338
     created: 1662378677338
-    url: "{{ base_url }}/real-estate-market/api/properties/current"
+    url: "{{ base_url }}/real-estate-market/api/properties/owners/current"
     name: getAllDtoOfCurrentUser
     description: ""
     method: GET
@@ -4620,7 +5161,7 @@ resources:
     parentId: fld_wrk_55e708dec8734d4cbe639dec705f67325a66cfbc
     modified: 1662378677321
     created: 1662378677321
-    url: "{{ base_url }}/real-estate-market/api/properties/housing/current"
+    url: "{{ base_url }}/real-estate-market/api/properties/housing/owners/current"
     name: getAllHousingPropertiesDtoOfCurrentUser
     description: ""
     method: GET
@@ -4650,7 +5191,7 @@ resources:
     parentId: fld_wrk_55e708dec8734d4cbe639dec705f67325dd4bcdc
     modified: 1662985640559
     created: 1662985640559
-    url: "{{ base_url }}/real-estate-market/api/regions"
+    url: "{{ base_url }}/real-estate-market/api/announcements/lands"
     name: getAll
     description: ""
     method: GET
@@ -4690,7 +5231,7 @@ resources:
     parentId: fld_wrk_55e708dec8734d4cbe639dec705f67325dd4bcdc
     modified: 1662378677302
     created: 1662378677302
-    url: "{{ base_url }}/real-estate-market/api/houses"
+    url: "{{ base_url }}/real-estate-market/api/houses/family-houses"
     name: getAll
     description: ""
     method: GET
@@ -4776,7 +5317,7 @@ resources:
     parentId: fld_wrk_55e708dec8734d4cbe639dec705f67325dd4bcdc
     modified: 1662378677298
     created: 1662378677298
-    url: "{{ base_url }}/real-estate-market/api/regions/{{ id }}"
+    url: "{{ base_url }}/real-estate-market/api/renovation-types/{{ id }}"
     name: updateById
     description: ""
     method: PUT
@@ -4828,11 +5369,51 @@ resources:
     settingRebuildPath: true
     settingFollowRedirects: global
     _type: request
+  - _id: getAllUsingGET_13
+    parentId: fld_wrk_55e708dec8734d4cbe639dec705f6732ad5e06d0
+    modified: 1663681390585
+    created: 1663681390585
+    url: "{{ base_url }}/real-estate-market/api/renovation-types"
+    name: getAll
+    description: ""
+    method: GET
+    body: {}
+    parameters:
+      - name: q
+        disabled: true
+        value: string
+      - name: sort
+        disabled: true
+        value: string
+    headers:
+      - name: Authorization
+        disabled: true
+        value: string
+    authentication: {}
+    metaSortKey: -1663681390585
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: fld_wrk_55e708dec8734d4cbe639dec705f6732ad5e06d0
+    parentId: wrk_55e708dec8734d4cbe639dec705f6732
+    modified: 1662378677537
+    created: 1662378677537
+    name: renovation-type-controller
+    description: Renovation Type Controller
+    environment: {}
+    environmentPropertyOrder: null
+    metaSortKey: -1662378677537
+    _type: request_group
   - _id: getAllUsingGET_11
     parentId: fld_wrk_55e708dec8734d4cbe639dec705f6732ad5e06d0
     modified: 1662985640524
     created: 1662985640524
-    url: "{{ base_url }}/real-estate-market/api/renovation-types"
+    url: "{{ base_url }}/real-estate-market/api/properties"
     name: getAll
     description: ""
     method: GET
@@ -4858,21 +5439,11 @@ resources:
     settingRebuildPath: true
     settingFollowRedirects: global
     _type: request
-  - _id: fld_wrk_55e708dec8734d4cbe639dec705f6732ad5e06d0
-    parentId: wrk_55e708dec8734d4cbe639dec705f6732
-    modified: 1662378677537
-    created: 1662378677537
-    name: renovation-type-controller
-    description: Renovation Type Controller
-    environment: {}
-    environmentPropertyOrder: null
-    metaSortKey: -1662378677537
-    _type: request_group
   - _id: getAllUsingGET_7
     parentId: fld_wrk_55e708dec8734d4cbe639dec705f6732ad5e06d0
     modified: 1662378677277
     created: 1662378677277
-    url: "{{ base_url }}/real-estate-market/api/house-materials"
+    url: "{{ base_url }}/real-estate-market/api/properties/housing/family-houses"
     name: getAll
     description: ""
     method: GET
@@ -4958,7 +5529,7 @@ resources:
     parentId: fld_wrk_55e708dec8734d4cbe639dec705f6732ad5e06d0
     modified: 1662378677273
     created: 1662378677273
-    url: "{{ base_url }}/real-estate-market/api/renovation-types/{{ id }}"
+    url: "{{ base_url }}/real-estate-market/api/users/{{ id }}"
     name: updateById
     description: ""
     method: PUT
@@ -5010,11 +5581,69 @@ resources:
     settingRebuildPath: true
     settingFollowRedirects: global
     _type: request
+  - _id: getReviewsOfCurrentCustomerUserUsingGET
+    parentId: fld_wrk_55e708dec8734d4cbe639dec705f6732143cb2bc
+    modified: 1663681390574
+    created: 1663681390574
+    url: "{{ base_url }}/real-estate-market/api/reviews/customers/current"
+    name: getReviewsOfCurrentCustomerUser
+    description: Return all customer reviews of sellers of current user
+    method: GET
+    body: {}
+    parameters: []
+    headers:
+      - name: Authorization
+        disabled: true
+        value: string
+    authentication: {}
+    metaSortKey: -1663681390574
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: fld_wrk_55e708dec8734d4cbe639dec705f6732143cb2bc
+    parentId: wrk_55e708dec8734d4cbe639dec705f6732
+    modified: 1662378677524
+    created: 1662378677524
+    name: review-controller
+    description: Review Controller
+    environment: {}
+    environmentPropertyOrder: null
+    metaSortKey: -1662378677524
+    _type: request_group
+  - _id: getReviewsOfCurrentSellerUserUsingGET
+    parentId: fld_wrk_55e708dec8734d4cbe639dec705f6732143cb2bc
+    modified: 1663681390568
+    created: 1663681390568
+    url: "{{ base_url }}/real-estate-market/api/reviews/sellers/current"
+    name: getReviewsOfCurrentSellerUser
+    description: Returns all reviews of seller of current user
+    method: GET
+    body: {}
+    parameters: []
+    headers:
+      - name: Authorization
+        disabled: true
+        value: string
+    authentication: {}
+    metaSortKey: -1663681390568
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
   - _id: getReviewsByCustomerIdUsingGET
     parentId: fld_wrk_55e708dec8734d4cbe639dec705f6732143cb2bc
     modified: 1662378677408
     created: 1662378677408
-    url: "{{ base_url }}/real-estate-market/api/customers/{{ customerId }}/reviews"
+    url: "{{ base_url }}/real-estate-market/api/reviews/customers/{{ customerId }}"
     name: getReviewsByCustomerId
     description: Return all customer reviews of sellers by customerId
     method: GET
@@ -5034,21 +5663,11 @@ resources:
     settingRebuildPath: true
     settingFollowRedirects: global
     _type: request
-  - _id: fld_wrk_55e708dec8734d4cbe639dec705f6732143cb2bc
-    parentId: wrk_55e708dec8734d4cbe639dec705f6732
-    modified: 1662378677524
-    created: 1662378677524
-    name: review-controller
-    description: Review Controller
-    environment: {}
-    environmentPropertyOrder: null
-    metaSortKey: -1662378677524
-    _type: request_group
   - _id: getReviewsBySellerIdUsingGET
     parentId: fld_wrk_55e708dec8734d4cbe639dec705f6732143cb2bc
     modified: 1662378677270
     created: 1662378677270
-    url: "{{ base_url }}/real-estate-market/api/sellers/{{ sellerId }}/reviews"
+    url: "{{ base_url }}/real-estate-market/api/reviews/sellers/{{ sellerId }}"
     name: getReviewsBySellerId
     description: Returns all reviews of seller by sellerId
     method: GET
@@ -5072,7 +5691,7 @@ resources:
     parentId: fld_wrk_55e708dec8734d4cbe639dec705f6732143cb2bc
     modified: 1662378677268
     created: 1662378677268
-    url: "{{ base_url }}/real-estate-market/api/sellers/{{ sellerId }}/reviews"
+    url: "{{ base_url }}/real-estate-market/api/reviews/sellers/{{ sellerId }}"
     name: sendReviewToSellerBySellerId
     description: Send a review to seller by sellerId from current user
     method: POST
@@ -5101,11 +5720,51 @@ resources:
     settingRebuildPath: true
     settingFollowRedirects: global
     _type: request
+  - _id: getAllUsingGET_14
+    parentId: fld_wrk_55e708dec8734d4cbe639dec705f67321ff8a0f3
+    modified: 1663681390560
+    created: 1663681390560
+    url: "{{ base_url }}/real-estate-market/api/streets"
+    name: getAll
+    description: ""
+    method: GET
+    body: {}
+    parameters:
+      - name: q
+        disabled: true
+        value: string
+      - name: sort
+        disabled: true
+        value: string
+    headers:
+      - name: Authorization
+        disabled: true
+        value: string
+    authentication: {}
+    metaSortKey: -1663681390560
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: fld_wrk_55e708dec8734d4cbe639dec705f67321ff8a0f3
+    parentId: wrk_55e708dec8734d4cbe639dec705f6732
+    modified: 1662378677516
+    created: 1662378677516
+    name: street-controller
+    description: Street Controller
+    environment: {}
+    environmentPropertyOrder: null
+    metaSortKey: -1662378677516
+    _type: request_group
   - _id: getAllUsingGET_12
     parentId: fld_wrk_55e708dec8734d4cbe639dec705f67321ff8a0f3
     modified: 1662985640512
     created: 1662985640512
-    url: "{{ base_url }}/real-estate-market/api/streets"
+    url: "{{ base_url }}/real-estate-market/api/regions"
     name: getAll
     description: ""
     method: GET
@@ -5131,16 +5790,6 @@ resources:
     settingRebuildPath: true
     settingFollowRedirects: global
     _type: request
-  - _id: fld_wrk_55e708dec8734d4cbe639dec705f67321ff8a0f3
-    parentId: wrk_55e708dec8734d4cbe639dec705f6732
-    modified: 1662378677516
-    created: 1662378677516
-    name: street-controller
-    description: Street Controller
-    environment: {}
-    environmentPropertyOrder: null
-    metaSortKey: -1662378677516
-    _type: request_group
   - _id: addUsingPOST_13
     parentId: fld_wrk_55e708dec8734d4cbe639dec705f67321ff8a0f3
     modified: 1662985640511
@@ -5323,7 +5972,7 @@ resources:
     parentId: fld_wrk_55e708dec8734d4cbe639dec705f67321ff8a0f3
     modified: 1662378677267
     created: 1662378677267
-    url: "{{ base_url }}/real-estate-market/api/announcements/lands"
+    url: "{{ base_url }}/real-estate-market/api/houses"
     name: getAll
     description: ""
     method: GET
@@ -5748,7 +6397,7 @@ resources:
     _type: cookie_jar
   - _id: spc_9d7f37c53aa6468ca6eed1f5bb15d49f
     parentId: wrk_55e708dec8734d4cbe639dec705f6732
-    modified: 1663617106944
+    modified: 1663681415169
     created: 1662378273422
     fileName: SENLA - Real estate market (final project) Document
     contents: '{"swagger":"2.0","info":{"description":"This project was developed as
@@ -5817,9 +6466,9 @@ resources:
       token","required":false,"type":"string"},{"name":"id","in":"path","description":"id","required":true,"type":"integer","format":"int64"},{"in":"body","name":"updateRequestAnnouncementTopPriceDto","description":"updateRequestAnnouncementTopPriceDto","required":true,"schema":{"$ref":"#/definitions/UpdateRequestAnnouncementTopPriceDto"}}],"responses":{"200":{"description":"OK","schema":{"$ref":"#/definitions/RestResponseDto"}},"201":{"description":"Created"},"401":{"description":"Unauthorized"},"403":{"description":"Forbidden"},"404":{"description":"Not
       Found"}},"security":[{"ADMIN":[]}]}},"/real-estate-market/api/announcements":{"get":{"tags":["announcement-controller"],"summary":"getAllAnnouncements","operationId":"getAllAnnouncementsUsingGET","produces":["*/*"],"parameters":[{"name":"Authorization","in":"header","description":"JWT
       token","required":false,"type":"string"},{"name":"q","in":"query","description":"q","required":false,"type":"string"},{"name":"sort","in":"query","description":"sort","required":false,"type":"string"}],"responses":{"200":{"description":"OK","schema":{"type":"array","items":{"$ref":"#/definitions/AnnouncementDto"}}},"401":{"description":"Unauthorized"},"403":{"description":"Forbidden"},"404":{"description":"Not
-      Found"}}}},"/real-estate-market/api/announcements/housing":{"get":{"tags":["announcement-controller"],"summary":"getAllHousingAnnouncements","operationId":"getAllHousingAnnouncementsUsingGET","produces":["*/*"],"parameters":[{"name":"Authorization","in":"header","description":"JWT
+      Found"}},"security":[{"ADMIN":[]}]}},"/real-estate-market/api/announcements/housing":{"get":{"tags":["announcement-controller"],"summary":"getAllHousingAnnouncements","operationId":"getAllHousingAnnouncementsUsingGET","produces":["*/*"],"parameters":[{"name":"Authorization","in":"header","description":"JWT
       token","required":false,"type":"string"},{"name":"q","in":"query","description":"q","required":false,"type":"string"},{"name":"sort","in":"query","description":"sort","required":false,"type":"string"}],"responses":{"200":{"description":"OK","schema":{"type":"array","items":{"$ref":"#/definitions/HousingAnnouncementDto"}}},"401":{"description":"Unauthorized"},"403":{"description":"Forbidden"},"404":{"description":"Not
-      Found"}}}},"/real-estate-market/api/announcements/housing/apartments":{"get":{"tags":["apartment-announcement-controller"],"summary":"getAll","operationId":"getAllUsingGET_1","produces":["*/*"],"parameters":[{"name":"Authorization","in":"header","description":"JWT
+      Found"}},"security":[{"ADMIN":[]}]}},"/real-estate-market/api/announcements/housing/apartments":{"get":{"tags":["apartment-announcement-controller"],"summary":"getAll","operationId":"getAllUsingGET_1","produces":["*/*"],"parameters":[{"name":"Authorization","in":"header","description":"JWT
       token","required":false,"type":"string"},{"name":"q","in":"query","description":"q","required":false,"type":"string"},{"name":"sort","in":"query","description":"sort","required":false,"type":"string"}],"responses":{"200":{"description":"OK","schema":{"type":"array","items":{"$ref":"#/definitions/ApartmentAnnouncementDto"}}},"401":{"description":"Unauthorized"},"403":{"description":"Forbidden"},"404":{"description":"Not
       Found"}},"security":[{"ADMIN":[]}]},"post":{"tags":["apartment-announcement-controller"],"summary":"add","description":"Add
       new apartment announcement from DTO with HIDDEN
@@ -5831,9 +6480,16 @@ resources:
       all apartment announcement with OPEN
       status","operationId":"getAllWithOpenStatusUsingGET","produces":["*/*"],"parameters":[{"name":"Authorization","in":"header","description":"JWT
       token","required":false,"type":"string"},{"name":"q","in":"query","description":"q","required":false,"type":"string"},{"name":"sort","in":"query","description":"sort","required":false,"type":"string"}],"responses":{"200":{"description":"OK","schema":{"type":"array","items":{"$ref":"#/definitions/ApartmentAnnouncementDto"}}},"401":{"description":"Unauthorized"},"403":{"description":"Forbidden"},"404":{"description":"Not
+      Found"}}}},"/real-estate-market/api/announcements/housing/apartments/open/search":{"get":{"tags":["apartment-announcement-controller"],"summary":"getAllWithOpenStatusByKeyWords","description":"Search
+      by key words in all string fields in open
+      announcements","operationId":"getAllWithOpenStatusByKeyWordsUsingGET_1","produces":["*/*"],"parameters":[{"name":"Authorization","in":"header","description":"JWT
+      token","required":false,"type":"string"},{"name":"keywords","in":"query","description":"keywords","required":false,"type":"string"}],"responses":{"200":{"description":"OK","schema":{"type":"array","items":{"$ref":"#/definitions/ApartmentAnnouncementDto"}}},"401":{"description":"Unauthorized"},"403":{"description":"Forbidden"},"404":{"description":"Not
       Found"}}}},"/real-estate-market/api/announcements/housing/apartments/open/{apartmentAnnouncementId}/timetables/rent/only-date-times":{"get":{"tags":["apartment-announcement-rent-timetable-controller"],"summary":"getAllWithOpenStatusByApartmentIdOnlyDateTimes","operationId":"getAllWithOpenStatusByApartmentIdOnlyDateTimesUsingGET","produces":["*/*"],"parameters":[{"name":"apartmentAnnouncementId","in":"path","description":"apartmentAnnouncementId","required":true,"type":"integer","format":"int64"},{"name":"Authorization","in":"header","description":"JWT
       token","required":false,"type":"string"},{"name":"rsqlQuery","in":"query","description":"rsqlQuery","required":false,"type":"string"},{"name":"sortQuery","in":"query","description":"sortQuery","required":false,"type":"string"}],"responses":{"200":{"description":"OK","schema":{"type":"array","items":{"$ref":"#/definitions/RentTimetableWithoutAnnouncementIdDto"}}},"401":{"description":"Unauthorized"},"403":{"description":"Forbidden"},"404":{"description":"Not
-      Found"}}}},"/real-estate-market/api/announcements/housing/apartments/open/{id}":{"get":{"tags":["apartment-announcement-controller"],"summary":"getByIdWithOpenStatus","description":"Get
+      Found"}}}},"/real-estate-market/api/announcements/housing/apartments/open/{apartmentAnnouncementId}/timetables/rent/tenants/current":{"post":{"tags":["apartment-announcement-rent-timetable-controller"],"summary":"addByApartmentAnnouncementIdWithOpenStatusAndPayFromCurrentTenantUser","operationId":"addByApartmentAnnouncementIdWithOpenStatusAndPayFromCurrentTenantUserUsingPOST","consumes":["application/json"],"produces":["*/*"],"parameters":[{"name":"apartmentAnnouncementId","in":"path","description":"apartmentAnnouncementId","required":true,"type":"integer","format":"int64"},{"name":"Authorization","in":"header","description":"JWT
+      token","required":false,"type":"string"},{"in":"body","name":"requestRentTimetableDto","description":"requestRentTimetableDto","required":true,"schema":{"$ref":"#/definitions/RequestRentTimetableDto"}}],"responses":{"200":{"description":"OK","schema":{"$ref":"#/definitions/RestResponseDto"}},"201":{"description":"Created"},"401":{"description":"Unauthorized"},"403":{"description":"Forbidden"},"404":{"description":"Not
+      Found"}},"security":[{"Authorized
+      user":[]}]}},"/real-estate-market/api/announcements/housing/apartments/open/{id}":{"get":{"tags":["apartment-announcement-controller"],"summary":"getByIdWithOpenStatus","description":"Get
       apartment announcement by id with OPEN
       status","operationId":"getByIdWithOpenStatusUsingGET","produces":["*/*"],"parameters":[{"name":"Authorization","in":"header","description":"JWT
       token","required":false,"type":"string"},{"name":"id","in":"path","description":"id","required":true,"type":"integer","format":"int64"}],"responses":{"200":{"description":"OK","schema":{"$ref":"#/definitions/ApartmentAnnouncementDto"}},"401":{"description":"Unauthorized"},"403":{"description":"Forbidden"},"404":{"description":"Not
@@ -5865,7 +6521,7 @@ resources:
       by key words in all string
       fields","operationId":"getAllByKeyWordsUsingGET_1","produces":["*/*"],"parameters":[{"name":"Authorization","in":"header","description":"JWT
       token","required":false,"type":"string"},{"name":"keywords","in":"query","description":"keywords","required":false,"type":"string"}],"responses":{"200":{"description":"OK","schema":{"type":"array","items":{"$ref":"#/definitions/ApartmentAnnouncementDto"}}},"401":{"description":"Unauthorized"},"403":{"description":"Forbidden"},"404":{"description":"Not
-      Found"}}}},"/real-estate-market/api/announcements/housing/apartments/timetables/rent/tenants/current":{"get":{"tags":["apartment-announcement-rent-timetable-controller"],"summary":"getAllOfCurrentTenantUser","operationId":"getAllOfCurrentTenantUserUsingGET","produces":["*/*"],"parameters":[{"name":"Authorization","in":"header","description":"JWT
+      Found"}},"security":[{"ADMIN":[]}]}},"/real-estate-market/api/announcements/housing/apartments/timetables/rent/tenants/current":{"get":{"tags":["apartment-announcement-rent-timetable-controller"],"summary":"getAllOfCurrentTenantUser","operationId":"getAllOfCurrentTenantUserUsingGET","produces":["*/*"],"parameters":[{"name":"Authorization","in":"header","description":"JWT
       token","required":false,"type":"string"},{"name":"rsqlQuery","in":"query","description":"rsqlQuery","required":false,"type":"string"},{"name":"sortQuery","in":"query","description":"sortQuery","required":false,"type":"string"}],"responses":{"200":{"description":"OK","schema":{"type":"array","items":{"$ref":"#/definitions/RentTimetableDto"}}},"401":{"description":"Unauthorized"},"403":{"description":"Forbidden"},"404":{"description":"Not
       Found"}},"security":[{"Authorized
       user":[]}]}},"/real-estate-market/api/announcements/housing/apartments/{apartmentAnnouncementId}/timetables/rent":{"get":{"tags":["apartment-announcement-rent-timetable-controller"],"summary":"getAllByApartmentId","operationId":"getAllByApartmentIdUsingGET","produces":["*/*"],"parameters":[{"name":"apartmentAnnouncementId","in":"path","description":"apartmentAnnouncementId","required":true,"type":"integer","format":"int64"},{"name":"Authorization","in":"header","description":"JWT
@@ -5879,8 +6535,7 @@ resources:
       Found"}},"security":[{"Authorized
       user":[]}]},"post":{"tags":["apartment-announcement-rent-timetable-controller"],"summary":"addByApartmentIdWithPayFromCurrentTenantUser","operationId":"addByApartmentIdWithPayFromCurrentTenantUserUsingPOST","consumes":["application/json"],"produces":["*/*"],"parameters":[{"name":"apartmentAnnouncementId","in":"path","description":"apartmentAnnouncementId","required":true,"type":"integer","format":"int64"},{"name":"Authorization","in":"header","description":"JWT
       token","required":false,"type":"string"},{"in":"body","name":"requestRentTimetableDto","description":"requestRentTimetableDto","required":true,"schema":{"$ref":"#/definitions/RequestRentTimetableDto"}}],"responses":{"200":{"description":"OK","schema":{"$ref":"#/definitions/RestResponseDto"}},"201":{"description":"Created"},"401":{"description":"Unauthorized"},"403":{"description":"Forbidden"},"404":{"description":"Not
-      Found"}},"security":[{"Authorized
-      user":[]}]}},"/real-estate-market/api/announcements/housing/apartments/{apartmentAnnouncementId}/timetables/top":{"get":{"tags":["apartment-announcement-top-timetable-controller"],"summary":"getAllByApartmentId","operationId":"getAllByApartmentIdUsingGET_1","produces":["*/*"],"parameters":[{"name":"apartmentAnnouncementId","in":"path","description":"apartmentAnnouncementId","required":true,"type":"integer","format":"int64"},{"name":"Authorization","in":"header","description":"JWT
+      Found"}},"security":[{"ADMIN":[]}]}},"/real-estate-market/api/announcements/housing/apartments/{apartmentAnnouncementId}/timetables/top":{"get":{"tags":["apartment-announcement-top-timetable-controller"],"summary":"getAllByApartmentId","operationId":"getAllByApartmentIdUsingGET_1","produces":["*/*"],"parameters":[{"name":"apartmentAnnouncementId","in":"path","description":"apartmentAnnouncementId","required":true,"type":"integer","format":"int64"},{"name":"Authorization","in":"header","description":"JWT
       token","required":false,"type":"string"},{"name":"rsqlQuery","in":"query","description":"rsqlQuery","required":false,"type":"string"},{"name":"sortQuery","in":"query","description":"sortQuery","required":false,"type":"string"}],"responses":{"200":{"description":"OK","schema":{"type":"array","items":{"$ref":"#/definitions/TopTimetableWithoutAnnouncementIdDto"}}},"401":{"description":"Unauthorized"},"403":{"description":"Forbidden"},"404":{"description":"Not
       Found"}},"security":[{"ADMIN":[]}]},"post":{"tags":["apartment-announcement-top-timetable-controller"],"summary":"addByApartmentIdWithoutPay","operationId":"addByApartmentIdWithoutPayUsingPOST_1","consumes":["application/json"],"produces":["*/*"],"parameters":[{"name":"apartmentAnnouncementId","in":"path","description":"apartmentAnnouncementId","required":true,"type":"integer","format":"int64"},{"name":"Authorization","in":"header","description":"JWT
       token","required":false,"type":"string"},{"in":"body","name":"requestTopTimetableDto","description":"requestTopTimetableDto","required":true,"schema":{"$ref":"#/definitions/RequestTopTimetableDto"}}],"responses":{"200":{"description":"OK","schema":{"$ref":"#/definitions/RestResponseDto"}},"201":{"description":"Created"},"401":{"description":"Unauthorized"},"403":{"description":"Forbidden"},"404":{"description":"Not
@@ -5902,9 +6557,16 @@ resources:
       all family house announcements with OPEN
       status","operationId":"getAllWithOpenStatusUsingGET_1","produces":["*/*"],"parameters":[{"name":"Authorization","in":"header","description":"JWT
       token","required":false,"type":"string"},{"name":"q","in":"query","description":"q","required":false,"type":"string"},{"name":"sort","in":"query","description":"sort","required":false,"type":"string"}],"responses":{"200":{"description":"OK","schema":{"type":"array","items":{"$ref":"#/definitions/FamilyHouseAnnouncementDto"}}},"401":{"description":"Unauthorized"},"403":{"description":"Forbidden"},"404":{"description":"Not
+      Found"}}}},"/real-estate-market/api/announcements/housing/family-houses/open/search":{"get":{"tags":["family-house-announcement-controller"],"summary":"getAllWithOpenStatusByKeyWords","description":"Search
+      by key words in all string fields in open
+      announcements","operationId":"getAllWithOpenStatusByKeyWordsUsingGET_2","produces":["*/*"],"parameters":[{"name":"Authorization","in":"header","description":"JWT
+      token","required":false,"type":"string"},{"name":"keywords","in":"query","description":"keywords","required":false,"type":"string"}],"responses":{"200":{"description":"OK","schema":{"type":"array","items":{"$ref":"#/definitions/FamilyHouseAnnouncementDto"}}},"401":{"description":"Unauthorized"},"403":{"description":"Forbidden"},"404":{"description":"Not
       Found"}}}},"/real-estate-market/api/announcements/housing/family-houses/open/{familyHouseAnnouncementId}/timetables/rent/only-date-times":{"get":{"tags":["family-house-announcement-rent-timetable-controller"],"summary":"getAllWithOpenStatusByFamilyHouseIdOnlyDateTimes","operationId":"getAllWithOpenStatusByFamilyHouseIdOnlyDateTimesUsingGET","produces":["*/*"],"parameters":[{"name":"Authorization","in":"header","description":"JWT
       token","required":false,"type":"string"},{"name":"familyHouseAnnouncementId","in":"path","description":"familyHouseAnnouncementId","required":true,"type":"integer","format":"int64"},{"name":"rsqlQuery","in":"query","description":"rsqlQuery","required":false,"type":"string"},{"name":"sortQuery","in":"query","description":"sortQuery","required":false,"type":"string"}],"responses":{"200":{"description":"OK","schema":{"type":"array","items":{"$ref":"#/definitions/RentTimetableWithoutAnnouncementIdDto"}}},"401":{"description":"Unauthorized"},"403":{"description":"Forbidden"},"404":{"description":"Not
-      Found"}}}},"/real-estate-market/api/announcements/housing/family-houses/open/{id}":{"get":{"tags":["family-house-announcement-controller"],"summary":"getByIdWithOpenStatus","description":"Get
+      Found"}}}},"/real-estate-market/api/announcements/housing/family-houses/open/{familyHouseAnnouncementId}/timetables/rent/tenants/current":{"post":{"tags":["family-house-announcement-rent-timetable-controller"],"summary":"addByFamilyHouseAnnouncementIdWithOpenStatusAndPayFromCurrentTenantUser","operationId":"addByFamilyHouseAnnouncementIdWithOpenStatusAndPayFromCurrentTenantUserUsingPOST","consumes":["application/json"],"produces":["*/*"],"parameters":[{"name":"Authorization","in":"header","description":"JWT
+      token","required":false,"type":"string"},{"name":"familyHouseAnnouncementId","in":"path","description":"familyHouseAnnouncementId","required":true,"type":"integer","format":"int64"},{"in":"body","name":"requestRentTimetableDto","description":"requestRentTimetableDto","required":true,"schema":{"$ref":"#/definitions/RequestRentTimetableDto"}}],"responses":{"200":{"description":"OK","schema":{"$ref":"#/definitions/RestResponseDto"}},"201":{"description":"Created"},"401":{"description":"Unauthorized"},"403":{"description":"Forbidden"},"404":{"description":"Not
+      Found"}},"security":[{"Authorized
+      user":[]}]}},"/real-estate-market/api/announcements/housing/family-houses/open/{id}":{"get":{"tags":["family-house-announcement-controller"],"summary":"getByIdWithOpenStatus","description":"Get
       family house announcements by id with OPEN
       status","operationId":"getByIdWithOpenStatusUsingGET_1","produces":["*/*"],"parameters":[{"name":"Authorization","in":"header","description":"JWT
       token","required":false,"type":"string"},{"name":"id","in":"path","description":"id","required":true,"type":"integer","format":"int64"}],"responses":{"200":{"description":"OK","schema":{"$ref":"#/definitions/FamilyHouseAnnouncementDto"}},"401":{"description":"Unauthorized"},"403":{"description":"Forbidden"},"404":{"description":"Not
@@ -5936,7 +6598,7 @@ resources:
       by key words in all string
       fields","operationId":"getAllByKeyWordsUsingGET_2","produces":["*/*"],"parameters":[{"name":"Authorization","in":"header","description":"JWT
       token","required":false,"type":"string"},{"name":"keywords","in":"query","description":"keywords","required":false,"type":"string"}],"responses":{"200":{"description":"OK","schema":{"type":"array","items":{"$ref":"#/definitions/FamilyHouseAnnouncementDto"}}},"401":{"description":"Unauthorized"},"403":{"description":"Forbidden"},"404":{"description":"Not
-      Found"}}}},"/real-estate-market/api/announcements/housing/family-houses/timetables/rent/tenants/current":{"get":{"tags":["family-house-announcement-rent-timetable-controller"],"summary":"getAllOfCurrentTenantUser","operationId":"getAllOfCurrentTenantUserUsingGET_1","produces":["*/*"],"parameters":[{"name":"Authorization","in":"header","description":"JWT
+      Found"}},"security":[{"ADMIN":[]}]}},"/real-estate-market/api/announcements/housing/family-houses/timetables/rent/tenants/current":{"get":{"tags":["family-house-announcement-rent-timetable-controller"],"summary":"getAllOfCurrentTenantUser","operationId":"getAllOfCurrentTenantUserUsingGET_1","produces":["*/*"],"parameters":[{"name":"Authorization","in":"header","description":"JWT
       token","required":false,"type":"string"},{"name":"rsqlQuery","in":"query","description":"rsqlQuery","required":false,"type":"string"},{"name":"sortQuery","in":"query","description":"sortQuery","required":false,"type":"string"}],"responses":{"200":{"description":"OK","schema":{"type":"array","items":{"$ref":"#/definitions/RentTimetableDto"}}},"401":{"description":"Unauthorized"},"403":{"description":"Forbidden"},"404":{"description":"Not
       Found"}},"security":[{"Authorized
       user":[]}]}},"/real-estate-market/api/announcements/housing/family-houses/{familyHouseAnnouncementId}/timetables/rent":{"get":{"tags":["family-house-announcement-rent-timetable-controller"],"summary":"getAllByFamilyHouseId","operationId":"getAllByFamilyHouseIdUsingGET","produces":["*/*"],"parameters":[{"name":"Authorization","in":"header","description":"JWT
@@ -5950,8 +6612,7 @@ resources:
       Found"}},"security":[{"Authorized
       user":[]}]},"post":{"tags":["family-house-announcement-rent-timetable-controller"],"summary":"addByFamilyHouseIdWithPayFromCurrentTenantUser","operationId":"addByFamilyHouseIdWithPayFromCurrentTenantUserUsingPOST","consumes":["application/json"],"produces":["*/*"],"parameters":[{"name":"Authorization","in":"header","description":"JWT
       token","required":false,"type":"string"},{"name":"familyHouseAnnouncementId","in":"path","description":"familyHouseAnnouncementId","required":true,"type":"integer","format":"int64"},{"in":"body","name":"requestRentTimetableDto","description":"requestRentTimetableDto","required":true,"schema":{"$ref":"#/definitions/RequestRentTimetableDto"}}],"responses":{"200":{"description":"OK","schema":{"$ref":"#/definitions/RestResponseDto"}},"201":{"description":"Created"},"401":{"description":"Unauthorized"},"403":{"description":"Forbidden"},"404":{"description":"Not
-      Found"}},"security":[{"Authorized
-      user":[]}]}},"/real-estate-market/api/announcements/housing/family-houses/{familyHouseAnnouncementId}/timetables/top":{"get":{"tags":["family-house-announcement-top-timetable-controller"],"summary":"getAllByFamilyHouseId","operationId":"getAllByFamilyHouseIdUsingGET_1","produces":["*/*"],"parameters":[{"name":"Authorization","in":"header","description":"JWT
+      Found"}},"security":[{"ADMIN":[]}]}},"/real-estate-market/api/announcements/housing/family-houses/{familyHouseAnnouncementId}/timetables/top":{"get":{"tags":["family-house-announcement-top-timetable-controller"],"summary":"getAllByFamilyHouseId","operationId":"getAllByFamilyHouseIdUsingGET_1","produces":["*/*"],"parameters":[{"name":"Authorization","in":"header","description":"JWT
       token","required":false,"type":"string"},{"name":"familyHouseAnnouncementId","in":"path","description":"familyHouseAnnouncementId","required":true,"type":"integer","format":"int64"},{"name":"rsqlQuery","in":"query","description":"rsqlQuery","required":false,"type":"string"},{"name":"sortQuery","in":"query","description":"sortQuery","required":false,"type":"string"}],"responses":{"200":{"description":"OK","schema":{"type":"array","items":{"$ref":"#/definitions/TopTimetableWithoutAnnouncementIdDto"}}},"401":{"description":"Unauthorized"},"403":{"description":"Forbidden"},"404":{"description":"Not
       Found"}},"security":[{"ADMIN":[]}]},"post":{"tags":["family-house-announcement-top-timetable-controller"],"summary":"addByFamilyHouseIdWithoutPay","operationId":"addByFamilyHouseIdWithoutPayUsingPOST_1","consumes":["application/json"],"produces":["*/*"],"parameters":[{"name":"Authorization","in":"header","description":"JWT
       token","required":false,"type":"string"},{"name":"familyHouseAnnouncementId","in":"path","description":"familyHouseAnnouncementId","required":true,"type":"integer","format":"int64"},{"in":"body","name":"requestTopTimetableDto","description":"requestTopTimetableDto","required":true,"schema":{"$ref":"#/definitions/RequestTopTimetableDto"}}],"responses":{"200":{"description":"OK","schema":{"$ref":"#/definitions/RestResponseDto"}},"201":{"description":"Created"},"401":{"description":"Unauthorized"},"403":{"description":"Forbidden"},"404":{"description":"Not
@@ -5977,6 +6638,10 @@ resources:
       all land announcements with OPEN
       status","operationId":"getAllWithOpenStatusUsingGET_2","produces":["*/*"],"parameters":[{"name":"Authorization","in":"header","description":"JWT
       token","required":false,"type":"string"},{"name":"q","in":"query","description":"q","required":false,"type":"string"},{"name":"sort","in":"query","description":"sort","required":false,"type":"string"}],"responses":{"200":{"description":"OK","schema":{"type":"array","items":{"$ref":"#/definitions/LandAnnouncementDto"}}},"401":{"description":"Unauthorized"},"403":{"description":"Forbidden"},"404":{"description":"Not
+      Found"}}}},"/real-estate-market/api/announcements/lands/open/search":{"get":{"tags":["land-announcement-controller"],"summary":"getAllWithOpenStatusByKeyWords","description":"Search
+      by key words in all string fields in open
+      announcements","operationId":"getAllWithOpenStatusByKeyWordsUsingGET_3","produces":["*/*"],"parameters":[{"name":"Authorization","in":"header","description":"JWT
+      token","required":false,"type":"string"},{"name":"keywords","in":"query","description":"keywords","required":false,"type":"string"}],"responses":{"200":{"description":"OK","schema":{"type":"array","items":{"$ref":"#/definitions/LandAnnouncementDto"}}},"401":{"description":"Unauthorized"},"403":{"description":"Forbidden"},"404":{"description":"Not
       Found"}}}},"/real-estate-market/api/announcements/lands/open/{id}":{"get":{"tags":["land-announcement-controller"],"summary":"getByIdWithOpenStatus","description":"Get
       land announcement by id with OPEN
       status","operationId":"getByIdWithOpenStatusUsingGET_2","produces":["*/*"],"parameters":[{"name":"Authorization","in":"header","description":"JWT
@@ -6019,11 +6684,15 @@ resources:
       all announcement with OPEN
       status","operationId":"getAllOpenAnnouncementsUsingGET","produces":["*/*"],"parameters":[{"name":"Authorization","in":"header","description":"JWT
       token","required":false,"type":"string"},{"name":"q","in":"query","description":"q","required":false,"type":"string"},{"name":"sort","in":"query","description":"sort","required":false,"type":"string"}],"responses":{"200":{"description":"OK","schema":{"type":"array","items":{"$ref":"#/definitions/AnnouncementDto"}}},"401":{"description":"Unauthorized"},"403":{"description":"Forbidden"},"404":{"description":"Not
+      Found"}}}},"/real-estate-market/api/announcements/open/search":{"get":{"tags":["announcement-controller"],"summary":"getAllWithOpenStatusByKeyWords","description":"Search
+      by key words in all string fields in open
+      announcements","operationId":"getAllWithOpenStatusByKeyWordsUsingGET","produces":["*/*"],"parameters":[{"name":"Authorization","in":"header","description":"JWT
+      token","required":false,"type":"string"},{"name":"keywords","in":"query","description":"keywords","required":false,"type":"string"}],"responses":{"200":{"description":"OK","schema":{"type":"array","items":{"$ref":"#/definitions/AnnouncementDto"}}},"401":{"description":"Unauthorized"},"403":{"description":"Forbidden"},"404":{"description":"Not
       Found"}}}},"/real-estate-market/api/announcements/search":{"get":{"tags":["announcement-controller"],"summary":"getAllByKeyWords","description":"Search
       by key words in all string
       fields","operationId":"getAllByKeyWordsUsingGET","produces":["*/*"],"parameters":[{"name":"Authorization","in":"header","description":"JWT
       token","required":false,"type":"string"},{"name":"keywords","in":"query","description":"keywords","required":false,"type":"string"}],"responses":{"200":{"description":"OK","schema":{"type":"array","items":{"$ref":"#/definitions/AnnouncementDto"}}},"401":{"description":"Unauthorized"},"403":{"description":"Forbidden"},"404":{"description":"Not
-      Found"}}}},"/real-estate-market/api/auth":{"post":{"tags":["auth-controller"],"summary":"Create
+      Found"}},"security":[{"ADMIN":[]}]}},"/real-estate-market/api/auth":{"post":{"tags":["auth-controller"],"summary":"Create
       auth token","description":"Return JWT token if authorization is
       successful","operationId":"createAuthTokenUsingPOST","consumes":["application/json"],"produces":["*/*"],"parameters":[{"name":"Authorization","in":"header","description":"JWT
       token","required":false,"type":"string"},{"in":"body","name":"authRequest","description":"authRequest","required":true,"schema":{"$ref":"#/definitions/JwtRequestDto"}}],"responses":{"200":{"description":"OK","schema":{"$ref":"#/definitions/JwtResponseDto"}},"201":{"description":"Created"},"401":{"description":"Unauthorized"},"403":{"description":"Forbidden"},"404":{"description":"Not
