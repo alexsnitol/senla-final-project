@@ -3,6 +3,7 @@
 /build/
 
 *.log
+**/real-estate-market.war
 
 # Ignore Gradle GUI config
 gradle-app.setting
