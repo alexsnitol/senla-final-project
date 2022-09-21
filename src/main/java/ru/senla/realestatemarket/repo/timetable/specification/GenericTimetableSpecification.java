@@ -4,6 +4,10 @@ import org.springframework.data.jpa.domain.Specification;
 
 import java.time.LocalDateTime;
 
+/**
+ * @author Alexander Slotin (@alexsnitol)
+ */
+
 public class GenericTimetableSpecification {
 
     private GenericTimetableSpecification() {}

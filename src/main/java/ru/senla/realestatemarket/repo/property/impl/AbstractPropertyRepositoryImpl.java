@@ -11,6 +11,10 @@ import java.util.List;
 import static ru.senla.realestatemarket.repo.property.specification.GenericPropertySpecification.hasIdAndUserIdOfOwner;
 import static ru.senla.realestatemarket.repo.property.specification.GenericPropertySpecification.hasUserIdOfOwner;
 
+/**
+ * @author Alexander Slotin (@alexsnitol)
+ */
+
 @Slf4j
 @Repository
 public abstract class AbstractPropertyRepositoryImpl<M> extends AbstractRepositoryImpl<M, Long>

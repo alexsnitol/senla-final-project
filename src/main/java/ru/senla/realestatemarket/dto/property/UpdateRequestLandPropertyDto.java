@@ -5,6 +5,10 @@ import lombok.Setter;
 import ru.senla.realestatemarket.model.property.PropertyStatusEnum;
 
 
+/**
+ * @author Alexander Slotin (@alexsnitol)
+ */
+
 @Getter
 @Setter
 public class UpdateRequestLandPropertyDto {

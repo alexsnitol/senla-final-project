@@ -21,6 +21,11 @@ import javax.persistence.Table;
 import java.util.List;
 import java.util.Objects;
 
+/**
+ * @author Alexander Slotin (@alexsnitol)
+ */
+
+
 @Getter
 @Setter
 @NoArgsConstructor

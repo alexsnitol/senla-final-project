@@ -12,6 +12,10 @@ import java.util.List;
 
 import static ru.senla.realestatemarket.repo.user.specification.BalanceOperationSpecification.hasUserId;
 
+/**
+ * @author Alexander Slotin (@alexsnitol)
+ */
+
 @Slf4j
 @Repository
 public class BalanceOperationRepositoryImpl extends AbstractRepositoryImpl<BalanceOperation, Long>

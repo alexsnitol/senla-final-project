@@ -19,6 +19,10 @@ import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Set;
 
+/**
+ * @author Alexander Slotin (@alexsnitol)
+ */
+
 @Slf4j
 @Service
 public class MessageServiceImpl extends AbstractServiceImpl<Message, Long> implements IMessageService {

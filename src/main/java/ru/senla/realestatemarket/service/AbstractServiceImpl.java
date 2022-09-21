@@ -14,6 +14,10 @@ import ru.senla.realestatemarket.util.SortUtil;
 import javax.transaction.Transactional;
 import java.util.List;
 
+/**
+ * @author Alexander Slotin (@alexsnitol)
+ */
+
 @Slf4j
 public abstract class AbstractServiceImpl<M extends IModel<I>, I> implements IAbstractService<M, I> {
 

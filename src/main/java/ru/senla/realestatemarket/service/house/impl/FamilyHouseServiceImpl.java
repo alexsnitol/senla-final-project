@@ -20,6 +20,10 @@ import javax.transaction.Transactional;
 import java.util.List;
 
 
+/**
+ * @author Alexander Slotin (@alexsnitol)
+ */
+
 @Slf4j
 @Service
 public class FamilyHouseServiceImpl

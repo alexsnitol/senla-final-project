@@ -8,6 +8,10 @@ import ru.senla.realestatemarket.service.purchase.rent.IFamilyHouseAnnouncementR
 
 import javax.annotation.PostConstruct;
 
+/**
+ * @author Alexander Slotin (@alexsnitol)
+ */
+
 @Slf4j
 @Service
 public class FamilyHouseAnnouncementRentPurchaseServiceImpl

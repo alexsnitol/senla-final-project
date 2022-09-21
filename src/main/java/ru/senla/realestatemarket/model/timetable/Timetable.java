@@ -12,6 +12,11 @@ import javax.persistence.MappedSuperclass;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
+/**
+ * @author Alexander Slotin (@alexsnitol)
+ */
+
+
 @MappedSuperclass
 @AllArgsConstructor
 @NoArgsConstructor

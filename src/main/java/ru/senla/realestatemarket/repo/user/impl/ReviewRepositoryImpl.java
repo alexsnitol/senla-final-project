@@ -13,6 +13,10 @@ import java.util.List;
 import static ru.senla.realestatemarket.repo.user.specification.ReviewSpecification.hasCustomerId;
 import static ru.senla.realestatemarket.repo.user.specification.ReviewSpecification.hasSellerId;
 
+/**
+ * @author Alexander Slotin (@alexsnitol)
+ */
+
 @Slf4j
 @Repository
 public class ReviewRepositoryImpl extends AbstractRepositoryImpl<Review, Long> implements IReviewRepository {

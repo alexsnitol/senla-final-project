@@ -8,6 +8,10 @@ import ru.senla.realestatemarket.repo.user.IAuthorityRepository;
 
 import javax.annotation.PostConstruct;
 
+/**
+ * @author Alexander Slotin (@alexsnitol)
+ */
+
 @Slf4j
 @Repository
 public class AuthorityRepositoryImpl extends AbstractRepositoryImpl<Authority, Long> implements IAuthorityRepository {

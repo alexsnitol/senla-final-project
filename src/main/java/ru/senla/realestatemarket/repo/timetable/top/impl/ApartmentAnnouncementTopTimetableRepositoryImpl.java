@@ -15,6 +15,10 @@ import static ru.senla.realestatemarket.repo.timetable.top.specification.Apartme
 import static ru.senla.realestatemarket.repo.timetable.top.specification.ApartmentAnnouncementTopTimetableSpecification.hasApartmentAnnouncementId;
 import static ru.senla.realestatemarket.repo.timetable.top.specification.ApartmentAnnouncementTopTimetableSpecification.hasApartmentAnnouncementIdAndUserIdOfOwnerInPropertyItAnnouncement;
 
+/**
+ * @author Alexander Slotin (@alexsnitol)
+ */
+
 @Slf4j
 @Repository
 public class ApartmentAnnouncementTopTimetableRepositoryImpl

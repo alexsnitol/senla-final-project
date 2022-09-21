@@ -13,6 +13,10 @@ import ru.senla.realestatemarket.util.UserUtil;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
+/**
+ * @author Alexander Slotin (@alexsnitol)
+ */
+
 @Slf4j
 @Service
 public abstract class AbstractAnnouncementServiceImpl<M extends Announcement>

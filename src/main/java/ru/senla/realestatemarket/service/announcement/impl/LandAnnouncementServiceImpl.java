@@ -28,6 +28,10 @@ import java.util.List;
 import static ru.senla.realestatemarket.repo.announcement.specification.GenericAnnouncementSpecification.hasIdAndUserIdOfOwnerInProperty;
 import static ru.senla.realestatemarket.repo.announcement.specification.LandAnnouncementSpecification.hasUserIdOfOwnerInProperty;
 
+/**
+ * @author Alexander Slotin (@alexsnitol)
+ */
+
 @Slf4j
 @Service
 public class LandAnnouncementServiceImpl

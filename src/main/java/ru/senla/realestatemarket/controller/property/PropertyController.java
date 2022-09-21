@@ -13,6 +13,10 @@ import ru.senla.realestatemarket.service.property.IPropertyService;
 
 import java.util.List;
 
+/**
+ * @author Alexander Slotin (@alexsnitol)
+ */
+
 @Slf4j
 @RequiredArgsConstructor
 @RestController

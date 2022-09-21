@@ -31,6 +31,10 @@ import java.util.List;
 import static ru.senla.realestatemarket.repo.property.specification.FamilyHousePropertySpecification.hasFamilyHouseId;
 import static ru.senla.realestatemarket.repo.property.specification.FamilyHousePropertySpecification.hasIdAndUserIdOfOwner;
 
+/**
+ * @author Alexander Slotin (@alexsnitol)
+ */
+
 @Slf4j
 @Service
 public class FamilyHousePropertyServiceImpl

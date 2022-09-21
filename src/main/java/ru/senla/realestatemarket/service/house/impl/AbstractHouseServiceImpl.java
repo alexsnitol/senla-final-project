@@ -13,6 +13,10 @@ import ru.senla.realestatemarket.service.house.IAbstractHouseService;
 
 import javax.persistence.EntityNotFoundException;
 
+/**
+ * @author Alexander Slotin (@alexsnitol)
+ */
+
 @Slf4j
 public abstract class AbstractHouseServiceImpl<M extends IModel<Long>, D>
         extends AbstractServiceImpl<M, Long>

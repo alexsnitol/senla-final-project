@@ -6,6 +6,10 @@ import lombok.Setter;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 
+/**
+ * @author Alexander Slotin (@alexsnitol)
+ */
+
 @Getter
 @Setter
 public class RequestRentTimetableDto {

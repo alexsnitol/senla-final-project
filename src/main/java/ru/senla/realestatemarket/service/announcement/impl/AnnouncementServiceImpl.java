@@ -26,6 +26,10 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * @author Alexander Slotin (@alexsnitol)
+ */
+
 @Slf4j
 @Service
 public class AnnouncementServiceImpl

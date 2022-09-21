@@ -7,6 +7,10 @@ import ru.senla.realestatemarket.repo.purchase.rent.IApartmentAnnouncementRentPu
 
 import javax.annotation.PostConstruct;
 
+/**
+ * @author Alexander Slotin (@alexsnitol)
+ */
+
 @Slf4j
 @Repository
 public class ApartmentAnnouncementRentPurchaseRepositoryImpl

@@ -5,6 +5,10 @@ import lombok.Data;
 
 import java.time.LocalDateTime;
 
+/**
+ * @author Alexander Slotin (@alexsnitol)
+ */
+
 @Data
 public class ReviewDto {
 

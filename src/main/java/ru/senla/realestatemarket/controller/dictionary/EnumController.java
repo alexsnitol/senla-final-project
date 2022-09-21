@@ -13,6 +13,10 @@ import ru.senla.realestatemarket.model.house.HousingTypeEnum;
 import ru.senla.realestatemarket.model.property.PropertyStatusEnum;
 import ru.senla.realestatemarket.model.property.PropertyTypeEnum;
 
+/**
+ * @author Alexander Slotin (@alexsnitol)
+ */
+
 @Slf4j
 @RequiredArgsConstructor
 @RestController

@@ -7,6 +7,10 @@ import ru.senla.realestatemarket.repo.announcement.IHousingAnnouncementRepositor
 
 import javax.annotation.PostConstruct;
 
+/**
+ * @author Alexander Slotin (@alexsnitol)
+ */
+
 @Slf4j
 @Repository
 public class HousingAnnouncementRepositoryImpl

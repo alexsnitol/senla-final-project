@@ -21,6 +21,10 @@ import ru.senla.realestatemarket.service.user.IBalanceOperationService;
 import javax.validation.Valid;
 import java.util.List;
 
+/**
+ * @author Alexander Slotin (@alexsnitol)
+ */
+
 @Slf4j
 @RequiredArgsConstructor
 @RestController

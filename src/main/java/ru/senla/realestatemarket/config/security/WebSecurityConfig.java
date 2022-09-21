@@ -25,6 +25,10 @@ import ru.senla.realestatemarket.service.user.IUserService;
 import static org.springframework.http.HttpMethod.GET;
 import static org.springframework.http.HttpMethod.POST;
 
+/**
+ * @author Alexander Slotin (@alexsnitol)
+ */
+
 @EnableWebSecurity(debug = true)
 @Configuration
 @ComponentScan(basePackages = "ru.senla.realestatemarket")

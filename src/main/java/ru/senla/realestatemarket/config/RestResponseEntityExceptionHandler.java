@@ -27,6 +27,10 @@ import javax.persistence.EntityNotFoundException;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * @author Alexander Slotin (@alexsnitol)
+ */
+
 @RestControllerAdvice
 public class RestResponseEntityExceptionHandler extends ResponseEntityExceptionHandler {
 

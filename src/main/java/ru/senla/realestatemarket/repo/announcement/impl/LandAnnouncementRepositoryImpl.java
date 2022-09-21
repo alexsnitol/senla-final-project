@@ -25,6 +25,10 @@ import static ru.senla.realestatemarket.repo.announcement.specification.LandAnno
 import static ru.senla.realestatemarket.repo.announcement.specification.LandAnnouncementSpecification.hasStatus;
 import static ru.senla.realestatemarket.repo.announcement.specification.LandAnnouncementSpecification.hasUserIdOfOwnerInProperty;
 
+/**
+ * @author Alexander Slotin (@alexsnitol)
+ */
+
 @Slf4j
 @Repository
 public class LandAnnouncementRepositoryImpl

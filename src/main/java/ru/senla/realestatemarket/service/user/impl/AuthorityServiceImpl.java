@@ -10,6 +10,10 @@ import ru.senla.realestatemarket.service.user.IAuthorityService;
 
 import javax.annotation.PostConstruct;
 
+/**
+ * @author Alexander Slotin (@alexsnitol)
+ */
+
 @Slf4j
 @RequiredArgsConstructor
 @Service

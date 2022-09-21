@@ -12,6 +12,10 @@ import ru.senla.realestatemarket.dto.jwt.JwtRequestDto;
 import ru.senla.realestatemarket.dto.jwt.JwtResponseDto;
 import ru.senla.realestatemarket.service.user.IAuthService;
 
+/**
+ * @author Alexander Slotin (@alexsnitol)
+ */
+
 @Slf4j
 @RequiredArgsConstructor
 @RestController

@@ -5,6 +5,10 @@ import org.springframework.lang.Nullable;
 
 import javax.persistence.EntityNotFoundException;
 
+/**
+ * @author Alexander Slotin (@alexsnitol)
+ */
+
 @Slf4j
 public class EntityHelper {
 

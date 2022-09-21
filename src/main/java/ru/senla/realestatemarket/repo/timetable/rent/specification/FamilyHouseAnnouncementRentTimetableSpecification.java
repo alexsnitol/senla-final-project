@@ -12,6 +12,10 @@ import javax.persistence.criteria.Join;
 import java.time.LocalDateTime;
 import java.util.List;
 
+/**
+ * @author Alexander Slotin (@alexsnitol)
+ */
+
 public class FamilyHouseAnnouncementRentTimetableSpecification {
 
 

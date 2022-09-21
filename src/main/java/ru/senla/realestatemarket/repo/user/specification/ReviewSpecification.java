@@ -6,6 +6,10 @@ import ru.senla.realestatemarket.model.user.User;
 
 import javax.persistence.criteria.Join;
 
+/**
+ * @author Alexander Slotin (@alexsnitol)
+ */
+
 public class ReviewSpecification {
 
     private ReviewSpecification() {}

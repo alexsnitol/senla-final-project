@@ -11,6 +11,10 @@ import javax.annotation.PostConstruct;
 import static ru.senla.realestatemarket.repo.address.specification.CitySpecification.hasId;
 import static ru.senla.realestatemarket.repo.address.specification.CitySpecification.hasRegionId;
 
+/**
+ * @author Alexander Slotin (@alexsnitol)
+ */
+
 @Slf4j
 @Repository
 public class CityRepositoryImpl extends AbstractRepositoryImpl<City, Long> implements ICityRepository {

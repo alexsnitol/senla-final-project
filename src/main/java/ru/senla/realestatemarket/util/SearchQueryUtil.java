@@ -4,6 +4,10 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * @author Alexander Slotin (@alexsnitol)
+ */
+
 public class SearchQueryUtil {
 
     private SearchQueryUtil() {}

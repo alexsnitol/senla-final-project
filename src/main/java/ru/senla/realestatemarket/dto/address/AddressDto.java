@@ -3,6 +3,10 @@ package ru.senla.realestatemarket.dto.address;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Data;
 
+/**
+ * @author Alexander Slotin (@alexsnitol)
+ */
+
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @Data
 public class AddressDto {

@@ -14,6 +14,10 @@ import static ru.senla.realestatemarket.repo.timetable.top.specification.FamilyH
 import static ru.senla.realestatemarket.repo.timetable.top.specification.FamilyHouseAnnouncementTopTimetableSpecification.hasFamilyHouseAnnouncementId;
 import static ru.senla.realestatemarket.repo.timetable.top.specification.FamilyHouseAnnouncementTopTimetableSpecification.hasFamilyHouseAnnouncementIdAndUserIdOfOwnerInPropertyOfAnnouncementById;
 
+/**
+ * @author Alexander Slotin (@alexsnitol)
+ */
+
 @Slf4j
 @Repository
 public class FamilyHouseAnnouncementTopTimetableRepositoryImpl

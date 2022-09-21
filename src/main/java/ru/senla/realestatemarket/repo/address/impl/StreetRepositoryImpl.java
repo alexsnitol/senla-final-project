@@ -14,6 +14,10 @@ import static ru.senla.realestatemarket.repo.address.specification.StreetSpecifi
 import static ru.senla.realestatemarket.repo.address.specification.StreetSpecification.hasId;
 import static ru.senla.realestatemarket.repo.address.specification.StreetSpecification.hasRegionId;
 
+/**
+ * @author Alexander Slotin (@alexsnitol)
+ */
+
 @Slf4j
 @Repository
 public class StreetRepositoryImpl extends AbstractRepositoryImpl<Street, Long> implements IStreetRepository {

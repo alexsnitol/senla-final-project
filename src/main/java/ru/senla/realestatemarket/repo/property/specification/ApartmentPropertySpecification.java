@@ -7,6 +7,10 @@ import ru.senla.realestatemarket.repo.specification.GenericSpecification;
 
 import javax.persistence.criteria.Join;
 
+/**
+ * @author Alexander Slotin (@alexsnitol)
+ */
+
 public class ApartmentPropertySpecification {
 
     private ApartmentPropertySpecification() {}

@@ -16,6 +16,11 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import java.util.Objects;
 
+/**
+ * @author Alexander Slotin (@alexsnitol)
+ */
+
+
 @Getter
 @Setter
 @AllArgsConstructor

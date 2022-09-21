@@ -18,6 +18,11 @@ import javax.persistence.Transient;
 import java.util.List;
 import java.util.Objects;
 
+/**
+ * @author Alexander Slotin (@alexsnitol)
+ */
+
+
 @Setter
 @Getter
 @AllArgsConstructor

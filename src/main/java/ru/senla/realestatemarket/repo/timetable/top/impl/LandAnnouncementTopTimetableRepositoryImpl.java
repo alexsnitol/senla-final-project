@@ -14,6 +14,10 @@ import static ru.senla.realestatemarket.repo.timetable.top.specification.LandAnn
 import static ru.senla.realestatemarket.repo.timetable.top.specification.LandAnnouncementTopTimetableSpecification.hasLandAnnouncementId;
 import static ru.senla.realestatemarket.repo.timetable.top.specification.LandAnnouncementTopTimetableSpecification.hasUserIdOfOwnerInPropertyInLandAnnouncement;
 
+/**
+ * @author Alexander Slotin (@alexsnitol)
+ */
+
 @Slf4j
 @Repository
 public class LandAnnouncementTopTimetableRepositoryImpl

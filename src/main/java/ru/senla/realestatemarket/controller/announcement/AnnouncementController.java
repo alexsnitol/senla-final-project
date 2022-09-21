@@ -15,6 +15,10 @@ import ru.senla.realestatemarket.service.announcement.IHousingAnnouncementServic
 
 import java.util.List;
 
+/**
+ * @author Alexander Slotin (@alexsnitol)
+ */
+
 @Slf4j
 @RequiredArgsConstructor
 @RestController

@@ -21,6 +21,16 @@ import javax.persistence.Table;
 import javax.persistence.Transient;
 import java.util.Objects;
 
+/**
+ * @author Alexander Slotin (@alexsnitol)
+ */
+
+
+/**
+ * @author Alexander Slotin (@alexsnitol)
+ */
+
+
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @Getter
 @Setter

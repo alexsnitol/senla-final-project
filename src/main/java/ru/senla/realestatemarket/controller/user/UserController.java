@@ -24,6 +24,10 @@ import ru.senla.realestatemarket.service.user.IUserService;
 import javax.validation.Valid;
 import java.util.List;
 
+/**
+ * @author Alexander Slotin (@alexsnitol)
+ */
+
 @Slf4j
 @RequiredArgsConstructor
 @RequestMapping("/api/users")

@@ -6,6 +6,10 @@ import ru.senla.realestatemarket.dto.address.RequestAddressDto;
 import ru.senla.realestatemarket.model.house.HousingTypeEnum;
 
 
+/**
+ * @author Alexander Slotin (@alexsnitol)
+ */
+
 @Getter
 @Setter
 public class UpdateRequestFamilyHouseWithStreetIdAndHouseNumberDto {

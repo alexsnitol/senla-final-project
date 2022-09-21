@@ -13,6 +13,10 @@ import javax.annotation.PostConstruct;
 import static ru.senla.realestatemarket.repo.dictionary.specification.AnnouncementTopPriceSpecification.hasAnnouncementType;
 import static ru.senla.realestatemarket.repo.dictionary.specification.AnnouncementTopPriceSpecification.hasPropertyType;
 
+/**
+ * @author Alexander Slotin (@alexsnitol)
+ */
+
 @Slf4j
 @Repository
 public class AnnouncementTopPriceRepositoryImpl

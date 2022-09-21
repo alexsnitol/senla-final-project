@@ -12,6 +12,10 @@ import ru.senla.realestatemarket.model.announcement.SellAnnouncementStatusEnum;
 import ru.senla.realestatemarket.service.announcement.IAbstractHousingAnnouncementService;
 import ru.senla.realestatemarket.util.UserUtil;
 
+/**
+ * @author Alexander Slotin (@alexsnitol)
+ */
+
 @Slf4j
 @Service
 public abstract class AbstractHousingAnnouncementServiceImpl<M extends HousingAnnouncement>

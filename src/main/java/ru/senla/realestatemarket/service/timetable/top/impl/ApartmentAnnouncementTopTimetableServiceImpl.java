@@ -35,6 +35,10 @@ import java.util.List;
 
 import static ru.senla.realestatemarket.repo.timetable.specification.GenericTimetableSpecification.intervalWithSpecificFromAndTo;
 
+/**
+ * @author Alexander Slotin (@alexsnitol)
+ */
+
 @Slf4j
 @Service
 public class ApartmentAnnouncementTopTimetableServiceImpl

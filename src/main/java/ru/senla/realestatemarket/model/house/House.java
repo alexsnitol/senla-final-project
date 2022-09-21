@@ -26,6 +26,11 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Transient;
 import java.util.Objects;
 
+/**
+ * @author Alexander Slotin (@alexsnitol)
+ */
+
+
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter

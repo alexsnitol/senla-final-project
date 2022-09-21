@@ -4,6 +4,10 @@ import org.springframework.data.domain.Sort;
 
 import java.util.List;
 
+/**
+ * @author Alexander Slotin (@alexsnitol)
+ */
+
 public class UserSort {
 
     private UserSort() {}

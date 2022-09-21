@@ -6,6 +6,10 @@ import lombok.ToString;
 
 import java.util.Objects;
 
+/**
+ * @author Alexander Slotin (@alexsnitol)
+ */
+
 @Getter
 @Setter
 @ToString

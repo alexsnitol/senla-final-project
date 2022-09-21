@@ -8,6 +8,10 @@ import ru.senla.realestatemarket.model.user.User;
 import javax.persistence.criteria.Join;
 import java.util.List;
 
+/**
+ * @author Alexander Slotin (@alexsnitol)
+ */
+
 public class GenericAnnouncementSpecification {
 
     private GenericAnnouncementSpecification() {}

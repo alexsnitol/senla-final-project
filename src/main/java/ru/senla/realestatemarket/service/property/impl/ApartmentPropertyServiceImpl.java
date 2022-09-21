@@ -30,6 +30,10 @@ import java.util.List;
 import static ru.senla.realestatemarket.repo.property.specification.ApartmentPropertySpecification.hasApartmentHouseId;
 import static ru.senla.realestatemarket.repo.property.specification.ApartmentPropertySpecification.hasApartmentNumber;
 
+/**
+ * @author Alexander Slotin (@alexsnitol)
+ */
+
 @Slf4j
 @Service
 public class ApartmentPropertyServiceImpl

@@ -14,6 +14,10 @@ import javax.persistence.criteria.Root;
 import static ru.senla.realestatemarket.repo.user.specification.UserSpecification.hasUsername;
 import static ru.senla.realestatemarket.repo.user.specification.UserSpecification.notHasId;
 
+/**
+ * @author Alexander Slotin (@alexsnitol)
+ */
+
 @Slf4j
 @Repository
 public class UserRepositoryImpl extends AbstractRepositoryImpl<User, Long> implements IUserRepository {

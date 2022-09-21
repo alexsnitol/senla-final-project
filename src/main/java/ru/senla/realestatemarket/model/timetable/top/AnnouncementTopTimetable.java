@@ -18,6 +18,11 @@ import javax.persistence.SequenceGenerator;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
+/**
+ * @author Alexander Slotin (@alexsnitol)
+ */
+
+
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter

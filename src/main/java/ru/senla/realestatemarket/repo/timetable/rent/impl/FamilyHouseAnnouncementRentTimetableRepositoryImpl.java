@@ -15,6 +15,10 @@ import static ru.senla.realestatemarket.repo.timetable.rent.specification.Family
 import static ru.senla.realestatemarket.repo.timetable.rent.specification.FamilyHouseAnnouncementRentTimetableSpecification.hasStatusInAnnouncement;
 import static ru.senla.realestatemarket.repo.timetable.rent.specification.FamilyHouseAnnouncementRentTimetableSpecification.hasUserIdOfTenant;
 
+/**
+ * @author Alexander Slotin (@alexsnitol)
+ */
+
 @Slf4j
 @Repository
 public class FamilyHouseAnnouncementRentTimetableRepositoryImpl

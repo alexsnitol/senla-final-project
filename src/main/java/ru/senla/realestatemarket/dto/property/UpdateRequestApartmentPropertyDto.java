@@ -6,6 +6,10 @@ import ru.senla.realestatemarket.model.property.PropertyStatusEnum;
 
 import javax.validation.constraints.Size;
 
+/**
+ * @author Alexander Slotin (@alexsnitol)
+ */
+
 @Getter
 @Setter
 public class UpdateRequestApartmentPropertyDto {

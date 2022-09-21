@@ -7,6 +7,10 @@ import ru.senla.realestatemarket.dto.property.FamilyHousePropertyDto;
 
 import java.util.Objects;
 
+/**
+ * @author Alexander Slotin (@alexsnitol)
+ */
+
 @Getter
 @Setter
 @ToString

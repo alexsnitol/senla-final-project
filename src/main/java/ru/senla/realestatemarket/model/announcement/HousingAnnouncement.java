@@ -10,6 +10,11 @@ import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import java.util.Objects;
 
+/**
+ * @author Alexander Slotin (@alexsnitol)
+ */
+
+
 @Getter
 @Setter
 @AllArgsConstructor

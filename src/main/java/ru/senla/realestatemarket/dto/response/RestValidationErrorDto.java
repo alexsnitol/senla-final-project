@@ -6,6 +6,10 @@ import lombok.NoArgsConstructor;
 
 import java.util.Map;
 
+/**
+ * @author Alexander Slotin (@alexsnitol)
+ */
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor

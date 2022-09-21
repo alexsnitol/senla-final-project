@@ -12,6 +12,10 @@ import ru.senla.realestatemarket.service.property.IRenovationTypeService;
 import javax.annotation.PostConstruct;
 import javax.transaction.Transactional;
 
+/**
+ * @author Alexander Slotin (@alexsnitol)
+ */
+
 @Slf4j
 @Service
 public class RenovationTypeServiceImpl

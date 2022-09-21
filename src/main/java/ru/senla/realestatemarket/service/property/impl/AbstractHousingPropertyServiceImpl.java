@@ -11,6 +11,10 @@ import ru.senla.realestatemarket.service.helper.EntityHelper;
 import ru.senla.realestatemarket.service.property.IAbstractHousingPropertyService;
 import ru.senla.realestatemarket.util.UserUtil;
 
+/**
+ * @author Alexander Slotin (@alexsnitol)
+ */
+
 @Slf4j
 public abstract class AbstractHousingPropertyServiceImpl
         <A extends Announcement, P extends HousingProperty & IPropertyWithAnnouncementList<A>>

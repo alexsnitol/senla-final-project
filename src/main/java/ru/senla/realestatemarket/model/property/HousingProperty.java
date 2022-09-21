@@ -12,6 +12,11 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import java.util.Objects;
 
+/**
+ * @author Alexander Slotin (@alexsnitol)
+ */
+
+
 @Getter
 @Setter
 @AllArgsConstructor

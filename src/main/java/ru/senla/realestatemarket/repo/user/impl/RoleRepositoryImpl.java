@@ -10,6 +10,10 @@ import javax.annotation.PostConstruct;
 
 import static ru.senla.realestatemarket.repo.user.specification.RoleSpecification.hasName;
 
+/**
+ * @author Alexander Slotin (@alexsnitol)
+ */
+
 @Slf4j
 @Repository
 public class RoleRepositoryImpl extends AbstractRepositoryImpl<Role, Long> implements IRoleRepository {

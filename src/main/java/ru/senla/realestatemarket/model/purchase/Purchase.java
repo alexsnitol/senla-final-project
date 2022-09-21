@@ -19,6 +19,11 @@ import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import java.util.Objects;
 
+/**
+ * @author Alexander Slotin (@alexsnitol)
+ */
+
+
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter

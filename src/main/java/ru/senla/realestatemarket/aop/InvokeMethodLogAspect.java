@@ -9,6 +9,10 @@ import org.springframework.stereotype.Component;
 
 import java.util.Arrays;
 
+/**
+ * @author Alexander Slotin (@alexsnitol)
+ */
+
 @Component
 @Aspect
 @Slf4j

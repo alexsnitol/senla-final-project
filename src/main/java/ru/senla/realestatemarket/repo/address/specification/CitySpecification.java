@@ -6,6 +6,10 @@ import ru.senla.realestatemarket.model.address.Region;
 
 import javax.persistence.criteria.Join;
 
+/**
+ * @author Alexander Slotin (@alexsnitol)
+ */
+
 public class CitySpecification {
 
     private CitySpecification() {}

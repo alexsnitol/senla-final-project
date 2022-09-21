@@ -3,6 +3,10 @@ package ru.senla.realestatemarket.dto.user;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 
+/**
+ * @author Alexander Slotin (@alexsnitol)
+ */
+
 import java.time.LocalDate;
 import java.time.LocalTime;
 

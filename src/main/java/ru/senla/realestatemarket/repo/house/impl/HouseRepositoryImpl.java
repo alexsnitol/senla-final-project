@@ -7,6 +7,10 @@ import ru.senla.realestatemarket.repo.house.IHouseRepository;
 
 import javax.annotation.PostConstruct;
 
+/**
+ * @author Alexander Slotin (@alexsnitol)
+ */
+
 @Slf4j
 @Repository
 public class HouseRepositoryImpl extends AbstractHouseRepositoryImpl<House> implements IHouseRepository {

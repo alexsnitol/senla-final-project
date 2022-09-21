@@ -12,6 +12,10 @@ import ru.senla.realestatemarket.service.house.IHouseMaterialService;
 import javax.annotation.PostConstruct;
 import javax.transaction.Transactional;
 
+/**
+ * @author Alexander Slotin (@alexsnitol)
+ */
+
 @Slf4j
 @Service
 public class HouseMaterialServiceImpl extends AbstractServiceImpl<HouseMaterial, Long>

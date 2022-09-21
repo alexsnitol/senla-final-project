@@ -22,6 +22,10 @@ import javax.validation.Valid;
 import java.util.List;
 import java.util.Set;
 
+/**
+ * @author Alexander Slotin (@alexsnitol)
+ */
+
 @Slf4j
 @RequiredArgsConstructor
 @RequestMapping("/api/messages")

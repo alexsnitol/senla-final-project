@@ -5,6 +5,10 @@ import lombok.Setter;
 
 import javax.validation.constraints.Min;
 
+/**
+ * @author Alexander Slotin (@alexsnitol)
+ */
+
 @Getter
 @Setter
 public class UpdateRequestAnnouncementTopPriceDto {

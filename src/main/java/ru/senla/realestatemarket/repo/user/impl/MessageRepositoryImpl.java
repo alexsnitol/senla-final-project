@@ -23,6 +23,10 @@ import java.util.Set;
 import static ru.senla.realestatemarket.repo.user.specification.MessageSpecification.hasUserIdInSenderIdOrReceiverId;
 import static ru.senla.realestatemarket.repo.user.specification.MessageSpecification.hasUsersIdInSenderIdAndReceiverId;
 
+/**
+ * @author Alexander Slotin (@alexsnitol)
+ */
+
 @Slf4j
 @Repository
 public class MessageRepositoryImpl extends AbstractRepositoryImpl<Message, Long> implements IMessageRepository {

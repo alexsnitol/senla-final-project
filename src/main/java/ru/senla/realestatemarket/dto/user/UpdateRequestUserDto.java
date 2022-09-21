@@ -6,6 +6,10 @@ import lombok.ToString;
 
 import javax.validation.constraints.Size;
 
+/**
+ * @author Alexander Slotin (@alexsnitol)
+ */
+
 @Getter
 @Setter
 @ToString

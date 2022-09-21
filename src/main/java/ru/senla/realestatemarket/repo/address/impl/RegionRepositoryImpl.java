@@ -8,6 +8,10 @@ import ru.senla.realestatemarket.repo.address.IRegionRepository;
 
 import javax.annotation.PostConstruct;
 
+/**
+ * @author Alexander Slotin (@alexsnitol)
+ */
+
 @Slf4j
 @Repository
 public class RegionRepositoryImpl extends AbstractRepositoryImpl<Region, Long> implements IRegionRepository {

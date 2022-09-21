@@ -12,6 +12,11 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import java.util.Objects;
 
+/**
+ * @author Alexander Slotin (@alexsnitol)
+ */
+
+
 @Getter
 @Setter
 @Entity

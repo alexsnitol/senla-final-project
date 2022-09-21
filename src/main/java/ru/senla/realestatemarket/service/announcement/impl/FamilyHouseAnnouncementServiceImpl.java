@@ -28,6 +28,10 @@ import static ru.senla.realestatemarket.repo.announcement.sort.AnnouncementSort.
 import static ru.senla.realestatemarket.repo.announcement.specification.FamilyHouseAnnouncementSpecification.hasUserIdOfOwnerInProperty;
 import static ru.senla.realestatemarket.repo.announcement.specification.GenericAnnouncementSpecification.hasIdAndUserIdOfOwnerInProperty;
 
+/**
+ * @author Alexander Slotin (@alexsnitol)
+ */
+
 @Slf4j
 @Service
 public class FamilyHouseAnnouncementServiceImpl

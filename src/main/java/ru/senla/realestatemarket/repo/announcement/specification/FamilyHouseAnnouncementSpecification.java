@@ -7,6 +7,10 @@ import ru.senla.realestatemarket.repo.specification.GenericSpecification;
 
 import java.util.List;
 
+/**
+ * @author Alexander Slotin (@alexsnitol)
+ */
+
 public class FamilyHouseAnnouncementSpecification {
 
     private FamilyHouseAnnouncementSpecification() {}

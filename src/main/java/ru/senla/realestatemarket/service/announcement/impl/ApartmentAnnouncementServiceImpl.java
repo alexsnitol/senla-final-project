@@ -29,6 +29,10 @@ import static ru.senla.realestatemarket.repo.announcement.specification.Apartmen
 import static ru.senla.realestatemarket.repo.announcement.specification.GenericAnnouncementSpecification.hasIdAndUserIdOfOwnerInProperty;
 import static ru.senla.realestatemarket.repo.announcement.specification.GenericAnnouncementSpecification.hasUserIdOfOwnerInProperty;
 
+/**
+ * @author Alexander Slotin (@alexsnitol)
+ */
+
 @Slf4j
 @Service
 public class ApartmentAnnouncementServiceImpl

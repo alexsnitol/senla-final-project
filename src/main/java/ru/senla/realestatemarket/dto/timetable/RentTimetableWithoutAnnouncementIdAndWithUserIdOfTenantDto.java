@@ -6,6 +6,10 @@ import ru.senla.realestatemarket.dto.user.SimplyUserWithContactsAndRatingDto;
 
 import java.time.LocalDateTime;
 
+/**
+ * @author Alexander Slotin (@alexsnitol)
+ */
+
 @Data
 public class RentTimetableWithoutAnnouncementIdAndWithUserIdOfTenantDto {
 

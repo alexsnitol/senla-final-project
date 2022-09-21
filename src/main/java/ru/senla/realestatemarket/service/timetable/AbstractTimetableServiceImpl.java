@@ -18,6 +18,10 @@ import java.time.ZoneOffset;
 import static ru.senla.realestatemarket.repo.timetable.specification.GenericTimetableSpecification.concernsTheIntervalBetweenSpecificFromAndToExcludingIntervalItself;
 import static ru.senla.realestatemarket.repo.timetable.specification.GenericTimetableSpecification.intervalWithSpecificFromAndTo;
 
+/**
+ * @author Alexander Slotin (@alexsnitol)
+ */
+
 @Slf4j
 public abstract class AbstractTimetableServiceImpl<M extends IModel<Long>> extends AbstractServiceImpl<M, Long>
         implements IAbstractTimetableService<M> {

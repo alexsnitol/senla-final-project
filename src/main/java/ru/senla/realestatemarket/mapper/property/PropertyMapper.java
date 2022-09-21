@@ -23,6 +23,10 @@ import ru.senla.realestatemarket.model.property.PropertyTypeEnum;
 import java.util.Collection;
 import java.util.List;
 
+/**
+ * @author Alexander Slotin (@alexsnitol)
+ */
+
 @Mapper(uses = {UserMapper.class},
         unmappedTargetPolicy = ReportingPolicy.IGNORE,
         componentModel = "spring",

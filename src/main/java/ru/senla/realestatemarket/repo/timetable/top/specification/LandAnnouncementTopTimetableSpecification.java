@@ -10,6 +10,10 @@ import ru.senla.realestatemarket.repo.timetable.specification.GenericTimetableSp
 import javax.persistence.criteria.Join;
 import java.time.LocalDateTime;
 
+/**
+ * @author Alexander Slotin (@alexsnitol)
+ */
+
 public class LandAnnouncementTopTimetableSpecification {
 
     private LandAnnouncementTopTimetableSpecification() {}

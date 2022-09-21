@@ -22,6 +22,10 @@ import java.util.List;
 
 import static ru.senla.realestatemarket.repo.address.specification.CitySpecification.hasRegionId;
 
+/**
+ * @author Alexander Slotin (@alexsnitol)
+ */
+
 @Slf4j
 @Service
 public class CityServiceImpl extends AbstractServiceImpl<City, Long> implements ICityService {

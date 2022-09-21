@@ -16,6 +16,10 @@ import ru.senla.realestatemarket.util.UserUtil;
 
 import java.util.List;
 
+/**
+ * @author Alexander Slotin (@alexsnitol)
+ */
+
 @Slf4j
 public abstract class AbstractPropertyServiceImpl
         <A extends Announcement, P extends Property & IPropertyWithAnnouncementList<A>>

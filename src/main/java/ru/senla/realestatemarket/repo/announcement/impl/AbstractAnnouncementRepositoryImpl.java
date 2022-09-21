@@ -9,6 +9,10 @@ import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 import java.util.List;
 
+/**
+ * @author Alexander Slotin (@alexsnitol)
+ */
+
 public abstract class AbstractAnnouncementRepositoryImpl<M>
         extends AbstractRepositoryImpl<M, Long>
         implements IAbstractAnnouncementRepository<M> {

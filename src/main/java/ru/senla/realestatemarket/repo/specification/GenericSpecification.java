@@ -2,6 +2,10 @@ package ru.senla.realestatemarket.repo.specification;
 
 import org.springframework.data.jpa.domain.Specification;
 
+/**
+ * @author Alexander Slotin (@alexsnitol)
+ */
+
 public class GenericSpecification {
 
     private GenericSpecification() {}

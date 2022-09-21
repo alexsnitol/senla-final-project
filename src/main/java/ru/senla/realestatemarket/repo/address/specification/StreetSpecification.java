@@ -7,6 +7,10 @@ import ru.senla.realestatemarket.model.address.Street;
 
 import javax.persistence.criteria.Join;
 
+/**
+ * @author Alexander Slotin (@alexsnitol)
+ */
+
 public class StreetSpecification {
 
     private StreetSpecification() {}

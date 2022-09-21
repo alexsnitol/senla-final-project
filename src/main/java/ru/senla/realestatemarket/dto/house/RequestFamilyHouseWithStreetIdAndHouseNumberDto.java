@@ -7,6 +7,10 @@ import ru.senla.realestatemarket.model.house.HousingTypeEnum;
 
 import javax.validation.constraints.NotNull;
 
+/**
+ * @author Alexander Slotin (@alexsnitol)
+ */
+
 @Getter
 @Setter
 public class RequestFamilyHouseWithStreetIdAndHouseNumberDto {

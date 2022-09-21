@@ -4,6 +4,10 @@ import lombok.Getter;
 import lombok.Setter;
 import ru.senla.realestatemarket.model.house.HousingTypeEnum;
 
+/**
+ * @author Alexander Slotin (@alexsnitol)
+ */
+
 @Getter
 @Setter
 public class UpdateRequestApartmentHouseDto {

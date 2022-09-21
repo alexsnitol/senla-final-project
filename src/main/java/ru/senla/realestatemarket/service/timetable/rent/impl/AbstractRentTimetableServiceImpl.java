@@ -15,6 +15,10 @@ import ru.senla.realestatemarket.util.UserUtil;
 
 import java.time.LocalDateTime;
 
+/**
+ * @author Alexander Slotin (@alexsnitol)
+ */
+
 @Slf4j
 public abstract class AbstractRentTimetableServiceImpl<M extends IModel<Long>> extends AbstractTimetableServiceImpl<M>
         implements IAbstractRentTimetableService<M> {

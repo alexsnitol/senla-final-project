@@ -25,6 +25,10 @@ import static ru.senla.realestatemarket.repo.announcement.specification.FamilyHo
 import static ru.senla.realestatemarket.repo.announcement.specification.FamilyHouseAnnouncementSpecification.hasStatus;
 import static ru.senla.realestatemarket.repo.announcement.specification.FamilyHouseAnnouncementSpecification.hasUserIdOfOwnerInProperty;
 
+/**
+ * @author Alexander Slotin (@alexsnitol)
+ */
+
 @Slf4j
 @Repository
 public class FamilyHouseAnnouncementRepositoryImpl

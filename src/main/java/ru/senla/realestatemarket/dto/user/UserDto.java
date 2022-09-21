@@ -2,6 +2,10 @@ package ru.senla.realestatemarket.dto.user;
 
 import lombok.Data;
 
+/**
+ * @author Alexander Slotin (@alexsnitol)
+ */
+
 import java.util.List;
 
 @Data

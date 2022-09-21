@@ -27,6 +27,10 @@ import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * @author Alexander Slotin (@alexsnitol)
+ */
+
 @Slf4j
 @Service
 public class UserServiceImpl extends AbstractServiceImpl<User, Long> implements IUserService {

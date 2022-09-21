@@ -14,6 +14,10 @@ import ru.senla.realestatemarket.service.user.IAuthService;
 import ru.senla.realestatemarket.service.user.IUserService;
 import ru.senla.realestatemarket.util.JwtTokenUtil;
 
+/**
+ * @author Alexander Slotin (@alexsnitol)
+ */
+
 @Slf4j
 @Service
 public class AuthServiceImpl implements IAuthService {

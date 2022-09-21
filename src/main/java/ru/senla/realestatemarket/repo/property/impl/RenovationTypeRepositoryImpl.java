@@ -8,6 +8,10 @@ import ru.senla.realestatemarket.repo.property.IRenovationTypeRepository;
 
 import javax.annotation.PostConstruct;
 
+/**
+ * @author Alexander Slotin (@alexsnitol)
+ */
+
 @Slf4j
 @Repository
 public class RenovationTypeRepositoryImpl extends AbstractRepositoryImpl<RenovationType, Long>

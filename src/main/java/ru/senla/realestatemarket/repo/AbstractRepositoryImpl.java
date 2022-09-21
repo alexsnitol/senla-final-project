@@ -26,6 +26,10 @@ import javax.persistence.criteria.Root;
 import java.util.LinkedList;
 import java.util.List;
 
+/**
+ * @author Alexander Slotin (@alexsnitol)
+ */
+
 @Slf4j
 public abstract class AbstractRepositoryImpl<M, I> implements IAbstractRepository<M, I> {
 

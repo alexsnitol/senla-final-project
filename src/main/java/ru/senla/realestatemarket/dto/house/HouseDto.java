@@ -10,6 +10,10 @@ import ru.senla.realestatemarket.model.house.HousingTypeEnum;
 
 import java.util.Objects;
 
+/**
+ * @author Alexander Slotin (@alexsnitol)
+ */
+
 @Getter
 @Setter
 @ToString
