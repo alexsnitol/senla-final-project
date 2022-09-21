@@ -97,6 +97,7 @@ dependencies {
     testImplementation 'org.mockito:mockito-core:4.6.1'
     testImplementation 'org.mockito:mockito-junit-jupiter:4.6.1'
 
+    compileOnly 'com.heroku:webapp-runner-main:8.5.68.1'
 }
 
 test {
@@ -124,3 +125,18 @@ checkstyleTest {
 tasks.war {
     archiveFileName.set("real-estate-market.war")
 }
+
+task stage() {
+    dependsOn clean, war
+}
+
+war.mustRunAfter clean
+
+task copyToLib(type: Copy) {
+    into "$buildDir/server"
+    from(configurations.compileClasspath) {
+        include "webapp-runner*"
+    }
+}
+
+stage.dependsOn(copyToLib)
