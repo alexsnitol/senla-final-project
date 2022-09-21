@@ -52,13 +52,12 @@ public class LandAnnouncement extends Announcement {
         }
         LandAnnouncement that = (LandAnnouncement) o;
         return getType() == that.getType()
-                && Objects.equals(getProperty(), that.getProperty())
-                && Objects.equals(getTop(), that.getTop());
+                && Objects.equals(getProperty(), that.getProperty());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(super.hashCode(), getType(), getProperty(), getTop());
+        return Objects.hash(super.hashCode(), getType(), getProperty());
     }
 
 }
