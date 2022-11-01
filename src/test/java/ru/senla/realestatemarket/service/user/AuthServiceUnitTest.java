@@ -4,11 +4,9 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mockito;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.AuthorizationServiceException;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.BadCredentialsException;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
@@ -21,10 +19,9 @@ import ru.senla.realestatemarket.util.JwtTokenUtil;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.when;
 
-@ExtendWith(SpringExtension.class)
+@ExtendWith({SpringExtension.class, MockitoExtension.class})
 @ContextConfiguration(classes = {TestConfig.class}, loader = AnnotationConfigContextLoader.class)
 class AuthServiceUnitTest {
 
@@ -72,21 +69,6 @@ class AuthServiceUnitTest {
 
         assertEquals(jwtTokenUtil.getUserIdFromToken(expectedJwtResponseToken), jwtTokenUtil.getUserIdFromToken(result));
         assertEquals(jwtTokenUtil.getUsernameFromToken(expectedJwtResponseToken), jwtTokenUtil.getUsernameFromToken(result));
-    }
-
-    @Test
-    void whenCreateAuthTokenCalledInCaseOfIfUserNotExist_thenThrowBadCredentialsException() {
-        // test username password token
-        UsernamePasswordAuthenticationToken testUsernamePasswordAuthenticationToken
-                = new UsernamePasswordAuthenticationToken("testUsername", "testPassword");
-
-        // test
-        when(mockedAuthenticationManager.authenticate(testUsernamePasswordAuthenticationToken))
-                .thenThrow(BadCredentialsException.class);
-
-        assertThrows(AuthorizationServiceException.class, () ->
-            authService.createAuthToken(new JwtRequestDto("testUsername", "testPassword"))
-        );
     }
 
 

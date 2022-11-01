@@ -2,7 +2,6 @@ package ru.senla.realestatemarket.service;
 
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
-import org.postgresql.shaded.com.ongres.scram.common.util.Preconditions;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.lang.Nullable;
@@ -29,7 +28,7 @@ public abstract class AbstractServiceImpl<M extends IModel<I>, I> implements IAb
     public abstract void init();
 
     public void setClazz(final Class<M> clazzToSet) {
-        clazz = Preconditions.checkNotNull(clazzToSet, null);
+        clazz = clazzToSet;
     }
 
 

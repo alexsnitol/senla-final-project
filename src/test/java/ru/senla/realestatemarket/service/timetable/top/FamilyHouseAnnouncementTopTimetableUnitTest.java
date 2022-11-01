@@ -3,10 +3,9 @@ package ru.senla.realestatemarket.service.timetable.top;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.junit.runner.RunWith;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Mockito;
-import org.mockito.junit.MockitoJUnitRunner;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
@@ -49,8 +48,7 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-@ExtendWith({SpringExtension.class})
-@RunWith(MockitoJUnitRunner.class)
+@ExtendWith({SpringExtension.class, MockitoExtension.class})
 @ContextConfiguration(classes = {TestConfig.class}, loader = AnnotationConfigContextLoader.class)
 class FamilyHouseAnnouncementTopTimetableUnitTest {
 
@@ -553,10 +551,6 @@ class FamilyHouseAnnouncementTopTimetableUnitTest {
         when(mockedUserRepository.findById(2L))
                 .thenReturn(testMockedUser);
 
-        when(testMockedUser
-                .getBalance())
-                .thenReturn(300D);
-
 
 
         assertThrows(SpecificIntervalFullyBusyException.class, () -> familyHouseAnnouncementTopTimetableService
@@ -637,10 +631,6 @@ class FamilyHouseAnnouncementTopTimetableUnitTest {
 
         when(mockedUserRepository.findById(2L))
                 .thenReturn(testMockedUser);
-
-        when(testMockedUser
-                .getBalance())
-                .thenReturn(300D);
 
 
 

@@ -33,7 +33,7 @@ public class ApartmentAnnouncementRentTimetable extends AnnouncementRentTimetabl
     @JoinColumn(name = "apartment_announcement_id")
     private ApartmentAnnouncement announcement;
 
-    @OneToOne(mappedBy = "timetable", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToOne(mappedBy = "timetable", cascade = CascadeType.ALL)
     private ApartmentAnnouncementRentPurchase apartmentAnnouncementRentPurchase;
 
 

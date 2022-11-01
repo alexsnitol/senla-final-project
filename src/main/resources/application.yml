@@ -1,0 +1,12 @@
+jwt:
+    key: examplesupersecurekeyforencodinganddecodingtheHS256algorithm
+spring:
+    datasource:
+        driver-class-name: org.postgresql.Driver
+        password: postgres
+        url: jdbc:postgresql://localhost:5432/real_estate_market
+        username: postgres
+    jpa:
+        hibernate:
+            ddl-auto: update
+        show-sql: true

@@ -4,6 +4,7 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mockito;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
@@ -16,7 +17,6 @@ import ru.senla.realestatemarket.model.user.Review;
 import ru.senla.realestatemarket.model.user.User;
 import ru.senla.realestatemarket.repo.user.IReviewRepository;
 import ru.senla.realestatemarket.repo.user.IUserRepository;
-import ru.senla.realestatemarket.service.user.IReviewService;
 import ru.senla.realestatemarket.util.UserUtil;
 
 import java.util.List;
@@ -29,7 +29,7 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-@ExtendWith(SpringExtension.class)
+@ExtendWith({SpringExtension.class, MockitoExtension.class})
 @ContextConfiguration(classes = {TestConfig.class}, loader = AnnotationConfigContextLoader.class)
 class ReviewServiceUnitTest {
 

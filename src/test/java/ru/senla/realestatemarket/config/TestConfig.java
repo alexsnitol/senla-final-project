@@ -553,7 +553,7 @@ public class TestConfig {
 
     @Bean
     public IAuthService authService() {
-        return new AuthServiceImpl(mockedUserService(), jwtTokenUtil(), mockedAuthenticationManager());
+        return new AuthServiceImpl(mockedUserService(), jwtTokenUtil());
     }
 
     @Bean

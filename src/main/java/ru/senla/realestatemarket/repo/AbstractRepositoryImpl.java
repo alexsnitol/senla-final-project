@@ -5,7 +5,6 @@ import cz.jirutka.rsql.parser.RSQLParser;
 import cz.jirutka.rsql.parser.ast.Node;
 import cz.jirutka.rsql.parser.ast.RSQLVisitor;
 import lombok.extern.slf4j.Slf4j;
-import org.postgresql.shaded.com.ongres.scram.common.util.Preconditions;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.data.jpa.repository.query.QueryUtils;
@@ -48,7 +47,7 @@ public abstract class AbstractRepositoryImpl<M, I> implements IAbstractRepositor
 
 
     public void setClazz(final Class<M> clazzToSet) {
-        clazz = Preconditions.checkNotNull(clazzToSet, null);
+        clazz = clazzToSet;
     }
 
     @Override
