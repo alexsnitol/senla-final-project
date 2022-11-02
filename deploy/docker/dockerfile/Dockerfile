@@ -1,2 +1,4 @@
-FROM tomcat:8.5.81-jre11-openjdk
-COPY ./real-estate-market.war /usr/local/tomcat/webapps/real-estate-market.war
+FROM openjdk:11
+COPY ./real-estate-market.jar /usr/src/real-estate-market.jar
+WORKDIR /usr/src
+CMD ["java", "-jar", "real-estate-market.jar"]

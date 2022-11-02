@@ -3,11 +3,17 @@ plugins {
     id 'io.spring.dependency-management' version '1.0.15.RELEASE'
     id 'java'
     id 'checkstyle'
+    id 'application'
 }
 
 group 'ru.senla'
 version '0.1.0-SNAPSHOT'
 sourceCompatibility = '11'
+
+bootJar {
+    archiveName = 'real-estate-market.jar'
+    mainClassName = 'ru.senla.realestatemarket.RealEstateMarketApplication'
+}
 
 configurations {
     compileOnly {
@@ -104,10 +110,10 @@ tasks.named('test') {
 
 checkstyle {
     toolVersion '7.8.1'
-    configFile file("config/checkstyle/checkstyle.xml")
 }
 
 checkstyleMain {
+    configFile file("config/checkstyle/checkstyle.xml")
     source ='src/main/java'
 }
 

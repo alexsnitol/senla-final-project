@@ -15,12 +15,13 @@ services:
     ports:
       - "5433:5432"
 
-  tomcat_server:
-    image: tomcat:8.5.81-jre11-openjdk
-    container_name: tomcat_server
+  spring-boot-application:
+    image: openjdk:11
+    container_name: spring-boot-application
     restart: always
     volumes:
-      - ./real-estate-market.war:/usr/local/tomcat/webapps/real-estate-market.war
+      - ./real-estate-market.jar:/usr/src/real-estate-market.jar
+    entrypoint: java -jar /usr/src/real-estate-market.jar
     ports:
       - "8081:8080"
     depends_on:

@@ -31,9 +31,8 @@ This application supports the following types of real estate:
 This system was developed using:
 * Java 11
 * Gradle
-* Spring Framework 5.3 (webmvc, data, security, aop, validator and others)
+* Spring Framework Boot 2.7.5 (web, data-jpa, security, test, aop, validator and others)
 * Hibernate 5.6
-* Servlet 4
 * JWT
 * RSQL 2
 * Lombok
@@ -46,7 +45,7 @@ This system was developed using:
 As storage data using PostgreSQL 10.
 
 The following used to unit testing of the system:
-* Junit Jupiter 5.9
+* Junit Jupiter
 * Mockito
 
 ### Deploying
@@ -54,12 +53,12 @@ The following used to unit testing of the system:
 All diagrams this project located in the *diagram* folder.
 
 All completed resources for deploy this project located in the *deploy* folder:
-* `deploy.bat` and `deploy_with_db.bat` build the project and deployed it into tomcat: coping `war` on webapps and start server
+* `deploy.bat`/`deploy.sh` and `deploy_with_db.bat`/`deploy_with_db.sh` build the project and start application
 * In *database* folder located sql init scripts for PostgreSQL, there is also a `bat` script for an init database on Windows
 * In *docker* folder located `docker-compose.yml` which contains all settings, there is also contains docker folder wherein separate `Dockerfile`
 
 > ️**ATTENTION**\
-> Before building the project, configure `persistence.xml` for your database. Particularly for docker-compose you need to replace `localhost` on name of container default is `database`. 
+> Before building the project, configure `application.yml` for your database. Particularly for docker-compose you need to replace `localhost` on name of container default is `database`. 
 
 ### Usage
 For manually testing this system

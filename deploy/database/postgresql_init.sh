@@ -1,3 +1,5 @@
+#!/bin/bash
+
 echo Drop database if exist
 psql -U postgres -W -c "DROP DATABASE IF EXISTS real_estate_market"
 echo

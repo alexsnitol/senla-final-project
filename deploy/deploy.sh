@@ -1,11 +1,13 @@
+#!/bin/bash
+
 cd ..
 
-echo Building project on WAR file
-gradle war
+echo Building project
+gradle clean bootJar
 echo .
 
-echo Copy WAR to Tomcat web application folder
-copy "./build/libs/real-estate-market.war" "$CATALINA_HOME/webapps/real-estate-market.war"
+echo Starting application
+java jar ./build/libs/real-estate-market.jar
 echo .
 
 echo Deploy completed
