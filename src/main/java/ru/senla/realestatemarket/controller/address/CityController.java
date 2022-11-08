@@ -8,9 +8,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -62,7 +62,7 @@ public class CityController {
             value = "",
             authorizations = @Authorization("ADMIN")
     )
-    @PutMapping("/cities/{id}")
+    @PatchMapping("/cities/{id}")
     public ResponseEntity<RestResponseDto> updateById(
             @PathVariable Long id,
             @RequestBody @Valid UpdateRequestCityDto updateRequestCityDto
@@ -85,13 +85,12 @@ public class CityController {
             authorizations = @Authorization("ADMIN")
     )
     @PostMapping("/cities")
-    public ResponseEntity<RestResponseDto> add(
+    public ResponseEntity<CityDto> add(
             @RequestBody @Valid RequestCityDto requestCityDto
     ) {
-        cityService.add(requestCityDto);
+        CityDto response = cityService.add(requestCityDto);
 
-        return new ResponseEntity<>(new RestResponseDto("City has been added",
-                HttpStatus.CREATED.value()), HttpStatus.CREATED);
+        return new ResponseEntity<>(response, HttpStatus.CREATED);
     }
 
     @GetMapping("/regions/{regionId}/cities/{cityId}")
@@ -120,7 +119,7 @@ public class CityController {
             value = "",
             authorizations = @Authorization("ADMIN")
     )
-    @PutMapping("/regions/{regionId}/cities/{cityId}")
+    @PatchMapping("/regions/{regionId}/cities/{cityId}")
     public ResponseEntity<RestResponseDto> updatedByRegionIdAndCityId(
             @PathVariable Long regionId,
             @PathVariable Long cityId,
@@ -144,14 +143,13 @@ public class CityController {
             authorizations = @Authorization("ADMIN")
     )
     @PostMapping("/regions/{regionId}/cities")
-    public ResponseEntity<RestResponseDto> addByRegionId(
+    public ResponseEntity<CityDto> addByRegionId(
             @PathVariable Long regionId,
             @RequestBody @Valid RequestCityWithoutRegionIdDto requestCityWithoutRegionIdDto
     ) {
-        cityService.addByRegionId(requestCityWithoutRegionIdDto, regionId);
+        CityDto response = cityService.addByRegionId(requestCityWithoutRegionIdDto, regionId);
 
-        return new ResponseEntity<>(new RestResponseDto("City has been added",
-                HttpStatus.CREATED.value()), HttpStatus.CREATED);
+        return new ResponseEntity<>(response, HttpStatus.CREATED);
     }
 
 }

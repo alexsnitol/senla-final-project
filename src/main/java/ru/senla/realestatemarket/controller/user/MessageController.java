@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import ru.senla.realestatemarket.dto.response.RestResponseDto;
 import ru.senla.realestatemarket.dto.user.MessageDto;
 import ru.senla.realestatemarket.dto.user.RequestMessageDto;
 import ru.senla.realestatemarket.dto.user.SimplyUserDto;
@@ -62,14 +61,13 @@ public class MessageController {
             authorizations = @Authorization("Authorized user")
     )
     @PostMapping("/users/{id}")
-    public ResponseEntity<RestResponseDto> sendMessage(
+    public ResponseEntity<MessageDto> sendMessage(
             @RequestBody @Valid RequestMessageDto message,
             @PathVariable Long id
     ) {
-        messageService.sendTextMessageFromCurrentUser(message.getText(), id);
+        MessageDto messageDto = messageService.sendTextMessageFromCurrentUser(message.getText(), id);
 
-        return new ResponseEntity<>(new RestResponseDto("Message has been sent",
-                HttpStatus.CREATED.value()), HttpStatus.CREATED);
+        return new ResponseEntity<>(messageDto, HttpStatus.CREATED);
     }
 
 }

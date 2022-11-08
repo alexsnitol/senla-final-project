@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import ru.senla.realestatemarket.dto.response.RestResponseDto;
 import ru.senla.realestatemarket.dto.user.BalanceOperationWithoutUserIdDto;
 import ru.senla.realestatemarket.dto.user.RequestBalanceOperationDto;
 import ru.senla.realestatemarket.service.user.IBalanceOperationService;
@@ -53,14 +52,14 @@ public class BalanceOperationController {
             authorizations = {@Authorization("ADMIN")}
     )
     @PostMapping("/users/{userId}/balance-operations")
-    public ResponseEntity<RestResponseDto> addBalanceOperationByUserId(
+    public ResponseEntity<BalanceOperationWithoutUserIdDto> addBalanceOperationByUserId(
             @PathVariable Long userId,
             @RequestBody @Valid RequestBalanceOperationDto requestBalanceOperationDto
     ) {
-        balanceOperationService.addByUserIdAndApplyOperation(requestBalanceOperationDto, userId);
+        BalanceOperationWithoutUserIdDto responseDto
+                = balanceOperationService.addByUserIdAndApplyOperation(requestBalanceOperationDto, userId);
 
-        return ResponseEntity.ok(new RestResponseDto(
-                "Balance operation has been added", HttpStatus.OK.value()));
+        return new ResponseEntity<>(responseDto, HttpStatus.CREATED);
     }
 
     @ApiOperation(
