@@ -3,8 +3,8 @@ jwt:
 spring:
     datasource:
         driver-class-name: org.postgresql.Driver
-        password: postgres
         url: jdbc:postgresql://localhost:5432/real_estate_market
+        password: postgres
         username: postgres
     jpa:
         hibernate:
