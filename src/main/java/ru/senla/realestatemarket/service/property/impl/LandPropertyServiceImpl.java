@@ -41,12 +41,18 @@ public class LandPropertyServiceImpl
     private final LandPropertyMapper landPropertyMapper;
 
 
-    public LandPropertyServiceImpl(IUserRepository userRepository,
-                                   ILandPropertyRepository landPropertyRepository,
-                                   IStreetRepository streetRepository,
-                                   UserUtil userUtil,
-                                   LandPropertyMapper landPropertyMapper) {
+    public LandPropertyServiceImpl(
+            IUserRepository userRepository,
+            ILandPropertyRepository landPropertyRepository,
+            IStreetRepository streetRepository,
+            UserUtil userUtil,
+            LandPropertyMapper landPropertyMapper
+    ) {
         super(userRepository, userUtil);
+
+        this.clazz = LandProperty.class;
+        this.defaultRepository = landPropertyRepository;
+
         this.landPropertyRepository = landPropertyRepository;
         this.streetRepository = streetRepository;
         this.landPropertyMapper = landPropertyMapper;
@@ -90,22 +96,22 @@ public class LandPropertyServiceImpl
 
     @Override
     @Transactional
-    public void addFromDto(RequestLandPropertyWithUserIdOfOwnerDto requestDto) {
+    public LandPropertyDto addFromDto(RequestLandPropertyWithUserIdOfOwnerDto requestDto) {
         Long userIdOfOwner = requestDto.getUserIdOfOwner();
 
         User owner = userRepository.findById(userIdOfOwner);
         EntityHelper.checkEntityOnNull(owner, User.class, userIdOfOwner);
 
-        addFromDtoWithSpecificUserIdOfOwner(requestDto, userIdOfOwner);
+        return addFromDtoWithSpecificUserIdOfOwner(requestDto, userIdOfOwner);
     }
 
     @Override
     @Transactional
-    public void addFromDtoFromCurrentUser(RequestLandPropertyDto requestDto) {
-        addFromDtoWithSpecificUserIdOfOwner(requestDto, userUtil.getCurrentUserId());
+    public LandPropertyDto addFromDtoFromCurrentUser(RequestLandPropertyDto requestDto) {
+        return addFromDtoWithSpecificUserIdOfOwner(requestDto, userUtil.getCurrentUserId());
     }
 
-    private void addFromDtoWithSpecificUserIdOfOwner(RequestLandPropertyDto requestDto, Long userIdOfOwner) {
+    private LandPropertyDto addFromDtoWithSpecificUserIdOfOwner(RequestLandPropertyDto requestDto, Long userIdOfOwner) {
         LandProperty landProperty = landPropertyMapper.toLandProperty(requestDto);
 
         Long streetId = requestDto.getStreetId();
@@ -114,7 +120,9 @@ public class LandPropertyServiceImpl
         setOwnerByUserIdOfOwner(landProperty, userIdOfOwner);
 
 
-        landPropertyRepository.create(landProperty);
+        LandProperty landPropertyResponse = landPropertyRepository.create(landProperty);
+
+        return landPropertyMapper.toLandPropertyDto(landPropertyResponse);
     }
 
     @Override

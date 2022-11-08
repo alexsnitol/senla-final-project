@@ -18,8 +18,8 @@ public interface IApartmentPropertyService
     List<ApartmentPropertyDto> getAllDto(String rsqlQuery, String sortQuery);
     List<ApartmentPropertyDto> getAllDtoOfCurrentUser(String rsqlQuery, String sortQuery);
 
-    void addFromDto(RequestApartmentPropertyWithUserIdOfOwnerDto requestDto);
-    void addFromDtoFromCurrentUser(RequestApartmentPropertyDto requestDto);
+    ApartmentPropertyDto addFromDto(RequestApartmentPropertyWithUserIdOfOwnerDto requestDto);
+    ApartmentPropertyDto addFromDtoFromCurrentUser(RequestApartmentPropertyDto requestDto);
 
     void updateFromDtoById(UpdateRequestApartmentPropertyWithUserIdOfOwnerDto updateRequestDto, Long id);
     void updateFromDtoByPropertyIdOfCurrentUser(UpdateRequestApartmentPropertyDto updateRequestDto, Long id);

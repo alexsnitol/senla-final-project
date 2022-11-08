@@ -18,7 +18,6 @@ import ru.senla.realestatemarket.service.announcement.IAnnouncementService;
 import ru.senla.realestatemarket.util.SearchQueryUtil;
 import ru.senla.realestatemarket.util.UserUtil;
 
-import javax.annotation.PostConstruct;
 import javax.transaction.Transactional;
 import java.util.Arrays;
 import java.util.Collections;
@@ -44,13 +43,19 @@ public class AnnouncementServiceImpl
     private final AnnouncementMapper announcementMapper;
 
 
-    public AnnouncementServiceImpl(IAnnouncementRepository announcementRepository,
-                                   IApartmentAnnouncementRepository apartmentAnnouncementRepository,
-                                   IFamilyHouseAnnouncementRepository familyHouseAnnouncementRepository,
-                                   ILandAnnouncementRepository landAnnouncementRepository,
-                                   UserUtil userUtil,
-                                   AnnouncementMapper announcementMapper) {
+    public AnnouncementServiceImpl(
+            IAnnouncementRepository announcementRepository,
+            IApartmentAnnouncementRepository apartmentAnnouncementRepository,
+            IFamilyHouseAnnouncementRepository familyHouseAnnouncementRepository,
+            ILandAnnouncementRepository landAnnouncementRepository,
+            UserUtil userUtil,
+            AnnouncementMapper announcementMapper
+    ) {
         super(userUtil);
+
+        this.clazz = Announcement.class;
+        this.defaultRepository = announcementRepository;
+
         this.announcementRepository = announcementRepository;
         this.apartmentAnnouncementRepository = apartmentAnnouncementRepository;
         this.familyHouseAnnouncementRepository = familyHouseAnnouncementRepository;
@@ -58,11 +63,6 @@ public class AnnouncementServiceImpl
         this.announcementMapper = announcementMapper;
     }
 
-    @PostConstruct
-    public void init() {
-        setDefaultRepository(announcementRepository);
-        setClazz(Announcement.class);
-    }
 
     @Override
     @Transactional

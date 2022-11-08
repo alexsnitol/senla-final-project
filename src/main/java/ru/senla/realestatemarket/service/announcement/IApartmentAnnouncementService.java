@@ -22,8 +22,8 @@ public interface IApartmentAnnouncementService
     ApartmentAnnouncementDto getByIdWithOpenStatusDto(Long id);
     ApartmentAnnouncementDto getByIdDtoOfCurrentUser(Long id);
 
-    void addFromDto(RequestApartmentAnnouncementDto requestApartmentAnnouncementDto);
-    void addFromDtoFromCurrentUser(RequestApartmentAnnouncementDto requestApartmentAnnouncementDto);
+    ApartmentAnnouncementDto addFromDto(RequestApartmentAnnouncementDto requestApartmentAnnouncementDto);
+    ApartmentAnnouncementDto addFromDtoFromCurrentUser(RequestApartmentAnnouncementDto requestApartmentAnnouncementDto);
 
     void updateFromDtoById(UpdateRequestApartmentAnnouncementDto updateRequestApartmentAnnouncementDto, Long id);
     void updateByIdFromDtoFromCurrentUser(UpdateRequestApartmentAnnouncementDto updateRequestApartmentAnnouncementDto,

@@ -17,8 +17,8 @@ public interface ILandPropertyService extends IAbstractPropertyService<LandPrope
     List<LandPropertyDto> getAllDto(String rsqlQuery, String sortQuery);
     List<LandPropertyDto> getAllDtoOfCurrentUser(String rsqlQuery, String sortQuery);
 
-    void addFromDto(RequestLandPropertyWithUserIdOfOwnerDto requestDto);
-    void addFromDtoFromCurrentUser(RequestLandPropertyDto requestDto);
+    LandPropertyDto addFromDto(RequestLandPropertyWithUserIdOfOwnerDto requestDto);
+    LandPropertyDto addFromDtoFromCurrentUser(RequestLandPropertyDto requestDto);
 
     void updateFromDtoById(UpdateRequestLandPropertyWithUserIdOfOwnerDto updateRequestDto, Long id);
     void updateFromDtoByPropertyIdOfCurrentUser(UpdateRequestLandPropertyDto updateRequestDto, Long id);

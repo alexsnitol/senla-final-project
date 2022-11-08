@@ -11,7 +11,6 @@ import ru.senla.realestatemarket.repo.address.IRegionRepository;
 import ru.senla.realestatemarket.service.AbstractServiceImpl;
 import ru.senla.realestatemarket.service.address.IRegionService;
 
-import javax.annotation.PostConstruct;
 import javax.transaction.Transactional;
 import java.util.List;
 
@@ -29,15 +28,15 @@ public class RegionServiceImpl extends AbstractServiceImpl<Region, Long> impleme
     private final RegionMapper regionMapper;
 
 
-    public RegionServiceImpl(IRegionRepository regionRepository, RegionMapper regionMapper) {
+    public RegionServiceImpl(
+            IRegionRepository regionRepository,
+            RegionMapper regionMapper
+    ) {
+        this.clazz = Region.class;
+        this.defaultRepository = regionRepository;
+
         this.regionRepository = regionRepository;
         this.regionMapper = regionMapper;
-    }
-
-    @PostConstruct
-    public void init() {
-        setDefaultRepository(regionRepository);
-        setClazz(Region.class);
     }
 
 
@@ -55,10 +54,12 @@ public class RegionServiceImpl extends AbstractServiceImpl<Region, Long> impleme
 
     @Override
     @Transactional
-    public void add(RequestRegionDto requestRegionDto) {
+    public RegionDto add(RequestRegionDto requestRegionDto) {
         Region region = regionMapper.toRegion(requestRegionDto);
 
-        regionRepository.create(region);
+        Region regionResponse = regionRepository.create(region);
+
+        return regionMapper.toRegionDto(regionResponse);
     }
 
     @Override

@@ -22,10 +22,10 @@ public interface IAbstractService<M, I> {
     List<M> getAll(String rsqlQuery, String sortQuery);
     List<M> getAll(Specification<M> specification, String rsqlQuery, String sortQuery);
 
-    void add(M model);
+    M add(M model);
 
-    void update(M model);
-    void updateById(M model, I id);
+    M update(M model);
+    M updateById(M model, I id);
 
     void deleteById(I id);
 

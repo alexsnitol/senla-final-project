@@ -16,8 +16,8 @@ public interface IReviewService extends IAbstractService<Review, Long> {
     List<ReviewDto> getAllDtoOfCurrentCustomerUser();
     List<ReviewDto> getAllDtoOfCurrentSellerUser();
 
-    void sendReview(Review review, Long customerId, Long sellerId);
-    void sendReviewFromCurrentUser(Review review, Long sellerId);
-    void sendReviewFromCurrentUser(RequestReviewDto requestReviewDto, Long sellerId);
+    Review sendReview(Review review, Long customerId, Long sellerId);
+    Review sendReviewFromCurrentUser(Review review, Long sellerId);
+    ReviewDto sendReviewFromCurrentUser(RequestReviewDto requestReviewDto, Long sellerId);
 
 }

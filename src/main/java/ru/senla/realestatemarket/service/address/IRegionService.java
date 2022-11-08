@@ -13,7 +13,7 @@ public interface IRegionService extends IAbstractService<Region, Long> {
 
     List<RegionDto> getAllDto(String rsqlQuery, String sortQuery);
 
-    void add(RequestRegionDto requestRegionDto);
+    RegionDto add(RequestRegionDto requestRegionDto);
 
     void updateById(RequestRegionDto requestRegionDto, Long id);
 

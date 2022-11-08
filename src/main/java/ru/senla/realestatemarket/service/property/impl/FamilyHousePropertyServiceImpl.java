@@ -24,7 +24,6 @@ import ru.senla.realestatemarket.service.property.IFamilyHousePropertyService;
 import ru.senla.realestatemarket.util.SortUtil;
 import ru.senla.realestatemarket.util.UserUtil;
 
-import javax.annotation.PostConstruct;
 import javax.transaction.Transactional;
 import java.util.List;
 
@@ -47,22 +46,22 @@ public class FamilyHousePropertyServiceImpl
     private final FamilyHousePropertyMapper familyHousePropertyMapper;
 
 
-    public FamilyHousePropertyServiceImpl(IRenovationTypeRepository renovationTypeRepository,
-                                          IUserRepository userRepository,
-                                          IFamilyHousePropertyRepository familyHousePropertyRepository,
-                                          IFamilyHouseRepository familyHouseRepository,
-                                          UserUtil userUtil,
-                                          FamilyHousePropertyMapper familyHousePropertyMapper) {
+    public FamilyHousePropertyServiceImpl(
+            IRenovationTypeRepository renovationTypeRepository,
+            IUserRepository userRepository,
+            IFamilyHousePropertyRepository familyHousePropertyRepository,
+            IFamilyHouseRepository familyHouseRepository,
+            UserUtil userUtil,
+            FamilyHousePropertyMapper familyHousePropertyMapper
+    ) {
         super(renovationTypeRepository, userRepository, userUtil);
+
+        this.clazz = FamilyHouseProperty.class;
+        this.defaultRepository = familyHousePropertyRepository;
+
         this.familyHousePropertyRepository = familyHousePropertyRepository;
         this.familyHouseRepository = familyHouseRepository;
         this.familyHousePropertyMapper = familyHousePropertyMapper;
-    }
-
-    @PostConstruct
-    public void init() {
-        setDefaultRepository(familyHousePropertyRepository);
-        setClazz(FamilyHouseProperty.class);
     }
 
 
@@ -100,22 +99,22 @@ public class FamilyHousePropertyServiceImpl
 
     @Override
     @Transactional
-    public void addFromDto(RequestFamilyHousePropertyWithUserIdOfOwnerDto requestDto) {
+    public FamilyHousePropertyDto addFromDto(RequestFamilyHousePropertyWithUserIdOfOwnerDto requestDto) {
         Long userIdOfOwner = requestDto.getUserIdOfOwner();
 
         User owner = userRepository.findById(userIdOfOwner);
         EntityHelper.checkEntityOnNull(owner, User.class, userIdOfOwner);
 
-        addFromDtoWithSpecificOwner(requestDto, userIdOfOwner);
+        return addFromDtoWithSpecificOwner(requestDto, userIdOfOwner);
     }
 
     @Override
     @Transactional
-    public void addFromDtoFromCurrentUser(RequestFamilyHousePropertyDto requestDto) {
-        addFromDtoWithSpecificOwner(requestDto, userUtil.getCurrentUserId());
+    public FamilyHousePropertyDto addFromDtoFromCurrentUser(RequestFamilyHousePropertyDto requestDto) {
+        return addFromDtoWithSpecificOwner(requestDto, userUtil.getCurrentUserId());
     }
 
-    private void addFromDtoWithSpecificOwner(RequestFamilyHousePropertyDto requestDto, Long userIdOfOwner) {
+    private FamilyHousePropertyDto addFromDtoWithSpecificOwner(RequestFamilyHousePropertyDto requestDto, Long userIdOfOwner) {
         FamilyHouseProperty familyHouseProperty = familyHousePropertyMapper.toFamilyHouseProperty(requestDto);
 
         Long familyHouseId = requestDto.getFamilyHouseId();
@@ -128,7 +127,9 @@ public class FamilyHousePropertyServiceImpl
         setOwnerByUserIdOfOwner(familyHouseProperty, userIdOfOwner);
 
 
-        familyHousePropertyRepository.create(familyHouseProperty);
+        FamilyHouseProperty familyHousePropertyResponse = familyHousePropertyRepository.create(familyHouseProperty);
+
+        return familyHousePropertyMapper.toFamilyHousePropertyDto(familyHousePropertyResponse);
     }
 
     @Override

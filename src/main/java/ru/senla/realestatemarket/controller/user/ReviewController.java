@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import ru.senla.realestatemarket.dto.response.RestResponseDto;
 import ru.senla.realestatemarket.dto.user.RequestReviewDto;
 import ru.senla.realestatemarket.dto.user.ReviewDto;
 import ru.senla.realestatemarket.service.user.IReviewService;
@@ -71,13 +70,13 @@ public class ReviewController {
             authorizations = @Authorization("Authorized user")
     )
     @PostMapping("/sellers/{sellerId}")
-    public ResponseEntity<RestResponseDto> sendReviewToSellerBySellerId(
+    public ResponseEntity<ReviewDto> sendReviewToSellerBySellerId(
             @RequestBody RequestReviewDto requestReviewDto,
             @PathVariable Long sellerId
     ) {
-        reviewService.sendReviewFromCurrentUser(requestReviewDto, sellerId);
-        return new ResponseEntity<>(new RestResponseDto("Review has been sent",
-                HttpStatus.CREATED.value()), HttpStatus.CREATED);
+        ReviewDto reviewDto = reviewService.sendReviewFromCurrentUser(requestReviewDto, sellerId);
+
+        return new ResponseEntity<>(reviewDto, HttpStatus.CREATED);
     }
 
 }

@@ -18,9 +18,9 @@ public interface IStreetService extends IAbstractService<Street, Long> {
     List<StreetDto> getAllDtoByCityId(Long cityId, String sortQuery);
     List<StreetDto> getAllDtoByRegionIdAndCityId(Long regionId, Long cityId, String sortQuery);
 
-    void add(RequestStreetDto requestStreetDto);
-    void addByCityId(RequestStreetWithoutCityIdDto requestStreetWithoutCityIdDto, Long cityId);
-    void addByRegionIdAndCityId(
+    StreetDto add(RequestStreetDto requestStreetDto);
+    StreetDto addByCityId(RequestStreetWithoutCityIdDto requestStreetWithoutCityIdDto, Long cityId);
+    StreetDto addByRegionIdAndCityId(
             RequestStreetWithoutCityIdDto requestStreetWithoutCityIdDto, Long regionId, Long cityId);
 
     void updateById(UpdateRequestStreetDto updateRequestStreetDto, Long id);

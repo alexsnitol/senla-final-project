@@ -8,9 +8,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -79,14 +79,13 @@ public class FamilyHouseAnnouncementController {
             authorizations = @Authorization("ADMIN")
     )
     @PostMapping
-    public ResponseEntity<RestResponseDto> add(
+    public ResponseEntity<FamilyHouseAnnouncementDto> add(
             @RequestBody @Valid RequestFamilyHouseAnnouncementDto requestFamilyHouseAnnouncementDto
     ) {
-        familyHouseAnnouncementService.addFromDto(requestFamilyHouseAnnouncementDto);
+        FamilyHouseAnnouncementDto response
+                = familyHouseAnnouncementService.addFromDto(requestFamilyHouseAnnouncementDto);
 
-        return new ResponseEntity<>(new RestResponseDto(
-                "Family house announcement has been added with HIDDEN status",
-                HttpStatus.CREATED.value()), HttpStatus.CREATED);
+        return new ResponseEntity<>(response, HttpStatus.CREATED);
     }
 
     @ApiOperation(
@@ -118,7 +117,7 @@ public class FamilyHouseAnnouncementController {
             value = "",
             authorizations = @Authorization("ADMIN")
     )
-    @PutMapping("/{id}")
+    @PatchMapping("/{id}")
     public ResponseEntity<RestResponseDto> updateById(
             @PathVariable Long id,
             @RequestBody @Valid UpdateRequestFamilyHouseAnnouncementDto updateRequestFamilyHouseAnnouncementDto
@@ -180,14 +179,13 @@ public class FamilyHouseAnnouncementController {
             authorizations = @Authorization("Authorized user")
     )
     @PostMapping("/owners/current")
-    public ResponseEntity<RestResponseDto> addFromCurrentUser(
+    public ResponseEntity<FamilyHouseAnnouncementDto> addFromCurrentUser(
             @RequestBody @Valid RequestFamilyHouseAnnouncementDto requestFamilyHouseAnnouncementDto
     ) {
-        familyHouseAnnouncementService.addFromCurrentUser(requestFamilyHouseAnnouncementDto);
+        FamilyHouseAnnouncementDto response
+                = familyHouseAnnouncementService.addFromCurrentUser(requestFamilyHouseAnnouncementDto);
 
-        return new ResponseEntity<>(new RestResponseDto(
-                "FamilyHouse announcement has been added with HIDDEN status",
-                HttpStatus.CREATED.value()), HttpStatus.CREATED);
+        return new ResponseEntity<>(response, HttpStatus.CREATED);
     }
 
     @ApiOperation(
@@ -206,7 +204,7 @@ public class FamilyHouseAnnouncementController {
             notes = "Update family house announcement by id with validation on access to update for current user",
             authorizations = @Authorization("Authorized user")
     )
-    @PutMapping("/owners/current/{id}")
+    @PatchMapping("/owners/current/{id}")
     public ResponseEntity<RestResponseDto> updateByIdFromCurrentUser(
             @PathVariable Long id,
             @RequestBody @Valid UpdateRequestFamilyHouseAnnouncementDto updateRequestFamilyHouseAnnouncementDto

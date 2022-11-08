@@ -14,7 +14,6 @@ import ru.senla.realestatemarket.service.helper.EntityHelper;
 import ru.senla.realestatemarket.service.user.IReviewService;
 import ru.senla.realestatemarket.util.UserUtil;
 
-import javax.annotation.PostConstruct;
 import javax.transaction.Transactional;
 import java.util.List;
 
@@ -37,16 +36,13 @@ public class ReviewServiceImpl extends AbstractServiceImpl<Review, Long> impleme
                              IUserRepository userRepository,
                              UserUtil userUtil,
                              ReviewMapper reviewMapper) {
+        this.clazz = Review.class;
+        this.defaultRepository = reviewRepository;
+
         this.reviewRepository = reviewRepository;
         this.userRepository = userRepository;
         this.userUtil = userUtil;
         this.reviewMapper = reviewMapper;
-    }
-
-    @PostConstruct
-    public void init() {
-        setDefaultRepository(reviewRepository);
-        setClazz(Review.class);
     }
 
 
@@ -88,7 +84,7 @@ public class ReviewServiceImpl extends AbstractServiceImpl<Review, Long> impleme
 
     @Override
     @Transactional
-    public void sendReview(Review review, Long customerId, Long sellerId) {
+    public Review sendReview(Review review, Long customerId, Long sellerId) {
         User seller = userRepository.findById(sellerId);
         EntityHelper.checkEntityOnNull(seller, User.class, sellerId);
 
@@ -98,19 +94,19 @@ public class ReviewServiceImpl extends AbstractServiceImpl<Review, Long> impleme
         review.setCustomer(customer);
         review.setSeller(seller);
 
-        reviewRepository.create(review);
+        return reviewRepository.create(review);
     }
 
     @Override
     @Transactional
-    public void sendReviewFromCurrentUser(Review review, Long sellerId) {
-        sendReview(review, userUtil.getCurrentUserId(), sellerId);
+    public Review sendReviewFromCurrentUser(Review review, Long sellerId) {
+        return sendReview(review, userUtil.getCurrentUserId(), sellerId);
     }
 
     @Override
     @Transactional
-    public void sendReviewFromCurrentUser(RequestReviewDto requestReviewDto, Long sellerId) {
+    public ReviewDto sendReviewFromCurrentUser(RequestReviewDto requestReviewDto, Long sellerId) {
         Review review = reviewMapper.requestReviewDtoToReview(requestReviewDto);
-        sendReviewFromCurrentUser(review, sellerId);
+        return reviewMapper.toReviewDto(sendReviewFromCurrentUser(review, sellerId));
     }
 }

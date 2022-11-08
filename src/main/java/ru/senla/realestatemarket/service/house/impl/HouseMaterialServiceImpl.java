@@ -9,7 +9,6 @@ import ru.senla.realestatemarket.repo.house.IHouseMaterialRepository;
 import ru.senla.realestatemarket.service.AbstractServiceImpl;
 import ru.senla.realestatemarket.service.house.IHouseMaterialService;
 
-import javax.annotation.PostConstruct;
 import javax.transaction.Transactional;
 
 /**
@@ -26,24 +25,23 @@ public class HouseMaterialServiceImpl extends AbstractServiceImpl<HouseMaterial,
     private final HouseMaterialMapper houseMaterialMapper;
 
 
-    public HouseMaterialServiceImpl(IHouseMaterialRepository houseMaterialRepository,
-                                    HouseMaterialMapper houseMaterialMapper) {
+    public HouseMaterialServiceImpl(
+            IHouseMaterialRepository houseMaterialRepository,
+            HouseMaterialMapper houseMaterialMapper
+    ) {
+        this.clazz = HouseMaterial.class;
+        this.defaultRepository = houseMaterialRepository;
+
         this.houseMaterialRepository = houseMaterialRepository;
         this.houseMaterialMapper = houseMaterialMapper;
     }
 
-    @PostConstruct
-    public void init() {
-        setDefaultRepository(houseMaterialRepository);
-        setClazz(HouseMaterial.class);
-    }
-
     @Override
     @Transactional
-    public void add(RequestHouseMaterialDto requestHouseMaterialDto) {
+    public HouseMaterial add(RequestHouseMaterialDto requestHouseMaterialDto) {
         HouseMaterial houseMaterial = houseMaterialMapper.toHouseMaterial(requestHouseMaterialDto);
 
-        houseMaterialRepository.create(houseMaterial);
+        return houseMaterialRepository.create(houseMaterial);
     }
 
     @Override

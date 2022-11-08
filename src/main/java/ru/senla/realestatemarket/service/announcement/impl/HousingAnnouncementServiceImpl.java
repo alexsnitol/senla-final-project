@@ -11,7 +11,6 @@ import ru.senla.realestatemarket.repo.announcement.specification.GenericAnnounce
 import ru.senla.realestatemarket.service.announcement.IHousingAnnouncementService;
 import ru.senla.realestatemarket.util.UserUtil;
 
-import javax.annotation.PostConstruct;
 import javax.transaction.Transactional;
 import java.util.List;
 
@@ -35,14 +34,12 @@ public class HousingAnnouncementServiceImpl
             UserUtil userUtil,
             HousingAnnouncementMapper housingAnnouncementMapper) {
         super(userUtil);
+
+        this.clazz = HousingAnnouncement.class;
+        this.defaultRepository = housingAnnouncementRepository;
+
         this.housingAnnouncementRepository = housingAnnouncementRepository;
         this.housingAnnouncementMapper = housingAnnouncementMapper;
-    }
-
-    @PostConstruct
-    public void init() {
-        setDefaultRepository(housingAnnouncementRepository);
-        setClazz(HousingAnnouncement.class);
     }
 
 

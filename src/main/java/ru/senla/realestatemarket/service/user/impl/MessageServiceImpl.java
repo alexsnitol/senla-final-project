@@ -37,16 +37,13 @@ public class MessageServiceImpl extends AbstractServiceImpl<Message, Long> imple
                               IUserRepository userRepository,
                               UserUtil userUtil,
                               MessageMapper messageMapper) {
+        this.clazz = Message.class;
+        this.defaultRepository = messageRepository;
+
         this.messageRepository = messageRepository;
         this.userRepository = userRepository;
         this.userUtil = userUtil;
         this.messageMapper = messageMapper;
-    }
-
-
-    public void init() {
-        setDefaultRepository(messageRepository);
-        setClazz(Message.class);
     }
 
 
@@ -66,7 +63,7 @@ public class MessageServiceImpl extends AbstractServiceImpl<Message, Long> imple
 
     @Override
     @Transactional
-    public void sendMessage(Message message, Long senderId, Long receiverId) {
+    public Message sendMessage(Message message, Long senderId, Long receiverId) {
         User sender = userRepository.findById(senderId);
         EntityHelper.checkEntityOnNull(sender, User.class, senderId);
 
@@ -76,22 +73,22 @@ public class MessageServiceImpl extends AbstractServiceImpl<Message, Long> imple
         message.setSender(sender);
         message.setReceiver(receiver);
 
-        messageRepository.create(message);
+        return messageRepository.create(message);
     }
 
     @Override
     @Transactional
-    public void sendMessageFromCurrentUser(Message message, Long receiverId) {
-        sendMessage(message, userUtil.getCurrentUserId(), receiverId);
+    public Message sendMessageFromCurrentUser(Message message, Long receiverId) {
+        return sendMessage(message, userUtil.getCurrentUserId(), receiverId);
     }
 
     @Override
     @Transactional
-    public void sendTextMessageFromCurrentUser(String text, Long receiverId) {
+    public MessageDto sendTextMessageFromCurrentUser(String text, Long receiverId) {
         Message message = new Message();
         message.setText(text);
 
-        sendMessageFromCurrentUser(message, receiverId);
+        return messageMapper.toMessageDto(sendMessageFromCurrentUser(message, receiverId));
     }
 
 }

@@ -1,21 +1,17 @@
 package ru.senla.realestatemarket.service.user;
 
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.Mockito;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
-import org.springframework.test.context.support.AnnotationConfigContextLoader;
-import ru.senla.realestatemarket.config.TestConfig;
 import ru.senla.realestatemarket.dto.user.RequestMessageDto;
 import ru.senla.realestatemarket.mapper.user.MessageMapper;
 import ru.senla.realestatemarket.model.user.Message;
 import ru.senla.realestatemarket.model.user.User;
 import ru.senla.realestatemarket.repo.user.IMessageRepository;
 import ru.senla.realestatemarket.repo.user.IUserRepository;
+import ru.senla.realestatemarket.service.user.impl.MessageServiceImpl;
 import ru.senla.realestatemarket.util.UserUtil;
 
 import java.util.List;
@@ -27,35 +23,19 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-@ExtendWith({SpringExtension.class, MockitoExtension.class})
-@ContextConfiguration(classes = {TestConfig.class}, loader = AnnotationConfigContextLoader.class)
-public class MessageServiceUnitTest {
+@ExtendWith({MockitoExtension.class})
+class MessageServiceUnitTest {
 
-    @Autowired
-    IMessageService messageService;
-    @Autowired
-    IMessageRepository mockedMessageRepository;
-    @Autowired
-    IUserRepository mockedUserRepository;
-    @Autowired
-    UserUtil mockedUserUtil;
-    @Autowired
-    MessageMapper mockedMessageMapper;
+    @InjectMocks MessageServiceImpl messageService;
 
-    Message mockedMessage = mock(Message.class);
-    RequestMessageDto mockedRequestMessageDto = mock(RequestMessageDto.class);
-    User mockedUser = mock(User.class);
+    @Mock IMessageRepository mockedMessageRepository;
+    @Mock IUserRepository mockedUserRepository;
+    @Mock UserUtil mockedUserUtil;
+    @Mock MessageMapper mockedMessageMapper;
 
-
-    @AfterEach
-    void clearInvocationsInMocked() {
-        Mockito.clearInvocations(
-                mockedMessageMapper,
-                mockedMessageRepository,
-                mockedUserUtil,
-                mockedUserRepository
-        );
-    }
+    @Mock Message mockedMessage = mock(Message.class);
+    @Mock RequestMessageDto mockedRequestMessageDto = mock(RequestMessageDto.class);
+    @Mock User mockedUser = mock(User.class);
     
 
     @Test
@@ -112,7 +92,6 @@ public class MessageServiceUnitTest {
 
 
         // test
-        when(mockedUserUtil.getCurrentUserId()).thenReturn(1L);
         when(mockedUserRepository.findById(1L)).thenReturn(testUserOfSender);
         when(mockedUserRepository.findById(2L)).thenReturn(testUserOfReceiver);
 
@@ -133,10 +112,8 @@ public class MessageServiceUnitTest {
 
 
         // test
-        when(mockedUserUtil.getCurrentUserId()).thenReturn(1L);
         when(mockedUserRepository.findById(1L)).thenReturn(testUserOfSender);
         when(mockedUserRepository.findById(2L)).thenReturn(testUserOfReceiver);
-        when(mockedMessageMapper.requestMessageDtoToMessage(mockedRequestMessageDto)).thenReturn(mockedMessage);
 
         messageService.sendMessage(mockedMessage, 1L, 2L);
 

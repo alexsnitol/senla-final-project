@@ -9,7 +9,6 @@ import ru.senla.realestatemarket.repo.dictionary.IAnnouncementTopPriceRepository
 import ru.senla.realestatemarket.service.AbstractServiceImpl;
 import ru.senla.realestatemarket.service.dictionary.IAnnouncementTopPriceService;
 
-import javax.annotation.PostConstruct;
 import javax.transaction.Transactional;
 
 /**
@@ -27,16 +26,15 @@ public class AnnouncementTopPriceServiceImpl
     private final AnnouncementTopPriceMapper announcementTopPriceMapper;
 
 
-    public AnnouncementTopPriceServiceImpl(IAnnouncementTopPriceRepository announcementTopPriceRepository,
-                                           AnnouncementTopPriceMapper announcementTopPriceMapper) {
+    public AnnouncementTopPriceServiceImpl(
+            IAnnouncementTopPriceRepository announcementTopPriceRepository,
+            AnnouncementTopPriceMapper announcementTopPriceMapper
+    ) {
+        this.clazz = AnnouncementTopPrice.class;
+        this.defaultRepository = announcementTopPriceRepository;
+
         this.announcementTopPriceRepository = announcementTopPriceRepository;
         this.announcementTopPriceMapper = announcementTopPriceMapper;
-    }
-
-    @PostConstruct
-    public void init() {
-        setDefaultRepository(announcementTopPriceRepository);
-        setClazz(AnnouncementTopPrice.class);
     }
 
 

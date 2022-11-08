@@ -18,8 +18,8 @@ public interface IFamilyHousePropertyService
     List<FamilyHousePropertyDto> getAllDto(String rsqlQuery, String sortQuery);
     List<FamilyHousePropertyDto> getAllDtoOfCurrentUser(String rsqlQuery, String sortQuery);
 
-    void addFromDto(RequestFamilyHousePropertyWithUserIdOfOwnerDto requestDto);
-    void addFromDtoFromCurrentUser(RequestFamilyHousePropertyDto requestDto);
+    FamilyHousePropertyDto addFromDto(RequestFamilyHousePropertyWithUserIdOfOwnerDto requestDto);
+    FamilyHousePropertyDto addFromDtoFromCurrentUser(RequestFamilyHousePropertyDto requestDto);
 
     void updateByIdFromDto(UpdateRequestFamilyHousePropertyWithUserIdOfOwnerDto updateRequestDto, Long id);
     void updateFromDtoByPropertyIdOfCurrentUser(UpdateRequestFamilyHousePropertyDto updateRequestDto, Long id);

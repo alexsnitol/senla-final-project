@@ -8,9 +8,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -90,7 +90,7 @@ public class ApartmentAnnouncementController {
             value = "",
             authorizations = @Authorization("ADMIN")
     )
-    @PutMapping("/{id}")
+    @PatchMapping("/{id}")
     public ResponseEntity<RestResponseDto> updateById(
             @PathVariable Long id,
             @RequestBody @Valid UpdateRequestApartmentAnnouncementDto updateRequestApartmentAnnouncementDto
@@ -119,14 +119,12 @@ public class ApartmentAnnouncementController {
             authorizations = @Authorization("ADMIN")
     )
     @PostMapping
-    public ResponseEntity<RestResponseDto> add(
+    public ResponseEntity<ApartmentAnnouncementDto> add(
             @RequestBody @Valid RequestApartmentAnnouncementDto requestApartmentAnnouncementDto
     ) {
-        apartmentAnnouncementService.addFromDto(requestApartmentAnnouncementDto);
+        ApartmentAnnouncementDto response = apartmentAnnouncementService.addFromDto(requestApartmentAnnouncementDto);
 
-        return new ResponseEntity<>(new RestResponseDto(
-                "Apartment announcement has been added with HIDDEN status",
-                HttpStatus.CREATED.value()), HttpStatus.CREATED);
+        return new ResponseEntity<>(response, HttpStatus.CREATED);
     }
 
     @ApiOperation(
@@ -179,14 +177,13 @@ public class ApartmentAnnouncementController {
             authorizations = @Authorization("Authorized user")
     )
     @PostMapping("/owners/current")
-    public ResponseEntity<RestResponseDto> addFromCurrentUser(
+    public ResponseEntity<ApartmentAnnouncementDto> addFromCurrentUser(
             @RequestBody @Valid RequestApartmentAnnouncementDto requestApartmentAnnouncementDto
     ) {
-        apartmentAnnouncementService.addFromDtoFromCurrentUser(requestApartmentAnnouncementDto);
+        ApartmentAnnouncementDto response
+                = apartmentAnnouncementService.addFromDtoFromCurrentUser(requestApartmentAnnouncementDto);
 
-        return new ResponseEntity<>(new RestResponseDto(
-                "Apartment announcement has been added with HIDDEN status",
-                HttpStatus.CREATED.value()), HttpStatus.CREATED);
+        return new ResponseEntity<>(response, HttpStatus.CREATED);
     }
 
     @ApiOperation(
@@ -205,7 +202,7 @@ public class ApartmentAnnouncementController {
             notes = "Update apartment announcement by id with validation on access to update for current user",
             authorizations = @Authorization("Authorized user")
     )
-    @PutMapping("/owners/current/{id}")
+    @PatchMapping("/owners/current/{id}")
     public ResponseEntity<RestResponseDto> updateByIdFromCurrentUser(
             @PathVariable Long id,
             @RequestBody @Valid UpdateRequestApartmentAnnouncementDto updateRequestApartmentAnnouncementDto

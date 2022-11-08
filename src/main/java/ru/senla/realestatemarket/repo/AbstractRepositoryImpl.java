@@ -178,13 +178,15 @@ public abstract class AbstractRepositoryImpl<M, I> implements IAbstractRepositor
     }
 
     @Override
-    public void create(M newModel) {
+    public M create(M newModel) {
         entityManager.persist(newModel);
+        return newModel;
     }
 
     @Override
-    public void update(M changedModel) {
+    public M update(M changedModel) {
         entityManager.merge(changedModel);
+        return changedModel;
     }
 
     @Override

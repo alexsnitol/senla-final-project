@@ -6,7 +6,7 @@ import ru.senla.realestatemarket.service.IAbstractService;
 
 public interface IHouseMaterialService extends IAbstractService<HouseMaterial, Long> {
 
-    void add(RequestHouseMaterialDto requestHouseMaterialDto);
+    HouseMaterial add(RequestHouseMaterialDto requestHouseMaterialDto);
 
     void updateById(RequestHouseMaterialDto requestHouseMaterialDto, Long id);
 

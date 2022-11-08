@@ -22,8 +22,8 @@ public interface ILandAnnouncementService
     LandAnnouncementDto getByIdWithOpenStatusDto(Long id);
     LandAnnouncementDto getByIdDtoOfCurrentUser(Long id);
 
-    void addFromDto(RequestLandAnnouncementDto requestLandAnnouncementDto);
-    void addFromDtoFromCurrentUser(RequestLandAnnouncementDto requestLandAnnouncementDto);
+    LandAnnouncementDto addFromDto(RequestLandAnnouncementDto requestLandAnnouncementDto);
+    LandAnnouncementDto addFromDtoFromCurrentUser(RequestLandAnnouncementDto requestLandAnnouncementDto);
 
     void updateFromDtoById(UpdateRequestLandAnnouncementDto updateRequestLandAnnouncementDto, Long id);
     void updateByIdFromCurrentUser(UpdateRequestLandAnnouncementDto updateRequestLandAnnouncementDto,

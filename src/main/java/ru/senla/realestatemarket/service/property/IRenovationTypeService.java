@@ -6,7 +6,7 @@ import ru.senla.realestatemarket.service.IAbstractService;
 
 public interface IRenovationTypeService extends IAbstractService<RenovationType, Long> {
 
-    void add(RequestRenovationTypeDto requestRenovationTypeDto);
+    RenovationType add(RequestRenovationTypeDto requestRenovationTypeDto);
 
     void updateById(RequestRenovationTypeDto requestRenovationTypeDto, Long id);
 

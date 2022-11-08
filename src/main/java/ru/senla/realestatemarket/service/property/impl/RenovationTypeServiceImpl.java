@@ -9,7 +9,6 @@ import ru.senla.realestatemarket.repo.property.IRenovationTypeRepository;
 import ru.senla.realestatemarket.service.AbstractServiceImpl;
 import ru.senla.realestatemarket.service.property.IRenovationTypeService;
 
-import javax.annotation.PostConstruct;
 import javax.transaction.Transactional;
 
 /**
@@ -27,25 +26,24 @@ public class RenovationTypeServiceImpl
     private final RenovationTypeMapper renovationTypeMapper;
 
 
-    public RenovationTypeServiceImpl(IRenovationTypeRepository renovationTypeRepository,
-                                     RenovationTypeMapper renovationTypeMapper) {
+    public RenovationTypeServiceImpl(
+            IRenovationTypeRepository renovationTypeRepository,
+            RenovationTypeMapper renovationTypeMapper
+    ) {
+        this.clazz = RenovationType.class;
+        this.defaultRepository = renovationTypeRepository;
+
         this.renovationTypeRepository = renovationTypeRepository;
         this.renovationTypeMapper = renovationTypeMapper;
-    }
-
-    @PostConstruct
-    public void init() {
-        setDefaultRepository(renovationTypeRepository);
-        setClazz(RenovationType.class);
     }
 
 
     @Override
     @Transactional
-    public void add(RequestRenovationTypeDto requestRenovationTypeDto) {
+    public RenovationType add(RequestRenovationTypeDto requestRenovationTypeDto) {
         RenovationType renovationType = renovationTypeMapper.toRenovationType(requestRenovationTypeDto);
 
-        renovationTypeRepository.create(renovationType);
+        return renovationTypeRepository.create(renovationType);
     }
 
     @Override
