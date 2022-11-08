@@ -21,9 +21,9 @@ public interface IAbstractRepository<M, I> {
     void delete(M model);
     void deleteById(I id);
 
-    void create(M newModel);
+    M create(M newModel);
 
-    void update(M changedModel);
+    M update(M changedModel);
 
     boolean isExist(M model);
 
