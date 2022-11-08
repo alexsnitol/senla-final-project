@@ -23,7 +23,6 @@ import ru.senla.realestatemarket.service.helper.EntityHelper;
 import ru.senla.realestatemarket.service.property.IApartmentPropertyService;
 import ru.senla.realestatemarket.util.UserUtil;
 
-import javax.annotation.PostConstruct;
 import javax.transaction.Transactional;
 import java.util.List;
 
@@ -46,22 +45,22 @@ public class ApartmentPropertyServiceImpl
     private final ApartmentPropertyMapper apartmentPropertyMapper;
 
 
-    public ApartmentPropertyServiceImpl(IRenovationTypeRepository renovationTypeRepository,
-                                        IApartmentPropertyRepository apartmentPropertyRepository,
-                                        IApartmentHouseRepository apartmentHouseRepository,
-                                        IUserRepository userRepository,
-                                        UserUtil userUtil,
-                                        ApartmentPropertyMapper apartmentPropertyMapper) {
+    public ApartmentPropertyServiceImpl(
+            IRenovationTypeRepository renovationTypeRepository,
+            IApartmentPropertyRepository apartmentPropertyRepository,
+            IApartmentHouseRepository apartmentHouseRepository,
+            IUserRepository userRepository,
+            UserUtil userUtil,
+            ApartmentPropertyMapper apartmentPropertyMapper
+    ) {
         super(renovationTypeRepository, userRepository, userUtil);
+
+        this.clazz = ApartmentProperty.class;
+        this.defaultRepository = apartmentPropertyRepository;
+
         this.apartmentPropertyRepository = apartmentPropertyRepository;
         this.apartmentHouseRepository = apartmentHouseRepository;
         this.apartmentPropertyMapper = apartmentPropertyMapper;
-    }
-
-    @PostConstruct
-    public void init() {
-        setDefaultRepository(apartmentPropertyRepository);
-        setClazz(ApartmentProperty.class);
     }
 
 
@@ -96,22 +95,22 @@ public class ApartmentPropertyServiceImpl
 
     @Override
     @Transactional
-    public void addFromDto(RequestApartmentPropertyWithUserIdOfOwnerDto requestDto) {
+    public ApartmentPropertyDto addFromDto(RequestApartmentPropertyWithUserIdOfOwnerDto requestDto) {
         Long userIdOfOwner = requestDto.getUserIdOfOwner();
 
         User owner = userRepository.findById(userIdOfOwner);
         EntityHelper.checkEntityOnNull(owner, User.class, userIdOfOwner);
 
-        addFromDtoWithSpecificUserIdOfOwner(requestDto, userIdOfOwner);
+        return addFromDtoWithSpecificUserIdOfOwner(requestDto, userIdOfOwner);
     }
 
     @Override
     @Transactional
-    public void addFromDtoFromCurrentUser(RequestApartmentPropertyDto requestDto) {
-        addFromDtoWithSpecificUserIdOfOwner(requestDto, userUtil.getCurrentUserId());
+    public ApartmentPropertyDto addFromDtoFromCurrentUser(RequestApartmentPropertyDto requestDto) {
+        return addFromDtoWithSpecificUserIdOfOwner(requestDto, userUtil.getCurrentUserId());
     }
 
-    private void addFromDtoWithSpecificUserIdOfOwner(RequestApartmentPropertyDto requestDto, Long userIdOfOwner) {
+    private ApartmentPropertyDto addFromDtoWithSpecificUserIdOfOwner(RequestApartmentPropertyDto requestDto, Long userIdOfOwner) {
         ApartmentProperty apartmentProperty = apartmentPropertyMapper.toApartmentProperty(requestDto);
 
         Long apartmentHouseId = requestDto.getApartmentHouseId();
@@ -125,7 +124,9 @@ public class ApartmentPropertyServiceImpl
         setOwnerByUserIdOfOwner(apartmentProperty, userIdOfOwner);
 
 
-        apartmentPropertyRepository.create(apartmentProperty);
+        ApartmentProperty apartmentPropertyResponse = apartmentPropertyRepository.create(apartmentProperty);
+
+        return apartmentPropertyMapper.toApartmentPropertyDto(apartmentPropertyResponse);
     }
 
     private void checkOnExistApartmentPropertyWithItApartmentHouseIdAndApartmentNumber(

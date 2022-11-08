@@ -15,9 +15,9 @@ public interface IMessageService extends IAbstractService<Message, Long> {
     Set<SimplyUserDto> getAllMessageUsersOfCurrentUser();
 
 
-    void sendMessage(Message message, Long senderId, Long receiverId);
+    Message sendMessage(Message message, Long senderId, Long receiverId);
 
-    void sendMessageFromCurrentUser(Message message, Long receiverId);
-    void sendTextMessageFromCurrentUser(String text, Long receiverId);
+    Message sendMessageFromCurrentUser(Message message, Long receiverId);
+    MessageDto sendTextMessageFromCurrentUser(String text, Long receiverId);
 
 }

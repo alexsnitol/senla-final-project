@@ -25,8 +25,6 @@ public abstract class AbstractServiceImpl<M extends IModel<I>, I> implements IAb
     protected Class<M> clazz;
 
 
-    public abstract void init();
-
     public void setClazz(final Class<M> clazzToSet) {
         clazz = clazzToSet;
     }
@@ -109,25 +107,29 @@ public abstract class AbstractServiceImpl<M extends IModel<I>, I> implements IAb
 
     @Override
     @Transactional
-    public void add(M model) {
+    public M add(M model) {
         defaultRepository.create(model);
+        return model;
     }
 
     @Override
     @Transactional
-    public void update(M model) {
+    public M update(M model) {
         defaultRepository.update(model);
+        return model;
     }
 
     @Override
     @Transactional
-    public void updateById(M changedModel, I id) {
+    public M updateById(M changedModel, I id) {
         M model = defaultRepository.findById(id);
         EntityHelper.checkEntityOnNull(model, clazz, id);
 
         changedModel.setId(id);
 
         defaultRepository.update(changedModel);
+
+        return changedModel;
     }
 
     @Override

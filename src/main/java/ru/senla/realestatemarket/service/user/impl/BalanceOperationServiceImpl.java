@@ -18,7 +18,6 @@ import ru.senla.realestatemarket.service.user.IBalanceOperationService;
 import ru.senla.realestatemarket.util.SortUtil;
 import ru.senla.realestatemarket.util.UserUtil;
 
-import javax.annotation.PostConstruct;
 import javax.transaction.Transactional;
 import java.util.List;
 
@@ -43,18 +42,15 @@ public class BalanceOperationServiceImpl
                                        IUserRepository userRepository,
                                        UserUtil userUtil,
                                        BalanceOperationMapper balanceOperationMapper) {
+        this.clazz = BalanceOperation.class;
+        this.defaultRepository = balanceOperationRepository;
+
         this.balanceOperationRepository = balanceOperationRepository;
         this.userRepository = userRepository;
         this.userUtil = userUtil;
         this.balanceOperationMapper = balanceOperationMapper;
     }
 
-
-    @PostConstruct
-    public void init() {
-        setDefaultRepository(balanceOperationRepository);
-        setClazz(BalanceOperation.class);
-    }
 
     @Override
     @Transactional
@@ -80,7 +76,7 @@ public class BalanceOperationServiceImpl
 
     @Override
     @Transactional
-    public void addByUserIdAndApplyOperation(BalanceOperation balanceOperation, Long userId) {
+    public BalanceOperation addByUserIdAndApplyOperation(BalanceOperation balanceOperation, Long userId) {
         User user = userRepository.findById(userId);
         EntityHelper.checkEntityOnNull(user, User.class, userId);
 
@@ -96,27 +92,30 @@ public class BalanceOperationServiceImpl
         }
 
 
-        balanceOperationRepository.create(balanceOperation);
+        return balanceOperationRepository.create(balanceOperation);
     }
 
     @Override
     @Transactional
-    public void addByUserIdAndApplyOperation(RequestBalanceOperationDto requestBalanceOperationDto, Long userId) {
+    public BalanceOperationWithoutUserIdDto addByUserIdAndApplyOperation(RequestBalanceOperationDto requestBalanceOperationDto, Long userId) {
         BalanceOperation balanceOperation = balanceOperationMapper.toBalanceOperation(requestBalanceOperationDto);
 
-        addByUserIdAndApplyOperation(balanceOperation, userId);
+        return balanceOperationMapper
+                .toBalanceOperationWithoutUserIdDto(addByUserIdAndApplyOperation(balanceOperation, userId));
     }
 
     @Override
     @Transactional
-    public void addFromCurrentUserAndApplyOperation(BalanceOperation balanceOperation) {
-        addByUserIdAndApplyOperation(balanceOperation, userUtil.getCurrentUserId());
+    public BalanceOperation addFromCurrentUserAndApplyOperation(BalanceOperation balanceOperation) {
+        return addByUserIdAndApplyOperation(balanceOperation, userUtil.getCurrentUserId());
     }
 
     @Override
     @Transactional
-    public void addFromCurrentUserAndApplyOperation(RequestBalanceOperationDto requestBalanceOperationDto) {
-        addByUserIdAndApplyOperation(requestBalanceOperationDto, userUtil.getCurrentUserId());
+    public BalanceOperationWithoutUserIdDto addFromCurrentUserAndApplyOperation(
+            RequestBalanceOperationDto requestBalanceOperationDto
+    ) {
+        return addByUserIdAndApplyOperation(requestBalanceOperationDto, userUtil.getCurrentUserId());
     }
 
     /**

@@ -17,8 +17,8 @@ public interface ICityService extends IAbstractService<City, Long> {
     List<CityDto> getAllDto(String rsqlQuery, String sortQuery);
     List<CityDto> getAllDtoByRegionId(Long regionId, String sortQuery);
 
-    void add(RequestCityDto requestCityDto);
-    void addByRegionId(RequestCityWithoutRegionIdDto requestCityWithoutRegionIdDto, Long regionId);
+    CityDto add(RequestCityDto requestCityDto);
+    CityDto addByRegionId(RequestCityWithoutRegionIdDto requestCityWithoutRegionIdDto, Long regionId);
 
     void updateById(UpdateRequestCityDto updateRequestCityDto, Long id);
     void updateByRegionIdAndCityId(

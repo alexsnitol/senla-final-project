@@ -6,8 +6,6 @@ import ru.senla.realestatemarket.model.purchase.rent.ApartmentAnnouncementRentPu
 import ru.senla.realestatemarket.repo.purchase.rent.IApartmentAnnouncementRentPurchaseRepository;
 import ru.senla.realestatemarket.service.purchase.rent.IApartmentAnnouncementRentPurchaseService;
 
-import javax.annotation.PostConstruct;
-
 /**
  * @author Alexander Slotin (@alexsnitol)
  */
@@ -22,15 +20,12 @@ public class ApartmentAnnouncementRentPurchaseServiceImpl
 
 
     public ApartmentAnnouncementRentPurchaseServiceImpl(
-            IApartmentAnnouncementRentPurchaseRepository apartmentAnnouncementRentPurchaseRepository) {
+            IApartmentAnnouncementRentPurchaseRepository apartmentAnnouncementRentPurchaseRepository
+    ) {
+        this.clazz = ApartmentAnnouncementRentPurchase.class;
+        this.defaultRepository = apartmentAnnouncementRentPurchaseRepository;
+
         this.apartmentAnnouncementRentPurchaseRepository = apartmentAnnouncementRentPurchaseRepository;
-    }
-
-
-    @PostConstruct
-    public void init() {
-        setDefaultRepository(apartmentAnnouncementRentPurchaseRepository);
-        setClazz(ApartmentAnnouncementRentPurchase.class);
     }
 
 }

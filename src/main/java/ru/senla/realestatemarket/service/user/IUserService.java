@@ -17,7 +17,7 @@ public interface IUserService extends UserDetailsService, IAbstractService<User,
     List<UserDto> getAllDto(String rsqlQuery, String sortQuery);
     UserDto getDtoOfCurrentUser();
 
-    void addFromDto(RequestUserDto requestUserDto);
+    UserDto addFromDto(RequestUserDto requestUserDto);
 
     void updateByIdFromDto(UpdateRequestUserDto updateRequestUserDto, Long id);
     void updateCurrentUserFromDto(UpdateRequestUserDto updateRequestUserDto);

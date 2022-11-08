@@ -17,7 +17,6 @@ import ru.senla.realestatemarket.service.address.IAddressService;
 import ru.senla.realestatemarket.service.helper.EntityHelper;
 import ru.senla.realestatemarket.util.SortUtil;
 
-import javax.annotation.PostConstruct;
 import javax.persistence.EntityNotFoundException;
 import javax.transaction.Transactional;
 import java.util.List;
@@ -36,18 +35,17 @@ public class AddressServiceImpl extends AbstractServiceImpl<Address, Long> imple
     private final AddressMapper addressMapper;
 
 
-    public AddressServiceImpl(IAddressRepository addressRepository,
-                              IStreetRepository streetRepository,
-                              AddressMapper addressMapper) {
+    public AddressServiceImpl(
+            IAddressRepository addressRepository,
+            IStreetRepository streetRepository,
+            AddressMapper addressMapper
+    ) {
+        this.clazz = Address.class;
+        this.defaultRepository = addressRepository;
+
         this.addressRepository = addressRepository;
         this.streetRepository = streetRepository;
         this.addressMapper = addressMapper;
-    }
-
-    @PostConstruct
-    public void init() {
-        setDefaultRepository(addressRepository);
-        setClazz(Address.class);
     }
 
 
@@ -84,23 +82,29 @@ public class AddressServiceImpl extends AbstractServiceImpl<Address, Long> imple
 
     @Override
     @Transactional
-    public void add(RequestAddressDto requestAddressDto) {
+    public AddressDto add(RequestAddressDto requestAddressDto) {
         Address address = addressMapper.toAddress(requestAddressDto);
 
         Long streetId = requestAddressDto.getStreetId();
         setStreetByStreetId(address, streetId);
 
-        addressRepository.create(address);
+
+        Address addressResponse = addressRepository.create(address);
+
+        return addressMapper.toAddressDto(addressResponse);
     }
 
     @Override
     @Transactional
-    public void addByStreetId(RequestHouseNumberDto requestHouseNumberDto, Long streetId) {
+    public AddressDto addByStreetId(RequestHouseNumberDto requestHouseNumberDto, Long streetId) {
         Address address = addressMapper.toAddress(requestHouseNumberDto);
 
         setStreetByStreetId(address, streetId);
 
-        addressRepository.create(address);
+
+        Address addressResponse = addressRepository.create(address);
+
+        return addressMapper.toAddressDto(addressResponse);
     }
 
     private void setStreetByStreetId(Address address, Long streetId) {
@@ -112,7 +116,7 @@ public class AddressServiceImpl extends AbstractServiceImpl<Address, Long> imple
 
     @Override
     @Transactional
-    public void addByRegionIdAndCityIdAndStreetId(
+    public AddressDto addByRegionIdAndCityIdAndStreetId(
             RequestHouseNumberDto requestHouseNumberDto, Long regionId, Long cityId, Long streetId
     ) {
         Address address = addressMapper.toAddress(requestHouseNumberDto);
@@ -120,7 +124,9 @@ public class AddressServiceImpl extends AbstractServiceImpl<Address, Long> imple
         setStreetByRegionIdAndCityIdAndStreetId(address, regionId, cityId, streetId);
 
 
-        addressRepository.create(address);
+        Address addressResponse = addressRepository.create(address);
+
+        return addressMapper.toAddressDto(addressResponse);
     }
 
     @Override

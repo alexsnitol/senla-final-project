@@ -22,7 +22,6 @@ import ru.senla.realestatemarket.service.helper.EntityHelper;
 import ru.senla.realestatemarket.service.user.IUserService;
 import ru.senla.realestatemarket.util.UserUtil;
 
-import javax.annotation.PostConstruct;
 import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
@@ -49,17 +48,14 @@ public class UserServiceImpl extends AbstractServiceImpl<User, Long> implements 
                            UserUtil userUtil,
                            PasswordEncoder passwordEncoder,
                            UserMapper userMapper) {
+        this.clazz = User.class;
+        this.defaultRepository = userRepository;
+
         this.userRepository = userRepository;
         this.roleRepository = roleRepository;
         this.userUtil = userUtil;
         this.passwordEncoder = passwordEncoder;
         this.userMapper = userMapper;
-    }
-
-    @PostConstruct
-    public void init() {
-        setDefaultRepository(userRepository);
-        setClazz(User.class);
     }
 
 
@@ -108,7 +104,7 @@ public class UserServiceImpl extends AbstractServiceImpl<User, Long> implements 
 
     @Override
     @Transactional
-    public void addFromDto(RequestUserDto requestUserDto) {
+    public UserDto addFromDto(RequestUserDto requestUserDto) {
         User user = userMapper.toUser(requestUserDto);
 
         checkUsernameOnExist(user.getUsername());
@@ -132,6 +128,8 @@ public class UserServiceImpl extends AbstractServiceImpl<User, Long> implements 
 
 
         userRepository.create(user);
+
+        return userMapper.toUserDto(user);
     }
 
     @Override

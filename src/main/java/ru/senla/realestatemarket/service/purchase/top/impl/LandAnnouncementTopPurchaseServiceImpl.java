@@ -6,8 +6,6 @@ import ru.senla.realestatemarket.model.purchase.top.LandAnnouncementTopPurchase;
 import ru.senla.realestatemarket.repo.purchase.top.ILandAnnouncementTopPurchaseRepository;
 import ru.senla.realestatemarket.service.purchase.top.ILandAnnouncementTopPurchaseService;
 
-import javax.annotation.PostConstruct;
-
 /**
  * @author Alexander Slotin (@alexsnitol)
  */
@@ -22,15 +20,12 @@ public class LandAnnouncementTopPurchaseServiceImpl
 
 
     public LandAnnouncementTopPurchaseServiceImpl(
-            ILandAnnouncementTopPurchaseRepository landAnnouncementTopPurchaseRepository) {
+            ILandAnnouncementTopPurchaseRepository landAnnouncementTopPurchaseRepository
+    ) {
+        this.clazz = LandAnnouncementTopPurchase.class;
+        this.defaultRepository = landAnnouncementTopPurchaseRepository;
+
         this.landAnnouncementTopPurchaseRepository = landAnnouncementTopPurchaseRepository;
-    }
-
-
-    @PostConstruct
-    public void init() {
-        setDefaultRepository(landAnnouncementTopPurchaseRepository);
-        setClazz(LandAnnouncementTopPurchase.class);
     }
 
 }

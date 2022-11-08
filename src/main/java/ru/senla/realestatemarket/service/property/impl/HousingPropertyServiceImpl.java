@@ -12,7 +12,6 @@ import ru.senla.realestatemarket.service.property.IHousingPropertyService;
 import ru.senla.realestatemarket.util.SortUtil;
 import ru.senla.realestatemarket.util.UserUtil;
 
-import javax.annotation.PostConstruct;
 import javax.transaction.Transactional;
 import java.util.List;
 
@@ -32,18 +31,17 @@ public class HousingPropertyServiceImpl
     private final HousingPropertyMapper housingPropertyMapper;
 
 
-    public HousingPropertyServiceImpl(IHousingPropertyRepository housingPropertyRepository,
-                                      UserUtil userUtil,
-                                      HousingPropertyMapper housingPropertyMapper) {
+    public HousingPropertyServiceImpl(
+            IHousingPropertyRepository housingPropertyRepository,
+            UserUtil userUtil,
+            HousingPropertyMapper housingPropertyMapper
+    ) {
+        this.clazz = HousingProperty.class;
+        this.defaultRepository = housingPropertyRepository;
+
         this.housingPropertyRepository = housingPropertyRepository;
         this.userUtil = userUtil;
         this.housingPropertyMapper = housingPropertyMapper;
-    }
-
-    @PostConstruct
-    public void init() {
-        setDefaultRepository(housingPropertyRepository);
-        setClazz(HousingProperty.class);
     }
 
 

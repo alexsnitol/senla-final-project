@@ -15,7 +15,6 @@ import ru.senla.realestatemarket.service.AbstractServiceImpl;
 import ru.senla.realestatemarket.service.address.ICityService;
 import ru.senla.realestatemarket.service.helper.EntityHelper;
 
-import javax.annotation.PostConstruct;
 import javax.persistence.EntityNotFoundException;
 import javax.transaction.Transactional;
 import java.util.List;
@@ -36,18 +35,17 @@ public class CityServiceImpl extends AbstractServiceImpl<City, Long> implements 
     private final CityMapper cityMapper;
 
 
-    public CityServiceImpl(ICityRepository cityRepository,
-                           IRegionRepository regionRepository,
-                           CityMapper cityMapper) {
+    public CityServiceImpl(
+            ICityRepository cityRepository,
+            IRegionRepository regionRepository,
+            CityMapper cityMapper
+    ) {
+        this.clazz = City.class;
+        this.defaultRepository = cityRepository;
+
         this.cityRepository = cityRepository;
         this.regionRepository = regionRepository;
         this.cityMapper = cityMapper;
-    }
-
-    @PostConstruct
-    public void init() {
-        setDefaultRepository(cityRepository);
-        setClazz(City.class);
     }
 
 
@@ -90,23 +88,27 @@ public class CityServiceImpl extends AbstractServiceImpl<City, Long> implements 
 
     @Override
     @Transactional
-    public void add(RequestCityDto requestCityDto) {
+    public CityDto add(RequestCityDto requestCityDto) {
         City city = cityMapper.toCity(requestCityDto);
 
         Long regionId = requestCityDto.getRegionId();
         setRegionById(city, regionId);
 
-        cityRepository.create(city);
+        City cityResponse = cityRepository.create(city);
+
+        return cityMapper.toCityDto(cityResponse);
     }
 
     @Override
     @Transactional
-    public void addByRegionId(RequestCityWithoutRegionIdDto requestCityWithoutRegionIdDto, Long regionId) {
+    public CityDto addByRegionId(RequestCityWithoutRegionIdDto requestCityWithoutRegionIdDto, Long regionId) {
         City city = cityMapper.toCity(requestCityWithoutRegionIdDto);
 
         setRegionById(city, regionId);
 
-        cityRepository.create(city);
+        City cityResponse = cityRepository.create(city);
+
+        return cityMapper.toCityDto(cityResponse);
     }
 
     @Override

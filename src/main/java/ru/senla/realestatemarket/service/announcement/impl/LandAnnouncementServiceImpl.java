@@ -21,7 +21,6 @@ import ru.senla.realestatemarket.service.helper.EntityHelper;
 import ru.senla.realestatemarket.util.SearchQueryUtil;
 import ru.senla.realestatemarket.util.UserUtil;
 
-import javax.annotation.PostConstruct;
 import javax.transaction.Transactional;
 import java.util.List;
 
@@ -44,20 +43,20 @@ public class LandAnnouncementServiceImpl
     private final LandAnnouncementMapper landAnnouncementMapper;
 
 
-    public LandAnnouncementServiceImpl(ILandAnnouncementRepository landAnnouncementRepository,
-                                       ILandPropertyRepository landPropertyRepository,
-                                       UserUtil userUtil,
-                                       LandAnnouncementMapper landAnnouncementMapper) {
+    public LandAnnouncementServiceImpl(
+            ILandAnnouncementRepository landAnnouncementRepository,
+            ILandPropertyRepository landPropertyRepository,
+            UserUtil userUtil,
+            LandAnnouncementMapper landAnnouncementMapper
+    ) {
         super(userUtil);
+
+        this.clazz = LandAnnouncement.class;
+        this.defaultRepository = landAnnouncementRepository;
+
         this.landAnnouncementRepository = landAnnouncementRepository;
         this.landPropertyRepository = landPropertyRepository;
         this.landAnnouncementMapper = landAnnouncementMapper;
-    }
-
-    @PostConstruct
-    public void init() {
-        setDefaultRepository(landAnnouncementRepository);
-        setClazz(LandAnnouncement.class);
     }
 
 
@@ -186,7 +185,7 @@ public class LandAnnouncementServiceImpl
 
     @Override
     @Transactional
-    public void addFromDto(RequestLandAnnouncementDto requestDto) {
+    public LandAnnouncementDto addFromDto(RequestLandAnnouncementDto requestDto) {
         LandAnnouncement landAnnouncement
                 = landAnnouncementMapper.toLandAnnouncement(requestDto);
 
@@ -194,12 +193,14 @@ public class LandAnnouncementServiceImpl
         setLandPropertyById(landAnnouncement, landPropertyId);
 
 
-        landAnnouncementRepository.create(landAnnouncement);
+        LandAnnouncement landAnnouncementResponse = landAnnouncementRepository.create(landAnnouncement);
+
+        return landAnnouncementMapper.toLandAnnouncementDto(landAnnouncementResponse);
     }
 
     @Override
     @Transactional
-    public void addFromDtoFromCurrentUser(RequestLandAnnouncementDto requestDto) {
+    public LandAnnouncementDto addFromDtoFromCurrentUser(RequestLandAnnouncementDto requestDto) {
         Long landPropertyId = requestDto.getLandPropertyId();
 
         LandProperty landProperty = landPropertyRepository.findById(landPropertyId);
@@ -207,7 +208,7 @@ public class LandAnnouncementServiceImpl
 
         validateAccessCurrentUserToProperty(landProperty);
 
-        addFromDto(requestDto);
+        return addFromDto(requestDto);
     }
 
     @Override

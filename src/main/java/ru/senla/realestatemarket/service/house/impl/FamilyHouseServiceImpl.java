@@ -15,7 +15,6 @@ import ru.senla.realestatemarket.repo.house.IFamilyHouseRepository;
 import ru.senla.realestatemarket.repo.house.IHouseMaterialRepository;
 import ru.senla.realestatemarket.service.house.IFamilyHouseService;
 
-import javax.annotation.PostConstruct;
 import javax.transaction.Transactional;
 import java.util.List;
 
@@ -40,14 +39,12 @@ public class FamilyHouseServiceImpl
                                   IAddressRepository addressRepository,
                                   FamilyHouseMapper familyHouseMapper) {
         super(houseMaterialRepository, addressRepository);
+
+        this.clazz = FamilyHouse.class;
+        this.defaultRepository = familyHouseRepository;
+
         this.familyHouseRepository = familyHouseRepository;
         this.familyHouseMapper = familyHouseMapper;
-    }
-
-    @PostConstruct
-    public void init() {
-        setDefaultRepository(familyHouseRepository);
-        setClazz(FamilyHouse.class);
     }
 
 
@@ -66,7 +63,7 @@ public class FamilyHouseServiceImpl
 
     @Override
     @Transactional
-    public void addFromDto(RequestFamilyHouseDto requestFamilyHouseDto) {
+    public FamilyHouseDto addFromDto(RequestFamilyHouseDto requestFamilyHouseDto) {
         FamilyHouse familyHouse = familyHouseMapper.toFamilyHouse(requestFamilyHouseDto);
 
 
@@ -77,12 +74,14 @@ public class FamilyHouseServiceImpl
         setHouseMaterialById(familyHouse, houseMaterialId);
 
 
-        familyHouseRepository.create(familyHouse);
+        FamilyHouse familyHouseResponse = familyHouseRepository.create(familyHouse);
+
+        return familyHouseMapper.toFamilyHouseDto(familyHouseResponse);
     }
 
     @Override
     @Transactional
-    public void addFromDto(RequestFamilyHouseWithStreetIdAndHouseNumberDto requestFamilyHouseDto) {
+    public FamilyHouseDto addFromDto(RequestFamilyHouseWithStreetIdAndHouseNumberDto requestFamilyHouseDto) {
         FamilyHouse familyHouse = familyHouseMapper.toFamilyHouse(requestFamilyHouseDto);
 
 
@@ -94,7 +93,9 @@ public class FamilyHouseServiceImpl
         setHouseMaterialById(familyHouse, houseMaterialId);
 
 
-        familyHouseRepository.create(familyHouse);
+        FamilyHouse familyHouseResponse = familyHouseRepository.create(familyHouse);
+
+        return familyHouseMapper.toFamilyHouseDto(familyHouseResponse);
     }
 
     @Override
@@ -109,7 +110,9 @@ public class FamilyHouseServiceImpl
         }
 
         Long houseMaterialId = updateRequestFamilyHouseDto.getHouseMaterialId();
-        setHouseMaterialById(familyHouse, houseMaterialId);
+        if (houseMaterialId != null) {
+            setHouseMaterialById(familyHouse, houseMaterialId);
+        }
 
         familyHouseMapper.updateFamilyHouseFromUpdateRequestFamilyHouseDto(
                 updateRequestFamilyHouseDto, familyHouse
@@ -135,7 +138,9 @@ public class FamilyHouseServiceImpl
         }
 
         Long houseMaterialId = updateRequestFamilyHouseDto.getHouseMaterialId();
-        setHouseMaterialById(familyHouse, houseMaterialId);
+        if (houseMaterialId != null) {
+            setHouseMaterialById(familyHouse, houseMaterialId);
+        }
 
         familyHouseMapper.updateFamilyHouseFromUpdateRequestFamilyHouseDto(
                 updateRequestFamilyHouseDto, familyHouse

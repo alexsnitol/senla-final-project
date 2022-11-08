@@ -26,7 +26,6 @@ import ru.senla.realestatemarket.service.user.IBalanceOperationService;
 import ru.senla.realestatemarket.util.SortUtil;
 import ru.senla.realestatemarket.util.UserUtil;
 
-import javax.annotation.PostConstruct;
 import javax.transaction.Transactional;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -55,19 +54,17 @@ public class FamilyHouseAnnouncementRentTimetableServiceImpl
             IFamilyHouseAnnouncementRentTimetableRepository familyHouseAnnouncementRentTimetableRepository,
             IFamilyHouseAnnouncementRepository familyHouseAnnouncementRepository,
             IFamilyHouseAnnouncementRentPurchaseRepository familyHouseAnnouncementRentPurchaseRepository,
-            FamilyHouseAnnouncementRentTimetableMapper timetableMapper) {
+            FamilyHouseAnnouncementRentTimetableMapper timetableMapper
+    ) {
         super(userRepository, userUtil, balanceOperationService);
+
+        this.clazz = FamilyHouseAnnouncementRentTimetable.class;
+        this.defaultRepository = familyHouseAnnouncementRentTimetableRepository;
+
         this.familyHouseAnnouncementRentTimetableRepository = familyHouseAnnouncementRentTimetableRepository;
         this.familyHouseAnnouncementRepository = familyHouseAnnouncementRepository;
         this.familyHouseAnnouncementRentPurchaseRepository = familyHouseAnnouncementRentPurchaseRepository;
         this.timetableMapper = timetableMapper;
-    }
-
-
-    @PostConstruct
-    public void init() {
-        setDefaultRepository(familyHouseAnnouncementRentTimetableRepository);
-        setClazz(FamilyHouseAnnouncementRentTimetable.class);
     }
 
 

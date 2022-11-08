@@ -19,9 +19,9 @@ public interface IAddressService extends IAbstractService<Address, Long> {
     List<HouseNumberDto> getAllHouseNumbersDtoByRegionIdAndCityIdAndStreetId(
             Long regionId, Long cityId, Long streetId, String sortQuery);
 
-    void add(RequestAddressDto requestAddressDto);
-    void addByStreetId(RequestHouseNumberDto requestHouseNumberDto, Long streetId);
-    void addByRegionIdAndCityIdAndStreetId(
+    AddressDto add(RequestAddressDto requestAddressDto);
+    AddressDto addByStreetId(RequestHouseNumberDto requestHouseNumberDto, Long streetId);
+    AddressDto addByRegionIdAndCityIdAndStreetId(
             RequestHouseNumberDto requestHouseNumberDto, Long regionId, Long cityId, Long streetId);
 
     void updateById(

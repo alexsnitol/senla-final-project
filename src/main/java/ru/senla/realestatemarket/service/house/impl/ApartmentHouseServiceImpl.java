@@ -15,7 +15,6 @@ import ru.senla.realestatemarket.repo.house.IApartmentHouseRepository;
 import ru.senla.realestatemarket.repo.house.IHouseMaterialRepository;
 import ru.senla.realestatemarket.service.house.IApartmentHouseService;
 
-import javax.annotation.PostConstruct;
 import javax.transaction.Transactional;
 import java.util.List;
 
@@ -38,14 +37,12 @@ public class ApartmentHouseServiceImpl extends AbstractHouseServiceImpl<Apartmen
                                      IAddressRepository addressRepository,
                                      ApartmentHouseMapper apartmentHouseMapper) {
         super(houseMaterialRepository, addressRepository);
+
+        this.clazz = ApartmentHouse.class;
+        this.defaultRepository = apartmentHouseRepository;
+
         this.apartmentHouseRepository = apartmentHouseRepository;
         this.apartmentHouseMapper = apartmentHouseMapper;
-    }
-
-    @PostConstruct
-    public void init() {
-        setDefaultRepository(apartmentHouseRepository);
-        setClazz(ApartmentHouse.class);
     }
 
 
@@ -64,7 +61,7 @@ public class ApartmentHouseServiceImpl extends AbstractHouseServiceImpl<Apartmen
 
     @Override
     @Transactional
-    public void addFromDto(RequestApartmentHouseDto requestApartmentHouseDto) {
+    public ApartmentHouseDto addFromDto(RequestApartmentHouseDto requestApartmentHouseDto) {
         ApartmentHouse apartmentHouse = apartmentHouseMapper.toApartmentHouse(requestApartmentHouseDto);
 
 
@@ -75,12 +72,14 @@ public class ApartmentHouseServiceImpl extends AbstractHouseServiceImpl<Apartmen
         setHouseMaterialById(apartmentHouse, houseMaterialId);
 
 
-        apartmentHouseRepository.create(apartmentHouse);
+        ApartmentHouse apartmentHouseResponse = apartmentHouseRepository.create(apartmentHouse);
+
+        return apartmentHouseMapper.toApartmentHouseDto(apartmentHouseResponse);
     }
 
     @Override
     @Transactional
-    public void addFromDto(RequestApartmentHouseWithStreetIdAndHouseNumberDto requestApartmentHouseDto) {
+    public ApartmentHouseDto addFromDto(RequestApartmentHouseWithStreetIdAndHouseNumberDto requestApartmentHouseDto) {
         ApartmentHouse apartmentHouse = apartmentHouseMapper.toApartmentHouse(requestApartmentHouseDto);
 
 
@@ -92,7 +91,9 @@ public class ApartmentHouseServiceImpl extends AbstractHouseServiceImpl<Apartmen
         setHouseMaterialById(apartmentHouse, houseMaterialId);
 
 
-        apartmentHouseRepository.create(apartmentHouse);
+        ApartmentHouse apartmentHouseResponse = apartmentHouseRepository.create(apartmentHouse);
+
+        return apartmentHouseMapper.toApartmentHouseDto(apartmentHouseResponse);
     }
 
     @Override

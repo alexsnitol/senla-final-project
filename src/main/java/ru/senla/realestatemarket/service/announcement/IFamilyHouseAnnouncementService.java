@@ -22,8 +22,8 @@ public interface IFamilyHouseAnnouncementService
     FamilyHouseAnnouncementDto getByIdWithOpenStatusDto(Long id);
     FamilyHouseAnnouncementDto getByIdDtoOfCurrentUser(Long id);
 
-    void addFromDto(RequestFamilyHouseAnnouncementDto requestFamilyHouseAnnouncementDto);
-    void addFromCurrentUser(RequestFamilyHouseAnnouncementDto requestFamilyHouseAnnouncementDto);
+    FamilyHouseAnnouncementDto addFromDto(RequestFamilyHouseAnnouncementDto requestFamilyHouseAnnouncementDto);
+    FamilyHouseAnnouncementDto addFromCurrentUser(RequestFamilyHouseAnnouncementDto requestFamilyHouseAnnouncementDto);
 
     void updateById(UpdateRequestFamilyHouseAnnouncementDto updateRequestFamilyHouseAnnouncementDto, Long id);
     void updateByIdFromCurrentUser(UpdateRequestFamilyHouseAnnouncementDto updateRequestFamilyHouseAnnouncementDto,

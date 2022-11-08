@@ -26,7 +26,6 @@ import ru.senla.realestatemarket.service.user.IBalanceOperationService;
 import ru.senla.realestatemarket.util.SortUtil;
 import ru.senla.realestatemarket.util.UserUtil;
 
-import javax.annotation.PostConstruct;
 import javax.transaction.Transactional;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -60,18 +59,17 @@ public class LandAnnouncementTopTimetableServiceImpl
             ILandAnnouncementRepository landAnnouncementRepository,
             ILandAnnouncementTopPurchaseRepository landAnnouncementTopPurchaseRepository,
             IAnnouncementTopPriceRepository announcementTopPriceRepository,
-            LandAnnouncementTopTimetableMapper timetableMapper) {
+            LandAnnouncementTopTimetableMapper timetableMapper
+    ) {
         super(userRepository, userUtil, balanceOperationService, announcementTopPriceRepository);
+
+        this.clazz = LandAnnouncementTopTimetable.class;
+        this.defaultRepository = landAnnouncementTopTimetableRepository;
+
         this.landAnnouncementTopTimetableRepository = landAnnouncementTopTimetableRepository;
         this.landAnnouncementRepository = landAnnouncementRepository;
         this.landAnnouncementTopPurchaseRepository = landAnnouncementTopPurchaseRepository;
         this.timetableMapper = timetableMapper;
-    }
-
-    @PostConstruct
-    public void init() {
-        setDefaultRepository(landAnnouncementTopTimetableRepository);
-        setClazz(LandAnnouncementTopTimetable.class);
     }
 
 

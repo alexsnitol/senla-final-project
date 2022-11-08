@@ -11,8 +11,8 @@ public interface IApartmentHouseService extends IAbstractHouseService<ApartmentH
 
     ApartmentHouseDto getDtoById(Long id);
 
-    void addFromDto(RequestApartmentHouseDto requestApartmentHouseDto);
-    void addFromDto(RequestApartmentHouseWithStreetIdAndHouseNumberDto requestApartmentHouseDto);
+    ApartmentHouseDto addFromDto(RequestApartmentHouseDto requestApartmentHouseDto);
+    ApartmentHouseDto addFromDto(RequestApartmentHouseWithStreetIdAndHouseNumberDto requestApartmentHouseDto);
 
     void updateById(UpdateRequestApartmentHouseDto updateRequestApartmentHouseDto, Long id);
     void updateById(UpdateRequestApartmentHouseWithStreetIdAndHouseNumberDto updateRequestApartmentHouseDto, Long id);

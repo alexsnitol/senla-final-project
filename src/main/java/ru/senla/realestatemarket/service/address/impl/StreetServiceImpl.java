@@ -16,7 +16,6 @@ import ru.senla.realestatemarket.service.address.IStreetService;
 import ru.senla.realestatemarket.service.helper.EntityHelper;
 import ru.senla.realestatemarket.util.SortUtil;
 
-import javax.annotation.PostConstruct;
 import javax.persistence.EntityNotFoundException;
 import javax.transaction.Transactional;
 import java.util.List;
@@ -35,19 +34,17 @@ public class StreetServiceImpl extends AbstractServiceImpl<Street, Long> impleme
     private final StreetMapper streetMapper;
 
 
-    public StreetServiceImpl(IStreetRepository streetRepository,
-                             ICityRepository cityRepository,
-                             StreetMapper streetMapper
+    public StreetServiceImpl(
+            IStreetRepository streetRepository,
+            ICityRepository cityRepository,
+            StreetMapper streetMapper
     ) {
+        this.clazz = Street.class;
+        this.defaultRepository = streetRepository;
+
         this.streetRepository = streetRepository;
         this.cityRepository = cityRepository;
         this.streetMapper = streetMapper;
-    }
-
-    @PostConstruct
-    public void init() {
-        setDefaultRepository(streetRepository);
-        setClazz(Street.class);
     }
 
 
@@ -98,25 +95,29 @@ public class StreetServiceImpl extends AbstractServiceImpl<Street, Long> impleme
 
     @Override
     @Transactional
-    public void add(RequestStreetDto requestStreetDto) {
+    public StreetDto add(RequestStreetDto requestStreetDto) {
         Street street = streetMapper.toStreet(requestStreetDto);
 
         Long cityId = requestStreetDto.getCityId();
         setCityById(street, cityId);
 
 
-        streetRepository.create(street);
+        Street streetResponse = streetRepository.create(street);
+
+        return streetMapper.toStreetDto(streetResponse);
     }
 
     @Override
     @Transactional
-    public void addByCityId(RequestStreetWithoutCityIdDto requestStreetWithoutCityIdDto, Long cityId) {
+    public StreetDto addByCityId(RequestStreetWithoutCityIdDto requestStreetWithoutCityIdDto, Long cityId) {
         Street street = streetMapper.toStreet(requestStreetWithoutCityIdDto);
 
         setCityById(street, cityId);
 
 
-        streetRepository.create(street);
+        Street streetResponse = streetRepository.create(street);
+
+        return streetMapper.toStreetDto(streetResponse);
     }
 
     private void setCityById(Street street, Long cityId) {
@@ -128,7 +129,7 @@ public class StreetServiceImpl extends AbstractServiceImpl<Street, Long> impleme
 
     @Override
     @Transactional
-    public void addByRegionIdAndCityId(
+    public StreetDto addByRegionIdAndCityId(
             RequestStreetWithoutCityIdDto requestStreetWithoutCityIdDto, Long regionId, Long cityId
     ) {
         City city = cityRepository.findByRegionIdAndCityId(regionId, cityId);
@@ -143,7 +144,9 @@ public class StreetServiceImpl extends AbstractServiceImpl<Street, Long> impleme
         Street street = streetMapper.toStreet(requestStreetWithoutCityIdDto);
         street.setCity(city);
 
-        streetRepository.create(street);
+        Street streetResponse = streetRepository.create(street);
+
+        return streetMapper.toStreetDto(streetResponse);
     }
 
     @Override

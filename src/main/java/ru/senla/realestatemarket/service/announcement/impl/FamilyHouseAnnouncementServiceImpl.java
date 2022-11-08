@@ -20,7 +20,6 @@ import ru.senla.realestatemarket.service.helper.EntityHelper;
 import ru.senla.realestatemarket.util.SearchQueryUtil;
 import ru.senla.realestatemarket.util.UserUtil;
 
-import javax.annotation.PostConstruct;
 import javax.transaction.Transactional;
 import java.util.List;
 
@@ -44,20 +43,20 @@ public class FamilyHouseAnnouncementServiceImpl
     private final FamilyHouseAnnouncementMapper familyHouseAnnouncementMapper;
 
 
-    public FamilyHouseAnnouncementServiceImpl(IFamilyHouseAnnouncementRepository familyHouseAnnouncementRepository,
-                                              IFamilyHousePropertyRepository familyHousePropertyRepository,
-                                              UserUtil userUtil,
-                                              FamilyHouseAnnouncementMapper familyHouseAnnouncementMapper) {
+    public FamilyHouseAnnouncementServiceImpl(
+            IFamilyHouseAnnouncementRepository familyHouseAnnouncementRepository,
+            IFamilyHousePropertyRepository familyHousePropertyRepository,
+            UserUtil userUtil,
+            FamilyHouseAnnouncementMapper familyHouseAnnouncementMapper
+    ) {
         super(userUtil);
+
+        this.clazz = FamilyHouseAnnouncement.class;
+        this.defaultRepository = familyHouseAnnouncementRepository;
+
         this.familyHouseAnnouncementRepository = familyHouseAnnouncementRepository;
         this.familyHousePropertyRepository = familyHousePropertyRepository;
         this.familyHouseAnnouncementMapper = familyHouseAnnouncementMapper;
-    }
-
-    @PostConstruct
-    public void init() {
-        setDefaultRepository(familyHouseAnnouncementRepository);
-        setClazz(FamilyHouseAnnouncement.class);
     }
 
 
@@ -185,7 +184,7 @@ public class FamilyHouseAnnouncementServiceImpl
 
     @Override
     @Transactional
-    public void addFromDto(RequestFamilyHouseAnnouncementDto requestFamilyHouseAnnouncementDto) {
+    public FamilyHouseAnnouncementDto addFromDto(RequestFamilyHouseAnnouncementDto requestFamilyHouseAnnouncementDto) {
         FamilyHouseAnnouncement familyHouseAnnouncement
                 = familyHouseAnnouncementMapper.toFamilyHouseAnnouncement(requestFamilyHouseAnnouncementDto);
 
@@ -193,12 +192,17 @@ public class FamilyHouseAnnouncementServiceImpl
         setFamilyHouseAnnouncementById(familyHouseAnnouncement, familyHousePropertyId);
 
 
-        familyHouseAnnouncementRepository.create(familyHouseAnnouncement);
+        FamilyHouseAnnouncement familyHouseAnnouncementResponse
+                = familyHouseAnnouncementRepository.create(familyHouseAnnouncement);
+
+        return familyHouseAnnouncementMapper.toFamilyHouseAnnouncementDto(familyHouseAnnouncementResponse);
     }
 
     @Override
     @Transactional
-    public void addFromCurrentUser(RequestFamilyHouseAnnouncementDto requestFamilyHouseAnnouncementDto) {
+    public FamilyHouseAnnouncementDto addFromCurrentUser(
+            RequestFamilyHouseAnnouncementDto requestFamilyHouseAnnouncementDto
+    ) {
         Long familyHousePropertyId = requestFamilyHouseAnnouncementDto.getFamilyHousePropertyId();
 
         FamilyHouseProperty familyHouseProperty = familyHousePropertyRepository.findById(familyHousePropertyId);
@@ -206,7 +210,7 @@ public class FamilyHouseAnnouncementServiceImpl
 
         validateAccessCurrentUserToProperty(familyHouseProperty);
 
-        addFromDto(requestFamilyHouseAnnouncementDto);
+        return addFromDto(requestFamilyHouseAnnouncementDto);
     }
 
     @Override

@@ -12,7 +12,6 @@ import ru.senla.realestatemarket.service.property.IPropertyService;
 import ru.senla.realestatemarket.util.SortUtil;
 import ru.senla.realestatemarket.util.UserUtil;
 
-import javax.annotation.PostConstruct;
 import javax.transaction.Transactional;
 import java.util.List;
 
@@ -35,16 +34,14 @@ public class PropertyServiceImpl
     public PropertyServiceImpl(
             IPropertyRepository propertyRepository,
             UserUtil userUtil,
-            PropertyMapper propertyMapper) {
+            PropertyMapper propertyMapper
+    ) {
+        this.clazz = Property.class;
+        this.defaultRepository = propertyRepository;
+
         this.propertyRepository = propertyRepository;
         this.userUtil = userUtil;
         this.propertyMapper = propertyMapper;
-    }
-
-    @PostConstruct
-    public void init() {
-        setDefaultRepository(propertyRepository);
-        setClazz(Property.class);
     }
 
 

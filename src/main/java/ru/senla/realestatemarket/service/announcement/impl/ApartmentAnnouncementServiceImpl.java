@@ -21,7 +21,6 @@ import ru.senla.realestatemarket.service.helper.EntityHelper;
 import ru.senla.realestatemarket.util.SearchQueryUtil;
 import ru.senla.realestatemarket.util.UserUtil;
 
-import javax.annotation.PostConstruct;
 import javax.transaction.Transactional;
 import java.util.List;
 
@@ -45,20 +44,20 @@ public class ApartmentAnnouncementServiceImpl
     private final ApartmentAnnouncementMapper apartmentAnnouncementMapper;
 
 
-    public ApartmentAnnouncementServiceImpl(IApartmentAnnouncementRepository apartmentAnnouncementRepository,
-                                            IApartmentPropertyRepository apartmentPropertyRepository,
-                                            UserUtil userUtil,
-                                            ApartmentAnnouncementMapper apartmentAnnouncementMapper) {
+    public ApartmentAnnouncementServiceImpl(
+            IApartmentAnnouncementRepository apartmentAnnouncementRepository,
+            IApartmentPropertyRepository apartmentPropertyRepository,
+            UserUtil userUtil,
+            ApartmentAnnouncementMapper apartmentAnnouncementMapper
+    ) {
         super(userUtil);
+
+        this.clazz = ApartmentAnnouncement.class;
+        this.defaultRepository = apartmentAnnouncementRepository;
+
         this.apartmentAnnouncementRepository = apartmentAnnouncementRepository;
         this.apartmentPropertyRepository = apartmentPropertyRepository;
         this.apartmentAnnouncementMapper = apartmentAnnouncementMapper;
-    }
-
-    @PostConstruct
-    public void init() {
-        setDefaultRepository(apartmentAnnouncementRepository);
-        setClazz(ApartmentAnnouncement.class);
     }
 
 
@@ -169,19 +168,22 @@ public class ApartmentAnnouncementServiceImpl
 
     @Override
     @Transactional
-    public void addFromDto(RequestApartmentAnnouncementDto requestDto) {
+    public ApartmentAnnouncementDto addFromDto(RequestApartmentAnnouncementDto requestDto) {
         ApartmentAnnouncement apartmentAnnouncement
                 = apartmentAnnouncementMapper.toApartmentAnnouncement(requestDto);
 
         Long apartmentPropertyId = requestDto.getApartmentPropertyId();
         setApartmentPropertyById(apartmentAnnouncement, apartmentPropertyId);
 
-        apartmentAnnouncementRepository.create(apartmentAnnouncement);
+        ApartmentAnnouncement apartmentAnnouncementResponse
+                = apartmentAnnouncementRepository.create(apartmentAnnouncement);
+
+        return apartmentAnnouncementMapper.toApartmentAnnouncementDto(apartmentAnnouncementResponse);
     }
 
     @Override
     @Transactional
-    public void addFromDtoFromCurrentUser(RequestApartmentAnnouncementDto requestDto) {
+    public ApartmentAnnouncementDto addFromDtoFromCurrentUser(RequestApartmentAnnouncementDto requestDto) {
         Long apartmentPropertyId = requestDto.getApartmentPropertyId();
 
         ApartmentProperty apartmentProperty = apartmentPropertyRepository.findById(apartmentPropertyId);
@@ -189,7 +191,7 @@ public class ApartmentAnnouncementServiceImpl
 
         validateAccessCurrentUserToProperty(apartmentProperty);
 
-        addFromDto(requestDto);
+        return addFromDto(requestDto);
     }
 
     @Override

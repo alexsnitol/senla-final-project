@@ -27,11 +27,17 @@ public class HouseServiceImpl extends AbstractHouseServiceImpl<House, HouseDto> 
     private final HouseMapper houseMapper;
 
 
-    public HouseServiceImpl(IHouseMaterialRepository houseMaterialRepository,
-                            IAddressRepository addressRepository,
-                            IHouseRepository houseRepository,
-                            HouseMapper houseMapper) {
+    public HouseServiceImpl(
+            IHouseMaterialRepository houseMaterialRepository,
+            IAddressRepository addressRepository,
+            IHouseRepository houseRepository,
+            HouseMapper houseMapper
+    ) {
         super(houseMaterialRepository, addressRepository);
+
+        this.clazz = House.class;
+        this.defaultRepository = houseRepository;
+
         this.houseRepository = houseRepository;
         this.houseMapper = houseMapper;
     }
