@@ -1,18 +1,13 @@
 package ru.senla.realestatemarket.service.timetable.top;
 
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;
-import org.mockito.Mockito;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
-import org.springframework.test.context.support.AnnotationConfigContextLoader;
-import ru.senla.realestatemarket.config.TestConfig;
 import ru.senla.realestatemarket.dto.timetable.RequestTopTimetableDto;
 import ru.senla.realestatemarket.dto.timetable.TopTimetableWithoutAnnouncementIdDto;
 import ru.senla.realestatemarket.exception.SpecificIntervalFullyBusyException;
@@ -31,6 +26,7 @@ import ru.senla.realestatemarket.repo.dictionary.IAnnouncementTopPriceRepository
 import ru.senla.realestatemarket.repo.purchase.top.ILandAnnouncementTopPurchaseRepository;
 import ru.senla.realestatemarket.repo.timetable.top.ILandAnnouncementTopTimetableRepository;
 import ru.senla.realestatemarket.repo.user.IUserRepository;
+import ru.senla.realestatemarket.service.timetable.top.impl.LandAnnouncementTopTimetableServiceImpl;
 import ru.senla.realestatemarket.service.user.IBalanceOperationService;
 import ru.senla.realestatemarket.util.UserUtil;
 
@@ -48,57 +44,24 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-@ExtendWith({SpringExtension.class, MockitoExtension.class})
-@ContextConfiguration(classes = {TestConfig.class}, loader = AnnotationConfigContextLoader.class)
+@ExtendWith({MockitoExtension.class})
 class LandAnnouncementTopTimetableUnitTest {
 
-    @Autowired
-    ILandAnnouncementTopTimetableService landAnnouncementTopTimetableService;
+    @InjectMocks LandAnnouncementTopTimetableServiceImpl landAnnouncementTopTimetableService;
 
-    @Autowired
-    ILandAnnouncementTopTimetableRepository mockedLandAnnouncementTopTimetableRepository;
-    @Autowired
-    ILandAnnouncementRepository mockedLandAnnouncementRepository;
-    @Autowired
-    ILandAnnouncementTopPurchaseRepository mockedLandAnnouncementTopPurchaseRepository;
-    @Autowired
-    IAnnouncementTopPriceRepository mockedAnnouncementTopPriceRepository;
-    @Autowired
-    LandAnnouncementTopTimetableMapper mockedTimetableMapper;
-    @Autowired
-    UserUtil mockedUserUtil;
-    @Autowired
-    IBalanceOperationService mockedBalanceOperationService;
-    @Autowired
-    IUserRepository mockedUserRepository;
+    @Mock ILandAnnouncementTopTimetableRepository mockedLandAnnouncementTopTimetableRepository;
+    @Mock ILandAnnouncementRepository mockedLandAnnouncementRepository;
+    @Mock ILandAnnouncementTopPurchaseRepository mockedLandAnnouncementTopPurchaseRepository;
+    @Mock IAnnouncementTopPriceRepository mockedAnnouncementTopPriceRepository;
+    @Mock LandAnnouncementTopTimetableMapper mockedTimetableMapper;
+    @Mock UserUtil mockedUserUtil;
+    @Mock IBalanceOperationService mockedBalanceOperationService;
+    @Mock IUserRepository mockedUserRepository;
 
-    TopTimetableWithoutAnnouncementIdDto mockedTopTimetableWithoutAnnouncementIdDto
-            = mock(TopTimetableWithoutAnnouncementIdDto.class);
-    LandAnnouncementTopTimetable mockedLandAnnouncementTopTimetable
-            = mock(LandAnnouncementTopTimetable.class);
-    RequestTopTimetableDto mockedRequestTopTimetableDto
-            = mock(RequestTopTimetableDto.class);
-    LandAnnouncement mockedLandAnnouncement
-            = mock(LandAnnouncement.class);
-
-
-    @AfterEach
-    void clearInvocationsInMocked() {
-        Mockito.clearInvocations(
-                mockedLandAnnouncementTopTimetableRepository,
-                mockedAnnouncementTopPriceRepository,
-                mockedLandAnnouncement,
-                mockedLandAnnouncementTopTimetable,
-                mockedLandAnnouncementRepository,
-                mockedLandAnnouncementTopPurchaseRepository,
-                mockedRequestTopTimetableDto,
-                mockedUserUtil,
-                mockedUserRepository,
-                mockedTimetableMapper,
-                mockedTopTimetableWithoutAnnouncementIdDto,
-                mockedBalanceOperationService
-        );
-    }
+    @Mock TopTimetableWithoutAnnouncementIdDto mockedTopTimetableWithoutAnnouncementIdDto;
+    @Mock LandAnnouncementTopTimetable mockedLandAnnouncementTopTimetable;
+    @Mock RequestTopTimetableDto mockedRequestTopTimetableDto;
+    @Mock LandAnnouncement mockedLandAnnouncement;
 
 
     @Test
@@ -320,14 +283,6 @@ class LandAnnouncementTopTimetableUnitTest {
                 .isExist(any(Specification.class)))
                 .thenReturn(true);
 
-        when(mockedLandAnnouncement.getId())
-                .thenReturn(1L);
-
-        when(mockedLandAnnouncementTopTimetableRepository
-                .findByLandAnnouncementIdAndConcernsTheIntervalBetweenSpecificFromAndTo(
-                        1L, testFromDt, testToDt, Sort.by(Sort.Direction.ASC, "fromDt")))
-                .thenReturn(testExistingTimetableList);
-
 
         assertThrows(SpecificIntervalFullyBusyException.class, () -> landAnnouncementTopTimetableService
                 .addByLandAnnouncementIdWithoutPay(mockedRequestTopTimetableDto, 1L));
@@ -535,21 +490,10 @@ class LandAnnouncementTopTimetableUnitTest {
         when(mockedLandAnnouncement.getId())
                 .thenReturn(1L);
 
-        when(mockedLandAnnouncement
-                .getType())
-                .thenReturn(NonHousingAnnouncementTypeEnum.SELL);
-
         when(mockedLandAnnouncementTopTimetableRepository
                 .findByLandAnnouncementIdAndConcernsTheIntervalBetweenSpecificFromAndTo(
                         1L, testFromDt, testToDt, Sort.by(Sort.Direction.ASC, "fromDt")))
                 .thenReturn(testExistingTimetableList);
-
-        when(mockedAnnouncementTopPriceRepository
-                .findPriceByPropertyTypeAndAnnouncementType(PropertyTypeEnum.LAND, AnnouncementTypeEnum.SELL))
-                .thenReturn(testAnnouncementTopPrice);
-
-        when(mockedUserRepository.findById(2L))
-                .thenReturn(testMockedUser);
 
 
 
@@ -612,25 +556,6 @@ class LandAnnouncementTopTimetableUnitTest {
         when(mockedLandAnnouncementTopTimetableRepository
                 .isExist(any(Specification.class)))
                 .thenReturn(true);
-
-        when(mockedLandAnnouncement.getId())
-                .thenReturn(1L);
-
-        when(mockedLandAnnouncement
-                .getType())
-                .thenReturn(NonHousingAnnouncementTypeEnum.SELL);
-
-        when(mockedLandAnnouncementTopTimetableRepository
-                .findByLandAnnouncementIdAndConcernsTheIntervalBetweenSpecificFromAndTo(
-                        1L, testFromDt, testToDt, Sort.by(Sort.Direction.ASC, "fromDt")))
-                .thenReturn(testExistingTimetableList);
-
-        when(mockedAnnouncementTopPriceRepository
-                .findPriceByPropertyTypeAndAnnouncementType(PropertyTypeEnum.LAND, AnnouncementTypeEnum.SELL))
-                .thenReturn(testAnnouncementTopPrice);
-
-        when(mockedUserRepository.findById(2L))
-                .thenReturn(testMockedUser);
 
 
 

@@ -90,6 +90,9 @@ dependencies {
     testImplementation 'org.mockito:mockito-core:4.6.1'
     testImplementation 'org.mockito:mockito-junit-jupiter:4.6.1'
 
+    testImplementation 'org.testcontainers:junit-jupiter:1.17.5'
+    testImplementation 'org.testcontainers:postgresql:1.17.5'
+
 
     // HEROKU
 //    compileOnly 'com.heroku:webapp-runner-main:8.5.68.1'

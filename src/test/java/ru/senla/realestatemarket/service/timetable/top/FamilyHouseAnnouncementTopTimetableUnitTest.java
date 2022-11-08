@@ -1,18 +1,13 @@
 package ru.senla.realestatemarket.service.timetable.top;
 
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;
-import org.mockito.Mockito;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
-import org.springframework.test.context.support.AnnotationConfigContextLoader;
-import ru.senla.realestatemarket.config.TestConfig;
 import ru.senla.realestatemarket.dto.timetable.RequestTopTimetableDto;
 import ru.senla.realestatemarket.dto.timetable.TopTimetableWithoutAnnouncementIdDto;
 import ru.senla.realestatemarket.exception.SpecificIntervalFullyBusyException;
@@ -31,6 +26,7 @@ import ru.senla.realestatemarket.repo.dictionary.IAnnouncementTopPriceRepository
 import ru.senla.realestatemarket.repo.purchase.top.IFamilyHouseAnnouncementTopPurchaseRepository;
 import ru.senla.realestatemarket.repo.timetable.top.IFamilyHouseAnnouncementTopTimetableRepository;
 import ru.senla.realestatemarket.repo.user.IUserRepository;
+import ru.senla.realestatemarket.service.timetable.top.impl.FamilyHouseAnnouncementTopTimetableServiceImpl;
 import ru.senla.realestatemarket.service.user.IBalanceOperationService;
 import ru.senla.realestatemarket.util.UserUtil;
 
@@ -48,57 +44,24 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-@ExtendWith({SpringExtension.class, MockitoExtension.class})
-@ContextConfiguration(classes = {TestConfig.class}, loader = AnnotationConfigContextLoader.class)
+@ExtendWith({MockitoExtension.class})
 class FamilyHouseAnnouncementTopTimetableUnitTest {
 
-    @Autowired
-    IFamilyHouseAnnouncementTopTimetableService familyHouseAnnouncementTopTimetableService;
+    @InjectMocks FamilyHouseAnnouncementTopTimetableServiceImpl familyHouseAnnouncementTopTimetableService;
 
-    @Autowired
-    IFamilyHouseAnnouncementTopTimetableRepository mockedFamilyHouseAnnouncementTopTimetableRepository;
-    @Autowired
-    IFamilyHouseAnnouncementRepository mockedFamilyHouseAnnouncementRepository;
-    @Autowired
-    IFamilyHouseAnnouncementTopPurchaseRepository mockedFamilyHouseAnnouncementTopPurchaseRepository;
-    @Autowired
-    IAnnouncementTopPriceRepository mockedAnnouncementTopPriceRepository;
-    @Autowired
-    FamilyHouseAnnouncementTopTimetableMapper mockedTimetableMapper;
-    @Autowired
-    UserUtil mockedUserUtil;
-    @Autowired
-    IBalanceOperationService mockedBalanceOperationService;
-    @Autowired
-    IUserRepository mockedUserRepository;
+    @Mock IFamilyHouseAnnouncementTopTimetableRepository mockedFamilyHouseAnnouncementTopTimetableRepository;
+    @Mock IFamilyHouseAnnouncementRepository mockedFamilyHouseAnnouncementRepository;
+    @Mock IFamilyHouseAnnouncementTopPurchaseRepository mockedFamilyHouseAnnouncementTopPurchaseRepository;
+    @Mock IAnnouncementTopPriceRepository mockedAnnouncementTopPriceRepository;
+    @Mock FamilyHouseAnnouncementTopTimetableMapper mockedTimetableMapper;
+    @Mock UserUtil mockedUserUtil;
+    @Mock IBalanceOperationService mockedBalanceOperationService;
+    @Mock IUserRepository mockedUserRepository;
 
-    TopTimetableWithoutAnnouncementIdDto mockedTopTimetableWithoutAnnouncementIdDto
-            = mock(TopTimetableWithoutAnnouncementIdDto.class);
-    FamilyHouseAnnouncementTopTimetable mockedFamilyHouseAnnouncementTopTimetable
-            = mock(FamilyHouseAnnouncementTopTimetable.class);
-    RequestTopTimetableDto mockedRequestTopTimetableDto
-            = mock(RequestTopTimetableDto.class);
-    FamilyHouseAnnouncement mockedFamilyHouseAnnouncement
-            = mock(FamilyHouseAnnouncement.class);
-
-
-    @AfterEach
-    void clearInvocationsInMocked() {
-        Mockito.clearInvocations(
-                mockedFamilyHouseAnnouncementTopTimetableRepository,
-                mockedAnnouncementTopPriceRepository,
-                mockedFamilyHouseAnnouncement,
-                mockedFamilyHouseAnnouncementTopTimetable,
-                mockedFamilyHouseAnnouncementRepository,
-                mockedFamilyHouseAnnouncementTopPurchaseRepository,
-                mockedRequestTopTimetableDto,
-                mockedUserUtil,
-                mockedUserRepository,
-                mockedTimetableMapper,
-                mockedTopTimetableWithoutAnnouncementIdDto,
-                mockedBalanceOperationService
-        );
-    }
+    @Mock TopTimetableWithoutAnnouncementIdDto mockedTopTimetableWithoutAnnouncementIdDto;
+    @Mock FamilyHouseAnnouncementTopTimetable mockedFamilyHouseAnnouncementTopTimetable;
+    @Mock RequestTopTimetableDto mockedRequestTopTimetableDto;
+    @Mock FamilyHouseAnnouncement mockedFamilyHouseAnnouncement;
 
 
     @Test
@@ -320,14 +283,6 @@ class FamilyHouseAnnouncementTopTimetableUnitTest {
                 .isExist(any(Specification.class)))
                 .thenReturn(true);
 
-        when(mockedFamilyHouseAnnouncement.getId())
-                .thenReturn(1L);
-
-        when(mockedFamilyHouseAnnouncementTopTimetableRepository
-                .findAllByFamilyHouseAnnouncementIdAndConcernsTheIntervalBetweenSpecificFromAndTo(
-                        1L, testFromDt, testToDt, Sort.by(Sort.Direction.ASC, "fromDt")))
-                .thenReturn(testExistingTimetableList);
-
 
         assertThrows(SpecificIntervalFullyBusyException.class, () -> familyHouseAnnouncementTopTimetableService
                 .addByFamilyHouseAnnouncementIdWithoutPay(mockedRequestTopTimetableDto, 1L));
@@ -535,21 +490,10 @@ class FamilyHouseAnnouncementTopTimetableUnitTest {
         when(mockedFamilyHouseAnnouncement.getId())
                 .thenReturn(1L);
 
-        when(mockedFamilyHouseAnnouncement
-                .getType())
-                .thenReturn(HousingAnnouncementTypeEnum.SELL);
-
         when(mockedFamilyHouseAnnouncementTopTimetableRepository
                 .findAllByFamilyHouseAnnouncementIdAndConcernsTheIntervalBetweenSpecificFromAndTo(
                         1L, testFromDt, testToDt, Sort.by(Sort.Direction.ASC, "fromDt")))
                 .thenReturn(testExistingTimetableList);
-
-        when(mockedAnnouncementTopPriceRepository
-                .findPriceByPropertyTypeAndAnnouncementType(PropertyTypeEnum.FAMILY_HOUSE, AnnouncementTypeEnum.SELL))
-                .thenReturn(testAnnouncementTopPrice);
-
-        when(mockedUserRepository.findById(2L))
-                .thenReturn(testMockedUser);
 
 
 
@@ -612,26 +556,6 @@ class FamilyHouseAnnouncementTopTimetableUnitTest {
         when(mockedFamilyHouseAnnouncementTopTimetableRepository
                 .isExist(any(Specification.class)))
                 .thenReturn(true);
-
-        when(mockedFamilyHouseAnnouncement.getId())
-                .thenReturn(1L);
-
-        when(mockedFamilyHouseAnnouncement
-                .getType())
-                .thenReturn(HousingAnnouncementTypeEnum.SELL);
-
-        when(mockedFamilyHouseAnnouncementTopTimetableRepository
-                .findAllByFamilyHouseAnnouncementIdAndConcernsTheIntervalBetweenSpecificFromAndTo(
-                        1L, testFromDt, testToDt, Sort.by(Sort.Direction.ASC, "fromDt")))
-                .thenReturn(testExistingTimetableList);
-
-        when(mockedAnnouncementTopPriceRepository
-                .findPriceByPropertyTypeAndAnnouncementType(PropertyTypeEnum.FAMILY_HOUSE, AnnouncementTypeEnum.SELL))
-                .thenReturn(testAnnouncementTopPrice);
-
-        when(mockedUserRepository.findById(2L))
-                .thenReturn(testMockedUser);
-
 
 
         assertThrows(SpecificIntervalFullyBusyException.class, () -> familyHouseAnnouncementTopTimetableService

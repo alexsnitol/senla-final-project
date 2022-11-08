@@ -1,18 +1,13 @@
 package ru.senla.realestatemarket.service.timetable.top;
 
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;
-import org.mockito.Mockito;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
-import org.springframework.test.context.support.AnnotationConfigContextLoader;
-import ru.senla.realestatemarket.config.TestConfig;
 import ru.senla.realestatemarket.dto.timetable.RequestTopTimetableDto;
 import ru.senla.realestatemarket.dto.timetable.TopTimetableWithoutAnnouncementIdDto;
 import ru.senla.realestatemarket.exception.SpecificIntervalFullyBusyException;
@@ -31,6 +26,7 @@ import ru.senla.realestatemarket.repo.dictionary.IAnnouncementTopPriceRepository
 import ru.senla.realestatemarket.repo.purchase.top.IApartmentAnnouncementTopPurchaseRepository;
 import ru.senla.realestatemarket.repo.timetable.top.IApartmentAnnouncementTopTimetableRepository;
 import ru.senla.realestatemarket.repo.user.IUserRepository;
+import ru.senla.realestatemarket.service.timetable.top.impl.ApartmentAnnouncementTopTimetableServiceImpl;
 import ru.senla.realestatemarket.service.user.IBalanceOperationService;
 import ru.senla.realestatemarket.util.UserUtil;
 
@@ -48,57 +44,24 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-@ExtendWith({SpringExtension.class, MockitoExtension.class})
-@ContextConfiguration(classes = {TestConfig.class}, loader = AnnotationConfigContextLoader.class)
+@ExtendWith({MockitoExtension.class})
 class ApartmentAnnouncementTopTimetableUnitTest {
 
-    @Autowired
-    IApartmentAnnouncementTopTimetableService apartmentAnnouncementTopTimetableService;
+    @InjectMocks ApartmentAnnouncementTopTimetableServiceImpl apartmentAnnouncementTopTimetableService;
 
-    @Autowired
-    IApartmentAnnouncementTopTimetableRepository mockedApartmentAnnouncementTopTimetableRepository;
-    @Autowired
-    IApartmentAnnouncementRepository mockedApartmentAnnouncementRepository;
-    @Autowired
-    IApartmentAnnouncementTopPurchaseRepository mockedApartmentAnnouncementTopPurchaseRepository;
-    @Autowired
-    IAnnouncementTopPriceRepository mockedAnnouncementTopPriceRepository;
-    @Autowired
-    ApartmentAnnouncementTopTimetableMapper mockedTimetableMapper;
-    @Autowired
-    UserUtil mockedUserUtil;
-    @Autowired
-    IBalanceOperationService mockedBalanceOperationService;
-    @Autowired
-    IUserRepository mockedUserRepository;
+    @Mock IApartmentAnnouncementTopTimetableRepository mockedApartmentAnnouncementTopTimetableRepository;
+    @Mock IApartmentAnnouncementRepository mockedApartmentAnnouncementRepository;
+    @Mock IApartmentAnnouncementTopPurchaseRepository mockedApartmentAnnouncementTopPurchaseRepository;
+    @Mock IAnnouncementTopPriceRepository mockedAnnouncementTopPriceRepository;
+    @Mock ApartmentAnnouncementTopTimetableMapper mockedTimetableMapper;
+    @Mock UserUtil mockedUserUtil;
+    @Mock IBalanceOperationService mockedBalanceOperationService;
+    @Mock IUserRepository mockedUserRepository;
 
-    TopTimetableWithoutAnnouncementIdDto mockedTopTimetableWithoutAnnouncementIdDto
-            = mock(TopTimetableWithoutAnnouncementIdDto.class);
-    ApartmentAnnouncementTopTimetable mockedApartmentAnnouncementTopTimetable
-            = mock(ApartmentAnnouncementTopTimetable.class);
-    RequestTopTimetableDto mockedRequestTopTimetableDto
-            = mock(RequestTopTimetableDto.class);
-    ApartmentAnnouncement mockedApartmentAnnouncement
-            = mock(ApartmentAnnouncement.class);
-
-
-    @AfterEach
-    void clearInvocationsInMocked() {
-        Mockito.clearInvocations(
-                mockedApartmentAnnouncementTopTimetableRepository,
-                mockedAnnouncementTopPriceRepository,
-                mockedApartmentAnnouncement,
-                mockedApartmentAnnouncementTopTimetable,
-                mockedApartmentAnnouncementRepository,
-                mockedApartmentAnnouncementTopPurchaseRepository,
-                mockedRequestTopTimetableDto,
-                mockedUserUtil,
-                mockedUserRepository,
-                mockedTimetableMapper,
-                mockedTopTimetableWithoutAnnouncementIdDto,
-                mockedBalanceOperationService
-        );
-    }
+    @Mock TopTimetableWithoutAnnouncementIdDto mockedTopTimetableWithoutAnnouncementIdDto;
+    @Mock ApartmentAnnouncementTopTimetable mockedApartmentAnnouncementTopTimetable;
+    @Mock RequestTopTimetableDto mockedRequestTopTimetableDto;
+    @Mock ApartmentAnnouncement mockedApartmentAnnouncement;
 
 
     @Test
@@ -320,14 +283,6 @@ class ApartmentAnnouncementTopTimetableUnitTest {
                 .isExist(any(Specification.class)))
                 .thenReturn(true);
 
-        when(mockedApartmentAnnouncement.getId())
-                .thenReturn(1L);
-
-        when(mockedApartmentAnnouncementTopTimetableRepository
-                .findAllByApartmentAnnouncementIdAndConcernsTheIntervalBetweenSpecificFromAndTo(
-                        1L, testFromDt, testToDt, Sort.by(Sort.Direction.ASC, "fromDt")))
-                .thenReturn(testExistingTimetableList);
-
 
         assertThrows(SpecificIntervalFullyBusyException.class, () -> apartmentAnnouncementTopTimetableService
                 .addByApartmentAnnouncementIdWithoutPay(mockedRequestTopTimetableDto, 1L));
@@ -535,21 +490,10 @@ class ApartmentAnnouncementTopTimetableUnitTest {
         when(mockedApartmentAnnouncement.getId())
                 .thenReturn(1L);
 
-        when(mockedApartmentAnnouncement
-                .getType())
-                .thenReturn(HousingAnnouncementTypeEnum.SELL);
-
         when(mockedApartmentAnnouncementTopTimetableRepository
                 .findAllByApartmentAnnouncementIdAndConcernsTheIntervalBetweenSpecificFromAndTo(
                         1L, testFromDt, testToDt, Sort.by(Sort.Direction.ASC, "fromDt")))
                 .thenReturn(testExistingTimetableList);
-
-        when(mockedAnnouncementTopPriceRepository
-                .findPriceByPropertyTypeAndAnnouncementType(PropertyTypeEnum.APARTMENT, AnnouncementTypeEnum.SELL))
-                .thenReturn(testAnnouncementTopPrice);
-
-        when(mockedUserRepository.findById(2L))
-                .thenReturn(testMockedUser);
 
 
 
@@ -612,26 +556,6 @@ class ApartmentAnnouncementTopTimetableUnitTest {
         when(mockedApartmentAnnouncementTopTimetableRepository
                 .isExist(any(Specification.class)))
                 .thenReturn(true);
-
-        when(mockedApartmentAnnouncement.getId())
-                .thenReturn(1L);
-
-        when(mockedApartmentAnnouncement
-                .getType())
-                .thenReturn(HousingAnnouncementTypeEnum.SELL);
-
-        when(mockedApartmentAnnouncementTopTimetableRepository
-                .findAllByApartmentAnnouncementIdAndConcernsTheIntervalBetweenSpecificFromAndTo(
-                        1L, testFromDt, testToDt, Sort.by(Sort.Direction.ASC, "fromDt")))
-                .thenReturn(testExistingTimetableList);
-
-        when(mockedAnnouncementTopPriceRepository
-                .findPriceByPropertyTypeAndAnnouncementType(PropertyTypeEnum.APARTMENT, AnnouncementTypeEnum.SELL))
-                .thenReturn(testAnnouncementTopPrice);
-
-        when(mockedUserRepository.findById(2L))
-                .thenReturn(testMockedUser);
-
 
 
         assertThrows(SpecificIntervalFullyBusyException.class, () -> apartmentAnnouncementTopTimetableService

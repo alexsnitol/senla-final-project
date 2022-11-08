@@ -1,17 +1,12 @@
 package ru.senla.realestatemarket.service.timetable.rent;
 
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;
-import org.mockito.Mockito;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.domain.Specification;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
-import org.springframework.test.context.support.AnnotationConfigContextLoader;
-import ru.senla.realestatemarket.config.TestConfig;
 import ru.senla.realestatemarket.dto.timetable.RentTimetableDto;
 import ru.senla.realestatemarket.dto.timetable.RentTimetableWithoutAnnouncementIdAndWithUserIdOfTenantDto;
 import ru.senla.realestatemarket.dto.timetable.RentTimetableWithoutAnnouncementIdDto;
@@ -31,6 +26,7 @@ import ru.senla.realestatemarket.repo.announcement.IApartmentAnnouncementReposit
 import ru.senla.realestatemarket.repo.purchase.rent.IApartmentAnnouncementRentPurchaseRepository;
 import ru.senla.realestatemarket.repo.timetable.rent.IApartmentAnnouncementRentTimetableRepository;
 import ru.senla.realestatemarket.repo.user.IUserRepository;
+import ru.senla.realestatemarket.service.timetable.rent.impl.ApartmentAnnouncementRentTimetableServiceImpl;
 import ru.senla.realestatemarket.service.user.IBalanceOperationService;
 import ru.senla.realestatemarket.util.UserUtil;
 
@@ -41,73 +37,35 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
-import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-@ExtendWith({SpringExtension.class, MockitoExtension.class})
-@ContextConfiguration(classes = {TestConfig.class}, loader = AnnotationConfigContextLoader.class)
+@ExtendWith({MockitoExtension.class})
 class ApartmentAnnouncementRentTimetableServiceUnitTest {
 
-    @Autowired
-    IApartmentAnnouncementRentTimetableService apartmentAnnouncementRentTimetableService;
+    @InjectMocks ApartmentAnnouncementRentTimetableServiceImpl apartmentAnnouncementRentTimetableService;
 
-    @Autowired
-    IApartmentAnnouncementRentTimetableRepository mockedApartmentAnnouncementRentTimetableRepository;
-    @Autowired
-    IApartmentAnnouncementRepository mockedApartmentAnnouncementRepository;
-    @Autowired
-    IApartmentAnnouncementRentPurchaseRepository mockedApartmentAnnouncementRentPurchaseRepository;
+    @Mock IApartmentAnnouncementRentTimetableRepository mockedApartmentAnnouncementRentTimetableRepository;
+    @Mock IApartmentAnnouncementRepository mockedApartmentAnnouncementRepository;
+    @Mock IApartmentAnnouncementRentPurchaseRepository mockedApartmentAnnouncementRentPurchaseRepository;
 
-    @Autowired
-    ApartmentAnnouncementRentTimetableMapper mockedTimetableMapper;
+    @Mock ApartmentAnnouncementRentTimetableMapper mockedTimetableMapper;
 
-    @Autowired
-    IUserRepository mockedUserRepository;
-    @Autowired
-    UserUtil mockedUserUtil;
-    @Autowired
-    IBalanceOperationService mockedBalanceOperationService;
+    @Mock IUserRepository mockedUserRepository;
+    @Mock UserUtil mockedUserUtil;
+    @Mock IBalanceOperationService mockedBalanceOperationService;
 
 
-    RentTimetableWithoutAnnouncementIdAndWithUserIdOfTenantDto mockedRentTimetableWithoutAnnouncementIdAndWithUserIdOfTenantDto
-            = mock(RentTimetableWithoutAnnouncementIdAndWithUserIdOfTenantDto.class);
-    ApartmentAnnouncementRentTimetable mockedApartmentAnnouncementRentTimetable
-            = mock(ApartmentAnnouncementRentTimetable.class);
-    RentTimetableWithoutAnnouncementIdDto mockedRentTimetableWithoutAnnouncementIdDto
-            = mock(RentTimetableWithoutAnnouncementIdDto.class);
-    RequestRentTimetableWithUserIdOfTenantDto mockedRequestRentTimetableWithUserIdOfTenantDto
-            = mock(RequestRentTimetableWithUserIdOfTenantDto.class);
-    RequestRentTimetableDto mockedRequestRentTimetableDto
-            = mock(RequestRentTimetableDto.class);
-    RentTimetableDto mockedRentTimetableDto
-            = mock(RentTimetableDto.class);
-    ApartmentAnnouncement mockedApartmentAnnouncement
-            = mock(ApartmentAnnouncement.class);
-    User mockedUser = mock(User.class);
-
-
-
-    @AfterEach
-    void clearInvocationsInMocked() {
-        Mockito.clearInvocations(
-                mockedApartmentAnnouncementRentTimetableRepository,
-                mockedApartmentAnnouncementRepository,
-                mockedApartmentAnnouncementRentPurchaseRepository,
-                mockedTimetableMapper,
-                mockedUserRepository,
-                mockedUserUtil,
-                mockedBalanceOperationService,
-                mockedRentTimetableWithoutAnnouncementIdAndWithUserIdOfTenantDto,
-                mockedApartmentAnnouncementRentTimetable,
-                mockedRentTimetableWithoutAnnouncementIdDto,
-                mockedRentTimetableDto,
-                mockedUser,
-                mockedApartmentAnnouncement
-        );
-    }
+    @Mock RentTimetableWithoutAnnouncementIdAndWithUserIdOfTenantDto mockedRentTimetableWithoutAnnouncementIdAndWithUserIdOfTenantDto;
+    @Mock ApartmentAnnouncementRentTimetable mockedApartmentAnnouncementRentTimetable;
+    @Mock RentTimetableWithoutAnnouncementIdDto mockedRentTimetableWithoutAnnouncementIdDto;
+    @Mock RequestRentTimetableWithUserIdOfTenantDto mockedRequestRentTimetableWithUserIdOfTenantDto;
+    @Mock RequestRentTimetableDto mockedRequestRentTimetableDto;
+    @Mock RentTimetableDto mockedRentTimetableDto;
+    @Mock ApartmentAnnouncement mockedApartmentAnnouncement;
+    @Mock User mockedUser;
 
 
     @Test
@@ -327,9 +285,6 @@ class ApartmentAnnouncementRentTimetableServiceUnitTest {
                 .isExist(any(Specification.class)))
                 .thenReturn(false);
 
-        when(mockedApartmentAnnouncement.getId())
-                .thenReturn(1L);
-
         when(mockedApartmentAnnouncement
                 .getType())
                 .thenReturn(HousingAnnouncementTypeEnum.DAILY_RENT);
@@ -378,13 +333,6 @@ class ApartmentAnnouncementRentTimetableServiceUnitTest {
         when(mockedUserRepository
                 .findById(2L))
                 .thenReturn(mockedUser);
-
-        when(mockedApartmentAnnouncementRentTimetableRepository
-                .isExist(any(Specification.class)))
-                .thenReturn(false);
-
-        when(mockedApartmentAnnouncement.getId())
-                .thenReturn(1L);
 
         when(mockedApartmentAnnouncement
                 .getType())
@@ -435,13 +383,6 @@ class ApartmentAnnouncementRentTimetableServiceUnitTest {
         when(mockedUserRepository
                 .findById(2L))
                 .thenReturn(mockedUser);
-
-        when(mockedApartmentAnnouncementRentTimetableRepository
-                .isExist(any(Specification.class)))
-                .thenReturn(false);
-
-        when(mockedApartmentAnnouncement.getId())
-                .thenReturn(1L);
 
         when(mockedApartmentAnnouncement
                 .getType())
@@ -497,9 +438,6 @@ class ApartmentAnnouncementRentTimetableServiceUnitTest {
                 .isExist(any(Specification.class)))
                 .thenReturn(true);
 
-        when(mockedApartmentAnnouncement.getId())
-                .thenReturn(1L);
-
         when(mockedApartmentAnnouncement
                 .getType())
                 .thenReturn(HousingAnnouncementTypeEnum.DAILY_RENT);
@@ -546,10 +484,6 @@ class ApartmentAnnouncementRentTimetableServiceUnitTest {
                 .toApartmentAnnouncementRentTimetable(mockedRequestRentTimetableDto))
                 .thenReturn(testTimetable);
 
-        when(mockedRequestRentTimetableWithUserIdOfTenantDto
-                .getUserIdOfTenant())
-                .thenReturn(2L);
-
         when(mockedUserUtil
                 .getCurrentUserId())
                 .thenReturn(2L);
@@ -562,19 +496,12 @@ class ApartmentAnnouncementRentTimetableServiceUnitTest {
                 .isExist(any(Specification.class)))
                 .thenReturn(false);
 
-        when(mockedApartmentAnnouncement.getId())
-                .thenReturn(1L);
-
         when(mockedApartmentAnnouncement
                 .getType())
                 .thenReturn(HousingAnnouncementTypeEnum.DAILY_RENT);
 
         when(mockedApartmentAnnouncement
                 .getPrice())
-                .thenReturn(100D);
-
-        when(mockedUser
-                .getBalance())
                 .thenReturn(100D);
 
 
@@ -643,10 +570,6 @@ class ApartmentAnnouncementRentTimetableServiceUnitTest {
                 .toApartmentAnnouncementRentTimetable(mockedRequestRentTimetableDto))
                 .thenReturn(testTimetable);
 
-        when(mockedRequestRentTimetableWithUserIdOfTenantDto
-                .getUserIdOfTenant())
-                .thenReturn(2L);
-
         when(mockedUserUtil
                 .getCurrentUserId())
                 .thenReturn(2L);
@@ -655,24 +578,9 @@ class ApartmentAnnouncementRentTimetableServiceUnitTest {
                 .findById(2L))
                 .thenReturn(mockedUser);
 
-        when(mockedApartmentAnnouncementRentTimetableRepository
-                .isExist(any(Specification.class)))
-                .thenReturn(true);
-
-        when(mockedApartmentAnnouncement.getId())
-                .thenReturn(1L);
-
         when(mockedApartmentAnnouncement
                 .getType())
                 .thenReturn(HousingAnnouncementTypeEnum.DAILY_RENT);
-
-        when(mockedApartmentAnnouncement
-                .getPrice())
-                .thenReturn(100D);
-
-        when(mockedUser
-                .getBalance())
-                .thenReturn(100D);
 
 
 
@@ -723,10 +631,6 @@ class ApartmentAnnouncementRentTimetableServiceUnitTest {
                 .toApartmentAnnouncementRentTimetable(mockedRequestRentTimetableDto))
                 .thenReturn(testTimetable);
 
-        when(mockedRequestRentTimetableWithUserIdOfTenantDto
-                .getUserIdOfTenant())
-                .thenReturn(2L);
-
         when(mockedUserUtil
                 .getCurrentUserId())
                 .thenReturn(2L);
@@ -735,24 +639,9 @@ class ApartmentAnnouncementRentTimetableServiceUnitTest {
                 .findById(2L))
                 .thenReturn(mockedUser);
 
-        when(mockedApartmentAnnouncementRentTimetableRepository
-                .isExist(any(Specification.class)))
-                .thenReturn(true);
-
-        when(mockedApartmentAnnouncement.getId())
-                .thenReturn(1L);
-
         when(mockedApartmentAnnouncement
                 .getType())
                 .thenReturn(HousingAnnouncementTypeEnum.MONTHLY_RENT);
-
-        when(mockedApartmentAnnouncement
-                .getPrice())
-                .thenReturn(100D);
-
-        when(mockedUser
-                .getBalance())
-                .thenReturn(100D);
 
 
 
@@ -803,10 +692,6 @@ class ApartmentAnnouncementRentTimetableServiceUnitTest {
                 .toApartmentAnnouncementRentTimetable(mockedRequestRentTimetableDto))
                 .thenReturn(testTimetable);
 
-        when(mockedRequestRentTimetableWithUserIdOfTenantDto
-                .getUserIdOfTenant())
-                .thenReturn(2L);
-
         when(mockedUserUtil
                 .getCurrentUserId())
                 .thenReturn(2L);
@@ -819,20 +704,9 @@ class ApartmentAnnouncementRentTimetableServiceUnitTest {
                 .isExist(any(Specification.class)))
                 .thenReturn(true);
 
-        when(mockedApartmentAnnouncement.getId())
-                .thenReturn(1L);
-
         when(mockedApartmentAnnouncement
                 .getType())
                 .thenReturn(HousingAnnouncementTypeEnum.DAILY_RENT);
-
-        when(mockedApartmentAnnouncement
-                .getPrice())
-                .thenReturn(100D);
-
-        when(mockedUser
-                .getBalance())
-                .thenReturn(100D);
 
 
 

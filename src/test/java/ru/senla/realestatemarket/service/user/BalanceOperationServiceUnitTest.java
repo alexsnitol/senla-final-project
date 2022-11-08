@@ -1,15 +1,10 @@
 package ru.senla.realestatemarket.service.user;
 
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.Mockito;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
-import org.springframework.test.context.support.AnnotationConfigContextLoader;
-import ru.senla.realestatemarket.config.TestConfig;
 import ru.senla.realestatemarket.dto.user.BalanceOperationWithoutUserIdDto;
 import ru.senla.realestatemarket.dto.user.RequestBalanceOperationDto;
 import ru.senla.realestatemarket.exception.OnSpecificUserNotEnoughMoneyException;
@@ -18,6 +13,7 @@ import ru.senla.realestatemarket.model.user.BalanceOperation;
 import ru.senla.realestatemarket.model.user.User;
 import ru.senla.realestatemarket.repo.user.IBalanceOperationRepository;
 import ru.senla.realestatemarket.repo.user.IUserRepository;
+import ru.senla.realestatemarket.service.user.impl.BalanceOperationServiceImpl;
 import ru.senla.realestatemarket.util.UserUtil;
 
 import java.util.List;
@@ -26,43 +22,26 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
-import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-@ExtendWith({SpringExtension.class, MockitoExtension.class})
-@ContextConfiguration(classes = {TestConfig.class}, loader = AnnotationConfigContextLoader.class)
+@ExtendWith({MockitoExtension.class})
 class BalanceOperationServiceUnitTest {
 
-    @Autowired
-    IBalanceOperationService balanceOperationService;
 
-    @Autowired
-    IBalanceOperationRepository mockedBalanceOperationRepository;
-    @Autowired
-    IUserRepository mockedUserRepository;
-    @Autowired
-    UserUtil mockedUserUtil;
-    @Autowired
-    BalanceOperationMapper mockedBalanceOperationMapper;
+    @InjectMocks BalanceOperationServiceImpl balanceOperationService;
 
-    BalanceOperation mockedBalanceOperation = mock(BalanceOperation.class);
-    BalanceOperationWithoutUserIdDto mockedBalanceOperationWithoutUserIdDto = mock(BalanceOperationWithoutUserIdDto.class);
-    RequestBalanceOperationDto mockedRequestBalanceOperationDto = mock(RequestBalanceOperationDto.class);
-    User mockedUser = mock(User.class);
+    @Mock IBalanceOperationRepository mockedBalanceOperationRepository;
+    @Mock IUserRepository mockedUserRepository;
+    @Mock UserUtil mockedUserUtil;
+    @Mock BalanceOperationMapper mockedBalanceOperationMapper;
 
-
-    @AfterEach
-    void clearInvocationsInMocked() {
-        Mockito.clearInvocations(
-                mockedBalanceOperationMapper,
-                mockedBalanceOperationRepository,
-                mockedUserUtil,
-                mockedUserRepository
-        );
-    }
+    @Mock BalanceOperation mockedBalanceOperation;
+    @Mock BalanceOperationWithoutUserIdDto mockedBalanceOperationWithoutUserIdDto;
+    @Mock RequestBalanceOperationDto mockedRequestBalanceOperationDto;
+    @Mock User mockedUser;
 
 
     @Test
@@ -106,7 +85,6 @@ class BalanceOperationServiceUnitTest {
 
 
         // test
-        when(mockedUserUtil.getCurrentUserId()).thenReturn(1L);
         when(mockedBalanceOperationRepository.findAllByUserId(eq(1L), any(), any()))
                 .thenReturn(testBalanceOperationList);
         when(mockedBalanceOperationMapper.toBalanceOperationWithoutUserIdDto(testBalanceOperationList))
@@ -310,7 +288,6 @@ class BalanceOperationServiceUnitTest {
 
         // test
         when(mockedBalanceOperationMapper.toBalanceOperation(mockedRequestBalanceOperationDto)).thenReturn(testBalanceOperation);
-        when(mockedUserUtil.getCurrentUserId()).thenReturn(1L);
         when(mockedUserRepository.findById(1L)).thenReturn(testUser);
 
 
@@ -340,7 +317,6 @@ class BalanceOperationServiceUnitTest {
 
         // test
         when(mockedBalanceOperationMapper.toBalanceOperation(mockedRequestBalanceOperationDto)).thenReturn(testBalanceOperation);
-        when(mockedUserUtil.getCurrentUserId()).thenReturn(1L);
         when(mockedUserRepository.findById(1L)).thenReturn(testUser);
 
 

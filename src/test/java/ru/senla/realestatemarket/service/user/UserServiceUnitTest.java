@@ -1,18 +1,13 @@
 package ru.senla.realestatemarket.service.user;
 
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.Mockito;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
-import org.springframework.test.context.support.AnnotationConfigContextLoader;
-import ru.senla.realestatemarket.config.TestConfig;
 import ru.senla.realestatemarket.dto.user.RequestUserDto;
 import ru.senla.realestatemarket.dto.user.UpdateRequestUserDto;
 import ru.senla.realestatemarket.dto.user.UserDto;
@@ -23,6 +18,7 @@ import ru.senla.realestatemarket.model.user.StandardRoleEnum;
 import ru.senla.realestatemarket.model.user.User;
 import ru.senla.realestatemarket.repo.user.IRoleRepository;
 import ru.senla.realestatemarket.repo.user.IUserRepository;
+import ru.senla.realestatemarket.service.user.impl.UserServiceImpl;
 import ru.senla.realestatemarket.util.UserUtil;
 
 import java.util.List;
@@ -36,36 +32,19 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-@ExtendWith({SpringExtension.class, MockitoExtension.class})
-@ContextConfiguration(classes = {TestConfig.class}, loader = AnnotationConfigContextLoader.class)
+@ExtendWith({MockitoExtension.class})
 class UserServiceUnitTest {
 
-    @Autowired
-    IUserService userService;
-    @Autowired
-    IUserRepository mockedUserRepository;
-    @Autowired
-    IRoleRepository mockedRoleRepository;
-    @Autowired
-    PasswordEncoder mockedPasswordEncoder;
-    @Autowired
-    UserUtil mockedUserUtil;
-    @Autowired
-    UserMapper mockedUserMapper;
+    @InjectMocks UserServiceImpl userService;
 
-    User mockedUser = mock(User.class);
-    UserDto mockedUserDto = mock(UserDto.class);
+    @Mock IUserRepository mockedUserRepository;
+    @Mock IRoleRepository mockedRoleRepository;
+    @Mock PasswordEncoder mockedPasswordEncoder;
+    @Mock UserUtil mockedUserUtil;
+    @Mock UserMapper mockedUserMapper;
 
-
-    @AfterEach
-    void clearInvocationsInMocked() {
-        Mockito.clearInvocations(
-                mockedUserRepository,
-                mockedRoleRepository,
-                mockedUserMapper,
-                mockedUserUtil
-        );
-    }
+    @Mock User mockedUser;
+    @Mock UserDto mockedUserDto;
 
 
     @Test
@@ -223,7 +202,6 @@ class UserServiceUnitTest {
 
 
         // test
-        when(mockedUserUtil.getCurrentUserId()).thenReturn(1L);
         when(mockedUserRepository.findById(1L)).thenReturn(testUser);
         when(mockedPasswordEncoder.encode(testPassword)).thenReturn(testEncodedPassword);
         when(testUpdateRequestUserDto.getPassword()).thenReturn(testPassword);
