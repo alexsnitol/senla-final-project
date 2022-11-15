@@ -1,25 +1,21 @@
 package ru.senla.realestatemarket.config.security;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.access.AccessDeniedHandler;
-import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.filter.CorsFilter;
-import ru.senla.realestatemarket.config.security.filter.JwtTokenFilter;
 import ru.senla.realestatemarket.service.user.IUserService;
 
 import static org.springframework.http.HttpMethod.GET;
@@ -31,11 +27,11 @@ import static org.springframework.http.HttpMethod.POST;
 
 @EnableWebSecurity(debug = false)
 @Configuration
-@ComponentScan(basePackages = "ru.senla.realestatemarket")
+//@ComponentScan(basePackages = "ru.senla.realestatemarket")
 public class WebSecurityConfig {
 
     private final UserDetailsService userDetailsService;
-    private final JwtTokenFilter jwtTokenFilter;
+//    private final JwtTokenFilter jwtTokenFilter;
     private final PasswordEncoder passwordEncoder;
 
     private final AccessDeniedHandler accessDeniedHandler;
@@ -45,26 +41,33 @@ public class WebSecurityConfig {
 
     public WebSecurityConfig(
             IUserService userService,
-            JwtTokenFilter jwtTokenFilter,
+//            JwtTokenFilter jwtTokenFilter,
             PasswordEncoder passwordEncoder,
             @Qualifier("customAccessDeniedHandler") AccessDeniedHandler accessDeniedHandler,
             @Qualifier("customAuthenticationEntryPoint") AuthenticationEntryPoint authenticationEntryPoint
     ) {
         this.userDetailsService = userService;
-        this.jwtTokenFilter = jwtTokenFilter;
+//        this.jwtTokenFilter = jwtTokenFilter;
         this.passwordEncoder = passwordEncoder;
         this.accessDeniedHandler = accessDeniedHandler;
         this.authenticationEntryPoint = authenticationEntryPoint;
     }
 
 
+    @Autowired
+    public void configureGlobal(AuthenticationManagerBuilder authenticationManagerBuilder) throws Exception {
+        authenticationManagerBuilder
+                .userDetailsService(userDetailsService)
+                .passwordEncoder(passwordEncoder);
+    }
+
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        AuthenticationManagerBuilder authenticationManagerBuilder
-                = http.getSharedObject(AuthenticationManagerBuilder.class);
-        authenticationManagerBuilder.userDetailsService(userDetailsService)
-                .passwordEncoder(passwordEncoder);
-        AuthenticationManager authenticationManager = authenticationManagerBuilder.build();
+//        AuthenticationManagerBuilder authenticationManagerBuilder
+//                = http.getSharedObject(AuthenticationManagerBuilder.class);
+//        authenticationManagerBuilder.userDetailsService(userDetailsService)
+//                .passwordEncoder(passwordEncoder);
+//        AuthenticationManager authenticationManager = authenticationManagerBuilder.build();
 
 
         http = http.cors().and().csrf().disable();
@@ -72,18 +75,18 @@ public class WebSecurityConfig {
         http
 
 
-                .sessionManagement()
-                .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-                .and()
+//                .sessionManagement()
+//                .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+//                .and()
 
 
-                .exceptionHandling()
-                .accessDeniedHandler(accessDeniedHandler)
-                .authenticationEntryPoint(authenticationEntryPoint)
-                .and()
+//                .exceptionHandling()
+//                .accessDeniedHandler(accessDeniedHandler)
+//                .authenticationEntryPoint(authenticationEntryPoint)
+//                .and()
 
 
-                .authenticationManager(authenticationManager)
+//                .authenticationManager(authenticationManager)
 
 
                 .authorizeRequests()
@@ -236,11 +239,12 @@ public class WebSecurityConfig {
                 
                 .anyRequest().hasAnyRole("ADMIN").and()
 
+                .httpBasic();
 
-                .formLogin().disable();
+//                .formLogin().disable();
 
-        http
-                .addFilterBefore(jwtTokenFilter, UsernamePasswordAuthenticationFilter.class);
+//        http
+//                .addFilterBefore(jwtTokenFilter, UsernamePasswordAuthenticationFilter.class);
         
         return http.build();
 
