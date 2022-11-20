@@ -538,7 +538,8 @@ VALUES
 
 INSERT INTO users(username, password, enabled, last_name, first_name, patronymic, email, phone_number, balance)
 VALUES
-    ('rich_user', '$2a$12$R3lh47p411V9tmOu1A4fOedVvsg2ZwDBar0ZIg.ZQmtUHVl7h3MRm', true, 'rich', 'user', 'rich', 'richuser@gold.com', '89545477885', 54998000000);
+    ('rich_user', '$2a$12$R3lh47p411V9tmOu1A4fOedVvsg2ZwDBar0ZIg.ZQmtUHVl7h3MRm', true, 'rich', 'user', 'rich', 'richuser@gold.com', '89545477885', 54998000000),
+    ('banned_user', '$2a$10$HIsx6Xoh4zlm8hd6XhoUQufCyFz95mSY8UUDNyJBZT4XfE127mZ0.', false, 'banned', 'user', 'banned', 'banneduser@blacklist.com', '88005553535', -5000);
 
 INSERT INTO user_role(user_id, role_id)
 VALUES

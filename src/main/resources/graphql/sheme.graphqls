@@ -1,0 +1,29 @@
+type HouseMaterial {
+    id: ID!
+    name: String
+}
+
+type User {
+    id: ID!
+    username: String
+    email: String
+    firstName: String
+    lastName: String
+    patronymic: String
+    enabled: Boolean
+    roles: [Role]
+    balance: Float
+    phoneNumber: String
+    rating: Float
+}
+
+type Role {
+    name: String!
+}
+
+
+type Query {
+    houseMaterials: [HouseMaterial]!
+    user(enabled: Boolean, role: String): [User]
+    role(name: String): [Role]
+}

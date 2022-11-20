@@ -105,6 +105,12 @@ public class WebSecurityConfig {
                 .antMatchers("/springfox**").permitAll()
 
 
+                // GRAPHQL
+
+                .antMatchers("/graphiql/**").permitAll()
+                .antMatchers("/graphql/**").permitAll()
+
+
                 // USERS
 
                 .antMatchers("/api/users/current/**").authenticated()
