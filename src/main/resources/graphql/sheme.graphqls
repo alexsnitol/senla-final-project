@@ -27,3 +27,7 @@ type Query {
     user(enabled: Boolean, role: String): [User]
     role(name: String): [Role]
 }
+
+type Mutation {
+    createUser(username: String!, password: String!, email: String, phoneNumber: String, firstName: String, lastName: String, patronymic: String) : User!
+}

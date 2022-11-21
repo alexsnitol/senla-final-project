@@ -1,8 +1,10 @@
 package ru.senla.realestatemarket.graphql;
 
 import org.springframework.graphql.data.method.annotation.Argument;
+import org.springframework.graphql.data.method.annotation.MutationMapping;
 import org.springframework.graphql.data.method.annotation.QueryMapping;
 import org.springframework.stereotype.Controller;
+import ru.senla.realestatemarket.dto.user.RequestUserDto;
 import ru.senla.realestatemarket.dto.user.RoleDto;
 import ru.senla.realestatemarket.dto.user.UserDto;
 import ru.senla.realestatemarket.mapper.user.RoleMapper;
@@ -75,6 +77,35 @@ public class GraphQLController {
         } else {
             return roleMapper.toRoleDto(roleService.getAll());
         }
+    }
+
+    @MutationMapping
+    public UserDto createUser(
+            @Argument String username,
+            @Argument String password,
+            @Argument String lastName,
+            @Argument String firstName,
+            @Argument String patronymic,
+            @Argument String email,
+            @Argument String phoneNumber
+    ) {
+        RequestUserDto requestUserDto = new RequestUserDto();
+
+        requestUserDto.setUsername(username);
+        requestUserDto.setPassword(password);
+
+        if (lastName != null)
+            requestUserDto.setLastName(lastName);
+        if (firstName != null)
+            requestUserDto.setFirstName(firstName);
+        if (patronymic != null)
+            requestUserDto.setPatronymic(patronymic);
+        if (email != null)
+            requestUserDto.setEmail(email);
+        if (phoneNumber != null)
+            requestUserDto.setPhoneNumber(phoneNumber);
+
+        return userService.addFromDto(requestUserDto);
     }
 
 }
