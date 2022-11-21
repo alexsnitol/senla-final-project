@@ -1,6 +1,7 @@
 package ru.senla.realestatemarket.config.security;
 
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -93,6 +94,13 @@ public class WebSecurityConfig {
 
                 .antMatchers(POST, "/api/auth").permitAll()
 
+                // STATIC RESOURCES
+
+                .requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
+
+                // CHART
+
+                .antMatchers("/canvas/**").permitAll()
 
                 // SWAGGER
 
