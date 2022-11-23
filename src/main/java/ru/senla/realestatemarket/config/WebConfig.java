@@ -18,6 +18,9 @@ public class WebConfig implements WebMvcConfigurer {
         registry.addResourceHandler("/webjars/**")
                 .addResourceLocations("classpath:/META-INF/resources/webjars/");
 
+        registry.addResourceHandler("/canvas/static/**")
+                .addResourceLocations("classpath:/static/");
+
         registry.addResourceHandler("/swagger-ui/**")
                 .addResourceLocations("classpath:/META-INF/resources/webjars/springfox-swagger-ui/")
                 .resourceChain(false);
