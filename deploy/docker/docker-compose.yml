@@ -12,8 +12,9 @@ services:
     volumes:
       - ./database/real_estate_market_init.sql:/var/lib/postgresql/real_estate_market_init.sql
       - ./database/postgresql_init.sh:/docker-entrypoint-initdb.d/postgresql_init.sh
-    ports:
-      - "5433:5432"
+      - pgdata:/var/lib/postgresql/data
+    expose:
+      - 5432
 
   spring-boot-application:
     image: openjdk:11
@@ -23,6 +24,9 @@ services:
       - ./real-estate-market.jar:/usr/src/real-estate-market.jar
     entrypoint: java -jar /usr/src/real-estate-market.jar
     ports:
-      - "8081:8080"
+      - "8080:8080"
     depends_on:
       - database
+
+volumes:
+  pgdata:
