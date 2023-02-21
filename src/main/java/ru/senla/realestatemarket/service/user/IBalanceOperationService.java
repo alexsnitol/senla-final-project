@@ -14,9 +14,11 @@ public interface IBalanceOperationService extends IAbstractService<BalanceOperat
     List<BalanceOperationWithoutUserIdDto> getAllDtoOfCurrentUser(String rsqlQuery, String sortQuery);
 
     BalanceOperation addByUserIdAndApplyOperation(BalanceOperation balanceOperation, Long userId);
-    BalanceOperationWithoutUserIdDto addByUserIdAndApplyOperation(RequestBalanceOperationDto requestBalanceOperationDto, Long userId);
+    BalanceOperationWithoutUserIdDto addByUserIdAndApplyOperation(
+            RequestBalanceOperationDto requestBalanceOperationDto, Long userId);
     BalanceOperation addFromCurrentUserAndApplyOperation(BalanceOperation balanceOperation);
-    BalanceOperationWithoutUserIdDto addFromCurrentUserAndApplyOperation(RequestBalanceOperationDto requestBalanceOperationDto);
+    BalanceOperationWithoutUserIdDto addFromCurrentUserAndApplyOperation(
+            RequestBalanceOperationDto requestBalanceOperationDto);
 
     void applyOperationToUserBalance(User user, Double sum);
     void applyOperationToCurrentUserBalance(Double sum);

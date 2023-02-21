@@ -97,7 +97,10 @@ public class BalanceOperationServiceImpl
 
     @Override
     @Transactional
-    public BalanceOperationWithoutUserIdDto addByUserIdAndApplyOperation(RequestBalanceOperationDto requestBalanceOperationDto, Long userId) {
+    public BalanceOperationWithoutUserIdDto addByUserIdAndApplyOperation(
+            RequestBalanceOperationDto requestBalanceOperationDto,
+            Long userId
+    ) {
         BalanceOperation balanceOperation = balanceOperationMapper.toBalanceOperation(requestBalanceOperationDto);
 
         return balanceOperationMapper

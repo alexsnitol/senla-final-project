@@ -114,7 +114,10 @@ public class FamilyHousePropertyServiceImpl
         return addFromDtoWithSpecificOwner(requestDto, userUtil.getCurrentUserId());
     }
 
-    private FamilyHousePropertyDto addFromDtoWithSpecificOwner(RequestFamilyHousePropertyDto requestDto, Long userIdOfOwner) {
+    private FamilyHousePropertyDto addFromDtoWithSpecificOwner(
+            RequestFamilyHousePropertyDto requestDto,
+            Long userIdOfOwner
+    ) {
         FamilyHouseProperty familyHouseProperty = familyHousePropertyMapper.toFamilyHouseProperty(requestDto);
 
         Long familyHouseId = requestDto.getFamilyHouseId();

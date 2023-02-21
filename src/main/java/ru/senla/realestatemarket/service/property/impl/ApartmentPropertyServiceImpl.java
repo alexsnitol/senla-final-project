@@ -110,7 +110,10 @@ public class ApartmentPropertyServiceImpl
         return addFromDtoWithSpecificUserIdOfOwner(requestDto, userUtil.getCurrentUserId());
     }
 
-    private ApartmentPropertyDto addFromDtoWithSpecificUserIdOfOwner(RequestApartmentPropertyDto requestDto, Long userIdOfOwner) {
+    private ApartmentPropertyDto addFromDtoWithSpecificUserIdOfOwner(
+            RequestApartmentPropertyDto requestDto,
+            Long userIdOfOwner
+    ) {
         ApartmentProperty apartmentProperty = apartmentPropertyMapper.toApartmentProperty(requestDto);
 
         Long apartmentHouseId = requestDto.getApartmentHouseId();
